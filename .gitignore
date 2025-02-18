@@ -1,0 +1,12 @@
+#BACKEND
+node_modules/
+.env
+/certs
+/build/
+/coverage/
+package-lock.json
+requests.rest
+
+#FRONTEND
+/frontend/node_modules/
+/frontend/dist/
