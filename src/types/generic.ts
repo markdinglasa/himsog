@@ -1,10 +1,9 @@
 import { Request } from "express";
-import { UserTable } from "./setup";
 
 export interface Id {
   Id?: string;
-  RecNumber?: string;
-  TrnDate?: string;
+  No?: string;
+  TxDate?: string;
 }
 
 export interface Logs {
@@ -21,7 +20,7 @@ export enum Status {
 }
 
 export interface LoginRequest extends Request {
-  User?: UserTable;
+  User?: any;
   AccessToken?: string;
   RefreshToken?: string;
 }

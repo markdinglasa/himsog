@@ -17,7 +17,10 @@ export const getByEmail = async (
     if (!user) return { data: [], message: Error.m011 };
     return { data: user[0], message: Success.m001 };
   } catch (error: any) {
-    return { data: [], message: Error.m001 };
+    logging.log("----------------------------------------");
+    logging.error("Get-Fn [getByEmail]:", error.message);
+    logging.log("----------------------------------------");
+    return { data: [], message: error.message || Error.m001 };
   }
 };
 
@@ -36,6 +39,9 @@ export const getByUsername = async (
     if (!user) return { data: {}, message: Error.m011 };
     return { data: user[0], message: Success.m001 };
   } catch (error: any) {
-    return { data: {}, message: Error.m001 };
+    logging.log("----------------------------------------");
+    logging.error("Get-Fn [getByUsername]:", error.message);
+    logging.log("----------------------------------------");
+    return { data: {}, message: error.message || Error.m001 };
   }
 };
