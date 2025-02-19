@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const notificationtValidateorOnCreate = Joi.object({
+export const notificationtValidateor = Joi.object({
   UserId: Joi.number().required(),
   Description: Joi.string().allow(null).allow("").required(),
   Link: Joi.string().allow(null).optional(),
