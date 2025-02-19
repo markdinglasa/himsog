@@ -8,7 +8,7 @@ export const UserUpdateController = async (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<any> => {
   try {
     const Id = parseInt(req.params.Id ?? 0),
       Data: UserTable = req.body;

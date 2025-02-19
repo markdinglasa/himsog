@@ -41,7 +41,7 @@ export default class TokenHandler {
     req: LoginRequest,
     res: Response,
     next: NextFunction,
-  ) => {
+  ): Promise<any> => {
     const accessToken = req.headers["authorization"]?.split(" ")[1];
     const refreshToken = req.headers["refresh-token"] as string;
     if (!accessToken)

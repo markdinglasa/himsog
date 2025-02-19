@@ -10,7 +10,7 @@ import {
   route500,
 } from "./middleware";
 import { NODE_ENV, server, testConnection } from "./config";
-import router from "./controllers";
+import router from "./routes";
 
 const app = express();
 export let httpServer: ReturnType<typeof http.createServer>;

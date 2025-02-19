@@ -8,7 +8,7 @@ export const JWTAuth = async (
   req: LoginRequest,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   try {
     const data = req.body;
     const user = await getByEmail(data?.Email ?? "");

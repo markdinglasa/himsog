@@ -7,7 +7,7 @@ export const UserGetController = async (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<any> => {
   try {
     const Id = parseInt(req.params.Id ?? 0);
     if (!Id || typeof Id !== "number") return { data: [], message: Error.m005 };

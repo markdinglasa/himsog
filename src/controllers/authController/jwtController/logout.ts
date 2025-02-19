@@ -6,7 +6,7 @@ export const Logout = async (
   req: LoginRequest,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   try {
     req.User = undefined;
     req.AccessToken = undefined;

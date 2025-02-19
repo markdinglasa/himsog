@@ -10,7 +10,7 @@ export const UserAddController = async (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<any> => {
   try {
     const Data: UserTable = req.body;
     if (!Data || Data === null || Data === undefined)

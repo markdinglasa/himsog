@@ -7,7 +7,7 @@ export const JWTRefresh = async (
   req: LoginRequest,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   try {
     const user: number = parseInt(`${req.User?.Id}`, 10);
     const accessToken: ModelResponse = await GenerateFn.accessToken(

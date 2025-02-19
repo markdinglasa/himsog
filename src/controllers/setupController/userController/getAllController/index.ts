@@ -6,7 +6,7 @@ export const UserGetAllController = async (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<any> => {
   try {
     const response = await GetService.byQuery(UserQuery.q001);
     return res.status(500).json({ data: response, message: Success.m001 });
