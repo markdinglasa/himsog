@@ -39,4 +39,5 @@ export enum Error {
   m038 = "Locked records cannot be removed",
   m039 = "Sales is already locked",
   m040 = "Untendered sales cannot be cancelled.",
+  m041 = "Email is already taken.",
 }
