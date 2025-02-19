@@ -40,4 +40,6 @@ export enum Error {
   m039 = "Sales is already locked",
   m040 = "Untendered sales cannot be cancelled.",
   m041 = "Email is already taken.",
+  m042 = "Account has been suspended.",
+  m043 = "Certificate Number already exists.",
 }

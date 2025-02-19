@@ -10,17 +10,17 @@ export const UserGetController = async (
 ): Promise<any> => {
   try {
     const Id = parseInt(req.params.Id ?? 0);
-    if (!Id || typeof Id !== "number") return { data: [], message: Error.m005 };
-    const isExists = await isFound(UserQuery.q006, ["Id"], [Number], [Id]);
-    if (!isExists.data) return { data: [], message: isExists.message };
+    if (!Id || typeof Id !== "number")
+      return res.status(401).json({ data: false, message: Error.m005 });
+    if (!(await isFound(UserQuery.q006, ["Id"], [Number], [Id])).data)
+      return res.status(401).json({ data: false, message: Error.m011 });
     const response = await GetService.byFields(
       UserQuery.q002,
       ["Id"],
       [Number],
       [Id],
     );
-    if (!response) return { data: [], message: Error.m011 };
-    return { data: response[0], message: Success.m001 };
+    return res.status(200).json({ data: response[0], message: Success.m001 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("User-Controller [Get]:", error.message);

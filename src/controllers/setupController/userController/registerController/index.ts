@@ -1,18 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { UserTable } from "../../../../types";
-import {
-  DBTable,
-  Error,
-  PasswordGenerateEmail,
-  Success,
-  UserQuery,
-} from "../../../../shared";
-import { GenerateFn, isFound, singleMailSender } from "../../../../functions";
+import { DBTable, Error, Success, UserQuery } from "../../../../shared";
+import { isFound } from "../../../../functions";
 import { userValidator } from "../../../../validators";
 import bcrypt from "bcrypt";
 import { AddService } from "../../../../services";
 
-export const UserAddController = async (
+export const UserRegisterController = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -29,29 +23,7 @@ export const UserAddController = async (
       });
     if ((await isFound(UserQuery.q003, ["Email"], [String], [Data.Email])).data)
       return res.status(404).json({ data: false, message: Error.m041 });
-    // Generate Random Password
-    const RandomPassword = await GenerateFn.randomPassword(15);
-    // Email the password
-    if (
-      !RandomPassword.data ||
-      typeof RandomPassword.data !== "string" ||
-      RandomPassword.data.length < 15
-    ) {
-      return { data: false, message: RandomPassword.message || Error.m032 };
-    }
-    const PasswordEmail = PasswordGenerateEmail(
-      Data.Firstname,
-      RandomPassword.data,
-    );
-    const sendemail = singleMailSender(
-      Data.Email,
-      "Account Registration",
-      PasswordEmail ?? "NA",
-    );
-    if (sendemail.data === false)
-      return { data: false, message: sendemail.message || Error.m031 };
-
-    Data.Password = await bcrypt.hash(RandomPassword.data, 10);
+    Data.Password = await bcrypt.hash(Data.Password, 10);
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data),
       Types = Object.values(Data).map((val) => typeof val),

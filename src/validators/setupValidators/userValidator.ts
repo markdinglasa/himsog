@@ -14,19 +14,17 @@ export const userValidator = Joi.object({
     .allow(null)
     .optional(),
   ContactNumber: Joi.string()
-    .pattern(/^[0-9\s-]+$/)
+    .pattern(/^(09|\+639)\d{9}$/)
     .allow(null)
     .optional(),
   CivilStatus: Joi.string()
     .valid("single", "married", "divorced", "widowed", "legally-separated")
     .required(),
   Role: Joi.string()
-    .valid("administrator", "client", "nutritionist")
+    .valid("superuser", "administrator", "client", "nutritionist")
     .required(),
   ProfilePhoto: Joi.string().allow("").allow(null).optional(),
   IsSuspended: Joi.boolean().required(),
-  CreatedBy: Joi.number().integer().positive().required(),
   DateCreated: Joi.date().iso().optional(),
-  UpdatedBy: Joi.number().integer().positive().allow(null).optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

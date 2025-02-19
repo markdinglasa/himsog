@@ -1,6 +1,6 @@
 export enum ProfessionQuery {
   q001 = "",
-  q002 = "",
+  q002 = "SELECT `Id` FROM `profession` WHERE `Id` = ?",
   q003 = "",
   q004 = "",
   q005 = "",
