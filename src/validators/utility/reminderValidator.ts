@@ -1,9 +1,9 @@
 import Joi from "joi";
 
 export const reminderValidator = Joi.object({
-  //other
-  CreatedBy: Joi.number().integer().positive().required(),
+  UserId: Joi.number().integer().positive().required(),
+  Description: Joi.string().allow("").allow(null).optional(),
+  Alarm: Joi.date().required(),
   DateCreated: Joi.date().iso().optional(),
-  UpdatedBy: Joi.number().integer().positive().allow(null).optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

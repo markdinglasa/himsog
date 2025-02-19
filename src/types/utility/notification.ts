@@ -4,7 +4,7 @@ export interface NotificationTable extends Id, Logs {
   UserId: number;
   Description: string;
   Link: string;
-  Status: boolean;
+  IsRead: boolean;
   Subject?: string;
   IsEmail?: boolean;
   HTML?: any;
@@ -14,6 +14,6 @@ export const NotificationInitial: NotificationTable = {
   UserId: 0,
   Description: "",
   Link: "",
-  Status: false,
+  IsRead: false,
   DateCreated: new Date(),
 };

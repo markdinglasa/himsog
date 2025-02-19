@@ -1,9 +1,9 @@
 import Joi from "joi";
 
 export const mealPlanValidator = Joi.object({
-  //other
-  CreatedBy: Joi.number().integer().positive().required(),
-  DateCreated: Joi.date().iso().optional(),
-  UpdatedBy: Joi.number().integer().positive().allow(null).optional(),
+  Name: Joi.string().required(),
+  Description: Joi.string().allow("").allow(null).optional(),
+  Type: Joi.string().required(),
+  DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });
