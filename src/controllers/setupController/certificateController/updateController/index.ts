@@ -35,7 +35,7 @@ export const CertificateUpdateController = async (
       ).data
     )
       return res.status(401).json({ data: false, message: Error.m043 }); // check duplicate CertificateNumber
-    //
+    Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);

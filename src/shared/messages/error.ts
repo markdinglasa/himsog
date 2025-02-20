@@ -42,4 +42,5 @@ export enum Error {
   m041 = "Email is already taken.",
   m042 = "Account has been suspended.",
   m043 = "Certificate Number already exists.",
+  m044 = "User already already health record.",
 }

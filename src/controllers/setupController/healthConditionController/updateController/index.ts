@@ -31,6 +31,7 @@ export const HealthConditionUpdateController = async (
       !(await isFound(HealthConditionQuery.q002, ["Id"], [Number], [Id])).data
     )
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
+    Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
