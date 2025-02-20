@@ -21,7 +21,7 @@ export const CertificateGetController = async (
       [Number],
       [Id],
     );
-    return res.status(200).json({ data: response, message: Success.m002 });
+    return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Certificate-Controller [Get]:", error.message);

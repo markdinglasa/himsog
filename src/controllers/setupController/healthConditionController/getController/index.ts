@@ -1,33 +1,32 @@
 import { NextFunction, Request, Response } from "express";
-import { Error, ProfessionQuery, Success } from "../../../../shared";
+import { Error, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
-import { CertificateQuery } from "../../../../shared/";
+import { HealthConditionQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
 
-export const CertificateGetAllController = async (
+export const HealthConditionGetController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const ProfessionId: number = parseInt(req.params?.Id, 10);
-    if (!ProfessionId || ProfessionId === 0 || ProfessionId === undefined)
+    const Id: number = parseInt(req.params?.Id, 10); // HealthConditionId
+    if (!Id || Id === 0 || Id === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
     if (
-      !(await isFound(ProfessionQuery.q002, ["Id"], [Number], [ProfessionId]))
-        .data
+      !(await isFound(HealthConditionQuery.q002, ["Id"], [Number], [Id])).data
     )
-      return res.status(401).json({ data: [], message: Error.m011 }); // check Profession existence
+      return res.status(401).json({ data: [], message: Error.m011 }); // check HealthCondition existence
     const response = await GetService.byFields(
-      CertificateQuery.q001,
-      ["ProfessionId"],
+      HealthConditionQuery.q003,
+      ["Id"],
       [Number],
-      [ProfessionId],
+      [Id],
     );
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("Certificate-Controller [GetAll]:", error.message);
+    logging.error("HealthCondition-Controller [Get]:", error.message);
     logging.log("----------------------------------------");
     return res
       .status(500)
