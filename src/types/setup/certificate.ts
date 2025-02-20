@@ -9,13 +9,14 @@ export enum CertificateStatus {
 }
 
 export interface CertificateTable extends Id, Logs {
+  ProfessionId: number;
   Name: string;
   IssuedTo: string;
   Issuer: string;
   ExpiryDate: string;
   CertificateType: string; // Proffesional, Academic
   CertificateNumber: string; // Unique
-  Status: CertificateStatus;
+  Status?: CertificateStatus;
   AttachmentURL: string | null;
 }
 export type CertificateTables = CertificateTable[];
@@ -26,6 +27,6 @@ export const CertificateInitial: CertificateTable = {
   ExpiryDate: "",
   CertificateType: "",
   CertificateNumber: "",
-  Status: CertificateStatus.DEFAULT,
   AttachmentURL: null,
+  ProfessionId: 0,
 };
