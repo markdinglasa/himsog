@@ -3,38 +3,38 @@ import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
-  ProfessionAddController,
-  ProfessionGetAllController,
-  ProfessionGetController,
-  ProfessionRemoveController,
-  ProfessionUpdateController,
+  ProfessionRatingAddController,
+  ProfessionRatingGetAllController,
+  ProfessionRatingGetController,
+  ProfessionRatingRemoveController,
+  ProfessionRatingUpdateController,
 } from "../../controllers";
 
 const router = express.Router();
 router.get(
   `${API_VERSION}${RouteChannel.PROFESSION_RATING_GET}`,
   TokenHandler.verifyToken,
-  ProfessionGetAllController,
+  ProfessionRatingGetAllController,
 );
 router.get(
   `${API_VERSION}${RouteChannel.PROFESSION_RATING_GET_ALL}`,
   TokenHandler.verifyToken,
-  ProfessionGetController,
+  ProfessionRatingGetController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.PROFESSION_RATING_NEW}`,
   TokenHandler.verifyToken,
-  ProfessionAddController,
+  ProfessionRatingAddController,
 );
 router.delete(
   `${API_VERSION}${RouteChannel.PROFESSION_RATING_REMOVE}`,
   TokenHandler.verifyToken,
-  ProfessionRemoveController,
+  ProfessionRatingRemoveController,
 );
 router.patch(
   `${API_VERSION}${RouteChannel.PROFESSION_RATING_UPDATE}`,
   TokenHandler.verifyToken,
-  ProfessionUpdateController,
+  ProfessionRatingUpdateController,
 );
 
 logging.log("----------------------------------------");

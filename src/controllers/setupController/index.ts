@@ -8,6 +8,7 @@ export * from "./mealPlanController";
 export * from "./mealPlanLineController";
 export * from "./nutritionFactController";
 export * from "./professionController";
+export * from "./professionRatingController";
 export * from "./recipeController";
 //export * from "./recipeLineController";
 //export * from './subscriptionLineController'
