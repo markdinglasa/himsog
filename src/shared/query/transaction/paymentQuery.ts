@@ -1,7 +1,7 @@
 export enum PaymentQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `payment`",
+  q002 = "SELECT `Id` FROM `payment` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `payment` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

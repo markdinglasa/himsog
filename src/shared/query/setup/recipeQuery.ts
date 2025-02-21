@@ -1,7 +1,7 @@
 export enum RecipeQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `recipe`",
+  q002 = "SELECT `Id` FROM `recipe` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `recipe` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

@@ -1,7 +1,7 @@
 export enum NutritionFactQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `nutrition_fact`",
+  q002 = "SELECT `Id` FROM `nutrition_fact` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `nutrition_fact` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

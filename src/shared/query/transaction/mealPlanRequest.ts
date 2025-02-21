@@ -1,7 +1,7 @@
 export enum MealPlanRequestQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `meal_plan_request`",
+  q002 = "SELECT `Id` FROM `meal_plan_request` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `meal_plan_request` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

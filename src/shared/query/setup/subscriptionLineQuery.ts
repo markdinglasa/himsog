@@ -1,7 +1,7 @@
 export enum SubscriptionLineQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `subscription_line`",
+  q002 = "SELECT `Id` FROM `subscription_line` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `subscription_line` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

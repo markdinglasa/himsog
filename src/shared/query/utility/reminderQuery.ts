@@ -1,7 +1,7 @@
 export enum ReminderQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `reminder`",
+  q002 = "SELECT `Id` FROM `reminder` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `reminder` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",

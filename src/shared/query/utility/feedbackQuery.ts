@@ -1,7 +1,7 @@
 export enum FeedbackQuery {
-  q001 = "",
-  q002 = "",
-  q003 = "",
+  q001 = "SELECT * FROM `feedback`",
+  q002 = "SELECT `Id` FROM `feedback` WHERE `Id` = ?",
+  q003 = "SELECT * FROM `feedback` WHERE `Id` = ?",
   q004 = "",
   q005 = "",
   q006 = "",
