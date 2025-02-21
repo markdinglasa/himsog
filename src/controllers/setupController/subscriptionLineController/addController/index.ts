@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { RecipeLineTable } from "../../../../types";
+import { SubscriptionLineTable } from "../../../../types";
 import { DBTable, Error, Success } from "../../../../shared";
-import { recipeLineValidator } from "../../../../validators";
+import { subscriptionLineValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
 
-export const RecipeLineAddController = async (
+export const SubscriptionLineAddController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Data: RecipeLineTable = req.body;
+    const Data: SubscriptionLineTable = req.body;
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
-    const { error } = recipeLineValidator.validate({ ...Data });
+    const { error } = subscriptionLineValidator.validate({ ...Data });
     if (error)
       return res.status(401).json({
         data: false,
@@ -24,12 +24,12 @@ export const RecipeLineAddController = async (
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t023, Fields, Types, Values)))
+    if (!(await AddService.record(DBTable.t015, Fields, Types, Values)))
       return res.status(401).json({ data: true, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("RecipeLine-Controller [Add]:", error.message);
+    logging.error("SubscriptionLine-Controller [Add]:", error.message);
     logging.log("----------------------------------------");
     return res
       .status(500)

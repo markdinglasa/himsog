@@ -11,6 +11,6 @@ export * from "./professionController";
 export * from "./professionRatingController";
 export * from "./recipeController";
 export * from "./recipeLineController";
-//export * from './subscriptionLineController'
+export * from "./subscriptionLineController";
 //export * from './susbcriptionController'
-//export * from './unitController'
+export * from "./unitController";
