@@ -4,6 +4,7 @@ import { HealthConditionChannel } from "./healthConditionChannel";
 import { IngredientChannel } from "./ingredientChannel";
 import { MealChannel } from "./mealChannel";
 import { MealPlanChannel } from "./mealPlanChannel";
+import { MealPlanLineChannel } from "./mealPlanLine";
 import { NutritionFactChannel } from "./nutritionFactChannel";
 import { ProfessionChannel } from "./professionChannel";
 import { RecipeChannel } from "./recipeChannel";
@@ -19,6 +20,7 @@ export const SetupChannel = {
   ...HealthConditionChannel,
   ...IngredientChannel,
   ...MealPlanChannel,
+  ...MealPlanLineChannel,
   ...ProfessionChannel,
   ...NutritionFactChannel,
   ...RecipeChannel,

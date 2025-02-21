@@ -9,4 +9,5 @@ export * from "./recipe";
 export * from "./health_condition";
 export * from "./meal";
 export * from "./meal_plan";
+export * from "./meal_plan_line";
 export * from "./nutrition_fact";
