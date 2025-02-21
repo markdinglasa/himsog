@@ -7,7 +7,9 @@ import { MealPlanChannel } from "./mealPlanChannel";
 import { MealPlanLineChannel } from "./mealPlanLine";
 import { NutritionFactChannel } from "./nutritionFactChannel";
 import { ProfessionChannel } from "./professionChannel";
+import { ProfessionRatingChannel } from "./professionRatingChannel";
 import { RecipeChannel } from "./recipeChannel";
+import { RecipeLineChannel } from "./recipeLineChannel";
 import { SubscriptionChannel } from "./subscriptionChannel";
 import { SubscriptionLineChannel } from "./subscriptionLineChannel";
 import { UnitChannel } from "./unitChannel";
@@ -22,6 +24,8 @@ export const SetupChannel = {
   ...MealPlanChannel,
   ...MealPlanLineChannel,
   ...ProfessionChannel,
+  ...ProfessionRatingChannel,
+  ...RecipeLineChannel,
   ...NutritionFactChannel,
   ...RecipeChannel,
   ...SubscriptionChannel,

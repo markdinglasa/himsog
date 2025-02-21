@@ -12,38 +12,38 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.RECIPE_GET}`,
+  `${API_VERSION}${RouteChannel.RECIPE_LINE_GET}`,
   TokenHandler.verifyToken,
   RecipeGetAllController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.RECIPE_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.RECIPE_LINE_GET_ALL}`,
   TokenHandler.verifyToken,
   RecipeGetController,
 );
 router.post(
-  `${API_VERSION}${RouteChannel.RECIPE_NEW}`,
+  `${API_VERSION}${RouteChannel.RECIPE_LINE_NEW}`,
   TokenHandler.verifyToken,
   RecipeAddController,
 );
 router.delete(
-  `${API_VERSION}${RouteChannel.RECIPE_REMOVE}`,
+  `${API_VERSION}${RouteChannel.RECIPE_LINE_REMOVE}`,
   TokenHandler.verifyToken,
   RecipeRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.RECIPE_UPDATE}`,
+  `${API_VERSION}${RouteChannel.RECIPE_LINE_UPDATE}`,
   TokenHandler.verifyToken,
   RecipeUpdateController,
 );
 
 logging.log("----------------------------------------");
-logging.log("-----------RECIPE CONTROLLER------------");
-logging.log(RouteChannel.RECIPE_GET);
-logging.log(RouteChannel.RECIPE_GET_ALL);
-logging.log(RouteChannel.RECIPE_NEW);
-logging.log(RouteChannel.RECIPE_REMOVE);
-logging.log(RouteChannel.RECIPE_UPDATE);
+logging.log("---------RECIPE LINE CONTROLLER---------");
+logging.log(RouteChannel.RECIPE_LINE_GET);
+logging.log(RouteChannel.RECIPE_LINE_GET_ALL);
+logging.log(RouteChannel.RECIPE_LINE_NEW);
+logging.log(RouteChannel.RECIPE_LINE_REMOVE);
+logging.log(RouteChannel.RECIPE_LINE_UPDATE);
 logging.log("----------------------------------------");
 
 export default router;

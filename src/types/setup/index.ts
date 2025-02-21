@@ -11,3 +11,5 @@ export * from "./meal";
 export * from "./meal_plan";
 export * from "./meal_plan_line";
 export * from "./nutrition_fact";
+export * from "./recipeLine";
+export * from "./profession_rating";

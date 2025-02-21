@@ -12,3 +12,5 @@ export * from "./subscriptionLineValidator";
 export * from "./subscriptionValidator";
 export * from "./unitValidator";
 export * from "./mealPLanLineValidator";
+export * from "./recipeLineValidator";
+export * from "./professionRatingValidator";

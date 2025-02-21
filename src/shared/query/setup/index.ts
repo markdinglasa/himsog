@@ -11,3 +11,6 @@ export * from "./professionQuery";
 export * from "./subscriptionLineQuery";
 export * from "./subscriptionQuery";
 export * from "./mealPlanLineQuery";
+export * from "./recipeQuery";
+export * from "./recipeLineQuery";
+export * from "./professionRatingQuery";
