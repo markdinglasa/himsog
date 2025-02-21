@@ -10,3 +10,4 @@ export * from "./nutritionFactQuery";
 export * from "./professionQuery";
 export * from "./subscriptionLineQuery";
 export * from "./subscriptionQuery";
+export * from "./mealPlanLineQuery";

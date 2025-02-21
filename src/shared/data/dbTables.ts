@@ -19,7 +19,7 @@ export enum DBTable {
   t017 = "user_logs",
   t018 = "unit",
   t019 = "ingredient",
-  t020 = "",
+  t020 = "meal_plan_line",
   t021 = "",
   t022 = "",
   t023 = "",

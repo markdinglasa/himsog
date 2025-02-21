@@ -1,6 +1,7 @@
 import { Id, Logs } from "../generic";
 
 export interface MealPlanTable extends Id, Logs {
+  UserId: number;
   Name: string;
   Type: string;
   Description: string | null;
@@ -8,6 +9,7 @@ export interface MealPlanTable extends Id, Logs {
 }
 export type MealPlanTables = MealPlanTable[];
 export const MealPlanInitial: MealPlanTable = {
+  UserId: 0,
   Name: "",
   Type: "",
   Description: null,

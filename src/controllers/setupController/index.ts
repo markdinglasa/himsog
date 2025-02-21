@@ -4,7 +4,8 @@ export * from "./healthConditionController";
 export * from "./healthController";
 export * from "./ingredientController";
 export * from "./mealController";
-//export * from './mealPlanController'
+export * from "./mealPlanController";
+export * from "./mealPlanLineController";
 //export * from './nutritionFactController'
 //export * from './professionController'
 //export * from './recipeController'

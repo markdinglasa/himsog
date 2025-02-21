@@ -10,7 +10,7 @@ import ProfessionRoute from "./professionRoute";
 import RecipeRoute from "./recipeRoute";
 import SubcriptionLineRoute from "./subscriptionLineRoute";
 import SubscriptionRoute from "./subscriptionRoute";
-
+import MealPlanLineRoute from "./mealPlanLineRoute";
 import express from "express";
 
 const router = express.Router();
@@ -20,10 +20,12 @@ router.use(HealthConditionRoute);
 router.use(HealthRoute);
 router.use(IngredientRoute);
 router.use(MealPlanRoute);
+router.use(MealPlanLineRoute);
 router.use(MealRoute);
 router.use(NutritionFactRoute);
 router.use(ProfessionRoute);
 router.use(RecipeRoute);
 router.use(SubcriptionLineRoute);
 router.use(SubscriptionRoute);
+
 export default router;
