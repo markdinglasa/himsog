@@ -1,6 +1,6 @@
-# iPOS
+# HIMSOG
 
-Innosoft POS
+Himsog: Empowering Filipino Lives Through Meal Planning
 
 ## TECHNOLOGIES
 
@@ -13,7 +13,7 @@ A list of technologies used within the project:
 
 ## CURRENT VERSION
 
-- iPOS v1.0.0
+- HIMSOG v1.0.0
 
 # REQUIREMENTS
 
@@ -39,5 +39,5 @@ A list of technologies used within the project:
 
 ## DEFAULT USER
 
-- Username: test
-- Password: test123
+- Username: admin@gmail.com
+- Password: admin123
