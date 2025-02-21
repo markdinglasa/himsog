@@ -3,38 +3,38 @@ import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
-  RecipeAddController,
-  RecipeGetAllController,
-  RecipeGetController,
-  RecipeRemoveController,
-  RecipeUpdateController,
+  RecipeLineAddController,
+  RecipeLineGetAllController,
+  RecipeLineGetController,
+  RecipeLineRemoveController,
+  RecipeLineUpdateController,
 } from "../../controllers";
 
 const router = express.Router();
 router.get(
   `${API_VERSION}${RouteChannel.RECIPE_LINE_GET}`,
   TokenHandler.verifyToken,
-  RecipeGetAllController,
+  RecipeLineGetAllController,
 );
 router.get(
   `${API_VERSION}${RouteChannel.RECIPE_LINE_GET_ALL}`,
   TokenHandler.verifyToken,
-  RecipeGetController,
+  RecipeLineGetController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.RECIPE_LINE_NEW}`,
   TokenHandler.verifyToken,
-  RecipeAddController,
+  RecipeLineAddController,
 );
 router.delete(
   `${API_VERSION}${RouteChannel.RECIPE_LINE_REMOVE}`,
   TokenHandler.verifyToken,
-  RecipeRemoveController,
+  RecipeLineRemoveController,
 );
 router.patch(
   `${API_VERSION}${RouteChannel.RECIPE_LINE_UPDATE}`,
   TokenHandler.verifyToken,
-  RecipeUpdateController,
+  RecipeLineUpdateController,
 );
 
 logging.log("----------------------------------------");
