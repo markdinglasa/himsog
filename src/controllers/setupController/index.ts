@@ -2,3 +2,12 @@ export * from "./userController";
 export * from "./certificateController";
 export * from "./healthConditionController";
 export * from "./healthController";
+export * from "./ingredientController";
+//export * from './mealController'
+//export * from './mealPlanController'
+//export * from './nutritionFactController'
+//export * from './professionController'
+//export * from './recipeController'
+//export * from './subscriptionLineController'
+//export * from './susbcriptionController'
+//export * from './unitController'
