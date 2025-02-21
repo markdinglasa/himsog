@@ -6,7 +6,7 @@ export * from "./ingredientController";
 export * from "./mealController";
 export * from "./mealPlanController";
 export * from "./mealPlanLineController";
-//export * from './nutritionFactController'
+export * from "./nutritionFactController";
 //export * from './professionController'
 //export * from './recipeController'
 //export * from './subscriptionLineController'
