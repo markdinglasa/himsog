@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
-import { CardFooter, CustomButton, Input } from "../../components";
+import { CustomButton, Input } from "../../components";
 import {
+  ButtonColor,
   ButtonType,
   InputType,
   LoginTable,
@@ -11,7 +12,6 @@ import {
 } from "../../types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LoginIcon from "@mui/icons-material/Login";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../shared";
@@ -65,16 +65,13 @@ export const PageLogin: SFC = ({ ClassName }) => {
   return (
     <S.Container
       className={cn(
-        `w-screen bg-[#e2e9ef] h-screen items-center flex justify-center`,
+        `w-screen bg-slate-100 h-screen items-center flex justify-center`,
         ClassName,
       )}
     >
       <S.Content className="flex justify-center items-center  w-full">
-        <S.Divider className="flex md:flex-row flex-col w-full md:w-[90vw] p-3 gap-5 md:gap-20">
-          <S.Divider className="md:w-6/12 border-red flex items-center justify-center">
-            image/logo here
-          </S.Divider>
-          <S.Divider className="md:w-4/12 w-full bg-white p-3 rounded-lg">
+        <S.Divider className="flex  w-full md:w-[90vw] p-3 gap-5 justify-center items-center">
+          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 rounded-md bg-white">
             {errorMessage && (
               <S.Divider className="text-center w-full mb-2">
                 <S.Span className="p-3 text-red-500 text-center text-[14px]">
@@ -84,6 +81,9 @@ export const PageLogin: SFC = ({ ClassName }) => {
             )}
 
             <S.Divider className="w-full">
+              <S.Divider className="w-full flex items-center justify-center mb-2">
+                <S.Image src="" className="w-full h-12" alt="himsog-logo" />
+              </S.Divider>
               <S.Divider className="mb-5">
                 <Formik
                   initialValues={InitialValues}
@@ -134,13 +134,12 @@ export const PageLogin: SFC = ({ ClassName }) => {
                           className="text-[14px] text-slate-700 cursor-pointer"
                           onClick={() => navigate(RouteChannel.FORGOT_PASSWORD)}
                         >
-                          Forgot Password
+                          Forgot Password?
                         </span>
                       </S.Divider>
 
                       <CustomButton
-                        icon={<LoginIcon />}
-                        text={"Sign In"}
+                        text="Sign In"
                         ClassName="w-full"
                         disabled={isSubmitting}
                         type={ButtonType.submit}
@@ -157,15 +156,24 @@ export const PageLogin: SFC = ({ ClassName }) => {
               </S.Divider>
               <S.Divider className="w-full ">
                 <CustomButton
-                  icon={<GoogleIcon />}
+                  icon={<GoogleIcon className="text-primary" />}
                   text="Continue with Google"
-                  ClassName="w-full"
+                  ClassName="w-full border"
+                  color={ButtonColor.default}
                   type={ButtonType.submit}
                   morph={false}
                 />
               </S.Divider>
-              <S.Divider className="footer w-full">
-                <CardFooter />
+              <S.Divider className="w-full flex flex-row items-center justify-center mt-3 py-3">
+                <span className="text-slate-700 text-[14px] ">
+                  Don't have an account yet?
+                </span>
+                <span
+                  className="ml-2 text-primary text-[14px] cursor-pointer"
+                  onClick={() => navigate(RouteChannel.SIGN_UP)}
+                >
+                  Sign Up
+                </span>
               </S.Divider>
             </S.Divider>
           </S.Divider>

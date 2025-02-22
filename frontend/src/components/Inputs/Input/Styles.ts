@@ -33,6 +33,5 @@ export const Field = styled(UField)`
 export const Label = styled.div`
   font-size: 14px;
   margin-bottom: 8px;
-  color: ${colors.primary};
 `;
 export const SecondaryContainer = styled.div``;

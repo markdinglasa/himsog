@@ -4,6 +4,7 @@ import * as S from "./Styles";
 import { useAuth, useSignOut, useToggle } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { ContextType } from "../../../context";
 import { EXPIRY_DATE } from "../../../constants";
 
@@ -47,7 +48,11 @@ export const Input: SFC<InputProps> = ({
           {type === InputType.password && !disabled && (
             <div className=" h-[40px] relative flex items-center ">
               <span className="absolute right-3 mt-1" onClick={toggleShow}>
-                <VisibilityIcon className="text-primary cursor-pointer hover:text-[#9C9C9C]" />
+                {show ? (
+                  <VisibilityOffIcon className="text-primary cursor-pointer hover:text-[#9C9C9C]" />
+                ) : (
+                  <VisibilityIcon className="text-primary cursor-pointer hover:text-[#9C9C9C]" />
+                )}
               </span>
             </div>
           )}

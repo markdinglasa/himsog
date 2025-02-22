@@ -78,7 +78,7 @@ export const CustomButton: SFC<ButtonProps> = ({
           sx={{
             minWidth: "120px",
             minHeight: "40px",
-            border: "1",
+            border: color === "default" ? "1px solid #e1e1e1" : "none",
             background: CustomColor().bg,
             "&:hover": { background: CustomColor().hover, boxShadow: 0 },
             opacity: disabled || dirty ? 0.6 : 1,
