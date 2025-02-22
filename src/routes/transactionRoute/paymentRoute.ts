@@ -1,13 +1,41 @@
 import express from "express";
 import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
+import { API_VERSION } from "../../constants";
+import {
+  PaymentAddController,
+  PaymentGetAllController,
+  PaymentGetController,
+  PaymentRemoveController,
+  PaymentUpdateController,
+} from "../../controllers";
 
 const router = express.Router();
-router.get(RouteChannel.PAYMENT_GET, TokenHandler.verifyToken);
-router.get(RouteChannel.PAYMENT_GET_ALL, TokenHandler.verifyToken);
-router.get(RouteChannel.PAYMENT_NEW, TokenHandler.verifyToken);
-router.get(RouteChannel.PAYMENT_REMOVE, TokenHandler.verifyToken);
-router.get(RouteChannel.PAYMENT_UPDATE, TokenHandler.verifyToken);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_GET}`,
+  TokenHandler.verifyToken,
+  PaymentGetController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_GET_ALL}`,
+  TokenHandler.verifyToken,
+  PaymentGetAllController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_NEW}`,
+  TokenHandler.verifyToken,
+  PaymentAddController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_REMOVE}`,
+  TokenHandler.verifyToken,
+  PaymentRemoveController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_UPDATE}`,
+  TokenHandler.verifyToken,
+  PaymentUpdateController,
+);
 
 logging.log("----------------------------------------");
 logging.log("-----------PAYMENT CONTROLLER-----------");
