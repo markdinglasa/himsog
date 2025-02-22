@@ -16,5 +16,5 @@
     "resolveJsonModule": true
   },
   "exclude": ["test", "node_modules/", "test/**/*.test.ts", "**/*.test.ts", "**/*.spec.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/controllers/utilityController/feedbackController"]
 }

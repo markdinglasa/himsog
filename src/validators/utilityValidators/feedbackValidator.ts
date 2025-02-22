@@ -1,7 +1,6 @@
 import Joi from "joi";
 
 export const feedbackValidator = Joi.object({
-  //other
   UserId: Joi.number().integer().positive().required(),
   Type: Joi.string().required(),
   MealPlanId: Joi.number().integer().required(),
