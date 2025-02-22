@@ -6,7 +6,12 @@ import {
 import { RootLayout } from "./components";
 import { Roles, RouteChannel } from "./types";
 import { PersistContext, RequireAuth } from "./context";
-import { MissingPage, PageLogin, UnauthorizedPage } from "./pages";
+import {
+  AdminDashboardPage,
+  MissingPage,
+  PageLogin,
+  UnauthorizedPage,
+} from "./pages";
 import { AdminLayout } from "./containers";
 
 export const AppRouter = createBrowserRouter(
@@ -20,7 +25,12 @@ export const AppRouter = createBrowserRouter(
               <RequireAuth allowedRoles={[Roles.superuser, Roles.admin]} />
             }
           >
-            <Route element={<AdminLayout />}></Route>
+            <Route element={<AdminLayout />}>
+              <Route
+                path={RouteChannel.DASHBOARD}
+                element={<AdminDashboardPage />}
+              />
+            </Route>
           </Route>
         </Route>
         <Route path={RouteChannel.R403} element={<UnauthorizedPage />} />

@@ -1,6 +1,4 @@
 export interface LoginTable {
-  Username: string;
+  Email: string;
   Password: string;
-  CurrentDate?: Date | string;
-  BranchId?: number;
 }

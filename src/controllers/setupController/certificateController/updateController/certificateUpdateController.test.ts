@@ -6,6 +6,7 @@ import { TokenHandler } from "../../../../middleware";
 import { certificateValidator } from "../../../../validators";
 import { CertificateInitial, RouteChannel } from "../../../../types";
 import { CertificateUpdateController } from "./index";
+import Routes from "../../../../routes";
 
 jest.mock("../../../../validators", () => ({
   certificateValidator: {
@@ -28,11 +29,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
-app.post(
-  RouteChannel.CERTIFICATE_UPDATE,
-  TokenHandler.verifyToken,
-  CertificateUpdateController,
-);
+app.use(Routes);
 
 describe("Certificate-UpdateController", () => {
   afterEach(() => {

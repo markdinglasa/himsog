@@ -5,6 +5,7 @@ import { Success, Error as err } from "../../../../shared";
 import { TokenHandler } from "../../../../middleware";
 import { CertificateInitial, RouteChannel } from "../../../../types";
 import { CertificateGetController } from "./index";
+import Routes from "../../../../routes";
 
 jest.mock("../../../../middleware", () => ({
   TokenHandler: {
@@ -21,11 +22,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
-app.post(
-  RouteChannel.CERTIFICATE_GET,
-  TokenHandler.verifyToken,
-  CertificateGetController,
-);
+app.use(Routes);
 
 describe("Certificate-GetController", () => {
   afterEach(() => {

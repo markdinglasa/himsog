@@ -24,7 +24,7 @@ export const SideNav: SFC<SideNavProps> = ({
   return (
     <>
       <S.Container $isCollapse={Collapse} className={ClassName}>
-        <S.LogoCon>
+        <S.LogoCon className="mt-2 border-red">
           <S.Image
             src={
               "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"

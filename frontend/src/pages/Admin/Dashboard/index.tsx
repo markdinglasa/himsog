@@ -1,57 +1,29 @@
-import {
-  ButtonType,
-  NotificationTable,
-  RouteChannel,
-  SFC,
-} from "../../../types";
+import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import {
-  CustomButton,
   DashboardCard,
   DoughnutChart,
   IncrementCard,
   LineChart,
-  NoReplyEmail,
   PageBreadCrumbs,
 } from "../../../components";
 import { mdiAccountOutline } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import { cn, formatNumber } from "../../../utils";
-import { useAddNotification, useGetAllRecordCount } from "../../../hooks";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import LunchDiningOutlinedIcon from "@mui/icons-material/LunchDiningOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-export const DashboardPage: SFC = ({ ClassName }) => {
+export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
-  const { records } = useGetAllRecordCount();
-  const { add } = useAddNotification();
-
-  const sendEmail = async () => {
-    const data: NotificationTable = {
-      UserId: 2,
-      Description: "Test",
-      Link: "test",
-      IsRead: false,
-    };
-    await add(data, true, "Automation Email Test", NoReplyEmail);
-  };
 
   return (
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
           <PageBreadCrumbs Links={[]} Active="Dashboard" />
-          <S.Actions>
-            <CustomButton
-              icon={undefined}
-              morph={false}
-              onClick={sendEmail}
-              text="Notify Test"
-              type={ButtonType.button}
-            />
-          </S.Actions>
+          <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.Content className="">
           <S.CardContainer className="flex md:flex-row flex-col gap-2 w-full mb-2">
@@ -131,7 +103,7 @@ export const DashboardPage: SFC = ({ ClassName }) => {
           <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
             <DashboardCard
               Icons={mdiAccountOutline}
-              Text={`${records[19]?.Count ?? 0}`}
+              Text={"0"}
               Title="User"
               OnClick={() => navigate(RouteChannel.USER)}
             />
@@ -145,11 +117,6 @@ export const DashboardPage: SFC = ({ ClassName }) => {
             <DoughnutChart />
           </S.Divider>
         </S.Content>
-        {/*<ZReadingReceipt SelectedDate={"02/06/2025"} />*/}
-        <S.Divider
-          className={`text-sm text-slate-700`}
-          dangerouslySetInnerHTML={{ __html: NoReplyEmail ?? "" }}
-        ></S.Divider>
       </S.Container>
     </>
   );

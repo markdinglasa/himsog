@@ -50,7 +50,7 @@ export const ProfileOption: SFC = () => {
           className="uppercase flex justify-center items-center cursor-pointer bg-primary text-primary"
         >
           <span className="text-white font-semibold">
-            {user.Name.charAt(0) ?? "NA"}
+            {user.Firstname.charAt(0) ?? "NA"}
           </span>
         </Avatar>
       </Tooltip>
@@ -67,10 +67,10 @@ export const ProfileOption: SFC = () => {
           >
             <div className="w-full flex flex-col items-center">
               <span className="font-bold font-sans pt-2">
-                {user?.Name ?? "NA"}
+                {user?.Firstname ?? "NA"}
               </span>
               <span className="font-sans text-slate-500">
-                {user?.RoleName ?? "NA"}
+                {user?.Role ?? "NA"}
               </span>
             </div>
           </S.DropdownItem>

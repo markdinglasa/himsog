@@ -48,7 +48,7 @@ export const Header: SFC<HeaderProps> = ({
                 Title="Menu"
               />
 
-              <S.SearchCon>
+              {/*<S.SearchCon>
                 <S.TextField
                   label=""
                   id="Search"
@@ -57,7 +57,7 @@ export const Header: SFC<HeaderProps> = ({
                   placeholder={"Search"}
                   disabled
                 />
-              </S.SearchCon>
+              </S.SearchCon>*/}
             </S.DesktopContent>
           </S.DesktopMenu>
         </S.LeftContent>

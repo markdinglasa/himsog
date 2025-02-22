@@ -11,9 +11,8 @@ export interface NotificationTable extends Id, Logs {
 }
 export type NotificationTables = NotificationTable[];
 export const NotificationInitial: NotificationTable = {
-  RecNumber: "",
-  Description: "",
   UserId: 0,
+  Description: "",
   Link: "",
   IsRead: false,
   DateCreated: new Date(),

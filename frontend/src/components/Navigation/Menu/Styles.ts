@@ -16,7 +16,7 @@ export const Container = styled.div<{ $isParent: boolean }>`
       background:none;
     `
       : `&:hover { 
-        background: rgb(51,65,85);
+        background: ${colors.primaryHover};
       }`};
 `;
 export const Menu = styled.div<{ $isDisplay: boolean }>`
@@ -26,14 +26,14 @@ export const Menu = styled.div<{ $isDisplay: boolean }>`
   ${({ $isDisplay }) =>
     $isDisplay
       ? `
-      background: rgb(71, 85, 105)
+      background: ${colors.primaryHover};
     `
       : `
       background: none;
     `};
 
   &:hover {
-    background: rgb(51, 65, 85);
+    background: ${colors.primaryHover};
   }
 `;
 export const MenuContent = styled.div`

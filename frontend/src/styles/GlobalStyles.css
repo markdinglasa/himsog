@@ -10,7 +10,7 @@
   font-family: "Roboto", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background: #14263e;
+  background: #2cb578;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -35,30 +35,30 @@ h1 {
 }
 
 .bg-primary {
-  background: #14263e;
+  background: #2cb578;
 }
 
 .text-primary {
-  color: #14263e;
+  color: #2cb578;
 }
 
 .btn-primary {
   min-width: 120px;
   min-height: 30px;
-  background: #14263e;
+  background: #2cb578;
 }
 
 .h-40px {
   height: 40px;
 }
 .border-primary {
-  border: 2px solid #14263e;
+  border: 2px solid #2cb578;
 }
 .border-pbottom {
-  border-bottom: 1px solid #14263e;
+  border-bottom: 1px solid #2cb578;
 }
 .border-ptop {
-  border-top: 1px solid #14263e;
+  border-top: 1px solid #2cb578;
 }
 .margin-top-60px {
   margin-top: -90px !important;

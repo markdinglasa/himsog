@@ -31,7 +31,7 @@ export const Field = styled(UField)`
    
 `;
 export const Label = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 8px;
   color: ${colors.primary};
 `;

@@ -12,12 +12,14 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LoginIcon from "@mui/icons-material/Login";
+import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
 import { cn } from "../../utils";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 export const PageLogin: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -29,29 +31,29 @@ export const PageLogin: SFC = ({ ClassName }) => {
   }, [auth]);
 
   const InitialValues: LoginTable = {
-    Username: "",
+    Email: "",
     Password: "",
   };
 
   const handleSubmit = async (values: loginFormValues): Promise<void> => {
     const data: LoginTable = { ...values };
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, data, {
+      const response = await axios.post(`${BASE_URL}/auth/jwt-login`, data, {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       });
-      if (response.data.data.success) {
-        const user: UserTable = response.data.data.user;
-        const roles: Roles = response.data.data.role;
-        const accessToken: string = response.data.data.accessToken;
-        const refreshToken: string = response.data.data.refreshToken;
+      console.log(response);
+      if (response.data.data.Success) {
+        const user: UserTable = response.data.data.User;
+        const roles: Roles = response.data.data.Role;
+        const accessToken: string = response.data.data.AccessToken;
+        const refreshToken: string = response.data.data.RefreshToken;
         setAuth({
           user,
           roles,
           accessToken,
           refreshToken,
         });
-
         navigate(RouteChannel.DASHBOARD, { replace: true });
       } else setErrorMessage(Error.m00019);
     } catch (error: any) {
@@ -69,11 +71,8 @@ export const PageLogin: SFC = ({ ClassName }) => {
     >
       <S.Content className="flex justify-center items-center  w-full">
         <S.Divider className="flex md:flex-row flex-col w-full md:w-[90vw] p-3 gap-5 md:gap-20">
-          <S.Divider className="md:w-7/12 w-full text-right flex item-center flex-col justify-center">
-            <S.H1 className=" md:text-right text-center">INNOSOFT</S.H1>
-            <S.Span className="text-[25px] text-zinc-700 md:text-right text-center">
-              Grow your business with Innosoft
-            </S.Span>
+          <S.Divider className="md:w-6/12 border-red flex items-center justify-center">
+            image/logo here
           </S.Divider>
           <S.Divider className="md:w-4/12 w-full bg-white p-3 rounded-lg">
             {errorMessage && (
@@ -84,8 +83,8 @@ export const PageLogin: SFC = ({ ClassName }) => {
               </S.Divider>
             )}
 
-            <S.Divider className="w-">
-              <S.Divider>
+            <S.Divider className="w-full">
+              <S.Divider className="mb-5">
                 <Formik
                   initialValues={InitialValues}
                   onSubmit={handleSubmit}
@@ -95,24 +94,50 @@ export const PageLogin: SFC = ({ ClassName }) => {
                 >
                   {({ errors, touched, isSubmitting, handleChange }) => (
                     <Form>
-                      <Input
-                        ClassName="text-slate-100"
-                        errors={errors}
-                        type={InputType.text}
-                        label="Username"
-                        name="Username"
-                        touched={touched}
-                        onChange={handleChange}
-                      />
-                      <Input
-                        ClassName="text-zinc-900"
-                        errors={errors}
-                        type={InputType.password}
-                        label="Password"
-                        name="Password"
-                        touched={touched}
-                        onChange={handleChange}
-                      />
+                      <S.Divider className="w-full mb-2">
+                        <Input
+                          ClassName="text-slate-100"
+                          errors={errors}
+                          type={InputType.email}
+                          label="Email"
+                          name="Email"
+                          touched={touched}
+                          onChange={handleChange}
+                        />
+                      </S.Divider>
+                      <S.Divider className="w-full mb-2">
+                        <Input
+                          ClassName="text-zinc-900"
+                          errors={errors}
+                          type={InputType.password}
+                          label="Password"
+                          name="Password"
+                          touched={touched}
+                          onChange={handleChange}
+                        />
+                      </S.Divider>
+                      <S.Divider className="w-full flex justify-between  mb-2 items-center">
+                        <FormControlLabel
+                          className="text-[sm] text-slate-700"
+                          control={<Checkbox size="small" />}
+                          label="Remember me"
+                          sx={{
+                            "& .MuiFormControlLabel-label": {
+                              fontSize: "14px",
+                              color: "#3f3f3f",
+                              alignItems: "center",
+                              display: "flex",
+                            },
+                          }}
+                        />
+                        <span
+                          className="text-[14px] text-slate-700 cursor-pointer"
+                          onClick={() => navigate(RouteChannel.FORGOT_PASSWORD)}
+                        >
+                          Forgot Password
+                        </span>
+                      </S.Divider>
+
                       <CustomButton
                         icon={<LoginIcon />}
                         text={"Sign In"}
@@ -124,6 +149,20 @@ export const PageLogin: SFC = ({ ClassName }) => {
                     </Form>
                   )}
                 </Formik>
+              </S.Divider>
+              <S.Divider className="border-b-2 h-2 flex items-center justify-center w-full mb-5">
+                <span className="text-sm text-slate-700 mt-2 bg-white text-[14px] ">
+                  Or
+                </span>
+              </S.Divider>
+              <S.Divider className="w-full ">
+                <CustomButton
+                  icon={<GoogleIcon />}
+                  text="Continue with Google"
+                  ClassName="w-full"
+                  type={ButtonType.submit}
+                  morph={false}
+                />
               </S.Divider>
               <S.Divider className="footer w-full">
                 <CardFooter />

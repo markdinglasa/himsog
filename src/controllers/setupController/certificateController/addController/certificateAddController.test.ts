@@ -2,10 +2,9 @@ import request from "supertest";
 import express from "express";
 import helmet from "helmet";
 import { Success, Error as err } from "../../../../shared";
-import { TokenHandler } from "../../../../middleware";
 import { certificateValidator } from "../../../../validators";
 import { CertificateInitial, RouteChannel } from "../../../../types";
-import { CertificateAddController } from "./index";
+import Routes from "../../../../routes";
 
 jest.mock("../../../../validators", () => ({
   certificateValidator: {
@@ -28,11 +27,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
-app.post(
-  RouteChannel.CERTIFICATE_NEW,
-  TokenHandler.verifyToken,
-  CertificateAddController,
-);
+app.use(Routes);
 
 describe("Certificate-AddController", () => {
   afterEach(() => {

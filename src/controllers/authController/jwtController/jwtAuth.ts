@@ -4,6 +4,7 @@ import { Success, Error, DBTable } from "../../../shared";
 import { GenerateFn, getByEmail } from "../../../functions";
 import { compare } from "bcrypt";
 import { AddService } from "../../../services";
+import { loginValidator } from "../../../validators";
 
 export const JWTAuth = async (
   req: LoginRequest,
@@ -12,12 +13,20 @@ export const JWTAuth = async (
 ): Promise<any> => {
   try {
     const data = req.body;
+    const { error } = loginValidator.validate({ ...data });
+    if (error)
+      return res.status(401).json({
+        data: false,
+        message: error.details[0]?.message || Error.m029,
+      });
     const user = await getByEmail(data?.Email ?? "");
+    // console.log(user);
     if (!user.data)
       return res.status(401).json({ data: false, message: Error.m011 });
     if (!(await compare(data.Password, user.data.Password)))
       return res.status(401).json({ data: false, message: Error.m019 });
     // check account if suspended
+
     if (user.data?.IsSuspended ?? false)
       return res.status(401).json({ data: false, message: Error.m042 });
 
@@ -45,6 +54,7 @@ export const JWTAuth = async (
       data: {
         Success: true,
         User: user.data.Id,
+        Role: user.data.Role,
         AccessToken: accessToken.data,
         RefreshToken: refreshToken.data,
       },

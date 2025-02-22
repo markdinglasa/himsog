@@ -27,7 +27,7 @@ export const Input: SFC<InputProps> = ({
   return (
     <>
       <S.Container className="">
-        {label && <S.Label className="text-zinc-700"> {label}</S.Label>}
+        {label && <S.Label className="text-zinc-700 text-md">{label}</S.Label>}
         <div className="flex w-full flex-row items-start">
           <S.Field
             disabled={disabled}
