@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { CustomButton, Input } from "../../components";
+import { CustomButton, CustomInput } from "../../components";
 import {
   ButtonColor,
   ButtonType,
@@ -42,7 +42,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
+      //console.log(response);
       if (response.data.data.Success) {
         const user: UserTable = response.data.data.User;
         const roles: Roles = response.data.data.Role;
@@ -57,7 +57,6 @@ export const PageLogin: SFC = ({ ClassName }) => {
         navigate(RouteChannel.DASHBOARD, { replace: true });
       } else setErrorMessage(Error.m00019);
     } catch (error: any) {
-      //console.log(error);
       setErrorMessage(error.response?.data?.message || Error.m00019);
     }
   };
@@ -71,7 +70,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
     >
       <S.Content className="flex justify-center items-center  w-full">
         <S.Divider className="flex  w-full md:w-[90vw] p-3 gap-5 justify-center items-center">
-          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 rounded-md bg-white">
+          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-white">
             {errorMessage && (
               <S.Divider className="text-center w-full mb-2">
                 <S.Span className="p-3 text-red-500 text-center text-[14px]">
@@ -92,34 +91,43 @@ export const PageLogin: SFC = ({ ClassName }) => {
                   validateOnMount={true}
                   validationSchema={loginValidator}
                 >
-                  {({ errors, touched, isSubmitting, handleChange }) => (
+                  {({
+                    errors,
+                    touched,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                  }) => (
                     <Form>
-                      <S.Divider className="w-full mb-2">
-                        <Input
-                          ClassName="text-slate-100"
+                      <S.Divider className="w-full py-2">
+                        <CustomInput
                           errors={errors}
                           type={InputType.email}
                           label="Email"
+                          placeholder="Email"
                           name="Email"
                           touched={touched}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full mb-2">
-                        <Input
+                      <S.Divider className="w-full">
+                        <CustomInput
                           ClassName="text-zinc-900"
                           errors={errors}
                           type={InputType.password}
                           label="Password"
+                          placeholder="Password"
                           name="Password"
                           touched={touched}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
                       <S.Divider className="w-full flex justify-between  mb-2 items-center">
                         <FormControlLabel
                           className="text-[sm] text-slate-700"
-                          control={<Checkbox size="small" />}
+                          control={<Checkbox size="small" color="success" />}
                           label="Remember me"
                           sx={{
                             "& .MuiFormControlLabel-label": {

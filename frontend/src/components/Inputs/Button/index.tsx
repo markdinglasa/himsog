@@ -72,8 +72,7 @@ export const CustomButton: SFC<ButtonProps> = ({
           variant="contained"
           disabled={disabled || dirty}
           className={twMerge(
-            " flex items-center justify-center h-10 rounded-md shadow-none " +
-              ClassName,
+            " flex items-center justify-center h-10 shadow-none " + ClassName,
           )}
           sx={{
             minWidth: "120px",
@@ -84,6 +83,7 @@ export const CustomButton: SFC<ButtonProps> = ({
             opacity: disabled || dirty ? 0.6 : 1,
             cursor: disabled || dirty ? "not-allowed" : "pointer",
             textTransform: "none",
+            borderRadius: 0,
             transition: "ease-in-out 0.3s",
             boxShadow: 0,
           }}

@@ -8,3 +8,4 @@ export * from "./InputOption";
 export * from "./Switch";
 export * from "./AutoComplete";
 export * from "./PaymentMethod";
+export * from "./CustomInput";

@@ -18,6 +18,7 @@ export interface InputProps {
   ref?: any;
   onKeyDown?: any;
   inputClassName?: string;
+  isRequired?: boolean;
 }
 
 export enum InputType {
