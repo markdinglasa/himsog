@@ -1,13 +1,41 @@
 import express from "express";
 import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
+import { API_VERSION } from "../../constants";
+import {
+  MealPlanAddController,
+  MealPlanGetAllController,
+  MealPlanGetController,
+  MealPlanRemoveController,
+  MealPlanUpdateController,
+} from "../../controllers";
 
 const router = express.Router();
-router.get(RouteChannel.MEAL_PLAN_GET, TokenHandler.verifyToken);
-router.get(RouteChannel.MEAL_PLAN_GET_ALL, TokenHandler.verifyToken);
-router.get(RouteChannel.MEAL_PLAN_NEW, TokenHandler.verifyToken);
-router.get(RouteChannel.MEAL_PLAN_REMOVE, TokenHandler.verifyToken);
-router.get(RouteChannel.MEAL_PLAN_UPDATE, TokenHandler.verifyToken);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_GET}`,
+  TokenHandler.verifyToken,
+  MealPlanGetController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_GET_ALL}`,
+  TokenHandler.verifyToken,
+  MealPlanGetAllController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_NEW}`,
+  TokenHandler.verifyToken,
+  MealPlanAddController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REMOVE}`,
+  TokenHandler.verifyToken,
+  MealPlanRemoveController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_UPDATE}`,
+  TokenHandler.verifyToken,
+  MealPlanUpdateController,
+);
 
 logging.log("----------------------------------------");
 logging.log("----------MEAL PLAN CONTROLLER----------");
