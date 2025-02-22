@@ -1,5 +1,5 @@
 export enum DBTable {
-  t000 = "appointment",
+  t000 = "",
   t001 = "certificate",
   t002 = "feedback",
   t003 = "health",
@@ -23,7 +23,7 @@ export enum DBTable {
   t021 = "nutrition_fact",
   t022 = "recipe",
   t023 = "recipe_line",
-  t024 = "",
+  t024 = "appointment",
   t025 = "",
   t026 = "",
   t027 = "",
