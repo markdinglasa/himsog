@@ -18,7 +18,6 @@ export const Container = styled.div<{ $isParent: boolean }>`
       }`};
 `;
 export const Menu = styled.div<{ $isDisplay: boolean }>`
-  border-radius: 8px; /* Matches rounded-md */
   transition: all 0.3s ease-in-out;
 
   ${({ $isDisplay }) =>

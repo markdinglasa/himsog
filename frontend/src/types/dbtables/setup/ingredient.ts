@@ -3,6 +3,7 @@ export interface IngredientTable extends Id, Logs {
   Name: string;
   Description: string | null;
   UnitId: number;
+  UnitName?: string;
   Category: string;
 }
 export type IngredientTables = IngredientTable[];

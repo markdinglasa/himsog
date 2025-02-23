@@ -2,6 +2,6 @@ export enum Roles {
   default = "default",
   superuser = "superuser",
   nutritionist = "nutritionist",
-  user = "user",
+  client = "client",
   admin = "administrator",
 }

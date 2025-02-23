@@ -3,15 +3,15 @@ import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
-import { useAuth, useGetAllNofitication } from "../../../hooks";
 
-export const NotificationPage: SFC = ({ ClassName }) => {
+export const AdminNotificationPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
-    { Text: "Dashboard", OnClick: () => navigate(RouteChannel.DASHBOARD) },
+    {
+      Text: "Dashboard",
+      OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
+    },
   ];
-  const { auth } = useAuth();
-  const { records, loading, refetch } = useGetAllNofitication(auth.user ?? 0);
   return (
     <>
       <S.Container className={ClassName}>
@@ -23,10 +23,10 @@ export const NotificationPage: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Notifications"
-              Rows={records}
+              Rows={[]}
               HeadCells={notificationHC as HeadCell<unknown>[]}
-              IsLoading={loading}
-              OnRecordDelete={() => refetch()}
+              IsLoading={false}
+              OnRecordDelete={() => {}}
               //RemoveApiRoute={Routes.NOTIFICATION_REMOVE}
               ClassName="md:max-h-[calc(100vh-200px)]"
             />

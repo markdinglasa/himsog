@@ -7,7 +7,13 @@ import {
   LineChart,
   PageBreadCrumbs,
 } from "../../../components";
-import { mdiAccountOutline } from "@mdi/js";
+import {
+  mdiAccountCreditCardOutline,
+  mdiAccountOutline,
+  mdiBookOpenVariantOutline,
+  mdiCommentQuoteOutline,
+  mdiScale,
+} from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import { cn, formatNumber } from "../../../utils";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
@@ -105,11 +111,35 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Icons={mdiAccountOutline}
               Text={"0"}
               Title="User"
-              OnClick={() => navigate(RouteChannel.USER)}
+              OnClick={() => navigate(RouteChannel.ADMIN_USER)}
+            />
+            <DashboardCard
+              Icons={mdiBookOpenVariantOutline}
+              Text={"0"}
+              Title="Ingredient"
+              OnClick={() => navigate(RouteChannel.ADMIN_INGREDIENT)}
+            />
+            <DashboardCard
+              Icons={mdiScale}
+              Text={"0"}
+              Title="Unit"
+              OnClick={() => navigate(RouteChannel.ADMIN_UNIT)}
+            />
+            <DashboardCard
+              Icons={mdiAccountCreditCardOutline}
+              Text={"0"}
+              Title="Susbcription"
+              OnClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
+            />
+            <DashboardCard
+              Icons={mdiCommentQuoteOutline}
+              Text={"0"}
+              Title="Feedback"
+              OnClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
             />
           </S.CardContainer>
         </S.Content>
-        <S.Content className="mt-2 flex flex-col md:flex-row gap-2">
+        <S.Content className="mt-2 flex flex-col md:flex-row gap-2 mb-2">
           <S.Divider className="w-full md:w-8/12">
             <LineChart />
           </S.Divider>

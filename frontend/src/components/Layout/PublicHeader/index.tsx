@@ -37,7 +37,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   }}
                 >
                   <span
-                    className={`hover:text-[#2cb578] ${activePage === RouteChannel.INDEX ? "text-[#2cb578]" : ""}`}
+                    className={`hover:text-[#2cb578] text-sm md:text-md text-sm md:text-md ${activePage === RouteChannel.INDEX ? "text-[#2cb578]" : ""}`}
                   >
                     Home
                   </span>
@@ -50,7 +50,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   }}
                 >
                   <span
-                    className={`hover:text-[#2cb578] ${activePage === RouteChannel.EVENT ? "text-[#2cb578]" : ""}`}
+                    className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.EVENT ? "text-[#2cb578]" : ""}`}
                   >
                     Event
                   </span>
@@ -63,7 +63,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   }}
                 >
                   <span
-                    className={`hover:text-[#2cb578] ${activePage === RouteChannel.ARTICLE ? "text-[#2cb578]" : ""}`}
+                    className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.ARTICLE ? "text-[#2cb578]" : ""}`}
                   >
                     Article
                   </span>
@@ -76,7 +76,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   }}
                 >
                   <span
-                    className={`hover:text-[#2cb578] ${activePage === RouteChannel.ABOUT_US ? "text-[#2cb578]" : ""}`}
+                    className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.ABOUT_US ? "text-[#2cb578]" : ""}`}
                   >
                     About Us
                   </span>
@@ -89,7 +89,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   }}
                 >
                   <span
-                    className={`hover:text-[#2cb578] ${activePage === RouteChannel.CONTACT_US ? "text-[#2cb578]" : ""}`}
+                    className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.CONTACT_US ? "text-[#2cb578]" : ""}`}
                   >
                     Contact Us
                   </span>

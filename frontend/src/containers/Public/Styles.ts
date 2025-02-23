@@ -10,7 +10,7 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  background: ${colors.primary};
+  background: ${colors.white};
 
   @media (min-width: 768px) {
     flex-direction: row;

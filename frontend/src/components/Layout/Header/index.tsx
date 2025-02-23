@@ -1,12 +1,15 @@
-import { ButtonType, HeaderProps, RouteChannel, SFC } from "../../../types";
+import { ButtonType, HeaderProps, Roles, SFC } from "../../../types";
 import { CircleButton } from "../../Inputs";
 import { ProfileOption } from "../../Surfaces";
 import { useNavigate } from "react-router-dom";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import * as S from "./Styles";
 import { AccessRight } from "../../DataDisplay";
+import { useAuth } from "../../../hooks";
+import { renderPath } from "../../../utils";
+import Logo from "../../../asset/svg/logo.svg";
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 
 export const Header: SFC<HeaderProps> = ({
   ClassName,
@@ -15,6 +18,9 @@ export const Header: SFC<HeaderProps> = ({
   IsTeller = false,
 }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+  const path = renderPath(auth?.roles ?? Roles.default);
+
   return (
     <>
       <S.Container className={ClassName}>
@@ -26,18 +32,16 @@ export const Header: SFC<HeaderProps> = ({
                 IsNotification={false}
                 Icon={<MenuIcon className="text-primary" />}
                 Type={ButtonType.button}
-                Title="Menur"
+                Title="Menu"
               />
             </AccessRight>
             <S.Image
               className=""
-              src={
-                "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-              }
-              onClick={() => navigate(RouteChannel.DASHBOARD)}
+              src={Logo}
+              alt="himsog-logo"
+              onClick={() => navigate(path)}
             />
           </S.MobileMenu>
-
           <S.DesktopMenu $IsTeller={IsTeller}>
             <S.DesktopContent>
               <CircleButton
@@ -47,33 +51,22 @@ export const Header: SFC<HeaderProps> = ({
                 Type={ButtonType.button}
                 Title="Menu"
               />
-
-              {/*<S.SearchCon>
-                <S.TextField
-                  label=""
-                  id="Search"
-                  size="small"
-                  name="filter"
-                  placeholder={"Search"}
-                  disabled
-                />
-              </S.SearchCon>*/}
             </S.DesktopContent>
           </S.DesktopMenu>
         </S.LeftContent>
         <S.RightContent>
           <CircleButton
-            OnClick={() => {}}
+            OnClick={() => navigate(`${path}/messenger/${0}`)}
             IsNotification={false}
-            Icon={<SearchIcon className="text-primary" />}
+            Title="Messenger"
+            Icon={<MessageOutlinedIcon className="text-primary" />}
             Type={ButtonType.button}
-            ClassName="block md:hidden"
           />
           <CircleButton
-            OnClick={() => navigate(RouteChannel.NOTIFICATIONS)}
+            OnClick={() => navigate(`${path}/notifications`)}
             IsNotification={false}
             Title="Notifications"
-            Icon={<NotificationsIcon className="text-primary" />}
+            Icon={<NotificationsNoneOutlinedIcon className="text-primary" />}
             Type={ButtonType.button}
           />
           <ProfileOption />

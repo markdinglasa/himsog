@@ -12,15 +12,15 @@ import {
 } from "../../types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
-import { cn } from "../../utils";
+import { cn, renderPath } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Logo from "../../asset/svg/logo.svg";
+import GoogleLogo from "../../asset/images/google-logo.png";
 
 export const PageLogin: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -28,7 +28,10 @@ export const PageLogin: SFC = ({ ClassName }) => {
   const { auth, setAuth } = useAuth();
 
   useEffect(() => {
-    if (auth?.user) navigate(RouteChannel.DASHBOARD);
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
   }, [auth]);
 
   const InitialValues: LoginTable = {
@@ -55,7 +58,8 @@ export const PageLogin: SFC = ({ ClassName }) => {
           accessToken,
           refreshToken,
         });
-        navigate(RouteChannel.DASHBOARD, { replace: true });
+        const path = renderPath(roles);
+        navigate(path, { replace: true });
       } else setErrorMessage(Error.m00019);
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message || Error.m00019);
@@ -169,7 +173,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
               </S.Divider>
               <S.Divider className="w-full ">
                 <CustomButton
-                  leftIcon={<GoogleIcon className="text-primary" />}
+                  leftIcon={<S.Image src={GoogleLogo} className="w-6 h-6" />}
                   text="Continue with Google"
                   ClassName="w-full border"
                   color={ButtonColor.default}

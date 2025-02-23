@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import * as S from "./Styles";
-import { RouteChannel, SFC } from "../../../../types";
+import { Roles, SFC } from "../../../../types";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useGetUser, useSignOut } from "../../../../hooks";
 import { Avatar, Tooltip } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
-import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 
 import { colors } from "../../../../styles";
+import { renderPath } from "../../../../utils";
 
 export const ProfileOption: SFC = () => {
   const [activeDropdown, setActiveDropdown] = useState<null | string>(null);
@@ -18,7 +18,7 @@ export const ProfileOption: SFC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { auth } = useAuth();
   const { records: user } = useGetUser(auth?.user ?? 0);
-
+  const path = renderPath(auth?.roles ?? Roles.default);
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -36,7 +36,7 @@ export const ProfileOption: SFC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [activeDropdown]);
-
+  const Fullname = `${user?.Firstname ?? "NA"} ${user?.Lastname ?? "NA"}`;
   const { reSignOut } = useSignOut();
   return (
     <div className="relative inline-block" ref={dropdownRef}>
@@ -60,16 +60,12 @@ export const ProfileOption: SFC = () => {
             className=" block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-center flex"
             onClick={() => {
               setActiveDropdown(null);
-              navigate(
-                `${RouteChannel.PROFIFLE.slice(0, RouteChannel.PROFIFLE.length - 3)}${user.Id ?? 0}`,
-              );
+              navigate(`${path}/profile/${user.Id ?? 0}`);
             }}
           >
             <div className="w-full flex flex-col items-center">
-              <span className="font-bold font-sans pt-2">
-                {user?.Firstname ?? "NA"}
-              </span>
-              <span className="font-sans text-slate-500">
+              <span className="font-bold pt-2">{Fullname ?? "NA"}</span>
+              <span className="text-slate-500 uppercase text-sm">
                 {user?.Role ?? "NA"}
               </span>
             </div>
@@ -79,7 +75,7 @@ export const ProfileOption: SFC = () => {
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={() => {
               setActiveDropdown(null);
-              navigate(RouteChannel.SETTINGS);
+              navigate(`${path}/settings`);
             }}
           >
             <SettingsOutlinedIcon className="text-primary" />
@@ -89,17 +85,7 @@ export const ProfileOption: SFC = () => {
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={() => {
               setActiveDropdown(null);
-              navigate(RouteChannel.UTILITY);
-            }}
-          >
-            <BuildOutlinedIcon className="text-primary" />
-            <span className="ml-2">Utilities</span>
-          </S.DropdownItem>
-          <S.DropdownItem
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
-            onClick={() => {
-              setActiveDropdown(null);
-              navigate(RouteChannel.PRIVACY_POLICY);
+              navigate(`${path}/privacy-policy`);
             }}
           >
             <HttpsOutlinedIcon className="text-primary" />
@@ -109,7 +95,7 @@ export const ProfileOption: SFC = () => {
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={() => {
               setActiveDropdown(null);
-              navigate(RouteChannel.TERMS_AND_CONDITIONS);
+              navigate(`${path}/terms-and-conditions`);
             }}
           >
             <BookOutlinedIcon className="text-primary" />

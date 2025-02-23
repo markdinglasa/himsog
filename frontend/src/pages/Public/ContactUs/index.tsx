@@ -1,14 +1,25 @@
-import { SFC } from "../../../types";
+import { Roles, SFC } from "../../../types";
 import * as S from "../../../styles";
-import { cn } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
 import { ContactUsForm } from "../../../components";
+import { useAuth } from "../../../hooks";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const PublicContactUsPage: SFC = ({ ClassName }) => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
+  }, [auth]);
   return (
     <>
       <S.Container
         className={cn(
-          "h-full md:h-[calc(100vh-200px)] flex flex-col items-center justify-center",
+          "h-full flex flex-col items-center justify-center",
           ClassName,
         )}
       >

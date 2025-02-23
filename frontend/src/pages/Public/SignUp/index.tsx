@@ -7,6 +7,7 @@ import {
   CivilStatus,
   InputType,
   LoginTable,
+  Roles,
   RouteChannel,
   SFC,
   ToastType,
@@ -15,23 +16,26 @@ import {
 } from "../../../types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import GoogleIcon from "@mui/icons-material/Google";
+import GoogleLogo from "../../../asset/images/google-logo.png";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../../shared";
 import { useAuth } from "../../../hooks";
 import * as S from "../../../styles";
 
 import Logo from "../../../asset/svg/logo.svg";
-import { cn, displayToast } from "../../../utils";
+import { cn, displayToast, renderPath } from "../../../utils";
 import { registerValidator } from "../../../validators/";
+import { CivilStatusOptions } from "../../../shared/data/options";
 
 export const PublicSignUpPage: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
   const { auth } = useAuth();
-
   useEffect(() => {
-    if (auth?.user) navigate(RouteChannel.DASHBOARD);
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
   }, [auth]);
 
   const InitialValues: UserTable = {
@@ -46,13 +50,6 @@ export const PublicSignUpPage: SFC = ({ ClassName }) => {
     ProfilePhoto: null,
     IsSuspended: false,
   };
-  const CivilStatusOptions = [
-    { Id: CivilStatus.SINGLE, label: CivilStatus.SINGLE },
-    { Id: CivilStatus.MARRIED, label: CivilStatus.MARRIED },
-    { Id: CivilStatus.DIVORCED, label: CivilStatus.DIVORCED },
-    { Id: CivilStatus.WIDOWED, label: CivilStatus.WIDOWED },
-    { Id: CivilStatus.SEPARETED, label: CivilStatus.SEPARETED },
-  ];
 
   const handleSubmit = async (values: loginFormValues): Promise<void> => {
     const data: LoginTable = { ...values };
@@ -250,7 +247,7 @@ export const PublicSignUpPage: SFC = ({ ClassName }) => {
               </S.Divider>
               <S.Divider className="w-full ">
                 <CustomButton
-                  leftIcon={<GoogleIcon className="text-primary" />}
+                  leftIcon={<S.Image src={GoogleLogo} className="w-6 h-6" />}
                   text="Continue with Google"
                   ClassName="w-full border"
                   color={ButtonColor.default}

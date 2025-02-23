@@ -1,8 +1,19 @@
-import { SFC } from "../../../types";
+import { Roles, SFC } from "../../../types";
 import * as S from "../../../styles";
-import { cn } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
+import { useAuth } from "../../../hooks";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const PublicAboutUsPage: SFC = ({ ClassName }) => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
+  }, [auth]);
   return (
     <>
       <S.Container

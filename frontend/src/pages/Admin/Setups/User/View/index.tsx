@@ -16,14 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import { cn } from "../../../../../utils";
 import AddIcon from "@mui/icons-material/Add";
-import { useGetAllUser } from "../../../../../hooks";
 
-export const UserViewPage: SFC = ({ ClassName }) => {
+export const AdminUserViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
-    { Text: "Dashboard", OnClick: () => navigate(RouteChannel.DASHBOARD) },
+    {
+      Text: "Dashboard",
+      OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
+    },
   ];
-  const { records, loading, refetch } = useGetAllUser();
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -31,8 +33,8 @@ export const UserViewPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Users" />
           <S.Actions>
             <CustomButton
-              icon={<AddIcon className="md:text-white text-primary" />}
-              onClick={() => navigate(RouteChannel.USER_NEW)}
+              leftIcon={<AddIcon className="md:text-white text-primary" />}
+              onClick={() => navigate(RouteChannel.ADMIN_USER_NEW)}
               text="New"
               type={ButtonType.button}
             />
@@ -42,12 +44,12 @@ export const UserViewPage: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Users"
-              Rows={records}
+              Rows={[]}
               HeadCells={userHC as HeadCell<unknown>[]}
-              IsLoading={loading}
-              OnRecordDelete={() => refetch()}
-              RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
-              DetailsRoute={RouteChannel.USER_DETAILS}
+              IsLoading={false}
+              OnRecordDelete={() => {}}
+              //RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
+              DetailsRoute={RouteChannel.ADMIN_USER_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
             />
           </Suspense>

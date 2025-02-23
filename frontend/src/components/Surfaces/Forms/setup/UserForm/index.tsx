@@ -1,10 +1,12 @@
 import {
   ButtonColor,
   ButtonType,
+  CivilStatus,
   FormProps,
   InputType,
   SFC,
   ToastType,
+  UserRole,
   UserTable,
 } from "../../../../../types";
 import * as S from "../../../../../styles";
@@ -13,11 +15,12 @@ import {
   AutoComplete,
   CircleButton,
   CustomButton,
+  CustomInput,
   Input,
 } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
 import { userValidator } from "../../../../../validators";
-import { cn, displayToast } from "../../../../../utils";
+import { IsBoolean, cn, displayToast } from "../../../../../utils";
 import {
   useAddUser,
   useAuth,
@@ -29,6 +32,7 @@ import { Skeleton } from "../../../../Feedback";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
+import { CivilStatusOptions } from "../../../../../shared/data/options";
 
 export const UserForm: SFC<FormProps> = ({
   ClassName,
@@ -46,12 +50,17 @@ export const UserForm: SFC<FormProps> = ({
   const InitialValues: UserTable = {
     UpdatedBy: IsDetails ? (auth?.user ?? 0) : null,
     CreatedBy: IsDetails ? records?.CreatedBy : (auth?.user ?? 0),
-    Name: records?.Name || "",
-    Username: records?.Username || "",
     Email: records?.Email || "",
     Password: "",
-    RoleId: records?.RoleId || 0,
-    CardNumber: records?.CardNumber || "",
+    Firstname: records?.Firstname || "",
+    Middlename: null,
+    Lastname: records?.Lastname || "",
+    ContactNumber: records?.ContactNumber || "",
+    Role: records?.Role || UserRole.DEFAULT,
+    CivilStatus: records?.CivilStatus || CivilStatus.DEFAULT,
+    ProfilePhoto: records?.ProfilePhoto || null,
+    IsSuspended: IsBoolean(records?.IsSuspended) || false,
+    BirthDate: records?.BirthDate || "",
   };
 
   const handleSubmit = async (values: UserTable) => {
@@ -96,86 +105,107 @@ export const UserForm: SFC<FormProps> = ({
                   values,
                   resetForm,
                   setFieldValue,
+                  handleBlur,
                   setTouched,
                 }) => (
                   <Form>
-                    <S.Divider className="w-full flex md:flex-row flex-col gap-2">
-                      <S.Divider className="w-full md:w-1/2">
-                        <Input
-                          placeholder="e.g juandelacruz09"
-                          label="Username"
-                          name="Username"
+                    <S.Divider className="w-full flex md:flex-row flex-col md:gap-2">
+                      <S.Divider className="w-full py-1">
+                        <CustomInput
                           errors={errors}
-                          touched={touched}
-                          value={values.Username}
-                          onChange={handleChange}
                           disabled={IsEdit}
                           type={InputType.text}
+                          value={values.Firstname}
+                          label="First Name"
+                          placeholder="First Name"
+                          name="Firstname"
+                          touched={touched}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full  md:w-1/2">
-                        <Input
-                          placeholder="e.g juandelacruz09@gmail.com"
-                          label="Email"
-                          name="Email"
+                      <S.Divider className="w-full py-1">
+                        <CustomInput
                           errors={errors}
-                          touched={touched}
-                          value={values.Email}
-                          onChange={handleChange}
                           disabled={IsEdit}
-                          type={InputType.email}
+                          type={InputType.text}
+                          label="Last Name"
+                          placeholder="Last Name"
+                          name="Lastname"
+                          value={values.Lastname}
+                          touched={touched}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
                     </S.Divider>
-                    <S.Divider className="w-full mb-2">
-                      <Input
-                        placeholder="e.g Juan Dela Cruz"
-                        label="Name"
-                        name="Name"
+                    <S.Divider className="w-full pt-1">
+                      <CustomInput
                         errors={errors}
+                        disabled={IsEdit}
+                        type={InputType.date}
+                        label="Birth Date"
+                        placeholder="BirthDate"
+                        name="BirthDate"
+                        value={values.BirthDate}
                         touched={touched}
-                        value={values.Name}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </S.Divider>
+                    <S.Divider className="w-full pb-1">
+                      <AutoComplete
+                        Label="Civil Status"
+                        IsEdit={IsEdit}
+                        Values={values.CivilStatus}
+                        Options={CivilStatusOptions}
+                        Name="CivilStatus"
+                        OptionName="label"
+                        Placeholder="Civil Status"
+                        OnChange={(_: any, value: any) => {
+                          setFieldValue("CivilStatus", value?.Id || "");
+                          console.log("CivilStatus:", value?.Id);
+                          setTouched({ CivilStatus: true });
+                        }}
+                        Errors={errors}
+                        Touched={touched}
+                      />
+                    </S.Divider>
+                    <S.Divider className="w-full py-1">
+                      <CustomInput
+                        errors={errors}
                         disabled={IsEdit}
                         type={InputType.text}
+                        label="Mobile Number"
+                        placeholder="+63 9XX-XXX-XXXX"
+                        name="ContactNumber"
+                        value={values.ContactNumber}
+                        touched={touched}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </S.Divider>
+                    <S.Divider className="w-full py-1">
+                      <CustomInput
+                        errors={errors}
+                        disabled={IsEdit}
+                        type={InputType.email}
+                        label="Email"
+                        placeholder="Email"
+                        name="Email"
+                        value={values.Email}
+                        touched={touched}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                       />
                     </S.Divider>
                     <S.Divider className="w-full flex md:flex-row flex-col gap-2">
-                      <S.Divider className="w-full md:w-1/2">
-                        <AutoComplete
-                          Placeholder="Select Role"
-                          Options={[]}
-                          Name="RoleId"
-                          OptionName="Name"
-                          Label="Role"
-                          IsEdit={IsEdit}
-                          Values={values.RoleId}
-                          Errors={errors}
-                          Touched={touched}
-                          OnChange={(_: any, value: { Id: any }) => {
-                            setFieldValue("RoleId", value?.Id || 0);
-                            setTouched({ RoleId: true });
-                          }}
-                        />
-                      </S.Divider>
-                      <S.Divider className="w-full  md:w-1/2">
-                        <Input
-                          placeholder="Card Number"
-                          label="Card Number"
-                          name="CardNumber"
-                          errors={errors}
-                          touched={touched}
-                          value={values.CardNumber}
-                          onChange={handleChange}
-                          disabled={IsEdit}
-                          type={InputType.password}
-                        />
-                      </S.Divider>
+                      <S.Divider className="w-full md:w-1/2"></S.Divider>
                     </S.Divider>
                     {!IsEdit && (
                       <S.Divider className="w-full flex justify-end pt-2 pb-1 items-center border-t gap-2 mt-2">
                         <CustomButton
-                          icon={<CancelIcon className="text-primary" />}
+                          leftIcon={<CancelIcon className="text-primary" />}
                           text="Cancel"
                           onClick={() => {
                             if (IsDetails) SetIsEdit(true);
@@ -185,7 +215,7 @@ export const UserForm: SFC<FormProps> = ({
                           type={ButtonType.button}
                         />
                         <CustomButton
-                          icon={
+                          leftIcon={
                             <SaveIcon className="text-primary md:text-white" />
                           }
                           disabled={!dirty || !isValid || isSubmitting}

@@ -159,7 +159,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
   );
 
   const removeRecord = useCallback(async () => {
-    if (selected !== null && RemoveApiRoute !== "NO_ACCESS_RIGHT") {
+    if (selected !== null && RemoveApiRoute !== "/no-access-right") {
       try {
         const response = await axios.delete(
           `${RemoveApiRoute.slice(0, RemoveApiRoute.length - 3)}${selected}`,
@@ -194,8 +194,16 @@ export const EnhancedTable = <T extends Record<string, any>>({
         {IsTableTool && (
           <TableToolbar Title={Title}>
             <TextField
-              sx={{ width: { xs: "100%", sm: "100%", md: "400px" } }}
-              className="bg-slate-100"
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "100%",
+                  md: "400px",
+                },
+                borderRadius: 0,
+                border: "none",
+              }}
+              className="bg-inherit rounded-none"
               id="Search"
               size="small"
               name="filter"

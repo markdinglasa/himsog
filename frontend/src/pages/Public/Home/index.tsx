@@ -1,11 +1,20 @@
-import { RouteChannel, SFC } from "../../../types";
+import { Roles, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles";
-import { cn } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
 import { CustomButton } from "../../../components";
 import EastIcon from "@mui/icons-material/East";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks";
+import { useEffect } from "react";
 export const PublicHomePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+  useEffect(() => {
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
+  }, [auth]);
   return (
     <>
       <S.Container

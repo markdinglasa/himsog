@@ -1,21 +1,18 @@
-import { GenericFunction, RouteChannel, SFC } from "../../../types";
+import { RouteChannel, SFC, SideNavProps } from "../../../types";
 import { Menu } from "../../Navigation";
 import {
   mdiAccountOutline,
-  mdiCartOutline,
   mdiChartMultiple,
   mdiViewDashboardOutline,
   mdiScale,
+  mdiBookOpenVariantOutline,
+  mdiAccountCreditCardOutline,
+  mdiCommentQuoteOutline,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
 import Logo from "../../../asset/svg/logo.svg";
 import { cn } from "../../../utils";
-
-interface SideNavProps {
-  Toggle: GenericFunction;
-  Collapse: boolean;
-}
 
 export const SideNav: SFC<SideNavProps> = ({
   ClassName,
@@ -34,7 +31,7 @@ export const SideNav: SFC<SideNavProps> = ({
             src={Logo}
             alt="himsog-logo"
             className="h-12"
-            onClick={() => navigate(RouteChannel.DASHBOARD)}
+            onClick={() => navigate(RouteChannel.ADMIN_DASHBOARD)}
           />
         </S.LogoCon>
         <S.MenuContainer className="overflow-auto h-full">
@@ -45,7 +42,7 @@ export const SideNav: SFC<SideNavProps> = ({
               isCollapse={Collapse}
               onClick={() => {
                 Toggle();
-                navigate(RouteChannel.DASHBOARD);
+                navigate(RouteChannel.ADMIN_DASHBOARD);
               }}
             />
             {!Collapse ? <S.Category>setups</S.Category> : <S.HR />}
@@ -57,7 +54,17 @@ export const SideNav: SFC<SideNavProps> = ({
               label="User"
               onClick={() => {
                 Toggle();
-                navigate(RouteChannel.USER);
+                navigate(RouteChannel.ADMIN_USER);
+              }}
+            />
+            <Menu
+              icon={mdiBookOpenVariantOutline}
+              isCollapse={Collapse}
+              isChild={true}
+              label="Ingridient"
+              onClick={() => {
+                Toggle();
+                navigate(RouteChannel.ADMIN_INGREDIENT);
               }}
             />
             <Menu
@@ -67,19 +74,28 @@ export const SideNav: SFC<SideNavProps> = ({
               label="Unit"
               onClick={() => {
                 Toggle();
-                navigate(RouteChannel.UNIT);
+                navigate(RouteChannel.ADMIN_UNIT);
+              }}
+            />
+            <Menu
+              icon={mdiAccountCreditCardOutline}
+              isCollapse={Collapse}
+              label="Subscription"
+              onClick={() => {
+                Toggle();
+                navigate(RouteChannel.ADMIN_SUBSCRIPTION);
               }}
             />
             {!Collapse ? <S.Category>transactions</S.Category> : <S.HR />}
           </S.MenuContent>
           <S.MenuContent $isCollapse={Collapse}>
             <Menu
-              icon={mdiCartOutline}
+              icon={mdiCommentQuoteOutline}
               isCollapse={Collapse}
-              label="Appointment"
+              label="Feedback"
               onClick={() => {
                 Toggle();
-                //navigate(RouteChannel.CART);
+                navigate(RouteChannel.ADMIN_FEEDBACK);
               }}
             />
             {!Collapse ? <S.Category>reports</S.Category> : <S.HR />}

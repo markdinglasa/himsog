@@ -26,8 +26,8 @@ export const CircleButton: SFC<CircleButtonProps> = ({
         return { bg: colors.white, hover: colors.palette.neutral["100"] };
       default:
         return {
-          bg: colors.palette.neutral["200"],
-          hover: colors.palette.neutral["300"],
+          bg: colors.palette.neutral["050"],
+          hover: colors.palette.neutral["075"],
         };
     }
   };

@@ -17,10 +17,10 @@ export const ProfileCard: SFC<ProfileCardProps> = ({
 }) => {
   return (
     <>
-      <S.Container className={cn("w-full bg-white rounded-md p-2", ClassName)}>
+      <S.Container className={cn("w-full bg-white p-2 rounded-sm", ClassName)}>
         <S.Content className="w-full flex items-center justify-start gap-2 flex-row">
           <S.Content
-            className={`relative inline-block rounded-md overflow-hidden w-[100px] h-[80px] border-primary`}
+            className={`relative inline-block overflow-hidden w-[100px] h-[80px] border-primary`}
           >
             <S.Image
               alt="Default Image"
@@ -32,7 +32,9 @@ export const ProfileCard: SFC<ProfileCardProps> = ({
             <S.Span className="text-primary text-xl font-bold uppercase">
               {Name}
             </S.Span>
-            <S.Span className="text-zinc-800">{RoleName}</S.Span>
+            <S.Span className="text-zinc-800 uppercase text-sm">
+              {RoleName}
+            </S.Span>
           </S.Divider>
         </S.Content>
       </S.Container>
