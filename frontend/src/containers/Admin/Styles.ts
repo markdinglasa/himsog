@@ -23,14 +23,10 @@ export const Nav = styled.nav<{
 }>`
   transition: width 0.3s ease-in-out;
   width: 100%;
-
-  padding: 8px;
-
   @media (min-width: 768px) {
     display: block;
     width: ${({ $isCollapse }) => ($isCollapse ? "75px" : "16.6667%")};
   }
-
   display: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "block" : "none")};
 `;
 
@@ -42,7 +38,7 @@ export const Main = styled.main<{ $isCollapse: boolean }>`
     margin-left 0.3s ease-in-out,
     width 0.3s ease-in-out;
   padding: 8px;
-  background: rgb(226, 232, 240);
+  background: ${colors.palette.neutral["100"]};
   position: relative;
   height: 100vh;
   overflow: auto;

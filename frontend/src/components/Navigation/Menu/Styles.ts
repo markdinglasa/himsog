@@ -2,11 +2,8 @@ import styled from "styled-components";
 import UIcon from "@mdi/react";
 import { colors } from "../../../styles";
 
-export const Icon = styled(UIcon)`
-  color: ${colors.white};
-`;
+export const Icon = styled(UIcon)``;
 export const Container = styled.div<{ $isParent: boolean }>`
-  border-radius: 8px;
   transition: 0.3s ease-in-out;
   cursor: pointer;
   width: 100%;
@@ -16,6 +13,7 @@ export const Container = styled.div<{ $isParent: boolean }>`
       background:none;
     `
       : `&:hover { 
+            color: #fff;
         background: ${colors.primaryHover};
       }`};
 `;
@@ -40,6 +38,13 @@ export const MenuContent = styled.div`
   display: flex;
   align-items: center;
   padding: 8px;
+  &:hover {
+    color: white;
+
+    & > * {
+      color: white;
+    }
+  }
 `;
 export const Text = styled.div`
   display: flex;
@@ -49,7 +54,7 @@ export const Text = styled.div`
   justify-content: flex-end;
   font-weight: semibold;
   font-size: 16px;
-  color: ${colors.white};
+  color: ${colors.primary};
   margin-left: 8px;
 `;
 export const Label = styled.label`
@@ -70,20 +75,33 @@ export const ChildContent = styled.div<{ $isDisplay: boolean }>`
       : `
       max-height:0px;
     `};
+  &:hover {
+    color: #fff;
+  }
 `;
+
 export const ChildMenu = styled.div`
   display: flex;
   align-items: center;
   padding: 8px;
+
+  &:hover {
+    color: white;
+
+    & > * {
+      color: white;
+    }
+  }
 `;
 export const ChildLabel = styled.label`
   margin-left: 8px;
   font-weight: semibold;
   font-size: 16px;
-  color: ${colors.white};
+  color: ${colors.primary};
   cursor: pointer;
   width: 100%;
 `;
+
 export const ChilCircleButton = styled.div`
   gap: 8px;
 `;

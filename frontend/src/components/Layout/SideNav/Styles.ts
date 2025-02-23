@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../styles";
 
 export const Container = styled.div<{ $isCollapse: boolean }>`
   height: 100vh;
@@ -50,7 +51,7 @@ export const MenuContent = styled.div<{ $isCollapse: boolean }>`
 export const Category = styled.span`
   padding: 8px;
   text-transform: uppercase;
-  color: rgb(226 232 240);
+  color: ${colors.palette.neutral["400"]};
   font-size: 11px !important;
 `;
 export const HR = styled.hr`

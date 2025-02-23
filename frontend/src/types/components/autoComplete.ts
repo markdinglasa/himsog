@@ -10,4 +10,5 @@ export interface AutoCompleteProps {
   Errors?: { [field: string]: string };
   Disabled?: boolean;
   OptionName?: string;
+  OnBlur?: any;
 }

@@ -10,4 +10,3 @@ export * from "./number";
 export * from "./keyboardEvent";
 export * from "./accessRight";
 export * from "./print";
-export * from "./calc";

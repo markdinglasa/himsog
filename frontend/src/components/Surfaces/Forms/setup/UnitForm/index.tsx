@@ -112,7 +112,7 @@ export const UnitForm: SFC<FormProps> = ({
                     {!IsEdit && (
                       <S.Divider className="w-full flex justify-end pt-2 pb-1 items-center border-t gap-2 mt-2">
                         <CustomButton
-                          icon={<CancelIcon className="text-primary" />}
+                          leftIcon={<CancelIcon className="text-primary" />}
                           text="Cancel"
                           onClick={() => {
                             if (IsDetails) SetIsEdit(true);
@@ -122,7 +122,7 @@ export const UnitForm: SFC<FormProps> = ({
                           type={ButtonType.button}
                         />
                         <CustomButton
-                          icon={
+                          leftIcon={
                             <SaveIcon className="text-primary md:text-white" />
                           }
                           disabled={!dirty || !isValid || isSubmitting}

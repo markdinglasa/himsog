@@ -1,16 +1,24 @@
 export enum RouteChannel {
+  //PUBLIC
   INDEX = "/",
   R403 = "/unauthorized",
   R404 = "*",
   FORGOT_PASSWORD = "/forgot-password",
+  SIGN_IN = "/sign-in",
   SIGN_UP = "/sign-up",
+  ABOUT_US = "/about-us",
+  CONTACT_US = "/contact-us",
+  EVENT = "/events",
+  ARTICLE = "/articles",
+  FAQ = "/frequent-ask-questions",
+  TERMS_AND_CONDITIONS = "/terms-and-conditions",
+  PRIVACY_POLICY = "/privacy-policy",
+
+  // SHARED PAGES
   DASHBOARD = "/a",
-  AUDIT_TRAIL = "/a/audit-trail",
   NOTIFICATIONS = "/a/notifications",
   PROFIFLE = "/a/profile/:Id",
   UTILITY = "/a/utility/",
-  TERMS_AND_CONDITIONS = "/a/terms-and-conditions",
-  PRIVACY_POLICY = "/a/privacy-policy",
   NO_ACCESS_RIGHT = "NO_ACCESS_RIGHT",
   SETTINGS = "/a/settings",
 

@@ -36,7 +36,7 @@ export const Menu: SFC<MenuProps> = ({
             <>
               <S.Menu $isDisplay={isDisplay}>
                 <S.MenuContent>
-                  <S.Icon path={icon} size="30px" />
+                  <S.Icon path={icon} size="30px" className="text-primary" />
                   <S.Text>
                     <S.Label>{label}</S.Label>
                     {!isDisplay ? (
@@ -51,7 +51,7 @@ export const Menu: SFC<MenuProps> = ({
             </>
           ) : (
             <S.ChildMenu>
-              <S.Icon path={icon} size="30px" />
+              <S.Icon path={icon} size="30px" className="text-primary" />
               <S.ChildLabel>{label}</S.ChildLabel>
             </S.ChildMenu>
           )}

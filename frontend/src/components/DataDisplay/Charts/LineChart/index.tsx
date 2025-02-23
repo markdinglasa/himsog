@@ -84,9 +84,7 @@ export const LineChart: SFC = ({ ClassName }) => {
 
   return (
     <>
-      <S.Container
-        className={twMerge("bg-white rounded-lg p-2 h-[400px] ", ClassName)}
-      >
+      <S.Container className={twMerge("bg-white p-2 h-[400px] ", ClassName)}>
         <S.Content
           id="line-chart"
           style={{ width: "100%", height: "400px" }}

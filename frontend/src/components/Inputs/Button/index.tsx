@@ -9,7 +9,8 @@ export interface ButtonProps {
   color?: string;
   dirty?: boolean;
   disabled?: boolean;
-  icon?: ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   onClick?(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
   text: string;
   type?: ButtonType;
@@ -22,7 +23,8 @@ export const CustomButton: SFC<ButtonProps> = ({
   color = "primary",
   dirty = false,
   disabled = false,
-  icon,
+  leftIcon,
+  rightIcon,
   onClick,
   text,
   type = ButtonType.button, // Default button type
@@ -66,7 +68,8 @@ export const CustomButton: SFC<ButtonProps> = ({
       <div className={morph ? "md:block hidden" : ""}>
         <Button
           title={text}
-          startIcon={icon}
+          startIcon={leftIcon}
+          endIcon={rightIcon}
           type={type}
           onClick={onClick}
           variant="contained"
@@ -97,7 +100,7 @@ export const CustomButton: SFC<ButtonProps> = ({
           <CircleButton
             OnClick={onClick}
             IsNotification={false}
-            Icon={icon}
+            Icon={leftIcon ?? rightIcon}
             Type={type}
             Title={text}
             ClassName={disabled ? "opacity-30" : "block"}

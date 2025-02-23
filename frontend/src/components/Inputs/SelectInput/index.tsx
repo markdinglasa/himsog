@@ -23,7 +23,9 @@ export const SelectInput: SFC<SelectInputProps> = ({
   return (
     <>
       <S.Container className={ClassName}>
-        <S.Label htmlFor={name}>{label}</S.Label>
+        <S.Label htmlFor={name} className="ml-3 text-zinc-700">
+          {label}
+        </S.Label>
         <S.Content>
           <S.Field name={name} className={twMerge("border", ClassName)}>
             {({ field, form }: any) => (

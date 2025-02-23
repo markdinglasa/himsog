@@ -20,6 +20,7 @@ import { loginValidator } from "../../validators";
 import * as S from "../../styles";
 import { cn } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import Logo from "../../asset/svg/logo.svg";
 
 export const PageLogin: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -64,13 +65,13 @@ export const PageLogin: SFC = ({ ClassName }) => {
   return (
     <S.Container
       className={cn(
-        `w-screen bg-slate-100 h-screen items-center flex justify-center`,
+        `w-full bg-slate-100 h-[calc(100vh-200px)] items-center flex justify-center`,
         ClassName,
       )}
     >
-      <S.Content className="flex justify-center items-center  w-full">
-        <S.Divider className="flex  w-full md:w-[90vw] p-3 gap-5 justify-center items-center">
-          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-white">
+      <S.Content className="flex justify-center items-center w-full ">
+        <S.Divider className="flex  w-full  justify-center items-center ">
+          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-slate-50">
             {errorMessage && (
               <S.Divider className="text-center w-full mb-2">
                 <S.Span className="p-3 text-red-500 text-center text-[14px]">
@@ -81,7 +82,10 @@ export const PageLogin: SFC = ({ ClassName }) => {
 
             <S.Divider className="w-full">
               <S.Divider className="w-full flex items-center justify-center mb-2">
-                <S.Image src="" className="w-full h-12" alt="himsog-logo" />
+                <S.Image src={Logo} className="w-full h-12" alt="himsog-logo" />
+              </S.Divider>
+              <S.Divider className="w-full text-center mb-2 font-semibold">
+                Sign in your account
               </S.Divider>
               <S.Divider className="mb-5">
                 <Formik
@@ -131,6 +135,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
                           label="Remember me"
                           sx={{
                             "& .MuiFormControlLabel-label": {
+                              fontFamily: "Montserrat",
                               fontSize: "14px",
                               color: "#3f3f3f",
                               alignItems: "center",
@@ -139,7 +144,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
                           }}
                         />
                         <span
-                          className="text-[14px] text-slate-700 cursor-pointer"
+                          className="text-[14px] text-primary cursor-pointer "
                           onClick={() => navigate(RouteChannel.FORGOT_PASSWORD)}
                         >
                           Forgot Password?
@@ -164,7 +169,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
               </S.Divider>
               <S.Divider className="w-full ">
                 <CustomButton
-                  icon={<GoogleIcon className="text-primary" />}
+                  leftIcon={<GoogleIcon className="text-primary" />}
                   text="Continue with Google"
                   ClassName="w-full border"
                   color={ButtonColor.default}

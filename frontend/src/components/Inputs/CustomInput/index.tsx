@@ -10,6 +10,7 @@ import { InputProps, InputType, SFC } from "../../../types";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import { useToggle } from "react-use";
+import { cn } from "../../../utils";
 
 export const CustomInput: SFC<InputProps> = ({
   ClassName,
@@ -39,14 +40,14 @@ export const CustomInput: SFC<InputProps> = ({
         <InputLabel
           shrink
           htmlFor={`outlined-adornment-${name}`}
-          className="-mt-2"
+          className="-mt-2 font-(family-name:Montserrat)"
           color={errors && errors[name] ? "error" : "success"}
         >
           {label} {isRequired && <span className="text-red-500">*</span>}
         </InputLabel>
 
         <OutlinedInput
-          className={ClassName}
+          className={cn("", ClassName)}
           name={name}
           placeholder={placeholder}
           disabled={disabled}
@@ -55,7 +56,10 @@ export const CustomInput: SFC<InputProps> = ({
           onChange={onChange}
           onClick={onClick}
           defaultValue={value}
-          sx={{ borderRadius: 0, width: "100%" }}
+          sx={{
+            borderRadius: 0,
+            width: "100%",
+          }}
           size="small"
           id={`outlined-adornment-${name}`}
           type={isPassword ? InputType.text : type}

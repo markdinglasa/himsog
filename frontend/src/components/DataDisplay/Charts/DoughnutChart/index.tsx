@@ -68,9 +68,7 @@ export const DoughnutChart: SFC = ({ ClassName }) => {
   }, [productData]);
 
   return (
-    <S.Container
-      className={twMerge("bg-white rounded-lg p-2 h-[400px]", ClassName)}
-    >
+    <S.Container className={twMerge("bg-white p-2 h-[400px]", ClassName)}>
       <S.Content
         id="doughnut-chart"
         className="w-full h-[400px] sm:h-[300px] md:h-[400px] text-sm"

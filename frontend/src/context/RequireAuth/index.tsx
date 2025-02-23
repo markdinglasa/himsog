@@ -13,15 +13,9 @@ export const RequireAuth: SFC<RequireAuthProps> = ({ allowedRoles }) => {
   const roles = auth?.roles;
   const { reSignOut } = useSignOut();
 
-  //CHECK USER ACCOUNT BUSINESSTYPE
-  // if RETAIL, RESTUARANT, HOTEL, SERVICES
-  // Each Bussiness type has different UI/UX redirection
-  const userHasAccess = true; // for now set it as true, modify this soon
-
   const allowed = Array.isArray(roles)
     ? roles.some((role) => allowedRoles.includes(role))
     : allowedRoles.includes(roles as Roles);
-  console.log("[RequireAuth] Allowed Role:", allowed);
 
   useEffect(() => {
     const checkToken = () => {
@@ -30,7 +24,7 @@ export const RequireAuth: SFC<RequireAuthProps> = ({ allowedRoles }) => {
     checkToken();
   });
 
-  return userHasAccess ? (
+  return allowed ? (
     <Outlet />
   ) : auth?.accessToken ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

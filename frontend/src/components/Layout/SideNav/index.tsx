@@ -9,6 +9,8 @@ import {
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
+import Logo from "../../../asset/svg/logo.svg";
+import { cn } from "../../../utils";
 
 interface SideNavProps {
   Toggle: GenericFunction;
@@ -23,12 +25,15 @@ export const SideNav: SFC<SideNavProps> = ({
   const navigate = useNavigate();
   return (
     <>
-      <S.Container $isCollapse={Collapse} className={ClassName}>
-        <S.LogoCon className="mt-2 border-red">
+      <S.Container
+        $isCollapse={Collapse}
+        className={cn("bg-white p-2", ClassName)}
+      >
+        <S.LogoCon className="mt-2">
           <S.Image
-            src={
-              "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-            }
+            src={Logo}
+            alt="himsog-logo"
+            className="h-12"
             onClick={() => navigate(RouteChannel.DASHBOARD)}
           />
         </S.LogoCon>
@@ -44,26 +49,7 @@ export const SideNav: SFC<SideNavProps> = ({
               }}
             />
             {!Collapse ? <S.Category>setups</S.Category> : <S.HR />}
-            <Menu
-              icon={mdiAccountOutline}
-              isCollapse={Collapse}
-              isChild={true}
-              label="Health"
-              onClick={() => {
-                Toggle();
-                navigate(RouteChannel.HEALTH);
-              }}
-            />
-            <Menu
-              icon={mdiAccountOutline}
-              isCollapse={Collapse}
-              isChild={true}
-              label="Ingredients"
-              onClick={() => {
-                Toggle();
-                //navigate(RouteChannel.HEALTH);
-              }}
-            />
+
             <Menu
               icon={mdiAccountOutline}
               isCollapse={Collapse}

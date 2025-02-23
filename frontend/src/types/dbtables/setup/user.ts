@@ -1,5 +1,6 @@
 import { Id, Logs } from "../../utils";
 export enum CivilStatus {
+  DEFAULT = "",
   SINGLE = "single",
   MARRIED = "married",
   DIVORCED = "divorced",

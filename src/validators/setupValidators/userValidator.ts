@@ -6,6 +6,7 @@ export const userValidator = Joi.object({
   Firstname: Joi.string()
     .pattern(/^[A-Za-z\s.,-]+$/)
     .required(),
+  BirthDate: Joi.date().required(),
   Lastname: Joi.string()
     .pattern(/^[A-Za-z\s.,-]+$/)
     .required(),
