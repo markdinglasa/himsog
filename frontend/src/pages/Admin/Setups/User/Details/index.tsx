@@ -4,7 +4,6 @@ import {
   PageBreadCrumbs,
   Skeleton,
   CustomButton,
-  UserForm,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
@@ -38,11 +37,10 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent>
-          <Suspense fallback={<Skeleton />}>
-            <UserForm Title="User Details" IsDetails={true} />
-          </Suspense>
+          <Suspense fallback={<Skeleton />}></Suspense>
         </S.PageContent>
       </S.Container>
     </>
   );
 };
+export default AdminUserDetailsPage;

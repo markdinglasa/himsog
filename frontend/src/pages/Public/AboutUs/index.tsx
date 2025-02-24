@@ -5,7 +5,7 @@ import { useAuth } from "../../../hooks";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const PublicAboutUsPage: SFC = ({ ClassName }) => {
+const PublicAboutUsPage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -27,3 +27,5 @@ export const PublicAboutUsPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default PublicAboutUsPage;

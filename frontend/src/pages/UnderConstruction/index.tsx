@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
 
-export const UnderConstruction: SFC = () => {
+const UnderConstruction: SFC = () => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   return (
@@ -35,3 +35,5 @@ export const UnderConstruction: SFC = () => {
     </>
   );
 };
+
+export default UnderConstruction;

@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
 
-export const MissingPage: SFC = () => {
+const MissingPage: SFC = () => {
   const navigate = useNavigate();
   const { auth } = useAuth();
 
@@ -34,3 +34,4 @@ export const MissingPage: SFC = () => {
     </S.Container>
   );
 };
+export default MissingPage;

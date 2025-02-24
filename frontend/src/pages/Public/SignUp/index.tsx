@@ -27,7 +27,7 @@ import { cn, displayToast, renderPath } from "../../../utils";
 import { registerValidator } from "../../../validators/";
 import { CivilStatusOptions } from "../../../shared/data/options";
 
-export const PublicSignUpPage: SFC = ({ ClassName }) => {
+const PublicSignUpPage: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
   const { auth } = useAuth();
@@ -49,6 +49,7 @@ export const PublicSignUpPage: SFC = ({ ClassName }) => {
     CivilStatus: CivilStatus.DEFAULT,
     ProfilePhoto: null,
     IsSuspended: false,
+    BirthDate: "",
   };
 
   const handleSubmit = async (values: loginFormValues): Promise<void> => {
@@ -273,3 +274,5 @@ export const PublicSignUpPage: SFC = ({ ClassName }) => {
     </S.Container>
   );
 };
+
+export default PublicSignUpPage;

@@ -48,7 +48,7 @@ export const AddNewDropDown = () => {
         <S.Dropdown className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
           <S.DropdownItem
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
-            onClick={() => handleItemClick(RouteChannel.UNIT)}
+            onClick={() => handleItemClick(RouteChannel.ADMIN_UNIT_NEW)}
           >
             <AddIcon className="text-primary" /> <span>New Unit</span>
           </S.DropdownItem>

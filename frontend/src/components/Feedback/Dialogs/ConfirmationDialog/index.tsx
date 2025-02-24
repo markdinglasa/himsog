@@ -39,7 +39,7 @@ export const ConfirmationDialog: SFC<ConfirmationDialogProps> = ({
       <S.ConfirmationButtons>
         <S.CancelButtonCon>
           <CustomButton
-            icon={<CancelIcon className="text-primary" />}
+            leftIcon={<CancelIcon className="text-primary" />}
             onClick={close}
             text={"Cancel"}
             color={ButtonColor.default}
@@ -47,7 +47,7 @@ export const ConfirmationDialog: SFC<ConfirmationDialogProps> = ({
           />
         </S.CancelButtonCon>
         <CustomButton
-          icon={renderIcon()}
+          leftIcon={renderIcon()}
           onClick={confirm}
           text={renderText()}
           type={ButtonType.button}

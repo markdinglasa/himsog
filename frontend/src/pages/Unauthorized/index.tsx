@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
 
-export const UnauthorizedPage: SFC = () => {
+const UnauthorizedPage: SFC = () => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   return (
@@ -35,3 +35,5 @@ export const UnauthorizedPage: SFC = () => {
     </>
   );
 };
+
+export default UnauthorizedPage;

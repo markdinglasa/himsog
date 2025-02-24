@@ -57,3 +57,4 @@ export const AdminUnitViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default AdminUnitViewPage;

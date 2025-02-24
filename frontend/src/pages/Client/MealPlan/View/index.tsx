@@ -16,3 +16,4 @@ export const ClientMealPlanViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default ClientMealPlanViewPage;

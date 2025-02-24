@@ -16,3 +16,5 @@ export const ClientDashboardPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default ClientDashboardPage;

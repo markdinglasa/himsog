@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import * as S from "./Styles";
-import { Roles, SFC } from "../../../../types";
+import { Roles, SFC, UserInitial } from "../../../../types";
 import { useNavigate } from "react-router-dom";
-import { useAuth, useGetUser, useSignOut } from "../../../../hooks";
+import { useAuth, useSignOut } from "../../../../hooks";
 import { Avatar, Tooltip } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -17,7 +17,8 @@ export const ProfileOption: SFC = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { auth } = useAuth();
-  const { records: user } = useGetUser(auth?.user ?? 0);
+  const user = UserInitial;
+  //const { records: user } = useGetUser(auth?.user ?? 0);
   const path = renderPath(auth?.roles ?? Roles.default);
   const handleClickOutside = (event: MouseEvent) => {
     if (

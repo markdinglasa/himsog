@@ -22,7 +22,7 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import Logo from "../../asset/svg/logo.svg";
 import GoogleLogo from "../../asset/images/google-logo.png";
 
-export const PageLogin: SFC = ({ ClassName }) => {
+const PageLogin: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
@@ -199,3 +199,5 @@ export const PageLogin: SFC = ({ ClassName }) => {
     </S.Container>
   );
 };
+
+export default PageLogin;

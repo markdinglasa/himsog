@@ -16,3 +16,5 @@ export const ClientHealthViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default ClientHealthViewPage;

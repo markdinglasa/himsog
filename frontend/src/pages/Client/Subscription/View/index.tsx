@@ -16,3 +16,4 @@ export const ClientSusbcriptionViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default ClientSusbcriptionViewPage;

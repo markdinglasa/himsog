@@ -46,3 +46,4 @@ export const AdminIngredientNewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default AdminIngredientNewPage;

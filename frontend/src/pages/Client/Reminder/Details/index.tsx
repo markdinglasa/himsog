@@ -16,3 +16,5 @@ export const ClientReminderDetailsPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default ClientReminderDetailsPage;

@@ -46,3 +46,5 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default AdminSubscriptionDetailsPage;

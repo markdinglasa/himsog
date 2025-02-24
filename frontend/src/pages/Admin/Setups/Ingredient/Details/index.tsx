@@ -46,3 +46,5 @@ export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default AdminIngredientDetailsPage;

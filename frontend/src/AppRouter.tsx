@@ -6,55 +6,7 @@ import {
 import { RootLayout } from "./components";
 import { Roles, RouteChannel } from "./types";
 import { PersistContext, RequireAuth } from "./context";
-import {
-  AdminDashboardPage,
-  AdminIngredientDetailsPage,
-  AdminIngredientNewPage,
-  AdminIngredientViewPage,
-  AdminNotificationPage,
-  AdminProfilePage,
-  AdminSubscriptionDetailsPage,
-  AdminSubscriptionNewPage,
-  AdminSubscriptionViewPage,
-  AdminUnitDetailsPage,
-  AdminUnitNewPage,
-  AdminUnitViewPage,
-  AdminUserDetailsPage,
-  AdminUserNewPage,
-  AdminUserViewPage,
-  ClientAppoinmentDetailsPage,
-  ClientAppoinmentNewPage,
-  ClientAppoinmentViewPage,
-  ClientDashboardPage,
-  ClientHealthViewPage,
-  ClientIngredientDetailsPage,
-  ClientIngredientViewPage,
-  ClientMealPlanDetailsPage,
-  ClientMealPlanNewPage,
-  ClientMealPlanViewPage,
-  ClientNotificationPage,
-  ClientProfilePage,
-  ClientReminderDetailsPage,
-  ClientReminderNewPage,
-  ClientReminderViewPage,
-  ClientSusbcriptionDetailsPage,
-  ClientSusbcriptionNewPage,
-  ClientSusbcriptionViewPage,
-  MissingPage,
-  NutritionistDashboardPage,
-  PageLogin,
-  PublicAboutUsPage,
-  PublicArticlePage,
-  PublicContactUsPage,
-  PublicEventPage,
-  PublicFAQsPage,
-  PublicHomePage,
-  PublicPrivacyPolicyPage,
-  PublicSignUpPage,
-  PublicTermsOfServicePage,
-  UnauthorizedPage,
-  UnderConstruction,
-} from "./pages";
+import Page from "./pages";
 import {
   AdminLayout,
   ClientLayout,
@@ -67,25 +19,31 @@ export const AppRouter = createBrowserRouter(
     <>
       <Route element={<RootLayout />}>
         <Route element={<PublicLayout />}>
-          <Route path={RouteChannel.INDEX} element={<PublicHomePage />} />
-          <Route path={RouteChannel.ABOUT_US} element={<PublicAboutUsPage />} />
+          <Route path={RouteChannel.INDEX} element={<Page.Public.Home />} />
+          <Route
+            path={RouteChannel.ABOUT_US}
+            element={<Page.Public.AboutUs />}
+          />
           <Route
             path={RouteChannel.CONTACT_US}
-            element={<PublicContactUsPage />}
+            element={<Page.Public.ContactUs />}
           />
-          <Route path={RouteChannel.EVENT} element={<PublicEventPage />} />
-          <Route path={RouteChannel.ARTICLE} element={<PublicArticlePage />} />
-          <Route path={RouteChannel.SIGN_IN} element={<PageLogin />} />
-          <Route path={RouteChannel.SIGN_UP} element={<PublicSignUpPage />} />
+          <Route path={RouteChannel.EVENT} element={<Page.Public.Event />} />
+          <Route
+            path={RouteChannel.ARTICLE}
+            element={<Page.Public.Article />}
+          />
+          <Route path={RouteChannel.SIGN_IN} element={<Page.Login />} />
+          <Route path={RouteChannel.SIGN_UP} element={<Page.Public.SignUp />} />
           <Route
             path={RouteChannel.PRIVACY_POLICY}
-            element={<PublicPrivacyPolicyPage />}
+            element={<Page.Public.PrivacyPolicy />}
           />
           <Route
             path={RouteChannel.TERMS_AND_CONDITIONS}
-            element={<PublicTermsOfServicePage />}
+            element={<Page.Public.PrivacyPolicy />}
           />
-          <Route path={RouteChannel.FAQ} element={<PublicFAQsPage />} />
+          <Route path={RouteChannel.FAQ} element={<Page.Public.FAQs />} />
         </Route>
 
         {/*REQUIRES AUTHENTICATION*/}
@@ -99,83 +57,83 @@ export const AppRouter = createBrowserRouter(
             <Route element={<AdminLayout />}>
               <Route
                 path={RouteChannel.ADMIN_DASHBOARD}
-                element={<AdminDashboardPage />}
+                element={<Page.Admin.Dashboard />}
               />
               <Route
                 path={RouteChannel.ADMIN_SETTINGS}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.ADMIN_PROFIFLE}
-                element={<AdminProfilePage />}
+                element={<Page.Admin.Profile />}
               />
               <Route
                 path={RouteChannel.ADMIN_NOTIFICATIONS}
-                element={<AdminNotificationPage />}
+                element={<Page.Admin.Notification />}
               />
               <Route
                 path={RouteChannel.ADMIN_MESSENGER}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.ADMIN_MESSENGER_NEW}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.ADMIN_USER}
-                element={<AdminUserViewPage />}
+                element={<Page.Admin.Setups.User.View />}
               />
               <Route
                 path={RouteChannel.ADMIN_USER_NEW}
-                element={<AdminUserNewPage />}
+                element={<Page.Admin.Setups.User.New />}
               />
               <Route
                 path={RouteChannel.ADMIN_USER_DETAILS}
-                element={<AdminUserDetailsPage />}
+                element={<Page.Admin.Setups.User.Details />}
               />
               <Route
                 path={RouteChannel.ADMIN_INGREDIENT}
-                element={<AdminIngredientViewPage />}
+                element={<Page.Admin.Setups.Ingredient.View />}
               />
               <Route
                 path={RouteChannel.ADMIN_INGREDIENT_NEW}
-                element={<AdminIngredientNewPage />}
+                element={<Page.Admin.Setups.Ingredient.New />}
               />
               <Route
                 path={RouteChannel.ADMIN_INGREDIENT_DETAILS}
-                element={<AdminIngredientDetailsPage />}
+                element={<Page.Admin.Setups.Ingredient.Details />}
               />
               <Route
                 path={RouteChannel.ADMIN_UNIT}
-                element={<AdminUnitViewPage />}
+                element={<Page.Admin.Setups.Unit.View />}
               />
               <Route
                 path={RouteChannel.ADMIN_UNIT_NEW}
-                element={<AdminUnitNewPage />}
+                element={<Page.Admin.Setups.Unit.New />}
               />
               <Route
                 path={RouteChannel.ADMIN_UNIT_DETAILS}
-                element={<AdminUnitDetailsPage />}
+                element={<Page.Admin.Setups.Unit.Details />}
               />
               <Route
                 path={RouteChannel.ADMIN_SUBSCRIPTION}
-                element={<AdminSubscriptionViewPage />}
+                element={<Page.Admin.Setups.Subscription.View />}
               />
               <Route
                 path={RouteChannel.ADMIN_SUBSCRIPTION_NEW}
-                element={<AdminSubscriptionNewPage />}
+                element={<Page.Admin.Setups.Subscription.New />}
               />
               <Route
                 path={RouteChannel.ADMIN_SUBSCRIPTION_DETAILS}
-                element={<AdminSubscriptionDetailsPage />}
+                element={<Page.Admin.Setups.Subscription.Details />}
               />
               <Route
                 path={RouteChannel.ADMIN_FEEDBACK}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.ADMIN_FEEDBACK_DETAILS}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
             </Route>
           </Route>
@@ -185,83 +143,83 @@ export const AppRouter = createBrowserRouter(
             <Route element={<ClientLayout />}>
               <Route
                 path={RouteChannel.CLIENT_DASHBOARD}
-                element={<ClientDashboardPage />}
+                element={<Page.Client.Dashboard />}
               />
               <Route
                 path={RouteChannel.CLIENT_PROFIFLE}
-                element={<ClientProfilePage />}
+                element={<Page.Client.Profile />}
               />
               <Route
                 path={RouteChannel.CLIENT_NOTIFICATIONS}
-                element={<ClientNotificationPage />}
+                element={<Page.Client.Notification />}
               />
               <Route
                 path={RouteChannel.CLIENT_SETTINGS}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.CLIENT_MESSENGER}
-                element={<UnderConstruction />}
+                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.CLIENT_HEALTH}
-                element={<ClientHealthViewPage />}
+                element={<Page.Client.Health.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_INGREDIENT}
-                element={<ClientIngredientViewPage />}
+                element={<Page.Client.Ingredient.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_INGREDIENT_DETAILS}
-                element={<ClientIngredientDetailsPage />}
+                element={<Page.Client.Ingredient.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_APPOINTMENT}
-                element={<ClientAppoinmentViewPage />}
+                element={<Page.Client.Appointment.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_APPOINTMENT_NEW}
-                element={<ClientAppoinmentNewPage />}
+                element={<Page.Client.Appointment.New />}
               />
               <Route
                 path={RouteChannel.CLIENT_APPOINTMENT_DETAILS}
-                element={<ClientAppoinmentDetailsPage />}
+                element={<Page.Client.Appointment.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_MEAL_PLAN}
-                element={<ClientMealPlanViewPage />}
+                element={<Page.Client.MealPlan.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_MEAL_PLAN_NEW}
-                element={<ClientMealPlanNewPage />}
+                element={<Page.Client.MealPlan.New />}
               />
               <Route
                 path={RouteChannel.CLIENT_MEAL_PLAN_DETAILS}
-                element={<ClientMealPlanDetailsPage />}
+                element={<Page.Client.MealPlan.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_REMINDER}
-                element={<ClientReminderViewPage />}
+                element={<Page.Client.Reminder.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_REMIINDER_NEW}
-                element={<ClientReminderNewPage />}
+                element={<Page.Client.Reminder.New />}
               />
               <Route
                 path={RouteChannel.CLIENT_REMIINDER_DETAILS}
-                element={<ClientReminderDetailsPage />}
+                element={<Page.Client.Reminder.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_SUBSCRIPTION}
-                element={<ClientSusbcriptionViewPage />}
+                element={<Page.Client.Subscription.View />}
               />
               <Route
                 path={RouteChannel.CLIENT_SUBSCRIPTION_NEW}
-                element={<ClientSusbcriptionNewPage />}
+                element={<Page.Client.Subscription.New />}
               />
               <Route
                 path={RouteChannel.CLIENT_SUBSCRIPTION_DETAILS}
-                element={<ClientSusbcriptionDetailsPage />}
+                element={<Page.Client.Subscription.Details />}
               />
             </Route>
           </Route>
@@ -271,15 +229,15 @@ export const AppRouter = createBrowserRouter(
             <Route element={<NutritionistLayout />}>
               <Route
                 path={RouteChannel.NUTRITIONIST_DASHBOARD}
-                element={<NutritionistDashboardPage />}
+                element={<Page.Nutritionist.Dashboard />}
               />
             </Route>
           </Route>
           {/*NUTRITIONIST*/}
         </Route>
 
-        <Route path={RouteChannel.R403} element={<UnauthorizedPage />} />
-        <Route path={RouteChannel.R404} element={<MissingPage />} />
+        <Route path={RouteChannel.R403} element={<Page.Unauthorized />} />
+        <Route path={RouteChannel.R404} element={<Page.Missing />} />
       </Route>
     </>,
   ),

@@ -16,3 +16,4 @@ export const ClientIngredientViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default ClientIngredientViewPage;

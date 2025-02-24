@@ -1,4 +1,4 @@
-import {
+/*import {
   ButtonColor,
   ButtonType,
   CivilStatus,
@@ -16,16 +16,12 @@ import {
   CircleButton,
   CustomButton,
   CustomInput,
-  Input,
 } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
 import { userValidator } from "../../../../../validators";
 import { IsBoolean, cn, displayToast } from "../../../../../utils";
 import {
-  useAddUser,
   useAuth,
-  useGetUser,
-  useUpdateUser,
 } from "../../../../../hooks";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "../../../../Feedback";
@@ -41,13 +37,13 @@ export const UserForm: SFC<FormProps> = ({
 }) => {
   const [IsEdit, SetIsEdit] = useState(IsDetails);
   const { Id } = useParams<{ Id: string }>();
-  const { records, loading } = useGetUser(Number(Id ?? 0));
-  const { update } = useUpdateUser();
-  const { add } = useAddUser();
+  //const { records, loading } = useGetUser(Number(Id ?? 0));
+  //const { update } = useUpdateUser();
+  //const { add } = useAddUser();
   const { auth } = useAuth();
-  const flag: boolean = IsDetails ? Id !== "" && loading : false;
+  //const flag: boolean = IsDetails ? Id !== "" && loading : false;
 
-  const InitialValues: UserTable = {
+  const InitialValues = {
     UpdatedBy: IsDetails ? (auth?.user ?? 0) : null,
     CreatedBy: IsDetails ? records?.CreatedBy : (auth?.user ?? 0),
     Email: records?.Email || "",
@@ -65,8 +61,8 @@ export const UserForm: SFC<FormProps> = ({
 
   const handleSubmit = async (values: UserTable) => {
     try {
-      if (Id) await update(Id, values);
-      else await add(values);
+      //if (Id) await update(Id, values);
+      //else await add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
     }
@@ -236,3 +232,4 @@ export const UserForm: SFC<FormProps> = ({
     </>
   );
 };
+*/

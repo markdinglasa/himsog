@@ -3,7 +3,7 @@ import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs } from "../../../components";
 import { cn } from "../../../utils";
 
-export const NutritionistDashboardPage: SFC = ({ ClassName }) => {
+const NutritionistDashboardPage: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -16,3 +16,4 @@ export const NutritionistDashboardPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default NutritionistDashboardPage;

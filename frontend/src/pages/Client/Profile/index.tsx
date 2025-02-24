@@ -1,14 +1,9 @@
-import { RouteChannel, SFC } from "../../../types";
+import { RouteChannel, SFC, UserInitial } from "../../../types";
 import * as S from "../../../styles/Styles";
-import {
-  PageBreadCrumbs,
-  ProfileCard,
-  Skeleton,
-  UserForm,
-} from "../../../components";
+import { PageBreadCrumbs, ProfileCard, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
-import { useAuth, useGetUser } from "../../../hooks";
+//import { useAuth } from "../../../hooks";
 
 export const ClientProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -18,8 +13,8 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.CLIENT_DASHBOARD),
     },
   ];
-  const { auth } = useAuth();
-  const { records: user } = useGetUser(auth?.user ?? 0);
+  //const { auth } = useAuth();
+  const user = UserInitial;
   const Fullname = `${user?.Firstname ?? "NA"} ${user?.Lastname ?? "NA"}`;
   return (
     <>
@@ -36,9 +31,7 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
               RoleName={user.Role ?? "NA"}
             />
             <S.PageContent>
-              <Suspense fallback={<Skeleton />}>
-                <UserForm Title="Profile Details" />
-              </Suspense>
+              <Suspense fallback={<Skeleton />}></Suspense>
             </S.PageContent>
           </S.Divider>
         </S.DoubleCol>
@@ -46,3 +39,4 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default ClientProfilePage;

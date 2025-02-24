@@ -58,3 +58,4 @@ export const AdminUserViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default AdminUserViewPage;

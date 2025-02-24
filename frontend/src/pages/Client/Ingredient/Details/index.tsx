@@ -16,3 +16,5 @@ export const ClientIngredientDetailsPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default ClientIngredientDetailsPage;

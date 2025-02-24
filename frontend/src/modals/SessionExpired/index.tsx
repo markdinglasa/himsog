@@ -23,7 +23,7 @@ const SessionExpiredModal: SFC<SessionExpiredModalProps> = ({
     <>
       <S.ConfirmCon>
         <CustomButton
-          icon={<CheckCircleIcon className="md:text-white text-primary" />}
+          leftIcon={<CheckCircleIcon className="md:text-white text-primary" />}
           text="Confirm"
           onClick={confirm}
           type={ButtonType.button}

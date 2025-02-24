@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { renderPath } from "../../../utils";
 
-export const PublicArticlePage: SFC = ({ ClassName }) => {
+const PublicArticlePage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -20,3 +20,4 @@ export const PublicArticlePage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default PublicArticlePage;

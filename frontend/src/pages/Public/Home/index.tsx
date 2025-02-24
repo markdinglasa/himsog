@@ -6,7 +6,8 @@ import EastIcon from "@mui/icons-material/East";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks";
 import { useEffect } from "react";
-export const PublicHomePage: SFC = ({ ClassName }) => {
+
+const PublicHomePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   useEffect(() => {
@@ -51,3 +52,4 @@ export const PublicHomePage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default PublicHomePage;

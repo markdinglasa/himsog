@@ -57,3 +57,4 @@ export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default AdminSubscriptionViewPage;

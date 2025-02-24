@@ -151,3 +151,5 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default AdminDashboardPage;

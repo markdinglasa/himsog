@@ -46,3 +46,5 @@ export const AdminSubscriptionNewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+
+export default AdminSubscriptionNewPage;

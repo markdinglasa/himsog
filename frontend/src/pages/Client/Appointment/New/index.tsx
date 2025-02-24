@@ -16,3 +16,4 @@ export const ClientAppoinmentNewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
+export default ClientAppoinmentNewPage;
