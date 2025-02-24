@@ -15,3 +15,4 @@ export * from "./recipeQuery";
 export * from "./recipeLineQuery";
 export * from "./professionRatingQuery";
 export * from "./eventQuery";
+export * from "./requestAccessQuery";

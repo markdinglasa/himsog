@@ -14,6 +14,7 @@ import { SubscriptionChannel } from "./subscriptionChannel";
 import { SubscriptionLineChannel } from "./subscriptionLineChannel";
 import { UnitChannel } from "./unitChannel";
 import { UserChannel } from "./userChannel";
+import { RequestAccessChannel } from "./requestAccessChannel";
 
 export const SetupChannel = {
   ...MealChannel,
@@ -32,4 +33,5 @@ export const SetupChannel = {
   ...SubscriptionLineChannel,
   ...UnitChannel,
   ...UserChannel,
+  ...RequestAccessChannel,
 } as const;

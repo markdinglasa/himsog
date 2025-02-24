@@ -13,6 +13,8 @@ import RecipeLineRoute from "./recipeLineRoute";
 import SubcriptionLineRoute from "./subscriptionLineRoute";
 import SubscriptionRoute from "./subscriptionRoute";
 import MealPlanLineRoute from "./mealPlanLineRoute";
+import RequestAccessRoute from "./requestAccessRoute";
+
 import express from "express";
 
 const router = express.Router();
@@ -31,5 +33,6 @@ router.use(RecipeRoute);
 router.use(RecipeLineRoute);
 router.use(SubcriptionLineRoute);
 router.use(SubscriptionRoute);
+router.use(RequestAccessRoute);
 
 export default router;

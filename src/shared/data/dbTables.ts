@@ -24,7 +24,7 @@ export enum DBTable {
   t022 = "recipe",
   t023 = "recipe_line",
   t024 = "appointment",
-  t025 = "",
+  t025 = "request_access",
   t026 = "",
   t027 = "",
   t028 = "",
