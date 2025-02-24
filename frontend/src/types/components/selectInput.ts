@@ -1,5 +1,5 @@
 export interface SelectInputProps {
-  label: string;
+  label?: string;
   name: string;
   placeholder?: string;
   touched?: { [field: string]: boolean };

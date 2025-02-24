@@ -39,3 +39,5 @@ export const DashboardCard: SFC<DashboardCardProps> = ({
     </S.Container>
   );
 };
+
+export default DashboardCard;

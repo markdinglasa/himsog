@@ -7,6 +7,8 @@ import SignUp from "./SignUp";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsOfService from "./TermsOfService";
 import FAQs from "./FAQs";
+import HowItWorks from "./HowItWorks";
+import Pricing from "./Pricing";
 
 const Public = {
   AboutUs,
@@ -18,6 +20,8 @@ const Public = {
   PrivacyPolicy,
   TermsOfService,
   FAQs,
+  HowItWorks,
+  Pricing,
 };
 
 export default Public;

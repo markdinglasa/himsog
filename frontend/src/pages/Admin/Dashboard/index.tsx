@@ -1,12 +1,12 @@
 import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import {
-  DashboardCard,
   DoughnutChart,
   IncrementCard,
   LineChart,
   PageBreadCrumbs,
 } from "../../../components";
+import Card from "../../../components/Surfaces/Cards";
 import {
   mdiAccountCreditCardOutline,
   mdiAccountOutline,
@@ -107,31 +107,31 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             />
           </S.CardContainer>
           <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-            <DashboardCard
+            <Card.Dashboard
               Icons={mdiAccountOutline}
               Text={"0"}
               Title="User"
               OnClick={() => navigate(RouteChannel.ADMIN_USER)}
             />
-            <DashboardCard
+            <Card.Dashboard
               Icons={mdiBookOpenVariantOutline}
               Text={"0"}
               Title="Ingredient"
               OnClick={() => navigate(RouteChannel.ADMIN_INGREDIENT)}
             />
-            <DashboardCard
+            <Card.Dashboard
               Icons={mdiScale}
               Text={"0"}
               Title="Unit"
               OnClick={() => navigate(RouteChannel.ADMIN_UNIT)}
             />
-            <DashboardCard
+            <Card.Dashboard
               Icons={mdiAccountCreditCardOutline}
               Text={"0"}
               Title="Susbcription"
               OnClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
             />
-            <DashboardCard
+            <Card.Dashboard
               Icons={mdiCommentQuoteOutline}
               Text={"0"}
               Title="Feedback"

@@ -1,5 +1,6 @@
 import * as S from "./Styles";
 import { SelectInputProps, SFC } from "../../../types";
+import { cn } from "../../../utils";
 
 export const SelectOption: SFC<SelectInputProps> = ({
   ClassName,
@@ -13,10 +14,12 @@ export const SelectOption: SFC<SelectInputProps> = ({
 }) => {
   return (
     <>
-      <S.Container className={ClassName}>
-        <S.Label htmlFor={name} className="text-sm text-primary">
-          {label}
-        </S.Label>
+      <S.Container className={cn("h-[40px] border rounded-md", ClassName)}>
+        {label && (
+          <S.Label htmlFor={name} className="text-sm text-primary text-red-300">
+            {label}
+          </S.Label>
+        )}
         <S.Select
           className="p-2 rounded-md w-full bg-slate-100 outline-none text-zinc-800 border-none"
           disabled={disabled}

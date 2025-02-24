@@ -54,6 +54,14 @@ export const PublicFooter: SFC = ({ ClassName }) => {
                 Contact Us
               </S.Span>
             </S.Divider>
+            <S.Divider
+              className="cursor-pointer"
+              onClick={() => navigate(RouteChannel.HOW_IT_WORKS)}
+            >
+              <S.Span className="text-sm hover:text-[#2cb578]">
+                How it works
+              </S.Span>
+            </S.Divider>
           </S.Divider>
           <S.Divider className="w-full flex flex-col md:w-3/12  ">
             <S.Divider>

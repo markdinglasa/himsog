@@ -30,10 +30,10 @@ const PublicContactUsPage: SFC = ({ ClassName }) => {
           </S.Span>
         </S.Content>
         <S.Content className="w-full md:w-11/12 flex flex-col md:flex-row gap-5">
-          <S.Divider className="border w-full md:w-7/12 p-5 bg-slate-50">
+          <S.Divider className="border w-full md:w-7/12 p-5 bg-slate-50 rounded-md">
             <ContactUsForm Title="We'd loved to hear from you" />
           </S.Divider>
-          <S.Divider className="border w-full md:w-5/12 p-5 h-fit bg-slate-50">
+          <S.Divider className="border w-full md:w-5/12 p-5 h-fit bg-slate-50 rounded-md">
             <S.Divider className="flex flex-col gap-2 mb-3">
               <S.Span className="text-2xl">Contact Us</S.Span>
               <S.Span className="text-sm text-slate-500">

@@ -14,6 +14,8 @@ export enum RouteChannel {
   TERMS_AND_CONDITIONS = "/terms-and-conditions",
   PRIVACY_POLICY = "/privacy-policy",
   NO_ACCESS_RIGHT = "no-access-right",
+  HOW_IT_WORKS = "/how-it-works",
+  PRICING = "/pricing",
 
   // ADMIN PAGES
   ADMIN_DASHBOARD = "/a",

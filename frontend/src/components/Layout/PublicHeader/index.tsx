@@ -43,6 +43,19 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   </span>
                 </div>
                 <div
+                  className="cursor-pointer ml-4"
+                  onClick={() => {
+                    setActivePage(RouteChannel.HOW_IT_WORKS);
+                    navigate(RouteChannel.HOW_IT_WORKS);
+                  }}
+                >
+                  <span
+                    className={`hover:text-[#2cb578] text-sm md:text-md text-sm md:text-md ${activePage === RouteChannel.HOW_IT_WORKS ? "text-[#2cb578]" : ""}`}
+                  >
+                    How it works
+                  </span>
+                </div>
+                <div
                   className="cursor-pointer"
                   onClick={() => {
                     setActivePage(RouteChannel.EVENT);
@@ -92,6 +105,19 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                     className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.CONTACT_US ? "text-[#2cb578]" : ""}`}
                   >
                     Contact Us
+                  </span>
+                </div>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setActivePage(RouteChannel.PRICING);
+                    navigate(RouteChannel.PRICING);
+                  }}
+                >
+                  <span
+                    className={`hover:text-[#2cb578] text-sm md:text-md ${activePage === RouteChannel.PRICING ? "text-[#2cb578]" : ""}`}
+                  >
+                    Pricing
                   </span>
                 </div>
               </div>

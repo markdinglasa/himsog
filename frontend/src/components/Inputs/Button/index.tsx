@@ -80,13 +80,14 @@ export const CustomButton: SFC<ButtonProps> = ({
           sx={{
             minWidth: "120px",
             minHeight: "40px",
+
             border: color === "default" ? "1px solid #e1e1e1" : "none",
             background: CustomColor().bg,
             "&:hover": { background: CustomColor().hover, boxShadow: 0 },
             opacity: disabled || dirty ? 0.6 : 1,
             cursor: disabled || dirty ? "not-allowed" : "pointer",
             textTransform: "none",
-            borderRadius: 0,
+            borderRadius: "4px",
             transition: "ease-in-out 0.3s",
             boxShadow: 0,
           }}

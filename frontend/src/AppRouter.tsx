@@ -25,6 +25,14 @@ export const AppRouter = createBrowserRouter(
             element={<Page.Public.AboutUs />}
           />
           <Route
+            path={RouteChannel.PRICING}
+            element={<Page.Public.Pricing />}
+          />
+          <Route
+            path={RouteChannel.HOW_IT_WORKS}
+            element={<Page.Public.HowItWorks />}
+          />
+          <Route
             path={RouteChannel.CONTACT_US}
             element={<Page.Public.ContactUs />}
           />

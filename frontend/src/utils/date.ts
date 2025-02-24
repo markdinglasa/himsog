@@ -1,12 +1,21 @@
 import { ToastType } from "../types";
 import { displayToast } from "./toast";
 
-export const getCurrentDate = (CurrentDate: Date) => {
+/*export const getCurrentDate = (CurrentDate: Date) => {
   const today = new Date(CurrentDate);
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
   const day = String(today.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+};*/
+
+export const getCurrentDate = (CurrentDate: string) => {
+  const today = new Date(CurrentDate);
+  return today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 };
 
 export const formatDateToMMDDYY = (isoDateString: any): string => {

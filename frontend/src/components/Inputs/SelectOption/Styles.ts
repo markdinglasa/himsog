@@ -6,7 +6,6 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  border: 1px solid red;
   position: relative;
 `;
 export const Label = styled.label`
@@ -15,8 +14,6 @@ export const Label = styled.label`
   color: ${colors.primary};
 `;
 export const Select = styled.select<{ $disabled: boolean }>`
-  padding: 8px;
-  border-radius: 4px;
   background: rgb(241, 245, 249);
   outline: none;
   height: 40px;
@@ -28,7 +25,6 @@ export const Select = styled.select<{ $disabled: boolean }>`
       : ""}
 `;
 export const Option = styled.option`
-  padding: 8px;
   height: 3.5rem;
   background: ${colors.white};
   color: rgb(39, 39, 42);

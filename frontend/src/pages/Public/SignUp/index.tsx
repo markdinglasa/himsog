@@ -81,7 +81,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
     >
       <S.Content className="flex justify-center items-center w-full ">
         <S.Divider className="flex  w-full  justify-center items-center ">
-          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-slate-50">
+          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-slate-50 rounded-md">
             {errorMessage && (
               <S.Divider className="text-center w-full mb-2">
                 <S.Span className="p-3 text-red-500 text-center text-[14px]">
@@ -94,7 +94,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
               <S.Divider className="w-full flex items-center justify-center mb-2">
                 <S.Image src={Logo} className="w-full h-12" alt="himsog-logo" />
               </S.Divider>
-              <S.Divider className="w-full text-center mb-2 font-semibold">
+              <S.Divider className="w-full text-center mb-2 font-semibold mb-5">
                 Create an account
               </S.Divider>
               <S.Divider className="mb-5">
@@ -208,7 +208,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
                           onBlur={handleBlur}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full">
+                      <S.Divider className="w-full mb-2">
                         <S.Span className="text-[12px]">
                           By clicking sign up, you aggree to our{" "}
                           <S.Span
