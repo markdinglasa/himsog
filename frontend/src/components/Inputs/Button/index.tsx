@@ -56,6 +56,12 @@ export const CustomButton: SFC<ButtonProps> = ({
         hover: colors.palette.neutral["100"],
         text: "text-primary",
       };
+    if (color === "white")
+      return {
+        bg: colors.white,
+        hover: colors.palette.neutral["100"],
+        text: "text-primary",
+      };
     return {
       bg: "none",
       hover: colors.palette.neutral["100"],
