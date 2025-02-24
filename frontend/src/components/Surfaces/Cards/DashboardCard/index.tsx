@@ -14,7 +14,7 @@ export const DashboardCard: SFC<DashboardCardProps> = ({
   return (
     <S.Container
       className={twMerge(
-        "w-full rounded-lg bg-white p-2 cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out",
+        "w-full rounded-sm bg-white p-2 cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out",
         ClassName,
       )}
       onClick={(e) => {

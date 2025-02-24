@@ -3,22 +3,16 @@ import { UserTable } from "../../dbtables";
 
 export const userHC: HeadCell<UserTable>[] = [
   {
-    Id: "RecNumber",
-    numeric: false,
-    disablePadding: true,
-    label: "No.",
-  },
-  {
-    Id: "Username",
+    Id: "Fullname",
     numeric: false,
     disablePadding: false,
-    label: "Username",
+    label: "Full Name",
   },
   {
-    Id: "Name",
+    Id: "ContactNumber",
     numeric: false,
     disablePadding: false,
-    label: "Name",
+    label: "Mobile Number",
   },
   {
     Id: "Email",

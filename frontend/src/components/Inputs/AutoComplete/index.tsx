@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { AutoCompleteProps, SFC } from "../../../types";
 import * as S from "./Styles";
+import { cn } from "../../../utils";
+import { FormHelperText } from "@mui/material";
 
 export const AutoComplete: SFC<AutoCompleteProps> = ({
   ClassName,
@@ -14,6 +16,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
   Errors,
   Touched,
   OptionName = "Name",
+  OnBlur,
 }) => {
   const selectedValue = useMemo(
     () => Options.find((option) => option.Id === Values) || null,
@@ -22,10 +25,13 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
 
   return (
     <>
-      <S.Container className={ClassName}>
-        {Label && <S.Label>{Label}</S.Label>}
+      <S.Container className={cn("mb-1", ClassName)}>
+        {Label && (
+          <S.Label className="text-[#666666] font-medium ml-3">{Label}</S.Label>
+        )}
         <S.Content>
           <S.AutoComplete
+            className="border border-[#C4C4C4] hover:border-[#202020]"
             options={Options}
             getOptionLabel={(option: any) => option[OptionName]}
             value={selectedValue}
@@ -34,18 +40,17 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
             isOptionEqualToValue={(option: any, value: any) =>
               option.Id === value.Id
             }
-            renderInput={(params) => (
+            onBlur={OnBlur}
+            renderInput={(params: any) => (
               <S.TextField {...params} placeholder={Placeholder} />
             )}
-            autoSelect
-            $isEdit={IsEdit}
           />
-        </S.Content>
-        <S.ErrorCon>
           {Errors && Touched && Errors[Name] && Touched[Name] ? (
-            <S.ErrorMessage>{Errors[Name]}</S.ErrorMessage>
+            <FormHelperText id={`component-error-text-${Name}`}>
+              <span className="text-red-400 ml-3 ">{Errors[Name]}</span>
+            </FormHelperText>
           ) : null}
-        </S.ErrorCon>
+        </S.Content>
       </S.Container>
     </>
   );

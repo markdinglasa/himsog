@@ -10,6 +10,7 @@ import { CircleButton } from "../../Inputs";
 import * as S from "./Styles";
 import MdiIcon from "@mdi/react";
 import { useToggle } from "react-use";
+import { cn } from "../../../utils";
 
 export const Menu: SFC<MenuProps> = ({
   ClassName,
@@ -27,16 +28,16 @@ export const Menu: SFC<MenuProps> = ({
       {!isCollapse ? (
         <S.Container
           $isParent={isParent}
-          className={ClassName}
+          className={cn("rounded-sm", ClassName)}
           onClick={() => {
             isParent ? toggleDisplay() : onClick();
           }}
         >
           {isParent ? (
             <>
-              <S.Menu $isDisplay={isDisplay}>
+              <S.Menu className="rounded-sm" $isDisplay={isDisplay}>
                 <S.MenuContent>
-                  <S.Icon path={icon} size="30px" />
+                  <S.Icon path={icon} size="30px" className="text-primary" />
                   <S.Text>
                     <S.Label>{label}</S.Label>
                     {!isDisplay ? (
@@ -50,8 +51,8 @@ export const Menu: SFC<MenuProps> = ({
               <S.ChildContent $isDisplay={isDisplay}>{children}</S.ChildContent>
             </>
           ) : (
-            <S.ChildMenu>
-              <S.Icon path={icon} size="30px" />
+            <S.ChildMenu className="">
+              <S.Icon path={icon} size="30px" className="text-primary" />
               <S.ChildLabel>{label}</S.ChildLabel>
             </S.ChildMenu>
           )}

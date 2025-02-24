@@ -22,7 +22,7 @@ export const DoughnutChart: SFC = ({ ClassName }) => {
     const myChart = echarts.init(chartDom);
     const option = {
       title: {
-        text: "Most Sold Products",
+        text: "Most Subscribe",
         left: "center",
       },
       tooltip: {
@@ -69,7 +69,7 @@ export const DoughnutChart: SFC = ({ ClassName }) => {
 
   return (
     <S.Container
-      className={twMerge("bg-white rounded-lg p-2 h-[400px]", ClassName)}
+      className={twMerge("bg-white p-2 h-[400px] rounded-sm", ClassName)}
     >
       <S.Content
         id="doughnut-chart"

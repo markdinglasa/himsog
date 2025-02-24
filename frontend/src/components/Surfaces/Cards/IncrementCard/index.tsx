@@ -24,7 +24,7 @@ export const IncrementCard: SFC<IncrementCardProps> = ({
   return (
     <S.Container
       className={twMerge(
-        "w-full rounded-lg bg-white p-2 cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out",
+        "w-full bg-white p-2 rounded-sm cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out",
         ClassName,
       )}
     >

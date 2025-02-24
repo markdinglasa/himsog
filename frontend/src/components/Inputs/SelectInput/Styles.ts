@@ -14,18 +14,13 @@ export const ErrorMessage = styled.div`
 `;
 export const Label = styled.label`
   font-size: 12px;
-  margin-bottom: 8px;
-  color: ${colors.primary};
   width: 100%;
 `;
+
 export const Field = styled(UField)`
-  ${({ $disabled }) =>
-    $disabled
-      ? `background-color:white; border:1px solid red`
-      : `background-color: ${colors.palette.neutral["075"]};`};
-  border-radius: 3px;
   border: 1px solid
-    ${({ $error }) => ($error ? colors.palette.red["500"] : "transparent")};
+    ${({ $error }) => ($error ? colors.palette.red["500"] : "#e0e0e0")};
+
   display: block;
   height: 40px;
   padding: 10px 14px;

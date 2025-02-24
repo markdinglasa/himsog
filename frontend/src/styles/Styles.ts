@@ -30,7 +30,7 @@ export const Layout = styled.div`
 
 export const PageTopBar = styled.div`
   width: 100%;
-  border-radius: 8px;
+  border-radius: 2px;
   display: flex;
   min-heigth: 40px !important;
   flex-direction: row;
@@ -41,7 +41,7 @@ export const PageTopBar = styled.div`
 
 export const PageContent = styled.div`
   width: 100%;
-  border-radius: 8px;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;

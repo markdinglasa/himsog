@@ -31,7 +31,7 @@ export const LineChart: SFC = ({ ClassName }) => {
 
     const option = {
       title: {
-        text: "Monthly Sales",
+        text: "Monthly Revenue",
       },
       tooltip: {
         trigger: "axis",
@@ -85,7 +85,7 @@ export const LineChart: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container
-        className={twMerge("bg-white rounded-lg p-2 h-[400px] ", ClassName)}
+        className={twMerge("bg-white p-2 h-[400px] rounded-sm", ClassName)}
       >
         <S.Content
           id="line-chart"

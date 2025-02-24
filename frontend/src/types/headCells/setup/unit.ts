@@ -3,12 +3,6 @@ import { UnitTable } from "../../dbtables";
 
 export const unitHC: HeadCell<UnitTable>[] = [
   {
-    Id: "RecNumber",
-    numeric: false,
-    disablePadding: true,
-    label: "No.",
-  },
-  {
     Id: "Name",
     numeric: false,
     disablePadding: false,

@@ -11,11 +11,14 @@ import { Suspense } from "react";
 import { cn } from "../../../../../utils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export const UserAddPage: SFC = ({ ClassName }) => {
+export const AdminUserNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
-    { Text: "Dashboard", OnClick: () => navigate(RouteChannel.DASHBOARD) },
-    { Text: "Users", OnClick: () => navigate(RouteChannel.USER) },
+    {
+      Text: "Dashboard",
+      OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
+    },
+    { Text: "Users", OnClick: () => navigate(RouteChannel.ADMIN_USER) },
   ];
 
   return (
@@ -25,8 +28,10 @@ export const UserAddPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="New User" />
           <S.Actions>
             <CustomButton
-              icon={<ArrowBackIcon className="md:text-white text-primary" />}
-              onClick={() => navigate(RouteChannel.USER)}
+              leftIcon={
+                <ArrowBackIcon className="md:text-white text-primary" />
+              }
+              onClick={() => navigate(RouteChannel.ADMIN_USER)}
               text="Back"
               type={ButtonType.button}
             />

@@ -11,7 +11,7 @@ export const displayToast = (
 ): void => {
   toast(
     <Toast ClassName={""} type={type} icon={icon}>
-      <span className="text-primary">{message}</span>
+      <span className="text-slate-700">{message}</span>
     </Toast>,
     {
       style: {

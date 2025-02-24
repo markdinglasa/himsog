@@ -1,5 +1,6 @@
 import { Id, Logs } from "../../utils";
 export enum CivilStatus {
+  DEFAULT = "",
   SINGLE = "single",
   MARRIED = "married",
   DIVORCED = "divorced",
@@ -25,6 +26,8 @@ export interface UserTable extends Id, Logs {
   CivilStatus: CivilStatus;
   ProfilePhoto: string | null;
   IsSuspended: boolean;
+  BirthDate: string;
+  Fullname?: string;
 }
 export type UserTables = UserTable[];
 export const UserInitial: UserTable = {
@@ -38,4 +41,5 @@ export const UserInitial: UserTable = {
   CivilStatus: CivilStatus.SINGLE,
   ProfilePhoto: null,
   IsSuspended: false,
+  BirthDate: "",
 };

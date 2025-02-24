@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { CustomButton, Input } from "../../components";
+import { CustomButton, CustomInput } from "../../components";
 import {
   ButtonColor,
   ButtonType,
@@ -12,14 +12,15 @@ import {
 } from "../../types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
-import { cn } from "../../utils";
+import { cn, renderPath } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import Logo from "../../asset/svg/logo.svg";
+import GoogleLogo from "../../asset/images/google-logo.png";
 
 export const PageLogin: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -27,7 +28,10 @@ export const PageLogin: SFC = ({ ClassName }) => {
   const { auth, setAuth } = useAuth();
 
   useEffect(() => {
-    if (auth?.user) navigate(RouteChannel.DASHBOARD);
+    if (auth?.user) {
+      const path = renderPath(auth?.roles ?? Roles.default);
+      navigate(path);
+    }
   }, [auth]);
 
   const InitialValues: LoginTable = {
@@ -42,7 +46,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
+      //console.log(response);
       if (response.data.data.Success) {
         const user: UserTable = response.data.data.User;
         const roles: Roles = response.data.data.Role;
@@ -54,10 +58,10 @@ export const PageLogin: SFC = ({ ClassName }) => {
           accessToken,
           refreshToken,
         });
-        navigate(RouteChannel.DASHBOARD, { replace: true });
+        const path = renderPath(roles);
+        navigate(path, { replace: true });
       } else setErrorMessage(Error.m00019);
     } catch (error: any) {
-      //console.log(error);
       setErrorMessage(error.response?.data?.message || Error.m00019);
     }
   };
@@ -65,13 +69,13 @@ export const PageLogin: SFC = ({ ClassName }) => {
   return (
     <S.Container
       className={cn(
-        `w-screen bg-slate-100 h-screen items-center flex justify-center`,
+        `w-full bg-slate-100 h-[calc(100vh-200px)] items-center flex justify-center`,
         ClassName,
       )}
     >
-      <S.Content className="flex justify-center items-center  w-full">
-        <S.Divider className="flex  w-full md:w-[90vw] p-3 gap-5 justify-center items-center">
-          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 rounded-md bg-white">
+      <S.Content className="flex justify-center items-center w-full ">
+        <S.Divider className="flex  w-full  justify-center items-center ">
+          <S.Divider className="md:w-[450px] w-full border border-slate-300 p-3 bg-slate-50">
             {errorMessage && (
               <S.Divider className="text-center w-full mb-2">
                 <S.Span className="p-3 text-red-500 text-center text-[14px]">
@@ -82,7 +86,10 @@ export const PageLogin: SFC = ({ ClassName }) => {
 
             <S.Divider className="w-full">
               <S.Divider className="w-full flex items-center justify-center mb-2">
-                <S.Image src="" className="w-full h-12" alt="himsog-logo" />
+                <S.Image src={Logo} className="w-full h-12" alt="himsog-logo" />
+              </S.Divider>
+              <S.Divider className="w-full text-center mb-2 font-semibold">
+                Sign in your account
               </S.Divider>
               <S.Divider className="mb-5">
                 <Formik
@@ -92,37 +99,47 @@ export const PageLogin: SFC = ({ ClassName }) => {
                   validateOnMount={true}
                   validationSchema={loginValidator}
                 >
-                  {({ errors, touched, isSubmitting, handleChange }) => (
+                  {({
+                    errors,
+                    touched,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                  }) => (
                     <Form>
-                      <S.Divider className="w-full mb-2">
-                        <Input
-                          ClassName="text-slate-100"
+                      <S.Divider className="w-full py-2">
+                        <CustomInput
                           errors={errors}
                           type={InputType.email}
                           label="Email"
+                          placeholder="Email"
                           name="Email"
                           touched={touched}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full mb-2">
-                        <Input
+                      <S.Divider className="w-full">
+                        <CustomInput
                           ClassName="text-zinc-900"
                           errors={errors}
                           type={InputType.password}
                           label="Password"
+                          placeholder="Password"
                           name="Password"
                           touched={touched}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </S.Divider>
                       <S.Divider className="w-full flex justify-between  mb-2 items-center">
                         <FormControlLabel
                           className="text-[sm] text-slate-700"
-                          control={<Checkbox size="small" />}
+                          control={<Checkbox size="small" color="success" />}
                           label="Remember me"
                           sx={{
                             "& .MuiFormControlLabel-label": {
+                              fontFamily: "Montserrat",
                               fontSize: "14px",
                               color: "#3f3f3f",
                               alignItems: "center",
@@ -131,7 +148,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
                           }}
                         />
                         <span
-                          className="text-[14px] text-slate-700 cursor-pointer"
+                          className="text-[14px] text-primary cursor-pointer "
                           onClick={() => navigate(RouteChannel.FORGOT_PASSWORD)}
                         >
                           Forgot Password?
@@ -156,7 +173,7 @@ export const PageLogin: SFC = ({ ClassName }) => {
               </S.Divider>
               <S.Divider className="w-full ">
                 <CustomButton
-                  icon={<GoogleIcon className="text-primary" />}
+                  leftIcon={<S.Image src={GoogleLogo} className="w-6 h-6" />}
                   text="Continue with Google"
                   ClassName="w-full border"
                   color={ButtonColor.default}

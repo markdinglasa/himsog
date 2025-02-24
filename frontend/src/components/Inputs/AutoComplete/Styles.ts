@@ -10,8 +10,6 @@ export const Container = styled.div`
 `;
 export const Label = styled.label`
   font-size: 12px;
-  margin-bottom: 8px;
-  color: ${colors.primary};
 `;
 export const Content = styled.div`
   width: 100%;
@@ -25,16 +23,14 @@ export const ErrorMessage = styled.span`
   font-size: 12px;
 `;
 
-export const AutoComplete = styled(AC)<{ $isEdit: boolean }>(({ $isEdit }) => ({
+export const AutoComplete = styled(AC)(() => ({
   width: "100%",
   height: "40px",
   alignItems: "center",
   display: "flex",
   marginBottom: "8px",
   transition: "0.3s ease-in-out",
-  borderRadius: "4px",
-  background: $isEdit ? colors.white : colors.palette.neutral["075"],
-  border: $isEdit ? `1px solid ${colors.palette.neutral["100"]}` : "none",
+
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       border: "none",

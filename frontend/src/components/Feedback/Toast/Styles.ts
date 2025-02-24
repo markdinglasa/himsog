@@ -5,13 +5,13 @@ import { ToastType } from "../../../types";
 
 export const Container = styled.div`
   background: ${colors.palette.neutral["100"]};
-  color: ${colors.primary};
+  color: ${colors.palette.neutral["800"]};
   display: flex;
   padding: 12px;
 `;
 export const Text = styled.span`
   align-items: center;
-  color: #fff;
+  color: ${colors.palette.neutral["800"]};
   display: flex;
 `;
 export const Icon = styled(UIcon)<{ type: ToastType }>`
