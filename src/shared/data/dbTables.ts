@@ -8,7 +8,7 @@ export enum DBTable {
   t006 = "meal_plan",
   t007 = "meal_plan_request",
   t008 = "notification",
-  t009 = "",
+  t009 = "event",
   t010 = "payment",
   t011 = "profession",
   t012 = "profession_rating",

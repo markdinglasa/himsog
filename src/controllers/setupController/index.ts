@@ -14,3 +14,4 @@ export * from "./recipeLineController";
 export * from "./subscriptionLineController";
 export * from "./susbcriptionController";
 export * from "./unitController";
+export * from "./eventController";

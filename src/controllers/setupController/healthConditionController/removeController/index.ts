@@ -21,8 +21,9 @@ export const HealthConditionRemoveController = async (
       !(await isFound(HealthConditionQuery.q002, ["Id"], [Number], [Id])).data
     )
       return res.status(401).json({ data: [], message: Error.m011 }); // check HealthCondition existence
-    const response = await RemoveService.byId(Id, DBTable.t004);
-    return res.status(200).json({ data: response, message: Success.m003 });
+    if (!(await RemoveService.byId(Id, DBTable.t004)))
+      return { data: false, message: Error.m002 };
+    return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("HealthCondition-Controller [Remove]:", error.message);

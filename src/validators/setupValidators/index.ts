@@ -14,3 +14,4 @@ export * from "./unitValidator";
 export * from "./mealPLanLineValidator";
 export * from "./recipeLineValidator";
 export * from "./professionRatingValidator";
+export * from "./eventValidator";

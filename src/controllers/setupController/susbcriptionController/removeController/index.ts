@@ -28,8 +28,9 @@ export const SubscriptionRemoveController = async (
       ).data
     )
       return res.status(401).json({ data: true, message: Error.m020 });
-    const response = await RemoveService.byId(Id, DBTable.t022);
-    return res.status(200).json({ data: response, message: Success.m003 });
+    if (!(await RemoveService.byId(Id, DBTable.t022)))
+      return { data: false, message: Error.m002 };
+    return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Subscription-Controller [Remove]:", error.message);

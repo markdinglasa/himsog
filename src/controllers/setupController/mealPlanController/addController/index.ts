@@ -31,7 +31,7 @@ export const MealPlanAddController = async (
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
     if (!(await AddService.record(DBTable.t006, Fields, Types, Values)))
-      return res.status(401).json({ data: true, message: Error.m002 });
+      return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

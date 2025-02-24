@@ -22,14 +22,8 @@ export const HealthAddController = async (
       });
     // Other Fn/Conditions
     if (
-      (
-        await isFound(
-          HealthQuery.q004,
-          ["UserId"],
-          [Number],
-          [Data.UserId],
-        )
-      ).data
+      (await isFound(HealthQuery.q004, ["UserId"], [Number], [Data.UserId]))
+        .data
     )
       return res.status(401).json({ data: false, message: Error.m044 }); // check duplicate
     Data.DateCreated = new Date();
@@ -37,7 +31,7 @@ export const HealthAddController = async (
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
     if (!(await AddService.record(DBTable.t003, Fields, Types, Values)))
-      return res.status(401).json({ data: true, message: Error.m002 });
+      return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

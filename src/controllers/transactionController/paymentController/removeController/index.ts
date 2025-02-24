@@ -16,8 +16,9 @@ export const PaymentRemoveController = async (
     if (!(await isFound(PaymentQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Payment existence
     // Check Transaction
-    const response = await RemoveService.byId(Id, DBTable.t010);
-    return res.status(200).json({ data: response, message: Success.m003 });
+    if (!(await RemoveService.byId(Id, DBTable.t010)))
+      return { data: false, message: Error.m002 };
+    return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Payment-Controller [Remove]:", error.message);
