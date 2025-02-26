@@ -93,7 +93,7 @@ const PublicPricingPage: SFC = ({ ClassName }) => {
               <S.Divider className="w-full flex items-center py-3">
                 <CheckIcon className="" />
                 <S.Span className="text-md ml-2 w-full">
-                  Early access to upcoming events & articles
+                  Early access to upcoming events & articlesgit
                 </S.Span>
               </S.Divider>
               <S.Divider className="w-full flex items-center py-3 mb-5">
