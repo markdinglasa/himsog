@@ -1,10 +1,11 @@
-import { SFC } from "../../../../types";
+import { RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import DefaultImg from "../../../../asset/images/default-image.jpg";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import Icon from "../../../../constants/icon";
 import { memo } from "react";
 import { truncate } from "lodash";
 import { getCurrentDate } from "../../../../utils";
+import { useNavigate } from "react-router-dom";
 
 export interface ArticleCardProps {
   Id: string;
@@ -12,21 +13,31 @@ export interface ArticleCardProps {
   Title: string;
   Descritpion: string;
   ScheduleDate: string;
-  onClick: () => void;
+  //onClick: () => void;
+  IsWidget?: boolean;
 }
 
 const ArticleCard: SFC<ArticleCardProps> = ({
+  ClassName,
   Id,
   Image,
   Title,
   Descritpion,
   ScheduleDate,
-  onClick,
+  //onClick,
+  IsWidget = false,
 }) => {
+  const navigate = useNavigate();
   return (
     <S.Divider
       key={Id}
-      className="w-full hover:shadow-md rounded-md border items-center justify-center bg-slate-50"
+      onClick={() =>
+        IsWidget &&
+        navigate(
+          `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Id}`,
+        )
+      }
+      className={`${IsWidget ? "flex flex-row" : "border bg-slate-50"} w-full hover:shadow-md rounded-md  items-center justify-center  ${ClassName}`}
     >
       <S.Divider className="w-full ">
         <S.Image
@@ -47,13 +58,19 @@ const ArticleCard: SFC<ArticleCardProps> = ({
             {truncate(Descritpion, { length: 200 })}
           </S.Span>
         </S.Divider>
-        <S.Divider
-          onClick={onClick}
-          className="w-fit flex items-center justify-start cursor-pointer hover:font-semibold font-medium duration-300 ease-in-out"
-        >
-          <S.Span className="text-sm text-primary">Read article</S.Span>
-          <ArrowOutwardIcon className="ml-1 text-sm p-[2px] text-primary" />
-        </S.Divider>
+        {!IsWidget && (
+          <S.Divider
+            onClick={() =>
+              navigate(
+                `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Id}`,
+              )
+            }
+            className="w-fit flex items-center justify-start cursor-pointer hover:font-semibold font-medium duration-300 ease-in-out"
+          >
+            <S.Span className="text-sm text-primary">Read article</S.Span>
+            <Icon.ArrowOutward className="ml-1 text-sm p-[2px] text-primary" />
+          </S.Divider>
+        )}
       </S.Divider>
     </S.Divider>
   );

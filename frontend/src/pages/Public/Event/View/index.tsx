@@ -113,7 +113,6 @@ const PublicEventPage: SFC = ({ ClassName }) => {
               }
               ScheduleDate={"2025-01-02"}
               Location={"Cebu City"}
-              onClick={() => {}}
             />
             <Card.Event
               Id={"3"}
@@ -124,7 +123,6 @@ const PublicEventPage: SFC = ({ ClassName }) => {
               }
               ScheduleDate={"2025-01-02"}
               Location={"Somewhere Cebu City"}
-              onClick={() => {}}
             />
             <Card.Event
               Id={"3"}
@@ -135,7 +133,6 @@ const PublicEventPage: SFC = ({ ClassName }) => {
               }
               ScheduleDate={"2025-01-02"}
               Location={"Somewhere Cebu City"}
-              onClick={() => {}}
             />
             <Card.Event
               Id={"3"}
@@ -146,7 +143,6 @@ const PublicEventPage: SFC = ({ ClassName }) => {
               }
               ScheduleDate={"2025-01-02"}
               Location={"Somewhere Cebu City"}
-              onClick={() => {}}
             />
           </S.CardContainer>
           <S.Divider className="w-full flex items-center justify-center pt-5">

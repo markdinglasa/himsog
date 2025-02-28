@@ -141,11 +141,11 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
           </S.CardContainer>
         </S.Content>
         <S.Content className="mt-2 flex flex-col md:flex-row gap-2 mb-2">
-          <S.Divider className="w-full md:w-8/12">
-            <LineChart />
+          <S.Divider className="w-full md:w-8/12 ">
+            <LineChart ClassName="border rounded-md" />
           </S.Divider>
-          <S.Divider className="w-full md:w-4/12">
-            <DoughnutChart />
+          <S.Divider className="w-full md:w-4/12 ">
+            <DoughnutChart ClassName="border rounded-md" />
           </S.Divider>
         </S.Content>
       </S.Container>

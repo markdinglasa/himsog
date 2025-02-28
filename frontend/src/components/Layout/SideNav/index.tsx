@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
 import Logo from "../../../asset/svg/logo.svg";
+import Logo2 from "../../../asset/svg/logo2.svg";
 import { cn } from "../../../utils";
 
 export const SideNav: SFC<SideNavProps> = ({
@@ -28,7 +29,7 @@ export const SideNav: SFC<SideNavProps> = ({
       >
         <S.LogoCon className="mt-2">
           <S.Image
-            src={Logo}
+            src={Collapse ? Logo2 : Logo}
             alt="himsog-logo"
             className="h-12"
             onClick={() => navigate(RouteChannel.ADMIN_DASHBOARD)}

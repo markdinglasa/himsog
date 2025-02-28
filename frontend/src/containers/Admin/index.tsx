@@ -31,11 +31,11 @@ export const AdminLayout: SFC = ({ ClassName }) => {
       <S.Container className={ClassName}>
         <S.Content>
           <S.Nav
-            className="hide-on-small "
+            className="hide-on-small border-r"
             $isCollapse={isCollapse}
             $isSidebarOpen={isSidebarOpen}
           >
-            <SideNav Toggle={toggle} Collapse={isCollapse} />
+            <SideNav Toggle={toggle} Collapse={isCollapse} ClassName="" />
           </S.Nav>
           <S.Main $isCollapse={isCollapse}>
             <Header Toggle={toggle} Collapse={Collapse} />

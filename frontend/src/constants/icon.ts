@@ -5,6 +5,7 @@ import Forward from "@mui/icons-material/ArrowForward";
 import Calendar from "@mui/icons-material/CalendarMonth";
 import Location from "@mui/icons-material/LocationOn";
 import East from "@mui/icons-material/East";
+import ArrowOutward from "@mui/icons-material/ArrowOutward";
 
 export default {
   ThumpUp,
@@ -14,4 +15,5 @@ export default {
   East,
   Location,
   Calendar,
+  ArrowOutward,
 };

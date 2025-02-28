@@ -28,7 +28,7 @@ export const Menu: SFC<MenuProps> = ({
       {!isCollapse ? (
         <S.Container
           $isParent={isParent}
-          className={cn("rounded-sm", ClassName)}
+          className={cn("rounded-md", ClassName)}
           onClick={() => {
             isParent ? toggleDisplay() : onClick();
           }}

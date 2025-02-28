@@ -9,7 +9,7 @@ export const UserGetAllController = async (
 ): Promise<any> => {
   try {
     const response = await GetService.byQuery(UserQuery.q001);
-    return res.status(500).json({ data: response, message: Success.m001 });
+    return res.status(200).json({ data: response, message: Success.m001 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("User-Controller [GetAll]:", error.message);

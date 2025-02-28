@@ -209,7 +209,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
               name="filter"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder={"Search"}
+              placeholder={"Filter"}
             />
           </TableToolbar>
         )}

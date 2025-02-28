@@ -16,10 +16,10 @@ export const AdminNotificationPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={ClassName}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active={"Notifications"} />
+          <PageBreadCrumbs Links={links} Active="Notifications" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Notifications"

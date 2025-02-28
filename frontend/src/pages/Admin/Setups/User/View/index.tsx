@@ -1,8 +1,10 @@
 import {
+  APIChannel,
   ButtonType,
   HeadCell,
   RouteChannel,
   SFC,
+  ToastType,
   userHC,
 } from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
@@ -14,18 +16,32 @@ import {
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
-import { cn } from "../../../../../utils";
+import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import { useQuery } from "@tanstack/react-query";
+import { useAxiosPrivate } from "../../../../../hooks";
+import { BASE_URL, Error } from "../../../../../shared";
 
 export const AdminUserViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const axios = useAxiosPrivate();
   const links = [
     {
       Text: "Dashboard",
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
-
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => axios.get(`${BASE_URL}/setup/user/get-all`), // fetch data
+  });
+  if (isError) {
+    displayToast(users?.data?.message || Error.m00001, ToastType.error);
+  }
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -40,15 +56,15 @@ export const AdminUserViewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Users"
-              Rows={[]}
+              Rows={users?.data?.data || []}
               HeadCells={userHC as HeadCell<unknown>[]}
-              IsLoading={false}
+              IsLoading={isLoading}
               OnRecordDelete={() => {}}
-              //RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
+              RemoveApiRoute={APIChannel.USER_REMOVE}
               DetailsRoute={RouteChannel.ADMIN_USER_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
             />

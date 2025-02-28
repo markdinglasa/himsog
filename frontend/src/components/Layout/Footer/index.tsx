@@ -6,7 +6,10 @@ export const PageFooter: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container
-        className={cn("flex justify-end items-center rounded-sm", ClassName)}
+        className={cn(
+          "flex justify-end items-center rounded-md border",
+          ClassName,
+        )}
       >
         <span>
           &copy; {new Date().getFullYear()} Himsog. All rights reserved.

@@ -41,14 +41,13 @@ export const PageTopBar = styled.div`
 
 export const PageContent = styled.div`
   width: 100%;
-  border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
   background: ${colors.white};
-  padding: 8px;
+  padding: 1rem;
 `;
 export const DoubleCol = styled.div`
   width: 100%;
