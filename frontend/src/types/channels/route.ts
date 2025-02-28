@@ -8,8 +8,12 @@ export enum RouteChannel {
   SIGN_UP = "/sign-up",
   ABOUT_US = "/about-us",
   CONTACT_US = "/contact-us",
-  EVENT = "/events",
-  ARTICLE = "/articles",
+  EVENT = "/event",
+  EVENT_DETIALS = "/event/d/:Id",
+  EVENT_NEW = "/event/new?=:Id", // pass access right to params
+  ARTICLE = "/article",
+  ARTICLE_DETAILS = "/article",
+  ARTICLE_NEW = "/article/new?=:Id", // pass access right to params
   FAQ = "/frequent-ask-questions",
   TERMS_AND_CONDITIONS = "/terms-and-conditions",
   PRIVACY_POLICY = "/privacy-policy",

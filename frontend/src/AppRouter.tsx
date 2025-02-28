@@ -36,10 +36,29 @@ export const AppRouter = createBrowserRouter(
             path={RouteChannel.CONTACT_US}
             element={<Page.Public.ContactUs />}
           />
-          <Route path={RouteChannel.EVENT} element={<Page.Public.Event />} />
+          <Route
+            path={RouteChannel.EVENT}
+            element={<Page.Public.Event.View />}
+          />
+          <Route
+            path={RouteChannel.EVENT_DETIALS}
+            element={<Page.Public.Event.Details />}
+          />
+          <Route
+            path={RouteChannel.EVENT_NEW}
+            element={<Page.Public.Event.New />}
+          />
           <Route
             path={RouteChannel.ARTICLE}
-            element={<Page.Public.Article />}
+            element={<Page.Public.Article.View />}
+          />
+          <Route
+            path={RouteChannel.ARTICLE_NEW}
+            element={<Page.Public.Article.New />}
+          />
+          <Route
+            path={RouteChannel.ARTICLE_DETAILS}
+            element={<Page.Public.Article.Details />}
           />
           <Route path={RouteChannel.SIGN_IN} element={<Page.Login />} />
           <Route path={RouteChannel.SIGN_UP} element={<Page.Public.SignUp />} />

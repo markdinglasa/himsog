@@ -14,7 +14,7 @@ import {
   UserRole,
   UserTable,
 } from "../../../types";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import axios from "axios";
 import GoogleLogo from "../../../asset/images/google-logo.png";
 import { useNavigate } from "react-router-dom";
@@ -75,7 +75,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
   return (
     <S.Container
       className={cn(
-        `w-full bg-slate-100 h-full items-center flex justify-center`,
+        `w-full bg-slate-100  items-center flex justify-center py-10`,
         ClassName,
       )}
     >
@@ -275,4 +275,4 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default PublicSignUpPage;
+export default memo(PublicSignUpPage);

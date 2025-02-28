@@ -20,6 +20,7 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import LunchDiningOutlinedIcon from "@mui/icons-material/LunchDiningOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { memo } from "react";
 
 export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -152,4 +153,4 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default AdminDashboardPage;
+export default memo(AdminDashboardPage);

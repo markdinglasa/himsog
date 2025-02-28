@@ -2,7 +2,7 @@ import { HeadCell, notificationHC, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 
 export const ClientNotificationPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -38,4 +38,4 @@ export const ClientNotificationPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default ClientNotificationPage;
+export default memo(ClientNotificationPage);

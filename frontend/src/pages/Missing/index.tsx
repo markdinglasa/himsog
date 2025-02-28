@@ -3,6 +3,7 @@ import { Roles, SFC } from "../../types";
 import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
+import { memo } from "react";
 
 const MissingPage: SFC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const MissingPage: SFC = () => {
           <S.Content className="mt-10 flex items-center justify-center gap-x-6">
             <button
               onClick={() =>
-                navigate(`/${renderPath(auth?.roles ?? Roles.default)}`)
+                navigate(`${renderPath(auth?.roles ?? Roles.default)}`)
               }
               className=""
             >
@@ -34,4 +35,4 @@ const MissingPage: SFC = () => {
     </S.Container>
   );
 };
-export default MissingPage;
+export default memo(MissingPage);

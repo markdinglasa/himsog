@@ -6,9 +6,9 @@ import {
   CustomButton,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Icon from "../../../../../constants/icon";
 
 export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -30,9 +30,7 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Subscription Details" />
           <S.Actions>
             <CustomButton
-              leftIcon={
-                <ArrowBackIcon className="md:text-white text-primary" />
-              }
+              leftIcon={<Icon.Back className="md:text-white text-primary" />}
               onClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
               text="Back"
               type={ButtonType.button}
@@ -47,4 +45,4 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default AdminSubscriptionDetailsPage;
+export default memo(AdminSubscriptionDetailsPage);

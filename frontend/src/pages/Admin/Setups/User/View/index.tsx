@@ -15,7 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import { cn } from "../../../../../utils";
-import AddIcon from "@mui/icons-material/Add";
+import Icon from "../../../../../constants/icon";
 
 export const AdminUserViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const AdminUserViewPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Users" />
           <S.Actions>
             <CustomButton
-              leftIcon={<AddIcon className="md:text-white text-primary" />}
+              leftIcon={<Icon.Add className="md:text-white text-primary" />}
               onClick={() => navigate(RouteChannel.ADMIN_USER_NEW)}
               text="New"
               type={ButtonType.button}

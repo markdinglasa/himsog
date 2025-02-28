@@ -4,6 +4,7 @@ import { cn } from "../../../utils";
 import CheckIcon from "@mui/icons-material/Check";
 import { CustomButton } from "../../../components";
 import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 
 const PublicPricingPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -126,4 +127,4 @@ const PublicPricingPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default PublicPricingPage;
+export default memo(PublicPricingPage);

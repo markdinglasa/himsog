@@ -2,6 +2,7 @@ import { SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs } from "../../../components";
 import { cn } from "../../../utils";
+import { memo } from "react";
 
 export const ClientDashboardPage: SFC = ({ ClassName }) => {
   return (
@@ -17,4 +18,4 @@ export const ClientDashboardPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default ClientDashboardPage;
+export default memo(ClientDashboardPage);

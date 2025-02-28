@@ -10,7 +10,7 @@ import {
   SFC,
   UserTable,
 } from "../../types";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, Error, loginFormValues } from "../../shared";
@@ -200,4 +200,4 @@ const PageLogin: SFC = ({ ClassName }) => {
   );
 };
 
-export default PageLogin;
+export default memo(PageLogin);

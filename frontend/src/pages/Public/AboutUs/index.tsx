@@ -2,7 +2,7 @@ import { Roles, SFC } from "../../../types";
 import * as S from "../../../styles";
 import { cn, renderPath } from "../../../utils";
 import { useAuth } from "../../../hooks";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const PublicAboutUsPage: SFC = ({ ClassName }) => {
@@ -28,4 +28,4 @@ const PublicAboutUsPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default PublicAboutUsPage;
+export default memo(PublicAboutUsPage);

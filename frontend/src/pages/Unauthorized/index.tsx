@@ -3,6 +3,7 @@ import { Roles, SFC } from "../../types";
 import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
+import { memo } from "react";
 
 const UnauthorizedPage: SFC = () => {
   const navigate = useNavigate();
@@ -36,4 +37,4 @@ const UnauthorizedPage: SFC = () => {
   );
 };
 
-export default UnauthorizedPage;
+export default memo(UnauthorizedPage);

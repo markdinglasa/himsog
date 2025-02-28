@@ -5,7 +5,7 @@ import { CustomButton } from "../../../components";
 import EastIcon from "@mui/icons-material/East";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import Card from "../../../components/Surfaces/Cards";
 import Img1 from "../../../asset/svg/img1.svg";
 import Img2 from "../../../asset/svg/img2.svg";
@@ -111,4 +111,4 @@ const PublicHomePage: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default PublicHomePage;
+export default memo(PublicHomePage);

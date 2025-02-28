@@ -4,6 +4,7 @@ import { cn } from "../../../utils";
 import Logo from "../../../asset/svg/logo2.svg";
 import Card from "../../../components/Surfaces/Cards";
 import TransaparentImg from "../../../asset/images/transaparent.png";
+import { memo } from "react";
 
 const PublicHowItWorksyPage: SFC = ({ ClassName }) => {
   return (
@@ -75,4 +76,4 @@ const PublicHowItWorksyPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default PublicHowItWorksyPage;
+export default memo(PublicHowItWorksyPage);

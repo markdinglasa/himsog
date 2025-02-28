@@ -17,7 +17,7 @@ export const useSignOut = () => {
   const signOut = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axiosPrivate.get(`${BASE_URL}/auth/logout/`);
+      //const response = await axiosPrivate.get(`${BASE_URL}/auth/logout/`);
       setAuth({
         user: null,
         roles: undefined,
@@ -27,7 +27,7 @@ export const useSignOut = () => {
       localStorage.removeItem(ContextType.AUTH);
       localStorage.removeItem(ContextType.PERSIST);
       navigate(RouteChannel.INDEX);
-      setRecords(response.data.data);
+      //setRecords(response.data.data);
     } catch (error: any) {
       setRecords(false);
       displayToast(

@@ -13,9 +13,9 @@ import {
   CustomButton,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
-import AddIcon from "@mui/icons-material/Add";
+import Icon from "../../../../../constants/icon";
 
 export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Users" />
           <S.Actions>
             <CustomButton
-              leftIcon={<AddIcon className="md:text-white text-primary" />}
+              leftIcon={<Icon.Add className="md:text-white text-primary" />}
               onClick={() => navigate(RouteChannel.ADMIN_INGREDIENT_NEW)}
               text="New"
               type={ButtonType.button}
@@ -57,4 +57,4 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default AdminIngredientViewPage;
+export default memo(AdminIngredientViewPage);

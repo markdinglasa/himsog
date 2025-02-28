@@ -4,7 +4,7 @@ import { cn, renderPath } from "../../../utils";
 import { ContactUsForm } from "../../../components";
 import { useAuth } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 const PublicContactUsPage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
@@ -59,4 +59,4 @@ const PublicContactUsPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default PublicContactUsPage;
+export default memo(PublicContactUsPage);

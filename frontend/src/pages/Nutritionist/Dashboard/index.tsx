@@ -2,6 +2,7 @@ import { SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs } from "../../../components";
 import { cn } from "../../../utils";
+import { memo } from "react";
 
 const NutritionistDashboardPage: SFC = ({ ClassName }) => {
   return (
@@ -16,4 +17,4 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default NutritionistDashboardPage;
+export default memo(NutritionistDashboardPage);

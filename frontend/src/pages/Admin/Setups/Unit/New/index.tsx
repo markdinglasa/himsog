@@ -7,9 +7,9 @@ import {
   UnitForm,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Icon from "../../../../../constants/icon";
 
 export const AdminUnitNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ export const AdminUnitNewPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="New Unit" />
           <S.Actions>
             <CustomButton
-              leftIcon={
-                <ArrowBackIcon className="md:text-white text-primary" />
-              }
+              leftIcon={<Icon.Back className="md:text-white text-primary" />}
               onClick={() => navigate(RouteChannel.ADMIN_UNIT)}
               text="Back"
               type={ButtonType.button}
@@ -47,4 +45,4 @@ export const AdminUnitNewPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default AdminUnitNewPage;
+export default memo(AdminUnitNewPage);

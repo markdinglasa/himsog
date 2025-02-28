@@ -2,7 +2,7 @@ import { RouteChannel, SFC, UserInitial } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, ProfileCard, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 //import { useAuth } from "../../../hooks";
 
 export const AdminProfilePage: SFC = ({ ClassName }) => {
@@ -40,4 +40,4 @@ export const AdminProfilePage: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default AdminProfilePage;
+export default memo(AdminProfilePage);

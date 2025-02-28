@@ -3,6 +3,7 @@ import { Roles, SFC } from "../../types";
 import { useAuth } from "../../hooks";
 import { renderPath } from "../../utils";
 import * as S from "../../styles";
+import { memo } from "react";
 
 const UnderConstruction: SFC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const UnderConstruction: SFC = () => {
             <S.Content className="mt-10 flex items-center justify-center gap-x-6">
               <button
                 onClick={() =>
-                  navigate(`/${renderPath(auth?.roles ?? Roles.default)}`)
+                  navigate(`${renderPath(auth?.roles ?? Roles.default)}`)
                 }
                 className=""
               >
@@ -36,4 +37,4 @@ const UnderConstruction: SFC = () => {
   );
 };
 
-export default UnderConstruction;
+export default memo(UnderConstruction);

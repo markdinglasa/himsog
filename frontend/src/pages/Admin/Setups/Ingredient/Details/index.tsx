@@ -6,9 +6,9 @@ import {
   CustomButton,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Icon from "../../../../../constants/icon";
 
 export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -30,9 +30,7 @@ export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Ingredient Details" />
           <S.Actions>
             <CustomButton
-              leftIcon={
-                <ArrowBackIcon className="md:text-white text-primary" />
-              }
+              leftIcon={<Icon.Back className="md:text-white text-primary" />}
               onClick={() => navigate(RouteChannel.ADMIN_INGREDIENT)}
               text="Back"
               type={ButtonType.button}
@@ -47,4 +45,4 @@ export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
   );
 };
 
-export default AdminIngredientDetailsPage;
+export default memo(AdminIngredientDetailsPage);
