@@ -1,1 +1,3 @@
-export * from "./getAllRecordCount";
+import RecordCount from "./getAllRecordCount";
+
+export default { RecordCount };

@@ -5,7 +5,7 @@ export interface ReminderTable extends Id, Logs {
   Alarm: string;
 }
 export type ReminderTables = ReminderTable[];
-export const ReminderInital: ReminderTable = {
+export const ReminderInitial: ReminderTable = {
   UserId: 0,
   Description: null,
   Alarm: "",

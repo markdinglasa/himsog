@@ -1,6 +1,6 @@
 import Setup from "./setup";
-export * from "./transaction";
-export * from "./utility";
+import Transaction from "./transaction";
+import Utility from "./utility";
 //export * from "./settings";
 
-export default { Setup };
+export default { Setup, Transaction, Utility };

@@ -44,3 +44,5 @@ export const useGetAllRecordCount = () => {
     refetch: fetchData,
   };
 };
+
+export default useGetAllRecordCount;
