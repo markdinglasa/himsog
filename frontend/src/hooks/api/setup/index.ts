@@ -10,6 +10,7 @@ import Health from "./health";
 import HealthCondition from "./healthCondition";
 import Meal from "./meal";
 import MealPlan from "./mealPlan";
+import MealPlanLine from "./mealPlanLine";
 import NutritionFact from "./nutritionFact";
 
 export default {
@@ -24,4 +25,5 @@ export default {
   Meal,
   MealPlan,
   NutritionFact,
+  MealPlanLine,
 };

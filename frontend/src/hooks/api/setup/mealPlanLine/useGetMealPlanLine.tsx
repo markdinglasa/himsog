@@ -4,13 +4,13 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetMealPlan = (Id: number = 0) => {
+const useGetMealPlanLine = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.MEAL_PLAN, Id],
+    queryKey: [QueryKey.MEAL_PLAN_LINE, Id],
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.MEAL_PLAN_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.MEAL_PLAN_LINE_ID.replace(":Id", Id.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || {};
@@ -24,4 +24,4 @@ const useGetMealPlan = (Id: number = 0) => {
     error,
   };
 };
-export default useGetMealPlan;
+export default useGetMealPlanLine;
