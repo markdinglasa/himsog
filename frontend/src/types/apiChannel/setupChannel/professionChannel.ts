@@ -1,7 +1,7 @@
-export enum ProfessionChannel {
-  PROFESSION_GET = "/setup/profession/get/:Id",
-  PROFESSION_GET_ALL = "/setup/profession/get-all",
-  PROFESSION_NEW = "/setup/profession/new",
-  PROFESSION_REMOVE = "/setup/profession/remove/:Id",
-  PROFESSION_UPDATE = "/setup/profession/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const ProfessionChannel = {
+  PROFESSION: `${BASE_URL}/setup/profession`,
+  PROFESSION_ID: `${BASE_URL}/setup/profession/:Id`,
+  PROFESSION_PARENT: `${BASE_URL}/setup/profession/meal?=:Id`,
+};

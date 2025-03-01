@@ -1,7 +1,7 @@
-export enum CertificateChannel {
-  CERTIFICATE_GET = "/setup/certificate/get/:Id",
-  CERTIFICATE_GET_ALL = "/setup/certificate/get-all/:Id", //ProfessionId
-  CERTIFICATE_NEW = "/setup/certificate/new",
-  CERTIFICATE_REMOVE = "/setup/certificate/remove/:Id",
-  CERTIFICATE_UPDATE = "/setup/certificate/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const CertificateChannel = {
+  CERTIFICATE: `${BASE_URL}/setup/certificate`,
+  CERTIFICATE_ID: `${BASE_URL}/setup/certificate/:Id`,
+  CERTIFICATE_PARENT: `${BASE_URL}/setup/certificate/profession?=:Id`,
+};

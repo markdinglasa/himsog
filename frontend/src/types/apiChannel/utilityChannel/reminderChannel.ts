@@ -1,7 +1,7 @@
-export enum ReminderChannel {
-  REMINDER_GET = "/utility/reminder/get/:Id",
-  REMINDER_GET_ALL = "/utility/reminder/get-all/:UserId",
-  REMINDER_NEW = "/utility/reminder/new",
-  REMINDER_REMOVE = "/utility/reminder/remove/:Id",
-  REMINDER_UPDATE = "/utility/reminder/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const ReminderChannel = {
+  REMINDER: `${BASE_URL}/transaction/reminder`,
+  REMINDER_ID: `${BASE_URL}/transaction/reminder/:Id`,
+  REMINDER_PARENT: `${BASE_URL}/transaction/reminder/u?=:Id`,
+};

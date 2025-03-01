@@ -1,7 +1,7 @@
-export enum PaymentChannel {
-  PAYMENT_GET = "/transaction/appointment/get/:Id",
-  PAYMENT_GET_ALL = "/transaction/appointment/get-all/:Id", // UserId
-  PAYMENT_NEW = "/transaction/appointment/new",
-  PAYMENT_REMOVE = "/transaction/appointment/remove/:Id",
-  PAYMENT_UPDATE = "/transaction/appointment/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const PaymentChannel = {
+  PAYMENT: `${BASE_URL}/transaction/payment`,
+  PAYMENT_ID: `${BASE_URL}/transaction/payment/:Id`,
+  PAYMENT_PARENT: `${BASE_URL}/transaction/payment/u?=:Id`,
+};

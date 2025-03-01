@@ -1,7 +1,7 @@
-export enum HealthChannel {
-  HEALTH_GET = "/setup/health/get/:Id",
-  HEALTH_GET_ALL = "/setup/health/get-all/:Id", //UserId
-  HEALTH_NEW = "/setup/health/new",
-  HEALTH_REMOVE = "/setup/health/remove/:Id",
-  HEALTH_UPDATE = "/setup/health/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const HealthChannel = {
+  HEALTH: `${BASE_URL}/setup/health`,
+  HEALTH_ID: `${BASE_URL}/setup/health/:Id`,
+  HEALTH_PARENT: `${BASE_URL}/setup/health/u?=:Id`,
+};

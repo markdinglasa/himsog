@@ -1,7 +1,7 @@
-export enum AppointmentChannel {
-  APPOINTMENT_GET = "/transaction/appointment/get/:Id",
-  APPOINTMENT_GET_ALL = "/transaction/appointment/get-all/:Id", // UserId
-  APPOINTMENT_NEW = "/transaction/appointment/new",
-  APPOINTMENT_REMOVE = "/transaction/appointment/remove/:Id",
-  APPOINTMENT_UPDATE = "/transaction/appointment/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const AppointmentChannel = {
+  APPOINTMENT: `${BASE_URL}/transaction/appointment`,
+  APPOINTMENT_ID: `${BASE_URL}/transaction/appointment/:Id`,
+  APPOINTMENT_PARENT: `${BASE_URL}/transaction/appointment/u?=:Id`,
+};

@@ -34,7 +34,6 @@ const useAddUnit = () => {
 
   const add = useCallback(
     (data: UnitTable) => {
-      console.log(APIChannel.UNIT);
       if (!data) return;
       mutation.mutate(data);
     },

@@ -1,7 +1,6 @@
-export enum MealChannel {
-  MEAL_GET = "/setup/meal/get/:Id",
-  MEAL_GET_ALL = "/setup/meal/get-all/:Id", // MealPlanId
-  MEAL_NEW = "/setup/meal/new",
-  MEAL_REMOVE = "/setup/meal/remove/:Id",
-  MEAL_UPDATE = "/setup/meal/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const MealChannel = {
+  MEAL: `${BASE_URL}/setup/meal`,
+  MEAL_ID: `${BASE_URL}/setup/meal/:Id`,
+};

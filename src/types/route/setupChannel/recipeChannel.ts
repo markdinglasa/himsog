@@ -7,5 +7,5 @@ export enum RecipeChannel {
 
   RECIPE = "/setup/recipe",
   RECIPE_ID = "/setup/recipe/:Id",
-  RECIPE_PARENT = "/setup/recipe/user?=:Id",
+  RECIPE_PARENT = "/setup/recipe/u?=:Id",
 }

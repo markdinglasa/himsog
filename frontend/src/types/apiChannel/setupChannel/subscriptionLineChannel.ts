@@ -1,7 +1,7 @@
-export enum SubscriptionLineChannel {
-  SUBSCRIPTION_LINE_GET = "/setup/subscription/get/:Id",
-  SUBSCRIPTION_LINE_GET_ALL = "/setup/subscription/get-all/:Id", // SubscriptionId
-  SUBSCRIPTION_LINE_NEW = "/setup/subscription/new",
-  SUBSCRIPTION_LINE_REMOVE = "/setup/subscription/remove/:Id",
-  SUBSCRIPTION_LINE_UPDATE = "/setup/subscription/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const SubscriptionLineChannel = {
+  SUBSCRIPTION_LINE: `${BASE_URL}/setup/subscription-line`,
+  SUBSCRIPTION_LINE_ID: `${BASE_URL}/setup/subscription-line/:Id`,
+  SUBSCRIPTION_LINE_PARENT: `${BASE_URL}/setup/subscription-line/subscription?=:Id`,
+};

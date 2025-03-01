@@ -1,7 +1,7 @@
-export enum RecipeChannel {
-  RECIPE_GET = "/setup/recipe/get/:Id",
-  RECIPE_GET_ALL = "/setup/recipe/get-all",
-  RECIPE_NEW = "/setup/recipe/new",
-  RECIPE_REMOVE = "/setup/recipe/remove/:Id",
-  RECIPE_UPDATE = "/setup/recipe/update/:Id",
-}
+import { BASE_URL } from "../../../shared";
+
+export const RecipeChannel = {
+  RECIPE: `${BASE_URL}/setup/recipe`,
+  RECIPE_ID: `${BASE_URL}/setup/recipe/:Id`,
+  RECIPE_PARENT: `${BASE_URL}/setup/recipe/u?=:Id`,
+};
