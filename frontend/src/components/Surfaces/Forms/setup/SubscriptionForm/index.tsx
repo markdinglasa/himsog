@@ -2,10 +2,10 @@ import {
   ButtonColor,
   ButtonType,
   FormProps,
+  SubscriptionTable,
   InputType,
   SFC,
   ToastType,
-  UnitTable,
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
@@ -16,12 +16,12 @@ import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
 import { memo, useState } from "react";
 import { useAuth } from "../../../../../hooks";
-import { unitValidator } from "../../../../../validators";
+import { subscriptionValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
 
-export const UnitForm: SFC<FormProps> = ({
+export const SubscriptionForm: SFC<FormProps> = ({
   ClassName,
   Title = "NA",
   IsDetails = true,
@@ -29,19 +29,22 @@ export const UnitForm: SFC<FormProps> = ({
   const [IsEdit, SetIsEdit] = useState(IsDetails);
   const { Id } = useParams<{ Id: string }>();
   const { auth } = useAuth();
-  const { add } = API.Setup.Unit.Add();
-  const { update } = API.Setup.Unit.Update();
-  const { data, isLoading } = API.Setup.Unit.Get(Number(Id));
+  const { add } = API.Setup.Subscription.Add();
+  const { update } = API.Setup.Subscription.Update();
+  const { data, isLoading } = API.Setup.Subscription.Get(Number(Id));
 
-  const InitialValues: UnitTable = {
+  const InitialValues: SubscriptionTable = {
     Name: data?.Name || "",
     Description: data?.Description || null,
     CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
     UpdatedBy: IsDetails ? auth?.user : null,
+    Duration: data?.Duration || 0,
+    Price: data?.Price || 0,
   };
 
-  const handleSubmit = async (values: UnitTable) => {
+  const handleSubmit = async (values: SubscriptionTable) => {
     try {
+      console.log("values:", values);
       if (Id) update(Number(Id), values);
       else add(values);
     } catch (error: any) {
@@ -72,7 +75,7 @@ export const UnitForm: SFC<FormProps> = ({
                 onSubmit={handleSubmit}
                 enableReinitialize={true}
                 validateOnMount={true}
-                validationSchema={unitValidator}
+                validationSchema={subscriptionValidator}
               >
                 {({
                   errors,
@@ -85,31 +88,61 @@ export const UnitForm: SFC<FormProps> = ({
                   resetForm,
                 }) => (
                   <Form>
-                    <S.Divider className="w-full mb-2">
-                      <CustomInput
-                        placeholder="e.g. Kg(s)"
-                        label="Name"
-                        name="Name"
-                        errors={errors}
-                        touched={touched}
-                        value={values.Name}
-                        onChange={handleChange}
-                        disabled={IsEdit}
-                        type={InputType.text}
-                      />
-                    </S.Divider>
-                    <S.Divider className="w-full">
-                      <CustomInput
-                        placeholder="e.g. Kilogram(s)"
-                        label="Description (optional)"
-                        name="Description"
-                        errors={errors}
-                        touched={touched}
-                        value={values.Description ?? ""}
-                        onChange={handleChange}
-                        disabled={IsEdit}
-                        type={InputType.text}
-                      />
+                    <S.Divider className="w-full flex flex-col gap-2">
+                      <S.Divider className="w-full ">
+                        <CustomInput
+                          placeholder="e.g. Ginger"
+                          label="Name"
+                          name="Name"
+                          errors={errors}
+                          touched={touched}
+                          value={values.Name}
+                          onChange={handleChange}
+                          disabled={IsEdit}
+                          type={InputType.text}
+                        />
+                      </S.Divider>
+                      <S.Divider className="w-full ">
+                        <CustomInput
+                          placeholder="e.g. Zingiber officinale"
+                          label="Description (optional)"
+                          name="Description"
+                          errors={errors}
+                          touched={touched}
+                          value={values.Description ?? ""}
+                          onChange={handleChange}
+                          disabled={IsEdit}
+                          type={InputType.text}
+                        />
+                      </S.Divider>
+                      <S.Divider className="w-full flex md:flex-row flex-col gap-4">
+                        <S.Divider className="w-full ">
+                          <CustomInput
+                            placeholder="e.g. 30 days"
+                            label="Duration"
+                            name="Duration"
+                            errors={errors}
+                            touched={touched}
+                            value={values.Duration.toString()}
+                            onChange={handleChange}
+                            disabled={IsEdit}
+                            type={InputType.number}
+                          />
+                        </S.Divider>
+                        <S.Divider className="w-full">
+                          <CustomInput
+                            placeholder="e.g. 999"
+                            label="Price"
+                            name="Price"
+                            errors={errors}
+                            touched={touched}
+                            value={values.Price.toString()}
+                            onChange={handleChange}
+                            disabled={IsEdit}
+                            type={InputType.number}
+                          />
+                        </S.Divider>
+                      </S.Divider>
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
                       <S.Divider className="w-full flex justify-end items-center border-t gap-4 mt-4 pt-4">
@@ -145,4 +178,5 @@ export const UnitForm: SFC<FormProps> = ({
     </>
   );
 };
-export default memo(UnitForm);
+
+export default memo(SubscriptionForm);

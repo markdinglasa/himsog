@@ -12,38 +12,38 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_GET}`,
-  TokenHandler.verifyToken,
-  SubscriptionGetController,
-);
-router.get(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION}`,
   TokenHandler.verifyToken,
   SubscriptionGetAllController,
 );
 router.post(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_NEW}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION}`,
   TokenHandler.verifyToken,
   SubscriptionAddController,
 );
+router.get(
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_ID}`,
+  TokenHandler.verifyToken,
+  SubscriptionGetController,
+);
 router.delete(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_REMOVE}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_ID}`,
   TokenHandler.verifyToken,
   SubscriptionRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_UPDATE}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_ID}`,
   TokenHandler.verifyToken,
   SubscriptionUpdateController,
 );
 
 logging.log("----------------------------------------");
 logging.log("--------SUBSCRIPTION CONTROLLER---------");
-logging.log(RouteChannel.SUBSCRIPTION_GET);
-logging.log(RouteChannel.SUBSCRIPTION_GET_ALL);
-logging.log(RouteChannel.SUBSCRIPTION_NEW);
-logging.log(RouteChannel.SUBSCRIPTION_REMOVE);
-logging.log(RouteChannel.SUBSCRIPTION_UPDATE);
+logging.log(`GET ${RouteChannel.SUBSCRIPTION} [get-all]`);
+logging.log(`POST ${RouteChannel.SUBSCRIPTION} [add]`);
+logging.log(`GET ${RouteChannel.SUBSCRIPTION_ID} [get]`);
+logging.log(`DELETE ${RouteChannel.SUBSCRIPTION_ID} [remove]`);
+logging.log(`PATCH ${RouteChannel.SUBSCRIPTION_ID} [update]`);
 logging.log("----------------------------------------");
 
 export default router;
