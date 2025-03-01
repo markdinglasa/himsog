@@ -15,6 +15,7 @@ import { SubscriptionLineChannel } from "./subscriptionLineChannel";
 import { UnitChannel } from "./unitChannel";
 import { UserChannel } from "./userChannel";
 import { EventChannel } from "./eventChannel";
+import { ArticleChannel } from "./articleChannel";
 
 export const SetupChannel = {
   ...MealChannel,
@@ -23,6 +24,7 @@ export const SetupChannel = {
   ...HealthConditionChannel,
   ...IngredientChannel,
   ...EventChannel,
+  ...ArticleChannel,
   ...MealPlanChannel,
   ...MealPlanLineChannel,
   ...ProfessionChannel,

@@ -6,7 +6,7 @@ export enum QueryKey {
   HEALTH_CONDITION = "health-condition",
   INGREDIENT = "ingredient",
   EVENT = "event",
-  ARITCLE = "ariticle",
+  ARTICLE = "ariticle",
   MEAL = "meal",
   MEAL_PLAN = "meal-plan",
   MEAL_PLAN_LINE = "meal-plan-line",
