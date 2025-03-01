@@ -1,5 +1,5 @@
 export enum IngredientQuery {
-  q001 = "SELECT * FROM `ingredient` WHERE `CreatedBy` = ?", // GET ALL
+  q001 = "SELECT i.*, u.`Name` AS `UnitName` FROM `ingredient` AS i LEFT JOIN unit AS u ON u.`Id`=i.`UnitId`", // GET ALL
   q002 = "SELECT `Id` FROM `ingredient` WHERE `Id` = ?", // CHECK EXISTENCE
   q003 = "SELECT * FROM `ingredient` WHERE `Id` = ?", // GET
   q004 = "SELECT `IngredientId` FROM `recipe` WHERE `IngredientId` = ?", // CHECK TRANSACTION

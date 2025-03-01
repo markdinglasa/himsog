@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import Form from "../../../../../components/Surfaces/Forms";
 
 export const AdminIngredientNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const AdminIngredientNewPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar>
-          <PageBreadCrumbs Links={links} Active="New Subscription" />
+          <PageBreadCrumbs Links={links} Active="New Ingredient" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Back className="md:text-white text-primary" />}
@@ -37,8 +38,10 @@ export const AdminIngredientNewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
-          <Suspense fallback={<Skeleton />}></Suspense>
+        <S.PageContent className="border rounded-md">
+          <Suspense fallback={<Skeleton />}>
+            <Form.Setup.Ingredient IsDetails={false} Title="New Ingredient" />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

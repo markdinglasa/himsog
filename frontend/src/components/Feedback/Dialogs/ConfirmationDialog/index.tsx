@@ -36,16 +36,15 @@ export const ConfirmationDialog: SFC<ConfirmationDialogProps> = ({
 
   const footer = () => (
     <>
-      <S.ConfirmationButtons>
-        <S.CancelButtonCon>
-          <CustomButton
-            leftIcon={<CancelIcon className="text-primary" />}
-            onClick={close}
-            text={"Cancel"}
-            color={ButtonColor.default}
-            type={ButtonType.button}
-          />
-        </S.CancelButtonCon>
+      <S.ConfirmationButtons className="pt-[1rem]">
+        <CustomButton
+          leftIcon={<CancelIcon className="text-primary" />}
+          onClick={close}
+          text={"Cancel"}
+          color={ButtonColor.default}
+          type={ButtonType.button}
+        />
+
         <CustomButton
           leftIcon={renderIcon()}
           onClick={confirm}
@@ -64,7 +63,7 @@ export const ConfirmationDialog: SFC<ConfirmationDialogProps> = ({
       aria-describedby={title}
     >
       <Box sx={ModalStyle}>
-        <S.Content>
+        <S.Content className="md:w-[30rem]">
           <S.MessageContainer>
             <S.Icon path={mdiAlertCircleOutline} size="28px" />
             <S.Message>{message}</S.Message>

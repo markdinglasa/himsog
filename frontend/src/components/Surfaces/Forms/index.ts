@@ -1,9 +1,11 @@
-//SETUP
-export * from "./setup";
+import Setup from "./setup";
+import Transaction from "./transaction";
+import Settings from "./settingsForm";
+import Public from "./publicForm";
 
-//TRANSACTION
-export * from "./transaction";
-
-//SETTINGS
-export * from "./settingsForm";
-export * from "./publicForm";
+export default {
+  Setup,
+  Transaction,
+  Public,
+  Settings,
+};

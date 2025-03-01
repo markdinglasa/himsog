@@ -12,6 +12,7 @@ import { Form, Formik } from "formik";
 import { CustomButton, CustomInput } from "../../../../Inputs";
 import { cn, displayToast } from "../../../../../utils";
 import { contactUsValidator } from "../../../../../validators";
+import { memo } from "react";
 
 export const ContactUsForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
   const InitialValues: ContactUsTable = {
@@ -126,3 +127,4 @@ export const ContactUsForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
     </>
   );
 };
+export default memo(ContactUsForm);

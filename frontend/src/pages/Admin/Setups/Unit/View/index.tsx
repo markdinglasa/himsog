@@ -5,7 +5,6 @@ import {
   QueryKey,
   RouteChannel,
   SFC,
-  ToastType,
   unitHC,
 } from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
@@ -17,11 +16,9 @@ import {
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
-import { cn, displayToast } from "../../../../../utils";
+import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-import { useAxiosPrivate } from "../../../../../hooks";
-import { useQuery } from "@tanstack/react-query";
-import { Error } from "../../../../../shared";
+import API from "../../../../../hooks/api";
 
 export const AdminUnitViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -31,18 +28,7 @@ export const AdminUnitViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
-  const axios = useAxiosPrivate();
-  const {
-    data: units,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: [QueryKey.UNIT],
-    queryFn: async () => axios.get(`${APIChannel.UNIT}`), // fetch data
-  }); // on delete of a record it wont refetch
-  if (isError) {
-    displayToast(units?.data?.message || Error.m00001, ToastType.error);
-  }
+  const { data: units, isLoading } = API.Setup.Unit.GetAll();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -61,7 +47,7 @@ export const AdminUnitViewPage: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Units"
-              Rows={units?.data?.data || []}
+              Rows={units ?? []}
               HeadCells={unitHC as HeadCell<unknown>[]}
               IsLoading={isLoading}
               OnRecordDelete={() => {}}

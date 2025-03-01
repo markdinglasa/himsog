@@ -9,12 +9,12 @@ import {
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
-import { CircleButton, CustomButton, Input } from "../../../../Inputs";
+import { CircleButton, CustomButton, CustomInput } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useAuth } from "../../../../../hooks";
 import { unitValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
@@ -86,7 +86,7 @@ export const UnitForm: SFC<FormProps> = ({
                 }) => (
                   <Form>
                     <S.Divider className="w-full mb-2">
-                      <Input
+                      <CustomInput
                         placeholder="e.g. Kg(s)"
                         label="Name"
                         name="Name"
@@ -99,7 +99,7 @@ export const UnitForm: SFC<FormProps> = ({
                       />
                     </S.Divider>
                     <S.Divider className="w-full">
-                      <Input
+                      <CustomInput
                         placeholder="e.g. Kilogram(s)"
                         label="Description (optional)"
                         name="Description"
@@ -145,3 +145,4 @@ export const UnitForm: SFC<FormProps> = ({
     </>
   );
 };
+export default memo(UnitForm);

@@ -3,7 +3,8 @@ import Joi from "joi";
 export const ingredientValidator = Joi.object({
   Name: Joi.string().required(),
   Description: Joi.string().allow("").allow(null).optional(),
-  Catgegory: Joi.string().required(),
+  UnitId: Joi.number().integer().positive().required(),
+  Category: Joi.string().required(),
   CreatedBy: Joi.number().integer().positive().required(),
   DateCreated: Joi.date().optional(),
   UpdatedBy: Joi.number().integer().positive().allow(null).optional(),

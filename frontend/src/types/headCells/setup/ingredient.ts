@@ -12,7 +12,7 @@ export const ingredientHC: HeadCell<IngredientTable>[] = [
     Id: "Category",
     numeric: false,
     disablePadding: false,
-    label: "Duration",
+    label: "Category",
   },
   {
     Id: "UnitName",

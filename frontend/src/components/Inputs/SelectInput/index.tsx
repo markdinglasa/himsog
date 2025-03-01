@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { SelectInputProps, SFC } from "../../../types";
 import * as S from "./Styles";
-import { colors } from "../../../styles";
+import { cn } from "../../../utils";
 
 export const SelectInput: SFC<SelectInputProps> = ({
   ClassName,
@@ -16,18 +16,21 @@ export const SelectInput: SFC<SelectInputProps> = ({
   //OnChange,
 }) => {
   const style = {
-    border: disabled ? `1px solid ${colors.palette.neutral["100"]}` : "",
+    border: disabled ? `1px solid #C4C4C4` : "1px solid #C4C4C4",
     backgroundColor: disabled ? `white` : "",
+    "&:hover": {
+      border: disabled ? `1px solid #202020` : "1px solid #202020",
+    },
   };
 
   return (
     <>
-      <S.Container className={ClassName}>
+      <S.Container className={cn("hover:border-red", ClassName)}>
         <S.Label htmlFor={name} className="ml-3 text-zinc-700">
           {label}
         </S.Label>
         <S.Content>
-          <S.Field name={name} className={twMerge("border", ClassName)}>
+          <S.Field name={name}>
             {({ field, form }: any) => (
               <>
                 <S.Field

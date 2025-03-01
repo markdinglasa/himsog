@@ -1,1 +1,5 @@
-export * from "./ContactUsForm";
+import ContactUs from "./ContactUsForm";
+
+export default {
+  ContactUs,
+};

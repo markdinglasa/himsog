@@ -19,7 +19,7 @@ const useUpdateUnit = () => {
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: UnitTable }) => {
       const response = await axios.patch(
-        `${APIChannel.UNIT_ID.slice(0, APIChannel.UNIT_ID.length - 3)}${Id}`,
+        `${APIChannel.UNIT_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;

@@ -6,10 +6,10 @@ export const ConfirmationButtons = styled.div`
   border-top: 1px solid ${colors.palette.neutral["200"]};
   display: flex;
   justify-content: end;
-  padding: 10px 0px;
+  gap: 1rem;
 `;
 export const MessageContainer = styled.div`
-  padding: 30px 10px;
+  padding: 1rem 1rem;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -27,6 +27,4 @@ export const Icon = styled(UIcon)`
 export const CancelButtonCon = styled.div`
   margin-right: 8px;
 `;
-export const Content = styled.div`
-  min-width: 300px;
-`;
+export const Content = styled.div``;

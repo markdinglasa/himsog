@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-
+import Form from "../../../../../components/Surfaces/Forms";
 export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -37,8 +37,10 @@ export const AdminIngredientDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
-          <Suspense fallback={<Skeleton />}></Suspense>
+        <S.PageContent className="border rounded-md">
+          <Suspense fallback={<Skeleton />}>
+            <Form.Setup.Ingredient Title="Ingredient Details" />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

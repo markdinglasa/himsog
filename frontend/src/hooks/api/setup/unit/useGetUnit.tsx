@@ -1,5 +1,5 @@
 import { Error } from "../../../../shared";
-import { APIChannel, ToastType } from "../../../../types";
+import { APIChannel, QueryKey, ToastType } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetUnit = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["unit", Id], // Unique key for the query, including the Id
+    queryKey: [QueryKey.UNIT, Id],
     queryFn: async () => {
       const response = await axios.get(
         `${APIChannel.UNIT_ID.replace(":Id", Id.toString())}`,

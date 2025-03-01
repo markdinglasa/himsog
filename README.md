@@ -39,5 +39,5 @@ A list of technologies used within the project:
 
 ## DEFAULT USER
 
-- Username: admin@gmail.com
+- Email: admin@gmail.com
 - Password: admin123

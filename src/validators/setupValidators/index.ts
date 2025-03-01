@@ -16,3 +16,4 @@ export * from "./recipeLineValidator";
 export * from "./professionRatingValidator";
 export * from "./eventValidator";
 export * from "./requestAccessValdiator";
+export * from "./articleValidator";

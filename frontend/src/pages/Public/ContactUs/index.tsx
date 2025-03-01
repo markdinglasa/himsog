@@ -1,7 +1,7 @@
 import { Roles, SFC } from "../../../types";
 import * as S from "../../../styles";
 import { cn, renderPath } from "../../../utils";
-import { ContactUsForm } from "../../../components";
+import Form from "../../../components/Surfaces/Forms";
 import { useAuth } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { memo, useEffect } from "react";
@@ -31,7 +31,7 @@ const PublicContactUsPage: SFC = ({ ClassName }) => {
         </S.Content>
         <S.Content className="w-full md:w-11/12 flex flex-col md:flex-row gap-5">
           <S.Divider className="border w-full md:w-7/12 p-5 bg-slate-50 rounded-md">
-            <ContactUsForm Title="We'd loved to hear from you" />
+            <Form.Public.ContactUs Title="We'd loved to hear from you" />
           </S.Divider>
           <S.Divider className="border w-full md:w-5/12 p-5 h-fit bg-slate-50 rounded-md">
             <S.Divider className="flex flex-col gap-2 mb-3">

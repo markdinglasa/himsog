@@ -4,13 +4,12 @@ import {
   PageBreadCrumbs,
   Skeleton,
   CustomButton,
-  UnitForm,
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-
+import Form from "../../../../../components/Surfaces/Forms";
 export const AdminUnitDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -37,7 +36,7 @@ export const AdminUnitDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
-            <UnitForm Title="Unit Details" IsDetails={true} />
+            <Form.Setup.Unit Title="Unit Details" IsDetails={true} />
           </Suspense>
         </S.PageContent>
       </S.Container>

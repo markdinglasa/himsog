@@ -19,7 +19,7 @@ export const Label = styled.label`
 
 export const Field = styled(UField)`
   border: 1px solid
-    ${({ $error }) => ($error ? colors.palette.red["500"] : "#e0e0e0")};
+    ${({ $error }) => ($error ? colors.palette.red["500"] : "#e0e0e")};
 
   display: block;
   height: 40px;
@@ -40,7 +40,7 @@ export const Option = styled.option`
   background-color: ${colors.palette.neutral[
     "075"
   ]}; /* Example background color */
-  color: ${colors.primary}; /* Example text color */
+
   padding: 10px; /* Example padding */
   min-height: 40px;
   width: 100px;

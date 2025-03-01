@@ -25,13 +25,13 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
 
   return (
     <>
-      <S.Container className={cn("mb-1", ClassName)}>
+      <S.Container className={cn("mb-0", ClassName)}>
         {Label && (
           <S.Label className="text-[#666666] font-medium ml-3">{Label}</S.Label>
         )}
         <S.Content>
           <S.AutoComplete
-            className="border border-[#C4C4C4] hover:border-[#202020]"
+            className={`border border-[#C4C4C4] ${IsEdit ? "" : "hover:border-[#202020]"}`}
             options={Options}
             getOptionLabel={(option: any) => option[OptionName]}
             value={selectedValue}
