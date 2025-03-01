@@ -1,22 +1,26 @@
 export * from "./user";
 
-import Unit from "./unit";
-import Ingredient from "./ingredient";
-import Subscription from "./subscription";
-import User from "./user";
-import Event from "./event";
 import Article from "./article";
+import Event from "./event";
 import Health from "./health";
 import HealthCondition from "./healthCondition";
+import Ingredient from "./ingredient";
 import Meal from "./meal";
 import MealPlan from "./mealPlan";
 import MealPlanLine from "./mealPlanLine";
 import NutritionFact from "./nutritionFact";
+import Profession from "./profession";
+import ProfessionRating from "./professionRating";
+import Subscription from "./subscription";
+import SubscriptionLine from "./subscriptionLine";
+import Unit from "./unit";
+import User from "./user";
 
 export default {
   Unit,
   Ingredient,
   Subscription,
+  SubscriptionLine,
   User,
   Event,
   Article,
@@ -26,4 +30,6 @@ export default {
   MealPlan,
   NutritionFact,
   MealPlanLine,
+  Profession,
+  ProfessionRating,
 };
