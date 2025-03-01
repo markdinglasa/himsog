@@ -83,4 +83,5 @@ export enum RouteChannel {
   NUTRITIONIST_MEAL_PLAN = "/n/meal-plan",
   NUTRITIONIST_MEAL_PLAN_NEW = "/n/meal-plan/new",
   NUTRITIONIST_MEAL_PLAN_DETAILS = "/n/meal-plan/d/:Id",
+  NUTRITIONIST_NUTRITION_FACT = "/n/meal/nutrition-fact",
 }
