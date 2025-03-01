@@ -4,4 +4,8 @@ export enum AppointmentChannel {
   APPOINTMENT_NEW = "/transaction/appointment/new",
   APPOINTMENT_REMOVE = "/transaction/appointment/remove/:Id",
   APPOINTMENT_UPDATE = "/transaction/appointment/update/:Id",
+
+  APPOINTMENT = "/transaction/appointment",
+  APPOINTMENT_ID = "/transaction/appointment/:Id",
+  APPOINTMENT_PARENT = "/transaction/appointment/u?=:Id",
 }

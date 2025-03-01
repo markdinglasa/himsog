@@ -4,4 +4,8 @@ export enum NotificationChannel {
   NOTIFICATION_NEW = "/utility/notification/new",
   NOTIFICATION_REMOVE = "/utility/notification/remove/:Id",
   NOTIFICATION_UPDATE = "/utility/notification/update/:Id",
+
+  NOTIFICATION = "/utility/notification",
+  NOTIFICATION_ID = "/utility/notification/:Id",
+  NOTIFICATION_PARENT = "/utility/notification/u?=:Id",
 }

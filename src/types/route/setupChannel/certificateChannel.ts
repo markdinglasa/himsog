@@ -4,4 +4,8 @@ export enum CertificateChannel {
   CERTIFICATE_NEW = "/setup/certificate/new",
   CERTIFICATE_REMOVE = "/setup/certificate/remove/:Id",
   CERTIFICATE_UPDATE = "/setup/certificate/update/:Id",
+
+  CERTIFICATE = "/setup/certificate",
+  CERTIFICATE_ID = "/setup/certificate/:Id",
+  CERTIFICATE_PARENT = "/setup/certificate/profession?=:Id",
 }

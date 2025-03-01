@@ -4,4 +4,7 @@ export enum ProfessionChannel {
   PROFESSION_NEW = "/setup/profession/new",
   PROFESSION_REMOVE = "/setup/profession/remove/:Id",
   PROFESSION_UPDATE = "/setup/profession/update/:Id",
+
+  PROFESSION = "/setup/profession",
+  PROFESSION_ID = "/setup/profession/:Id",
 }
