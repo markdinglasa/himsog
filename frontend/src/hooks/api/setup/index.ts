@@ -12,6 +12,7 @@ import NutritionFact from "./nutritionFact";
 import Profession from "./profession";
 import ProfessionRating from "./professionRating";
 import Recipe from "./recipe";
+import RecipeLine from "./recipeLine";
 import Subscription from "./subscription";
 import SubscriptionLine from "./subscriptionLine";
 import Unit from "./unit";
@@ -34,4 +35,5 @@ export default {
   Profession,
   ProfessionRating,
   Recipe,
+  RecipeLine,
 };

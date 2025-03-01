@@ -4,13 +4,13 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetProfessionRating = (Id: number = 0) => {
+const useGetAppointment = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.PROFESSION_RATING, Id],
+    queryKey: [QueryKey.APPOINTMENT, Id], // Unique key for the query, including the Id
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.PROFESSION_RATING_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.APPOINTMENT_ID.replace(":Id", Id.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || {};
@@ -24,4 +24,4 @@ const useGetProfessionRating = (Id: number = 0) => {
     error,
   };
 };
-export default useGetProfessionRating;
+export default useGetAppointment;

@@ -4,7 +4,7 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetArticle = (Id: string) => {
+const useGetAllArticle = (Id: string) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.ARTICLE, Id], // Unique key for the query, including the Id
@@ -24,4 +24,4 @@ const useGetArticle = (Id: string) => {
     error,
   };
 };
-export default useGetArticle;
+export default useGetAllArticle;

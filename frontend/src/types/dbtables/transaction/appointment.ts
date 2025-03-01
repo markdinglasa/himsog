@@ -13,7 +13,7 @@ export interface AppointmentTable extends Id, Logs {
   Remarks: string;
 }
 export type AppointmentTables = AppointmentTable[];
-export const AppoinmentInitial: AppointmentTable = {
+export const AppointmentInitial: AppointmentTable = {
   UserId: 0,
   NutritionistId: 0,
   Schedule: "",

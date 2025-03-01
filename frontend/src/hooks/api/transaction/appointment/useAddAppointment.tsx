@@ -1,20 +1,28 @@
 import { useCallback } from "react";
-import { APIChannel, ToastType, RecipeLineTable } from "../../../../types";
+import {
+  APIChannel,
+  AppointmentTable,
+  RouteChannel,
+  ToastType,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
+import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useAddRecipeLine = () => {
+const useAddAppointment = () => {
   const axios = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: async (data: RecipeLineTable) => {
-      const response = await axios.post(`${APIChannel.RECIPE_LINE}`, data);
+    mutationFn: async (data: AppointmentTable) => {
+      const response = await axios.post(`${APIChannel.APPOINTMENT}`, data);
       return response.data;
     },
     onSuccess: () => {
       displayToast(Success.m00002, ToastType.success);
+      navigate(RouteChannel.CLIENT_APPOINTMENT);
     },
     onError: (error: any) => {
       displayToast(
@@ -25,7 +33,7 @@ const useAddRecipeLine = () => {
   });
 
   const add = useCallback(
-    (data: RecipeLineTable) => {
+    (data: AppointmentTable) => {
       if (!data) return;
       mutation.mutate(data);
     },
@@ -39,4 +47,4 @@ const useAddRecipeLine = () => {
   };
 };
 
-export default useAddRecipeLine;
+export default useAddAppointment;
