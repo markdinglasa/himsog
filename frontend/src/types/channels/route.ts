@@ -77,4 +77,10 @@ export enum RouteChannel {
   NUTRITIONIST_PROFIFLE = "/n/profile/:Id",
   NUTRITIONIST_UTILITY = "/n/utility/",
   NUTRITIONIST_SETTINGS = "/n/settings",
+  NUTRITIONIST_MEAL = "/n/meal",
+  NUTRITIONIST_MEAL_DETAILS = "/n/meal/d/:Id",
+  NUTRITIONIST_MEAL_NEW = "/n/meal/new",
+  NUTRITIONIST_MEAL_PLAN = "/n/meal-plan",
+  NUTRITIONIST_MEAL_PLAN_NEW = "/n/meal-plan/new",
+  NUTRITIONIST_MEAL_PLAN_DETAILS = "/n/meal-plan/d/:Id",
 }
