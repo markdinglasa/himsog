@@ -4,3 +4,9 @@ export interface ProfessionRatingTable extends Id, Logs {
   Rating: number;
   Remarks: string | null;
 }
+export type ProfessionRatingTables = ProfessionRatingTable[];
+export const ProfessionRatingInitial: ProfessionRatingTable = {
+  ProfessionId: 0,
+  Rating: 0,
+  Remarks: null,
+};

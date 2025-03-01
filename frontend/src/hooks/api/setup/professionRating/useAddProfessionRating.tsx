@@ -1,34 +1,24 @@
 import { useCallback } from "react";
 import {
   APIChannel,
-  NutritionFactInitial,
-  NutritionFactTable,
   ToastType,
+  ProfessionRatingTable,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useUpdateNutritionFact = () => {
+const useAddProfessionRating = () => {
   const axios = useAxiosPrivate();
 
   const mutation = useMutation({
-    mutationFn: async ({
-      Id,
-      data,
-    }: {
-      Id: number;
-      data: NutritionFactTable;
-    }) => {
-      const response = await axios.patch(
-        `${APIChannel.NUTRITION_FACT_ID.replace(":Id", Id.toString())}`,
-        data,
-      );
+    mutationFn: async (data: ProfessionRatingTable) => {
+      const response = await axios.post(`${APIChannel.PROFESSION_ID}`, data);
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00004, ToastType.success);
+      displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(
@@ -38,10 +28,10 @@ const useUpdateNutritionFact = () => {
     },
   });
 
-  const update = useCallback(
-    (Id: number = 0, data: NutritionFactTable = NutritionFactInitial) => {
-      if (Id !== 0 && !data) return;
-      mutation.mutate({ Id, data });
+  const add = useCallback(
+    (data: ProfessionRatingTable) => {
+      if (!data) return;
+      mutation.mutate(data);
     },
     [mutation],
   );
@@ -49,8 +39,8 @@ const useUpdateNutritionFact = () => {
   return {
     data: mutation.data,
     isLoading: mutation.status === "pending",
-    update,
+    add,
   };
 };
 
-export default useUpdateNutritionFact;
+export default useAddProfessionRating;

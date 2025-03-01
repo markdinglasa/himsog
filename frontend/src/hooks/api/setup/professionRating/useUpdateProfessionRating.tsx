@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import {
   APIChannel,
-  NutritionFactInitial,
-  NutritionFactTable,
+  ProfessionRatingInitial,
+  ProfessionRatingTable,
   ToastType,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
@@ -10,7 +10,7 @@ import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useUpdateNutritionFact = () => {
+const useUpdateProfessionRating = () => {
   const axios = useAxiosPrivate();
 
   const mutation = useMutation({
@@ -19,7 +19,7 @@ const useUpdateNutritionFact = () => {
       data,
     }: {
       Id: number;
-      data: NutritionFactTable;
+      data: ProfessionRatingTable;
     }) => {
       const response = await axios.patch(
         `${APIChannel.NUTRITION_FACT_ID.replace(":Id", Id.toString())}`,
@@ -39,7 +39,7 @@ const useUpdateNutritionFact = () => {
   });
 
   const update = useCallback(
-    (Id: number = 0, data: NutritionFactTable = NutritionFactInitial) => {
+    (Id: number = 0, data: ProfessionRatingTable = ProfessionRatingInitial) => {
       if (Id !== 0 && !data) return;
       mutation.mutate({ Id, data });
     },
@@ -53,4 +53,4 @@ const useUpdateNutritionFact = () => {
   };
 };
 
-export default useUpdateNutritionFact;
+export default useUpdateProfessionRating;

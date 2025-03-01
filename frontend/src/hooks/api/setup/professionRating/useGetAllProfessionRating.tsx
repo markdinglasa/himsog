@@ -4,18 +4,18 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllNutritionFact = (MealId: number = 0) => {
+const useGetAllProfessionRating = (ProfessionId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.NUTRITION_FACT],
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.NUTRITION_FACT_PARENT.replace(":Id", MealId.toString())}`,
+        `${APIChannel.NUTRITION_FACT_PARENT.replace(":Id", ProfessionId.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!MealId,
+    enabled: !!ProfessionId,
   });
   // console.log("DATA:", data);
   if (error) displayToast(data?.message || Error.m00003, ToastType.error);
@@ -25,4 +25,4 @@ const useGetAllNutritionFact = (MealId: number = 0) => {
     error,
   };
 };
-export default useGetAllNutritionFact;
+export default useGetAllProfessionRating;
