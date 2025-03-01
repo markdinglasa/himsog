@@ -4,18 +4,18 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllProfessionRating = (ProfessionId: number = 0) => {
+const useGetAllRecipeLine = (RecipeId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.NUTRITION_FACT],
+    queryKey: [QueryKey.RECIPE_LINE],
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.PROFESSION_RATING_PARENT.replace(":Id", ProfessionId.toString())}`,
+        `${APIChannel.RECIPE_LINE_PARENT.replace(":Id", RecipeId.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!ProfessionId,
+    enabled: !!RecipeId,
   });
   // console.log("DATA:", data);
   if (error) displayToast(data?.message || Error.m00003, ToastType.error);
@@ -25,4 +25,4 @@ const useGetAllProfessionRating = (ProfessionId: number = 0) => {
     error,
   };
 };
-export default useGetAllProfessionRating;
+export default useGetAllRecipeLine;

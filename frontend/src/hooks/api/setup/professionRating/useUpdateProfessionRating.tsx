@@ -22,7 +22,7 @@ const useUpdateProfessionRating = () => {
       data: ProfessionRatingTable;
     }) => {
       const response = await axios.patch(
-        `${APIChannel.NUTRITION_FACT_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.PROFESSION_RATING_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;

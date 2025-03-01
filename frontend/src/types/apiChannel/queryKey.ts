@@ -17,7 +17,7 @@ export enum QueryKey {
   PROFESSION = "profession",
   PROFESSION_RATING = "profession-rating",
   RECIPE = "recipe",
-  RECILE_LINE = "recipe-line",
+  RECIPE_LINE = "recipe-line",
   REMINDER = "reminder",
   SUBSCRIPTION = "subscription",
   SUBSCRIPTION_LINE = "subscription-line",
