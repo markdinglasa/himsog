@@ -4,13 +4,13 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetUser = (Id: number = 0) => {
+const useGetHealth = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.USER, Id],
+    queryKey: [QueryKey.HEALTH, Id],
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.USER_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.HEALTH_ID.replace(":Id", Id.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || {};
@@ -24,4 +24,4 @@ const useGetUser = (Id: number = 0) => {
     error,
   };
 };
-export default useGetUser;
+export default useGetHealth;

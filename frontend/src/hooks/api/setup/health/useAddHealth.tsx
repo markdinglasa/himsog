@@ -3,8 +3,7 @@ import {
   APIChannel,
   RouteChannel,
   ToastType,
-  UserInitial,
-  UserTable,
+  HealthTable,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
@@ -12,21 +11,18 @@ import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useUpdateUser = () => {
+const useAddHealth = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: async ({ Id, data }: { Id: number; data: UserTable }) => {
-      const response = await axios.patch(
-        `${APIChannel.USER_ID.replace(":Id", Id.toString())}`,
-        data,
-      );
+    mutationFn: async (data: HealthTable) => {
+      const response = await axios.post(`${APIChannel.HEALTH}`, data);
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00004, ToastType.success);
-      navigate(RouteChannel.ADMIN_USER);
+      displayToast(Success.m00002, ToastType.success);
+      navigate(RouteChannel.CLIENT_HEALTH);
     },
     onError: (error: any) => {
       displayToast(
@@ -36,10 +32,10 @@ const useUpdateUser = () => {
     },
   });
 
-  const update = useCallback(
-    (Id: number = 0, data: UserTable = UserInitial) => {
-      if (Id !== 0 && !data) return;
-      mutation.mutate({ Id, data });
+  const add = useCallback(
+    (data: HealthTable) => {
+      if (!data) return;
+      mutation.mutate(data);
     },
     [mutation],
   );
@@ -47,8 +43,8 @@ const useUpdateUser = () => {
   return {
     data: mutation.data,
     isLoading: mutation.status === "pending",
-    update,
+    add,
   };
 };
 
-export default useUpdateUser;
+export default useAddHealth;
