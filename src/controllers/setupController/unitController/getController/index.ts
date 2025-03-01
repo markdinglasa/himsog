@@ -21,7 +21,7 @@ export const UnitGetController = async (
       [Number],
       [Id],
     );
-    return res.status(200).json({ data: response, message: Success.m005 });
+    return res.status(200).json({ data: response[0], message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Unit-Controller [Get]:", error.message);

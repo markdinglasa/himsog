@@ -8,6 +8,8 @@ import {
   mdiBookOpenVariantOutline,
   mdiAccountCreditCardOutline,
   mdiCommentQuoteOutline,
+  mdiCloudKey,
+  mdiSecurity,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
@@ -99,6 +101,26 @@ export const SideNav: SFC<SideNavProps> = ({
                 navigate(RouteChannel.ADMIN_FEEDBACK);
               }}
             />
+            <Menu
+              icon={mdiSecurity}
+              isCollapse={Collapse}
+              label="Requests"
+              isParent={true}
+              onClick={() => {
+                Toggle();
+                //navigate(RouteChannel.REPORTS);
+              }}
+            >
+              <Menu
+                icon={mdiCloudKey}
+                isCollapse={Collapse}
+                label="Access"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_REQUEST_ACCESS);
+                }}
+              />
+            </Menu>
             {!Collapse ? <S.Category>reports</S.Category> : <S.HR />}
           </S.MenuContent>
           <S.MenuContent $isCollapse={Collapse}>

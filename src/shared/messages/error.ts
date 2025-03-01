@@ -43,4 +43,5 @@ export enum Error {
   m042 = "Account has been suspended.",
   m043 = "Certificate Number already exists.",
   m044 = "User already already health record.",
+  m045 = "Unit already exists.",
 }

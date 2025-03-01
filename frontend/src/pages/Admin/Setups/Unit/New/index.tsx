@@ -35,9 +35,9 @@ export const AdminUnitNewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
-            <UnitForm Title="New User" IsDetails={false} />
+            <UnitForm Title="New Unit" IsDetails={false} />
           </Suspense>
         </S.PageContent>
       </S.Container>

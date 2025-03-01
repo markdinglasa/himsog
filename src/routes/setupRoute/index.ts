@@ -14,6 +14,7 @@ import SubcriptionLineRoute from "./subscriptionLineRoute";
 import SubscriptionRoute from "./subscriptionRoute";
 import MealPlanLineRoute from "./mealPlanLineRoute";
 import RequestAccessRoute from "./requestAccessRoute";
+import UnitRoute from "./unitRoute";
 
 import express from "express";
 
@@ -34,5 +35,6 @@ router.use(RecipeLineRoute);
 router.use(SubcriptionLineRoute);
 router.use(SubscriptionRoute);
 router.use(RequestAccessRoute);
+router.use(UnitRoute);
 
 export default router;

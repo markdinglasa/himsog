@@ -35,7 +35,7 @@ export const AdminUnitDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <UnitForm Title="Unit Details" IsDetails={true} />
           </Suspense>

@@ -6,7 +6,7 @@ interface AccessRightProps {
   AccessRightId?: number[];
   OtherCondition?: boolean;
 }
-const AccessRight: SFC<AccessRightProps> = ({
+const AccessControl: SFC<AccessRightProps> = ({
   children,
   AccessRightId = [],
   OtherCondition = true,
@@ -15,4 +15,4 @@ const AccessRight: SFC<AccessRightProps> = ({
     AccessRightId.length > 0 ? hasAccessRight(AccessRightId) : true;
   return <>{allowed && OtherCondition && children}</>;
 };
-export default memo(AccessRight);
+export default memo(AccessControl);

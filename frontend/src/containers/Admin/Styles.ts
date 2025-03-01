@@ -37,7 +37,6 @@ export const Main = styled.main<{ $isCollapse: boolean }>`
   transition:
     margin-left 0.3s ease-in-out,
     width 0.3s ease-in-out;
-  padding: 8px;
   background: ${colors.palette.neutral["050"]};
   position: relative;
   height: 100vh;
@@ -53,7 +52,7 @@ export const MainContent = styled.div`
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: #888 ${colors.palette.neutral["050"]}; /* For Firefox */
   width: 100%; /* Use 100% instead of 100vw to avoid horizontal scrolling issues */
-  padding: 1rem; /* Add padding for better spacing */
+  padding: 1rem;
 
   /* Custom scrollbar for WebKit browsers (Chrome, Edge, Safari) */
   &::-webkit-scrollbar {

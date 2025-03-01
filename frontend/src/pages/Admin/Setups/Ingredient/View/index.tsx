@@ -1,9 +1,11 @@
 import {
+  APIChannel,
   ButtonType,
   HeadCell,
+  ingredientHC,
   RouteChannel,
   SFC,
-  subscriptionHC,
+  ToastType,
 } from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
 import {
@@ -14,8 +16,11 @@ import {
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
-import { cn } from "../../../../../utils";
+import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import { useQuery } from "@tanstack/react-query";
+import { useAxiosPrivate } from "../../../../../hooks";
+import { BASE_URL, Error } from "../../../../../shared";
 
 export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -25,6 +30,19 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
+  const axios = useAxiosPrivate();
+  const {
+    data: ingredients,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["ingredient"],
+    queryFn: async () => axios.get(`${BASE_URL}/setup/user/get-all`), // fetch data
+  });
+  if (isError) {
+    displayToast(ingredients?.data?.message || Error.m00001, ToastType.error);
+  }
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -39,15 +57,15 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="rounded-md border">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
-              Title="Subscriptions"
-              Rows={[]}
-              HeadCells={subscriptionHC as HeadCell<unknown>[]}
-              IsLoading={false}
+              Title="Ingredients"
+              Rows={ingredients?.data?.data || []}
+              HeadCells={ingredientHC as HeadCell<unknown>[]}
+              IsLoading={isLoading}
               OnRecordDelete={() => {}}
-              //RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
+              RemoveApiRoute={APIChannel.INGREDIENT_REMOVE}
               DetailsRoute={RouteChannel.ADMIN_INGREDIENT_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
             />

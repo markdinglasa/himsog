@@ -2,6 +2,7 @@ import { Toolbar, Typography } from "@mui/material";
 import { SFC, TableToolbarProps } from "../../../../../types";
 import * as S from "./Styles";
 import { memo } from "react";
+import { colors } from "../../../../../styles";
 
 const TableToolbar: SFC<TableToolbarProps> = ({ Title, children }) => {
   return (
@@ -20,6 +21,8 @@ const TableToolbar: SFC<TableToolbarProps> = ({ Title, children }) => {
           <S.Content className=" mb-2 w-full md: w-1/2 ">
             <Typography
               sx={{
+                fontFamily: "Montserrat",
+                color: colors.palette.neutral["800"],
                 minWidth: "300px",
                 maxWidth: "100%",
                 flex: "1 1 100%",

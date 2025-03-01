@@ -13,8 +13,8 @@ export const Container = styled.div<{ $isParent: boolean }>`
       background:none;
     `
       : `&:hover { 
-            color: #fff;
-        background: ${colors.primaryHover};
+          color: #fff;
+          background: ${colors.primaryHover};
       }`};
 `;
 export const Menu = styled.div<{ $isDisplay: boolean }>`
@@ -33,10 +33,16 @@ export const Menu = styled.div<{ $isDisplay: boolean }>`
     background: ${colors.primaryHover};
   }
 `;
-export const MenuContent = styled.div`
+export const MenuContent = styled.div<{ $isDisplay: boolean }>`
   display: flex;
   align-items: center;
   padding: 8px;
+
+  ${({ $isDisplay }) =>
+    $isDisplay
+      ? `& > * {  color: ${colors.white}; }`
+      : `& > * { color: ${colors.primary} }`};
+
   &:hover {
     color: white;
 
@@ -53,7 +59,7 @@ export const Text = styled.div`
   justify-content: flex-end;
   font-weight: semibold;
   font-size: 16px;
-  color: ${colors.primary};
+
   margin-left: 8px;
 `;
 export const Label = styled.label`
@@ -69,6 +75,7 @@ export const ChildContent = styled.div<{ $isDisplay: boolean }>`
   ${({ $isDisplay }) =>
     $isDisplay
       ? `
+
       heigth:fit;
     `
       : `

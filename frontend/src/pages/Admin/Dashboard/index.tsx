@@ -4,9 +4,11 @@ import {
   DoughnutChart,
   IncrementCard,
   LineChart,
+  NoReplyEmail,
   PageBreadCrumbs,
 } from "../../../components";
 import Card from "../../../components/Surfaces/Cards";
+import Icon from "../../../constants/icon";
 import {
   mdiAccountCreditCardOutline,
   mdiAccountOutline,
@@ -16,15 +18,11 @@ import {
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import { cn, formatNumber } from "../../../utils";
-import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-import LunchDiningOutlinedIcon from "@mui/icons-material/LunchDiningOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+
 import { memo } from "react";
 
 export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
-
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -39,7 +37,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Amount={formatNumber(5355)}
               Percent={1}
               Icon={
-                <ShoppingCartOutlinedIcon
+                <Icon.Cart
                   className="text-white w-full h-full"
                   style={{
                     position: "relative",
@@ -57,7 +55,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Amount={formatNumber(94355)}
               Percent={1}
               Icon={
-                <AttachMoneyOutlinedIcon
+                <Icon.Money
                   className="text-white w-full h-full"
                   style={{
                     position: "relative",
@@ -75,7 +73,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Amount={formatNumber(100)}
               Percent={1}
               Icon={
-                <LunchDiningOutlinedIcon
+                <Icon.Burger
                   className="text-white w-full h-full"
                   style={{
                     position: "relative",
@@ -93,7 +91,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Amount={formatNumber(100)}
               Percent={15}
               Icon={
-                <PeopleOutlinedIcon
+                <Icon.People
                   className="text-white w-full h-full"
                   style={{
                     position: "relative",
@@ -148,6 +146,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             <DoughnutChart ClassName="border rounded-md" />
           </S.Divider>
         </S.Content>
+        <div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>
       </S.Container>
     </>
   );

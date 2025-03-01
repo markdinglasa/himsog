@@ -24,13 +24,13 @@ import { BASE_URL, Error } from "../../../../../shared";
 
 export const AdminUserViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
-  const axios = useAxiosPrivate();
   const links = [
     {
       Text: "Dashboard",
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
+  const axios = useAxiosPrivate();
   const {
     data: users,
     isLoading,

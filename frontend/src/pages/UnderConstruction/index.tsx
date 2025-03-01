@@ -10,7 +10,7 @@ const UnderConstruction: SFC = () => {
   const { auth } = useAuth();
   return (
     <>
-      <S.Container className="w-full h-[calc(100vh-120px)] justify-center items-center flex bg-slate-200">
+      <S.Container className="w-full h-[calc(100vh-120px)] justify-center items-center flex bg-inherit">
         <S.Main className="grid place-items-center px-6 py-24 sm:py-56 lg:px-8">
           <S.Content className="text-center">
             <S.P className="text-base font-semibold text-zinc-950">423</S.P>

@@ -43,7 +43,8 @@ export enum RouteChannel {
   ADMIN_FEEDBACK_DETAILS = "/a/feedback/d/:id",
   ADMIN_MESSENGER = "/a/messenger/:Id",
   ADMIN_MESSENGER_NEW = "/a/messenger/new",
-
+  ADMIN_REQUEST_ACCESS = "/a/request-access",
+  ADMIN_REQUEST_ACCESS_DETAILS = "/a/request-access/d/:Id",
   // CLIENT PAGES
   CLIENT_DASHBOARD = "/c",
   CLIENT_NOTIFICATIONS = "/c/notifications",

@@ -32,7 +32,7 @@ const PublicArticlePage: SFC = ({ ClassName }) => {
     }
   }, [auth]);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.RECENT);
-
+  console.log(sortBy);
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [modIndex, setModIndex] = useState<number>(0);
 

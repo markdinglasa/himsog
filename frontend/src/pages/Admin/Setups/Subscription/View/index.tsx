@@ -39,7 +39,7 @@ export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Subscriptions"

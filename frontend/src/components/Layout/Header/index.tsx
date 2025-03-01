@@ -4,9 +4,9 @@ import { ProfileOption } from "../../Surfaces";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import * as S from "./Styles";
-import { AccessRight } from "../../DataDisplay";
+import { AccessControl } from "../../DataDisplay";
 import { useAuth } from "../../../hooks";
-import { renderPath } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
 import Logo from "../../../asset/svg/logo.svg";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -23,10 +23,10 @@ export const Header: SFC<HeaderProps> = ({
 
   return (
     <>
-      <S.Container className={ClassName}>
-        <S.LeftContent>
+      <S.Container className={cn("px-4", ClassName)}>
+        <S.LeftContent className="">
           <S.MobileMenu $IsTeller={IsTeller} className="">
-            <AccessRight OtherCondition={!IsTeller}>
+            <AccessControl OtherCondition={!IsTeller}>
               <CircleButton
                 OnClick={Toggle}
                 IsNotification={false}
@@ -34,7 +34,7 @@ export const Header: SFC<HeaderProps> = ({
                 Type={ButtonType.button}
                 Title="Menu"
               />
-            </AccessRight>
+            </AccessControl>
             <S.Image
               className=""
               src={Logo}

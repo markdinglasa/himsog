@@ -21,8 +21,8 @@ export const UnitAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
-    if ((await isFound(UnitQuery.q004, ["Name"], [Number], [Data.Name])).data)
-      return res.status(401).json({ data: true, message: Error.m016 }); // check duplicate name
+    if ((await isFound(UnitQuery.q004, ["Name"], [String], [Data.Name])).data)
+      return res.status(401).json({ data: false, message: Error.m045 }); // check duplicate name
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

@@ -35,8 +35,8 @@ export const Menu: SFC<MenuProps> = ({
         >
           {isParent ? (
             <>
-              <S.Menu className="rounded-sm" $isDisplay={isDisplay}>
-                <S.MenuContent>
+              <S.Menu className="rounded-md" $isDisplay={isDisplay}>
+                <S.MenuContent $isDisplay={isDisplay}>
                   <S.Icon path={icon} size="30px" className="text-primary" />
                   <S.Text>
                     <S.Label>{label}</S.Label>

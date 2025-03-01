@@ -4,4 +4,6 @@ export enum UnitChannel {
   UNIT_NEW = "/setup/unit/new",
   UNIT_REMOVE = "/setup/unit/remove/:Id",
   UNIT_UPDATE = "/setup/unit/update/:Id",
+  UNIT = "/setup/unit",
+  UNIT_ID = "/setup/unit/:Id",
 }

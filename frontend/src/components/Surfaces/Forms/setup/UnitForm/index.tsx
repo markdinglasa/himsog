@@ -11,14 +11,15 @@ import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
 import { CircleButton, CustomButton, Input } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
-//import { unitValidator } from "../../../../../validators";
 import { cn, displayToast } from "../../../../../utils";
-import EditIcon from "@mui/icons-material/Edit";
+import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { useState } from "react";
 import { useAuth } from "../../../../../hooks";
 import { unitValidator } from "../../../../../validators";
+import { AccessControl } from "../../../../DataDisplay";
+import API from "../../../../../hooks/api";
+import { useParams } from "react-router-dom";
 
 export const UnitForm: SFC<FormProps> = ({
   ClassName,
@@ -26,24 +27,23 @@ export const UnitForm: SFC<FormProps> = ({
   IsDetails = true,
 }) => {
   const [IsEdit, SetIsEdit] = useState(IsDetails);
-  //const { Id } = useParams<{ Id: string }>();
-  //const { records, loading } = useGetUnit(Number(Id ?? 0));
-  //const { update } = useUpdateUnit();
-  //const { add } = useAddUnit();
+  const { Id } = useParams<{ Id: string }>();
   const { auth } = useAuth();
+  const { add } = API.Setup.Unit.Add();
+  const { update } = API.Setup.Unit.Update();
+  const { data, isLoading } = API.Setup.Unit.Get(Number(Id));
 
-  const flag: boolean = false; //IsDetails ? Id !== "" && loading : false;
   const InitialValues: UnitTable = {
-    Name: "",
-    Description: null,
-    CreatedBy: auth?.user ?? 0,
+    Name: data?.Name || "",
+    Description: data?.Description || null,
+    CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
     UpdatedBy: IsDetails ? auth?.user : null,
   };
 
-  const handleSubmit = async (_values: UnitTable) => {
+  const handleSubmit = async (values: UnitTable) => {
     try {
-      //if (Id) await update(Id, values);
-      //else await add(values);
+      if (Id) update(Number(Id), values);
+      else add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
     }
@@ -53,17 +53,19 @@ export const UnitForm: SFC<FormProps> = ({
     <>
       <S.Container className={cn("w-full", ClassName)}>
         <S.Content className="content">
-          <S.FormHeader className="flex flex-row items-center justify-between">
+          <S.FormHeader className="flex flex-row items-center justify-between mb-4">
             <S.Span className="text-lg text-slate-900">{Title}</S.Span>
             <S.Divider>
-              <CircleButton
-                OnClick={() => SetIsEdit(false)}
-                Icon={<EditIcon className="text-primary" />}
-                Type={ButtonType.button}
-              />
+              <AccessControl OtherCondition={IsDetails}>
+                <CircleButton
+                  OnClick={() => SetIsEdit(false)}
+                  Icon={<Icon.Edit className="text-primary" />}
+                  Type={ButtonType.button}
+                />
+              </AccessControl>
             </S.Divider>
           </S.FormHeader>
-          {!flag ? (
+          {!isLoading ? (
             <S.Divider>
               <Formik
                 initialValues={InitialValues}
@@ -110,9 +112,9 @@ export const UnitForm: SFC<FormProps> = ({
                       />
                     </S.Divider>
                     {!IsEdit && (
-                      <S.Divider className="w-full flex justify-end pt-2 pb-1 items-center border-t gap-2 mt-2">
+                      <S.Divider className="w-full flex justify-end items-center border-t gap-4 mt-4 pt-4">
                         <CustomButton
-                          leftIcon={<CancelIcon className="text-primary" />}
+                          leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"
                           onClick={() => {
                             if (IsDetails) SetIsEdit(true);

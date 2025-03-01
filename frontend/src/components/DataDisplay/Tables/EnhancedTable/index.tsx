@@ -46,12 +46,12 @@ import { useGlobal } from "../../../../hooks/useGlobal";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import { NoRecord, TableHeader, TableToolbar } from "..";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const EnhancedTable = <T extends Record<string, any>>({
   Rows,
   HeadCells,
   ClassName,
-  OnRecordDelete,
   Title = "NA",
   DetailsRoute = "",
   IsRemove = true,
@@ -63,6 +63,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
   IsSales = false,
   IsRecord = false,
   DefaultFilter = "",
+  QueryKey,
 }: EnhancedTableProps<T>) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState(HeadCells[0].Id as keyof T);
@@ -158,16 +159,26 @@ export const EnhancedTable = <T extends Record<string, any>>({
     [order, orderBy, page, rowsPerPage, filteredRows],
   );
 
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      await axios.delete(
+        `${RemoveApiRoute.replace(":Id", selected?.toString() ?? "")}`,
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey] }); // Invalidate and refetch
+      displayToast(Success.m00003, ToastType.success);
+    },
+    onError: (error: any) => {
+      displayToast(error.message, ToastType.error);
+    },
+  });
+
   const removeRecord = useCallback(async () => {
     if (selected !== null && RemoveApiRoute !== "/no-access-right") {
       try {
-        const response = await axios.delete(
-          `${RemoveApiRoute.slice(0, RemoveApiRoute.length - 3)}${selected}`,
-        );
-        if (response.data.data) {
-          OnRecordDelete();
-          displayToast(Success.m00003, ToastType.success);
-        } else displayToast(response.data.message, ToastType.error);
+        mutation.mutate();
       } catch (error: any) {
         displayToast(error?.response?.data?.message, ToastType.error);
       } finally {
@@ -181,7 +192,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
     } else {
       displayToast(Error.m00053, ToastType.error);
     }
-  }, [selected, axios, OnRecordDelete, toggleModal]);
+  }, [selected, RemoveApiRoute, mutation, setRecord, toggleModal]);
 
   return (
     <>

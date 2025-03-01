@@ -12,14 +12,13 @@ export const UnitRemoveController = async (
   try {
     const Id: number = parseInt(req.params?.Id, 10); // UnitId
     if (!Id || Id === 0 || Id === undefined)
-      return res.status(401).json({ data: [], message: Error.m005 });
+      return res.status(401).json({ data: false, message: Error.m005 });
     if (!(await isFound(UnitQuery.q002, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // check Unit existence
+      return res.status(401).json({ data: false, message: Error.m011 }); // check Unit existence
     if ((await isFound(UnitQuery.q006, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // Check Transaction
-
+      return res.status(401).json({ data: false, message: Error.m020 }); // Check Transaction
     if (!(await RemoveService.byId(Id, DBTable.t018)))
-      return { data: false, message: Error.m002 };
+      return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");

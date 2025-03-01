@@ -13,38 +13,38 @@ import {
 const router = express.Router();
 
 router.get(
-  `${API_VERSION}${RouteChannel.UNIT_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.UNIT}`,
   TokenHandler.verifyToken,
   UnitGetAllController,
 );
-router.get(
-  `${API_VERSION}${RouteChannel.UNIT_GET}`,
-  TokenHandler.verifyToken,
-  UnitGetController,
-);
 router.post(
-  `${API_VERSION}${RouteChannel.UNIT_NEW}`,
+  `${API_VERSION}${RouteChannel.UNIT}`,
   TokenHandler.verifyToken,
   UnitAddController,
 );
+router.get(
+  `${API_VERSION}${RouteChannel.UNIT_ID}`,
+  TokenHandler.verifyToken,
+  UnitGetController,
+);
 router.delete(
-  `${API_VERSION}${RouteChannel.UNIT_REMOVE}`,
+  `${API_VERSION}${RouteChannel.UNIT_ID}`,
   TokenHandler.verifyToken,
   UnitRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.UNIT_UPDATE}`,
+  `${API_VERSION}${RouteChannel.UNIT_ID}`,
   TokenHandler.verifyToken,
   UnitUpdateController,
 );
 
 logging.log("----------------------------------------");
 logging.log("------------UNIT CONTROLLER-------------");
-logging.log(RouteChannel.UNIT_GET);
-logging.log(RouteChannel.UNIT_GET_ALL);
-logging.log(RouteChannel.UNIT_NEW);
-logging.log(RouteChannel.UNIT_REMOVE);
-logging.log(RouteChannel.UNIT_UPDATE);
+logging.log(`GET ${RouteChannel.UNIT_ID} [get]`);
+logging.log(`POST ${RouteChannel.UNIT} [add]`);
+logging.log(`GET ${RouteChannel.UNIT} [get-all]`);
+logging.log(`DELETE ${RouteChannel.UNIT_ID} [remove]`);
+logging.log(`UPDATE ${RouteChannel.UNIT_ID} [update]`);
 logging.log("----------------------------------------");
 
 export default router;

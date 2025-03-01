@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { BASE_URL } from "../shared";
+//import { BASE_URL } from "../shared";
 import { displayToast } from "../utils";
 import { RouteChannel, ToastType } from "../types";
 import { useAuth } from "./useAuth";

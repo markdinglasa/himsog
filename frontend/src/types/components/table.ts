@@ -1,3 +1,5 @@
+import { QueryKey } from "../apiChannel";
+
 export type Order = "asc" | "desc";
 
 export interface HeadCell<T> {
@@ -12,7 +14,7 @@ export interface EnhancedTableProps<T extends Record<string, any>> {
   HeadCells: HeadCell<T>[];
   ClassName?: string;
   IsEdit?: boolean;
-  OnRecordDelete: () => void;
+  OnRecordDelete?: () => void;
   Title?: string;
   DetailsRoute?: string;
   RemoveApiRoute?: string;
@@ -24,4 +26,5 @@ export interface EnhancedTableProps<T extends Record<string, any>> {
   IsSales?: boolean;
   IsRecord?: boolean; // save record to global
   DefaultFilter?: string;
+  QueryKey: QueryKey;
 }
