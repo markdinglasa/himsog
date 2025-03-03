@@ -17,7 +17,8 @@ export enum UserRole {
 
 export interface UserTable extends Id, Logs {
   Email: string;
-  Password: string;
+  Password?: string;
+  ConfirmPassword?: string;
   Firstname: string;
   Middlename: string | null;
   Lastname: string;
@@ -26,8 +27,9 @@ export interface UserTable extends Id, Logs {
   CivilStatus: CivilStatus;
   ProfilePhoto: string | null;
   IsSuspended: boolean;
-  BirthDate: string;
+  BirthDate: string | null;
   Fullname?: string;
+  Gender: string;
 }
 export type UserTables = UserTable[];
 export const UserInitial: UserTable = {
@@ -42,4 +44,5 @@ export const UserInitial: UserTable = {
   ProfilePhoto: null,
   IsSuspended: false,
   BirthDate: "",
+  Gender: "",
 };

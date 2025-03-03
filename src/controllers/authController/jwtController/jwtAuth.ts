@@ -1,10 +1,11 @@
 import { NextFunction, Response } from "express";
-import { LoginRequest, ModelResponse } from "../../../types";
+import { LoginRequest, ModelResponse, UserRole } from "../../../types";
 import { Success, Error, DBTable } from "../../../shared";
 import { GenerateFn, getByEmail } from "../../../functions";
 import { compare } from "bcrypt";
 import { AddService } from "../../../services";
 import { loginValidator } from "../../../validators";
+import { networkInterfaces } from "os";
 
 export const JWTAuth = async (
   req: LoginRequest,
@@ -17,12 +18,12 @@ export const JWTAuth = async (
     if (error)
       return res.status(401).json({
         data: false,
-        message: error.details[0]?.message || Error.m029,
+        message: error.details[0]?.message || Error.m019,
       });
     const user = await getByEmail(data?.Email ?? "");
     // console.log(user);
     if (!user.data)
-      return res.status(401).json({ data: false, message: Error.m011 });
+      return res.status(401).json({ data: false, message: Error.m046 });
     if (!(await compare(data.Password, user.data.Password)))
       return res.status(401).json({ data: false, message: Error.m019 });
     // check account if suspended
@@ -43,11 +44,14 @@ export const JWTAuth = async (
     res.setHeader("Refresh-Token", refreshToken.data);
 
     // Log user on login
+    const networks = networkInterfaces();
+    const networkInfo = JSON.stringify(networks);
+
     await AddService.record(
       DBTable.t017,
-      ["UserId", "DateLog"],
-      [Number, Date],
-      [user.data.Id, new Date()],
+      ["UserId", "DateLog", "Network"],
+      [Number, Date, String],
+      [user.data.Id, new Date(), networkInfo], // log the user's network where he login
     );
 
     return res.status(200).json({
@@ -57,6 +61,11 @@ export const JWTAuth = async (
         Role: user.data.Role,
         AccessToken: accessToken.data,
         RefreshToken: refreshToken.data,
+        IsSetup:
+          user.data.Role !== UserRole.ADMINISTRATOR ||
+          user.data.Role !== UserRole.SUPERUSER
+            ? user.data.IsSetup
+            : true,
       },
       message: Success.m001,
     });

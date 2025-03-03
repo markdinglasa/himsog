@@ -17,7 +17,7 @@ import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
-import { cn, renderPath } from "../../utils";
+import { cn, IsBoolean, renderPath } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Logo from "../../asset/svg/logo.svg";
 import GoogleLogo from "../../asset/images/google-logo.png";
@@ -52,13 +52,15 @@ const PageLogin: SFC = ({ ClassName }) => {
         const roles: Roles = response.data.data.Role;
         const accessToken: string = response.data.data.AccessToken;
         const refreshToken: string = response.data.data.RefreshToken;
+        const IsSetup: boolean = IsBoolean(response.data.data.IsSetup);
         setAuth({
           user,
           roles,
           accessToken,
           refreshToken,
         });
-        const path = renderPath(roles);
+        const tmpPath = renderPath(roles);
+        const path = IsSetup ? tmpPath : `${tmpPath}/setup-profile`;
         navigate(path, { replace: true });
       } else setErrorMessage(Error.m00019);
     } catch (error: any) {

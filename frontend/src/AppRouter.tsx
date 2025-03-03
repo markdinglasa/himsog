@@ -166,12 +166,22 @@ export const AppRouter = createBrowserRouter(
           </Route>
           {/*ADMINISTRATOR*/}
           {/*CLIENT*/}
+
           <Route element={<RequireAuth allowedRoles={[Roles.client]} />}>
+            <Route
+              path={RouteChannel.CLIENT_PROFILE_SETUP}
+              element={<Page.Client.Configuration.ProfileSetup />}
+            />
+            <Route
+              path={RouteChannel.CLIENT_HEALTH_SETUP}
+              element={<Page.Client.Configuration.HealthSetup />}
+            />
             <Route element={<ClientLayout />}>
               <Route
                 path={RouteChannel.CLIENT_DASHBOARD}
                 element={<Page.Client.Dashboard />}
               />
+
               <Route
                 path={RouteChannel.CLIENT_PROFIFLE}
                 element={<Page.Client.Profile />}

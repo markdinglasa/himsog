@@ -25,6 +25,7 @@ export const userValidator = Joi.object({
     .valid("superuser", "administrator", "client", "nutritionist")
     .required(),
   ProfilePhoto: Joi.string().allow("").allow(null).optional(),
+  Gender: Joi.string().valid("male", "female", "other").required(),
   IsSuspended: Joi.boolean().required(),
   DateCreated: Joi.date().iso().optional(),
   DateUpdated: Joi.date().allow(null).optional(),

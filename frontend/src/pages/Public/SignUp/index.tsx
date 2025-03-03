@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { AutoComplete, CustomButton, CustomInput } from "../../../components";
+import { CustomButton, CustomInput } from "../../../components";
 import {
   APIChannel,
   ButtonColor,
@@ -18,14 +18,12 @@ import { memo, useEffect, useState } from "react";
 import axios from "axios";
 import GoogleLogo from "../../../asset/images/google-logo.png";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL, Error, loginFormValues } from "../../../shared";
+import { Error, loginFormValues } from "../../../shared";
 import { useAuth } from "../../../hooks";
 import * as S from "../../../styles";
-
 import Logo from "../../../asset/svg/logo.svg";
 import { cn, displayToast, renderPath } from "../../../utils";
 import { registerValidator } from "../../../validators/";
-import { CivilStatusOptions } from "../../../shared/data/options";
 
 const PublicSignUpPage: SFC = ({ ClassName }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -41,6 +39,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
   const InitialValues: UserTable = {
     Email: "",
     Password: "",
+    ConfirmPassword: "",
     Firstname: "",
     Middlename: null,
     Lastname: "",
@@ -49,20 +48,16 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
     CivilStatus: CivilStatus.DEFAULT,
     ProfilePhoto: null,
     IsSuspended: false,
-    BirthDate: "",
+    BirthDate: null,
   };
 
   const handleSubmit = async (values: loginFormValues): Promise<void> => {
     const data: LoginTable = { ...values };
     try {
-      const response = await axios.post(
-        `${BASE_URL}${APIChannel.USER_REGISTER}`,
-        data,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        },
-      );
+      const response = await axios.post(`${APIChannel.USER_REGISTER}`, data, {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      });
       if (response.data.data) {
         displayToast("New account created", ToastType.success);
         navigate(RouteChannel.SIGN_IN, { replace: true });
@@ -111,102 +106,47 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
                     isSubmitting,
                     handleChange,
                     handleBlur,
-                    setFieldValue,
-                    values,
-                    setTouched,
                   }) => (
                     <Form>
-                      <S.Divider className="w-full flex md:flex-row flex-col md:gap-2">
+                      <S.Divider className="w-full flex flex-col gap-2">
                         <S.Divider className="w-full py-1">
                           <CustomInput
                             errors={errors}
-                            type={InputType.text}
-                            label="First Name"
-                            placeholder="First Name"
-                            name="Firstname"
+                            type={InputType.email}
+                            label="Email"
+                            placeholder="Email"
+                            name="Email"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full py-1">
+                        <S.Divider className="w-full">
                           <CustomInput
+                            ClassName="text-zinc-900"
                             errors={errors}
-                            type={InputType.text}
-                            label="Last Name"
-                            placeholder="Last Name"
-                            name="Lastname"
+                            type={InputType.password}
+                            label="Password"
+                            placeholder="Password"
+                            name="Password"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                      </S.Divider>
-                      <S.Divider className="w-full pt-1">
-                        <CustomInput
-                          errors={errors}
-                          type={InputType.date}
-                          label="Birth Date"
-                          placeholder="BirthDate"
-                          name="BirthDate"
-                          touched={touched}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </S.Divider>
-                      <S.Divider className="w-full pb-1">
-                        <AutoComplete
-                          Label="Civil Status"
-                          Values={values.CivilStatus}
-                          Options={CivilStatusOptions}
-                          Name="CivilStatus"
-                          OptionName="label"
-                          Placeholder="Civil Status"
-                          OnChange={(_: any, value: any) => {
-                            setFieldValue("CivilStatus", value?.Id || "");
-                            console.log("CivilStatus:", value?.Id);
-                            setTouched({ CivilStatus: true });
-                          }}
-                          Errors={errors}
-                          Touched={touched}
-                        />
-                      </S.Divider>
-                      <S.Divider className="w-full py-1">
-                        <CustomInput
-                          errors={errors}
-                          type={InputType.text}
-                          label="Mobile Number"
-                          placeholder="+63 9XX-XXX-XXXX"
-                          name="ContactNumber"
-                          touched={touched}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </S.Divider>
-                      <S.Divider className="w-full py-1">
-                        <CustomInput
-                          errors={errors}
-                          type={InputType.email}
-                          label="Email"
-                          placeholder="Email"
-                          name="Email"
-                          touched={touched}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </S.Divider>
-                      <S.Divider className="w-full">
-                        <CustomInput
-                          ClassName="text-zinc-900"
-                          errors={errors}
-                          type={InputType.password}
-                          label="Password"
-                          placeholder="Password"
-                          name="Password"
-                          touched={touched}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
+                        <S.Divider className="w-full">
+                          <CustomInput
+                            ClassName="text-zinc-900"
+                            errors={errors}
+                            type={InputType.password}
+                            label="Confirm Password"
+                            placeholder="Confirm Password"
+                            name="ConfirmPassword"
+                            touched={touched}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </S.Divider>
                       </S.Divider>
                       <S.Divider className="w-full mb-2">
                         <S.Span className="text-[12px]">

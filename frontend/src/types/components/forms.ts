@@ -14,3 +14,7 @@ export interface FormProps {
   RecordId?: string;
   Record?: Record<string, any>;
 }
+
+export interface SetupForm {
+  OnNext: () => void;
+}

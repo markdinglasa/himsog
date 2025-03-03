@@ -46,7 +46,10 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
             )}
           />
           {Errors && Touched && Errors[Name] && Touched[Name] ? (
-            <FormHelperText id={`component-error-text-${Name}`}>
+            <FormHelperText
+              id={`component-error-text-${Name}`}
+              sx={{ margin: "-4px 0 4px" }}
+            >
               <span className="text-red-400 ml-3 ">{Errors[Name]}</span>
             </FormHelperText>
           ) : null}

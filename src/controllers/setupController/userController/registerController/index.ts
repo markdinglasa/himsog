@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { UserTable } from "../../../../types";
+import { CivilStatus, RegisterTable, UserTable } from "../../../../types";
 import { DBTable, Error, Success, UserQuery } from "../../../../shared";
 import { isFound } from "../../../../functions";
-import { userValidator } from "../../../../validators";
+import { registerValidator, userValidator } from "../../../../validators";
 import bcrypt from "bcrypt";
 import { AddService } from "../../../../services";
 
@@ -12,10 +12,12 @@ export const UserRegisterController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Data: UserTable = req.body;
+    const { ConfirmPassword, ...filteredData } = req.body;
+    const Data: UserTable = filteredData;
+    console.log("filteredData:", filteredData);
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
-    const { error } = userValidator.validate({ ...Data });
+    const { error } = registerValidator.validate({ ...Data });
     if (error)
       return res.status(401).json({
         data: false,

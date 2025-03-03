@@ -44,4 +44,5 @@ export enum Error {
   m043 = "Certificate Number already exists.",
   m044 = "User already already health record.",
   m045 = "Unit already exists.",
+  m046 = "No user found.",
 }

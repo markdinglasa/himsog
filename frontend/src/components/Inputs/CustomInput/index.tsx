@@ -55,7 +55,8 @@ export const CustomInput: SFC<InputProps> = ({
           onBlur={onBlur}
           onChange={onChange}
           onClick={onClick}
-          defaultValue={value}
+          //defaultValue={value}
+          value={value}
           sx={{
             borderRadius: 0,
             width: "100%",

@@ -1,32 +1,38 @@
 import { useCallback } from "react";
 import {
   APIChannel,
+  Roles,
   RouteChannel,
   ToastType,
   UserInitial,
   UserTable,
 } from "../../../../types";
-import { displayToast } from "../../../../utils";
+import { displayToast, renderPath } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "../../../useAuth";
 
-const useUpdateUser = () => {
+const useUpdateUser = (IsSetup: boolean = false) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-
+  const { auth } = useAuth();
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: UserTable }) => {
       const response = await axios.patch(
         `${APIChannel.USER_ID.replace(":Id", Id.toString())}`,
         data,
       );
+      console.log("response:", response);
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00004, ToastType.success);
-      navigate(RouteChannel.ADMIN_USER);
+      if (!IsSetup) {
+        const path = renderPath(auth.roles as Roles);
+        displayToast(Success.m00004, ToastType.success);
+        navigate(path);
+      } else navigate(RouteChannel.CLIENT_HEALTH_SETUP);
     },
     onError: (error: any) => {
       displayToast(

@@ -11,7 +11,7 @@ import {
 } from "./middleware";
 import { NODE_ENV, server, testConnection } from "./config";
 import router from "./routers";
-
+import bodyParser from "body-parser";
 const app = express();
 export let httpServer: ReturnType<typeof http.createServer>;
 
@@ -33,7 +33,7 @@ export const initializeApp = async () => {
   app.options("/*", route204);
   app.use(router);
   app.use(route404);
-
+  app.use(bodyParser.json({ strict: true }));
   logging.log("----------------------------------------");
   logging.log("Starting Server");
   logging.log("----------------------------------------");

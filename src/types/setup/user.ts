@@ -1,6 +1,7 @@
 import { Id, Logs } from "../generic";
 
 export enum CivilStatus {
+  DEFAULT = "",
   SINGLE = "single",
   MARRIED = "married",
   DIVORCED = "divorced",
@@ -14,6 +15,11 @@ export enum UserRole {
   ADMINISTRATOR = "administrator",
   SUPERUSER = "superuser",
 }
+export interface RegisterTable extends Id, Logs {
+  Email: string;
+  Password: string;
+  Role: UserRole;
+}
 
 export interface UserTable extends Id, Logs {
   Email: string;
@@ -26,6 +32,7 @@ export interface UserTable extends Id, Logs {
   CivilStatus: CivilStatus;
   ProfilePhoto: string | null;
   IsSuspended: boolean;
+  Genrder: string;
 }
 export type UserTables = UserTable[];
 export const UserInital: UserTable = {
@@ -39,4 +46,5 @@ export const UserInital: UserTable = {
   CivilStatus: CivilStatus.SINGLE,
   ProfilePhoto: null,
   IsSuspended: false,
+  Genrder: "",
 };
