@@ -6,8 +6,8 @@ export interface HealthTable extends Id, Logs {
   FitnessGoal: string;
   ActivityLevel: string;
   PrimaryDiet: string;
-  DieteryPreferences: string;
-  FoodPreferences: string;
+  //DieteryPreferences: string;
+  //FoodPreferences: string;
 }
 export type HealthTables = HealthTable[];
 export const HealthInitial: HealthTable = {
@@ -17,6 +17,6 @@ export const HealthInitial: HealthTable = {
   FitnessGoal: "",
   ActivityLevel: "",
   PrimaryDiet: "",
-  DieteryPreferences: "",
-  FoodPreferences: "",
+  //DieteryPreferences: "",
+  //FoodPreferences: "",
 };

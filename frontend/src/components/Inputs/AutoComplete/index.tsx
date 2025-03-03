@@ -3,6 +3,9 @@ import { AutoCompleteProps, SFC } from "../../../types";
 import * as S from "./Styles";
 import { cn } from "../../../utils";
 import { FormHelperText } from "@mui/material";
+import Icon from "../../../constants/icon";
+import { useToggle } from "react-use";
+import { CustomModal } from "../../../modals";
 
 export const AutoComplete: SFC<AutoCompleteProps> = ({
   ClassName,
@@ -17,18 +20,31 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
   Touched,
   OptionName = "Name",
   OnBlur,
+  IsTooltip = false,
+  TooltipMessage = "",
 }) => {
   const selectedValue = useMemo(
     () => Options.find((option) => option.Id === Values) || null,
     [Options, Values],
   );
-
+  const [isHelp, toggleHelp] = useToggle(false);
   return (
     <>
       <S.Container className={cn("mb-0", ClassName)}>
-        {Label && (
-          <S.Label className="text-[#666666] font-medium ml-3">{Label}</S.Label>
-        )}
+        <div className="flex flex-row w-full items-center">
+          {Label && (
+            <S.Label className="text-[#666666] font-medium ml-3">
+              {Label}
+            </S.Label>
+          )}
+          {IsTooltip && (
+            <Icon.Help
+              className="ml-2 text-primary cursor-pointer "
+              fontSize="small"
+              onClick={toggleHelp}
+            />
+          )}
+        </div>
         <S.Content>
           <S.AutoComplete
             className={`border border-[#C4C4C4] ${IsEdit ? "" : "hover:border-[#202020]"}`}
@@ -55,6 +71,14 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
           ) : null}
         </S.Content>
       </S.Container>
+      <CustomModal
+        close={toggleHelp}
+        title={""}
+        open={isHelp}
+        ClassName="md:w-[30rem] w-full"
+      >
+        <div className="py-5">{TooltipMessage && <p>{TooltipMessage}</p>}</div>
+      </CustomModal>
     </>
   );
 };

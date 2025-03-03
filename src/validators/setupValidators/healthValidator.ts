@@ -7,7 +7,6 @@ export const healthValidator = Joi.object({
   FitnessGoal: Joi.string().required(),
   ActivityLevel: Joi.string().required(),
   PrimaryDiet: Joi.string().required(),
-  DieteryPreferences: Joi.string().required(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

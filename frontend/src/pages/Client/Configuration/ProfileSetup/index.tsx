@@ -18,7 +18,6 @@ export const ConfigurationProfilePage: SFC = () => {
               <span className="text-sm text-slate-600">
                 Let's setup your profile.
               </span>
-              =
             </div>
             <div className="">
               <Form.Setup.User />

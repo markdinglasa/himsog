@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useAddHealth = () => {
+const useAddHealth = (IsSetup: boolean = false) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
 
@@ -21,8 +21,10 @@ const useAddHealth = () => {
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.CLIENT_HEALTH);
+      if (!IsSetup) {
+        displayToast(Success.m00002, ToastType.success);
+        navigate(RouteChannel.CLIENT_HEALTH);
+      } else navigate(RouteChannel.CLIENT_DIETERY_PREFERENCE_SETUP);
     },
     onError: (error: any) => {
       displayToast(

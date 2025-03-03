@@ -176,6 +176,14 @@ export const AppRouter = createBrowserRouter(
               path={RouteChannel.CLIENT_HEALTH_SETUP}
               element={<Page.Client.Configuration.HealthSetup />}
             />
+            <Route
+              path={RouteChannel.CLIENT_DIETERY_PREFERENCE_SETUP}
+              element={<Page.Client.Configuration.DieterySetup />}
+            />
+            <Route
+              path={RouteChannel.CLIENT_ALLERGEN_SETUP}
+              element={<Page.Client.Configuration.AllergenSetup />}
+            />
             <Route element={<ClientLayout />}>
               <Route
                 path={RouteChannel.CLIENT_DASHBOARD}

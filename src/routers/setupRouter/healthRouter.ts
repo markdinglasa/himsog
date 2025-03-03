@@ -11,28 +11,29 @@ import {
 } from "../../controllers";
 
 const router = express.Router();
-router.get(
-  `${API_VERSION}${RouteChannel.HEALTH_GET}`,
-  TokenHandler.verifyToken,
-  HealthGetController,
-);
-router.get(
-  `${API_VERSION}${RouteChannel.HEALTH_GET_ALL}`,
-  TokenHandler.verifyToken,
-  HealthGetAllController,
-);
+
 router.post(
-  `${API_VERSION}${RouteChannel.HEALTH_NEW}`,
+  `${API_VERSION}${RouteChannel.HEALTH}`,
   TokenHandler.verifyToken,
   HealthAddController,
 );
+router.get(
+  `${API_VERSION}${RouteChannel.HEALTH}`,
+  TokenHandler.verifyToken,
+  HealthGetAllController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.HEALTH_ID}`,
+  TokenHandler.verifyToken,
+  HealthGetController,
+);
 router.delete(
-  `${API_VERSION}${RouteChannel.HEALTH_REMOVE}`,
+  `${API_VERSION}${RouteChannel.HEALTH_ID}`,
   TokenHandler.verifyToken,
   HealthRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.HEALTH_UPDATE}`,
+  `${API_VERSION}${RouteChannel.HEALTH_ID}`,
   TokenHandler.verifyToken,
   HealthUpdateController,
 );

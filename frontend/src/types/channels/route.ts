@@ -48,11 +48,14 @@ export enum RouteChannel {
   // CLIENT PAGES
   CLIENT_DASHBOARD = "/c",
   CLIENT_PROFILE_SETUP = "/c/setup-profile",
+  CLIENT_HEALTH_SETUP = "/c/setup-health",
+  CLIENT_DIETERY_PREFERENCE_SETUP = "/c/setup-dietery-preference",
+  CLIENT_ALLERGEN_SETUP = "/c/setup-allergen",
   CLIENT_NOTIFICATIONS = "/c/notifications",
   CLIENT_PROFIFLE = "/c/profile/:Id",
   CLIENT_UTILITY = "/c/utility/",
   CLIENT_SETTINGS = "/c/settings",
-  CLIENT_HEALTH_SETUP = "/c/setup-health",
+
   CLIENT_HEALTH = "/c/health",
   CLIENT_HEALTH_NEW = "/c/health/new",
   CLIENT_HEALTH_DETAILS = "/c/health/d/:Id",

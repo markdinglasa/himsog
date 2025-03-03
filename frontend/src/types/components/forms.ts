@@ -16,5 +16,6 @@ export interface FormProps {
 }
 
 export interface SetupForm {
-  OnNext: () => void;
+  IsSetup?: boolean;
+  IsAllergen?: boolean;
 }

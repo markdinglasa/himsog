@@ -11,4 +11,6 @@ export interface AutoCompleteProps {
   Disabled?: boolean;
   OptionName?: string;
   OnBlur?: any;
+  IsTooltip?: boolean;
+  TooltipMessage?: string;
 }

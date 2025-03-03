@@ -12,6 +12,7 @@ import People from "@mui/icons-material/PeopleOutlined";
 import Cart from "@mui/icons-material/ShoppingCartOutlined";
 import Cancel from "@mui/icons-material/Cancel";
 import Edit from "@mui/icons-material/Edit";
+import Help from "@mui/icons-material/HelpOutline";
 export default {
   ThumpUp,
   Add,
@@ -27,4 +28,5 @@ export default {
   Cart,
   Cancel,
   Edit,
+  Help,
 };

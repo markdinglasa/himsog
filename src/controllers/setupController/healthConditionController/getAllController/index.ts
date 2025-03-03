@@ -14,9 +14,14 @@ export const HealthConditionGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
+    return res.status(200).json({ data: [], message: `${"Error.m005"}` });
     const HealthId: number = parseInt(req.params?.Id, 10);
+    console.log("Id:", req.params?.Id);
+
     if (!HealthId || HealthId === 0 || HealthId === undefined)
-      return res.status(401).json({ data: [], message: Error.m005 });
+      return res
+        .status(401)
+        .json({ data: [], message: `${Error.m005} - ${req.params}` });
     if (!(await isFound(HealthQuery.q002, ["Id"], [Number], [HealthId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Health existence
     const response = await GetService.byFields(

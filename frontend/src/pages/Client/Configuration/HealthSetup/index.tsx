@@ -26,7 +26,7 @@ export const ConfigurationHealthPage: SFC = () => {
               </span>
             </div>
             <div className="">
-              <Form.Setup.User />
+              <Form.Setup.Health IsSetup={true} />
             </div>
           </div>
         </S.MainContent>
