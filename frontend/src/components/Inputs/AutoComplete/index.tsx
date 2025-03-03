@@ -75,7 +75,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
         close={toggleHelp}
         title={""}
         open={isHelp}
-        ClassName="md:w-[30rem] w-full"
+        ClassName="md:w-[30rem] w-[80vw]"
       >
         <div className="py-5">{TooltipMessage && <p>{TooltipMessage}</p>}</div>
       </CustomModal>

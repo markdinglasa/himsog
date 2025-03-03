@@ -11,28 +11,28 @@ import {
 } from "../../controllers";
 
 const router = express.Router();
-router.get(
-  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_GET}`,
-  TokenHandler.verifyToken,
-  RequestAccessGetController,
+router.post(
+  `${API_VERSION}${RouteChannel.REQUEST_ACCESS}`,
+  RequestAccessAddController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.REQUEST_ACCESS}`,
   TokenHandler.verifyToken,
   RequestAccessGetAllController,
 );
-router.post(
-  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_NEW}`,
+router.get(
+  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_ID}`,
   TokenHandler.verifyToken,
-  RequestAccessAddController,
+  RequestAccessGetController,
 );
+
 router.delete(
-  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_REMOVE}`,
+  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_ID}`,
   TokenHandler.verifyToken,
   RequestAccessRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_UPDATE}`,
+  `${API_VERSION}${RouteChannel.REQUEST_ACCESS_ID}`,
   TokenHandler.verifyToken,
   RequestAccessUpdateController,
 );

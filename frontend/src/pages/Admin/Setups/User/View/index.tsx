@@ -2,9 +2,9 @@ import {
   APIChannel,
   ButtonType,
   HeadCell,
+  QueryKey,
   RouteChannel,
   SFC,
-  ToastType,
   userHC,
 } from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
@@ -16,11 +16,9 @@ import {
 } from "../../../../../components";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
-import { cn, displayToast } from "../../../../../utils";
+import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-import { useQuery } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../../../../../hooks";
-import { BASE_URL, Error } from "../../../../../shared";
+import API from "../../../../../hooks/api";
 
 export const AdminUserViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -30,18 +28,7 @@ export const AdminUserViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
-  const axios = useAxiosPrivate();
-  const {
-    data: users,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => axios.get(`${BASE_URL}/setup/user/get-all`), // fetch data
-  });
-  if (isError) {
-    displayToast(users?.data?.message || Error.m00001, ToastType.error);
-  }
+  const { data: users, isLoading } = API.Setup.User.GetAll();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -60,13 +47,14 @@ export const AdminUserViewPage: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Users"
-              Rows={users?.data?.data || []}
+              Rows={users || []}
               HeadCells={userHC as HeadCell<unknown>[]}
               IsLoading={isLoading}
               OnRecordDelete={() => {}}
-              RemoveApiRoute={APIChannel.USER_REMOVE}
+              RemoveApiRoute={APIChannel.USER_ID}
               DetailsRoute={RouteChannel.ADMIN_USER_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.USER}
             />
           </Suspense>
         </S.PageContent>

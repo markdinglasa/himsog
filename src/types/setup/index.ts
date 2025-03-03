@@ -15,5 +15,5 @@ export * from "./recipeLine";
 export * from "./profession_rating";
 export * from "./unit";
 export * from "./event";
-export * from "./request";
+export * from "../public/request";
 export * from "./article";

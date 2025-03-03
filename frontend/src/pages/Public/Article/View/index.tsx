@@ -51,7 +51,9 @@ const PublicArticlePage: SFC = ({ ClassName }) => {
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
         <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10">
           <S.Divider className="h-32 w-full relative mb-5 items-center justify-center flex bg-white">
-            Ads here
+            <S.Span className="text-md uppercase font-medium">
+              Commercial Space for Lease
+            </S.Span>
           </S.Divider>
           <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-10">
             <S.Divider className="flex flex-row items-center justify-start w-fit gap-2 p-2">

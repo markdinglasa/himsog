@@ -51,7 +51,7 @@ export const Main = styled.main<{ $isCollapse: boolean }>`
 export const MainContent = styled.div`
   overflow: auto;
   scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: #888 ${colors.palette.neutral["050"]}; /* For Firefox */
+  scrollbar-color: #888 ${colors.palette.neutral["100"]}; /* For Firefox */
   width: 100%; /* Use 100% instead of 100vw to avoid horizontal scrolling issues */
   padding: 1rem; /* Add padding for better spacing */
 
