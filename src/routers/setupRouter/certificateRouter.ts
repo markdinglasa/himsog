@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.CERTIFICATE}`,
+  `${API_VERSION}${RouteChannel.CERTIFICATE_PARENT}`,
   TokenHandler.verifyToken,
   CertificateGetAllController,
 );
@@ -39,7 +39,7 @@ router.patch(
 
 logging.log("----------------------------------------");
 logging.log("--------CERTIFICATE CONTROLLER----------");
-logging.log(`GET ${RouteChannel.CERTIFICATE} [get-all]`);
+logging.log(`GET ${RouteChannel.CERTIFICATE_PARENT} [get-all]`);
 logging.log(`POST ${RouteChannel.CERTIFICATE} [add]`);
 logging.log(`GET ${RouteChannel.CERTIFICATE_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.CERTIFICATE_ID} [remove]`);

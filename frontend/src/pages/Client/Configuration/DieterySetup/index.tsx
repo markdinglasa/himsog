@@ -43,7 +43,7 @@ export const ConfigurationDieteryPage: SFC = () => {
               </span>
             </div>
             <div className="">
-              <Form.Setup.HealthConditionForm />
+              <Form.Setup.HealthCondition />
             </div>
             <div className="w-full mb-2 flex flex-wrap gap-2">
               {isLoading ? (

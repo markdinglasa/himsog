@@ -11,12 +11,12 @@ import {
 } from "../../controllers";
 
 const router = express.Router();
-
 router.get(
   `${API_VERSION}${RouteChannel.PROFESSION}`,
   TokenHandler.verifyToken,
-  ProfessionGetController,
+  ProfessionGetAllController,
 );
+
 router.post(
   `${API_VERSION}${RouteChannel.PROFESSION}`,
   TokenHandler.verifyToken,
@@ -25,7 +25,7 @@ router.post(
 router.get(
   `${API_VERSION}${RouteChannel.PROFESSION_ID}`,
   TokenHandler.verifyToken,
-  ProfessionGetAllController,
+  ProfessionGetController,
 );
 router.delete(
   `${API_VERSION}${RouteChannel.PROFESSION_ID}`,

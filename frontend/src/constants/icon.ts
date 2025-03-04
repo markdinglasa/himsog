@@ -16,6 +16,8 @@ import Help from "@mui/icons-material/HelpOutline";
 import Done from "@mui/icons-material/Done";
 import Delete from "@mui/icons-material/Delete";
 import Save from "@mui/icons-material/Save";
+import MoreVert from "@mui/icons-material/MoreVert";
+
 export default {
   ThumpUp,
   Add,
@@ -35,4 +37,5 @@ export default {
   Done,
   Delete,
   Save,
+  MoreVert,
 };

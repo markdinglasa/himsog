@@ -1,30 +1,26 @@
 import { useCallback } from "react";
 import {
   APIChannel,
-  RouteChannel,
   ToastType,
-  ProfessionTable,
+  CertificateTable,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useAddProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
+const useAddCertificate = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async (data: ProfessionTable) => {
-      const response = await axios.post(`${APIChannel.PROFESSION}`, data);
+    mutationFn: async (data: CertificateTable) => {
+      const response = await axios.post(`${APIChannel.CERTIFICATE}`, data);
       return response.data;
     },
     onSuccess: () => {
-      if (!IsSetup) {
-        displayToast(Success.m00002, ToastType.success);
-        navigate(RouteChannel.NUTRITIONIST_PROFESSION);
-      } else navigate(Redirect);
+      queryClient.invalidateQueries({ queryKey: [QueryKey.CERTIFICATE] });
+      displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(
@@ -35,7 +31,7 @@ const useAddProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
   });
 
   const add = useCallback(
-    (data: ProfessionTable) => {
+    (data: CertificateTable) => {
       if (!data) return;
       mutation.mutate(data);
     },
@@ -49,4 +45,4 @@ const useAddProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
   };
 };
 
-export default useAddProfession;
+export default useAddCertificate;

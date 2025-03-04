@@ -271,6 +271,18 @@ export const AppRouter = createBrowserRouter(
           {/*CLIENT*/}
           {/*NUTRITIONIST*/}
           <Route element={<RequireAuth allowedRoles={[Roles.nutritionist]} />}>
+            <Route
+              path={RouteChannel.NUTRITIONIST_PROFILE_SETUP}
+              element={<Page.Nutritionist.Configuration.ProfileSetup />}
+            />
+            <Route
+              path={RouteChannel.NUTRITIONIST_PROFESSION_SETUP}
+              element={<Page.Nutritionist.Configuration.ProfessionSetup />}
+            />
+            <Route
+              path={RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP}
+              element={<Page.Nutritionist.Configuration.CertificateSetup />}
+            />
             <Route element={<NutritionistLayout />}>
               <Route
                 path={RouteChannel.NUTRITIONIST_DASHBOARD}

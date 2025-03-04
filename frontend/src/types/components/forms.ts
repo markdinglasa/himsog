@@ -1,3 +1,5 @@
+import { RouteChannel } from "../channels";
+
 export interface NewForm {
   title: string;
   path?: string;
@@ -18,4 +20,6 @@ export interface FormProps {
 export interface SetupForm {
   IsSetup?: boolean;
   IsAllergen?: boolean;
+  IsClient?: boolean;
+  Redirect?: RouteChannel;
 }

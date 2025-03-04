@@ -1,34 +1,36 @@
 import { useCallback } from "react";
 import {
   APIChannel,
-  RouteChannel,
   ToastType,
-  ProfessionInitial,
-  ProfessionTable,
+  CertificateInitial,
+  CertificateTable,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
-const useUpdateProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
+const useUpdateCertificate = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async ({ Id, data }: { Id: number; data: ProfessionTable }) => {
+    mutationFn: async ({
+      Id,
+      data,
+    }: {
+      Id: number;
+      data: CertificateTable;
+    }) => {
       const response = await axios.patch(
-        `${APIChannel.PROFESSION_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.CERTIFICATE_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;
     },
     onSuccess: () => {
-      if (!IsSetup) {
-        displayToast(Success.m00004, ToastType.success);
-        navigate(RouteChannel.NUTRITIONIST_PROFESSION);
-      } else navigate(Redirect);
+      queryClient.invalidateQueries({ queryKey: [QueryKey.CERTIFICATE] });
+      displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(
@@ -39,7 +41,7 @@ const useUpdateProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
   });
 
   const update = useCallback(
-    (Id: number = 0, data: ProfessionTable = ProfessionInitial) => {
+    (Id: number = 0, data: CertificateTable = CertificateInitial) => {
       if (Id !== 0 && !data) return;
       mutation.mutate({ Id, data });
     },
@@ -53,4 +55,4 @@ const useUpdateProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
   };
 };
 
-export default useUpdateProfession;
+export default useUpdateCertificate;

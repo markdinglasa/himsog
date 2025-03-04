@@ -14,6 +14,7 @@ export const registerValidator = Joi.object({
     .required(),
   ProfilePhoto: Joi.string().allow("").allow(null).optional(),
   IsSuspended: Joi.boolean().required(),
+  Gender: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().iso().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

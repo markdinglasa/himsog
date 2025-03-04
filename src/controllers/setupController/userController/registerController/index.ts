@@ -14,7 +14,7 @@ export const UserRegisterController = async (
   try {
     const { ConfirmPassword, ...filteredData } = req.body;
     const Data: UserTable = filteredData;
-    console.log("filteredData:", filteredData);
+    // console.log("filteredData:", filteredData);
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = registerValidator.validate({ ...Data });

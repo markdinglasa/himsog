@@ -14,7 +14,9 @@ export const ConfigurationProfilePage: SFC = () => {
               <img src={Logo} className="" />
             </div>
             <div className="flex flex-col items-start justify-start w-full mb-10">
-              <span className="text-xl font-medium">Welcome, Dear Client</span>
+              <span className="text-xl font-medium">
+                Welcome, Dear Health Professional
+              </span>
               <span className="text-sm text-slate-600">
                 Let's setup your profile.
               </span>
@@ -22,7 +24,7 @@ export const ConfigurationProfilePage: SFC = () => {
             <div className="">
               <Form.Setup.User
                 IsSetup={true}
-                Redirect={RouteChannel.CLIENT_HEALTH_SETUP}
+                Redirect={RouteChannel.NUTRITIONIST_PROFESSION_SETUP}
               />
             </div>
           </div>

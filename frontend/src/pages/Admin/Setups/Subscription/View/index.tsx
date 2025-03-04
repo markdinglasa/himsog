@@ -1,6 +1,7 @@
 import {
   ButtonType,
   HeadCell,
+  QueryKey,
   RouteChannel,
   SFC,
   subscriptionHC,
@@ -50,6 +51,7 @@ export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
               //RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
               DetailsRoute={RouteChannel.ADMIN_SUBSCRIPTION_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.SUBSCRIPTION}
             />
           </Suspense>
         </S.PageContent>

@@ -4,7 +4,7 @@ import * as S from "./Styles";
 import { ButtonType, SFC } from "../../../../types";
 import EditIcon from "@mui/icons-material/Edit";
 import { twMerge } from "tailwind-merge";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import MoreVert from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
 
 interface OptionProps {
@@ -12,7 +12,7 @@ interface OptionProps {
   DeleteOnClick: () => void;
 }
 
-export const SubTermOption: SFC<OptionProps> = ({
+export const MoreOption: SFC<OptionProps> = ({
   ClassName,
   EditOnClick,
   DeleteOnClick,
@@ -49,7 +49,7 @@ export const SubTermOption: SFC<OptionProps> = ({
         }
         type={ButtonType.button}
       >
-        <MoreHorizIcon className="text-primary" />
+        <MoreVert className="text-slate-700" />
       </IconButton>
       {activeDropdown === "NewItem" && (
         <S.Dropdown className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">

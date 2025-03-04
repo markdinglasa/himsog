@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { Error, Success } from "../../../../shared";
-import { isFound } from "../../../../functions";
 import { ProfessionQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { ProfessionTable } from "../../../../types";
 
 export const ProfessionGetController = async (
   req: Request,
@@ -10,17 +10,17 @@ export const ProfessionGetController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Id: number = parseInt(req.params?.Id, 10); // ProfessionId
+    const Id: number = parseInt(req.params?.Id, 10); // UserId
     if (!Id || Id === 0 || Id === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
-    if (!(await isFound(ProfessionQuery.q002, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // check Profession existence
-    const response = await GetService.byFields(
-      ProfessionQuery.q003,
-      ["Id"],
-      [Number],
-      [Id],
-    );
+    const response: ProfessionTable = (
+      await GetService.byFields(
+        ProfessionQuery.q003,
+        ["UserId"],
+        [Number],
+        [Id],
+      )
+    )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

@@ -14,7 +14,7 @@ import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../../useAuth";
 
-const useUpdateUser = (IsSetup: boolean = false) => {
+const useUpdateUser = (IsSetup: boolean = false, Redirect: RouteChannel) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const { auth } = useAuth();
@@ -32,7 +32,7 @@ const useUpdateUser = (IsSetup: boolean = false) => {
         const path = renderPath(auth.roles as Roles);
         displayToast(Success.m00004, ToastType.success);
         navigate(path);
-      } else navigate(RouteChannel.CLIENT_HEALTH_SETUP);
+      } else navigate(Redirect);
     },
     onError: (error: any) => {
       displayToast(

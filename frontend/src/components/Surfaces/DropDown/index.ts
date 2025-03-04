@@ -1,3 +1,3 @@
 export * from "./AddNewDropDown";
-export * from "./SubTermOption";
+export * from "./MoreOption";
 export * from "./ProfileOption";

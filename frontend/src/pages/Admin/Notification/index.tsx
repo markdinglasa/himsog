@@ -1,4 +1,10 @@
-import { HeadCell, notificationHC, RouteChannel, SFC } from "../../../types";
+import {
+  HeadCell,
+  notificationHC,
+  QueryKey,
+  RouteChannel,
+  SFC,
+} from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +35,7 @@ export const AdminNotificationPage: SFC = ({ ClassName }) => {
               OnRecordDelete={() => {}}
               //RemoveApiRoute={Routes.NOTIFICATION_REMOVE}
               ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.NOTIFICATION}
             />
           </Suspense>
         </S.PageContent>

@@ -16,12 +16,12 @@ export const CertificateGetController = async (
     if (!(await isFound(CertificateQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Certificate existence
     const response = await GetService.byFields(
-      CertificateQuery.q001,
+      CertificateQuery.q003,
       ["Id"],
       [Number],
       [Id],
     );
-    return res.status(200).json({ data: response, message: Success.m005 });
+    return res.status(200).json({ data: response[0], message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Certificate-Controller [Get]:", error.message);

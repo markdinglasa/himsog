@@ -3,8 +3,12 @@ import * as S from "./Styles";
 import { memo } from "react";
 import Logo from "../../../../asset/svg/logo.svg";
 import Form from "../../../../components/Surfaces/Forms";
+import API from "../../../../hooks/api";
+import { useAuth } from "../../../../hooks";
 
-export const ConfigurationProfilePage: SFC = () => {
+export const ConfigurationProfessionPage: SFC = () => {
+  const { auth } = useAuth();
+  const { data } = API.Setup.User.Get(auth?.user ?? 0);
   return (
     <>
       <S.Container className="w-screen h-screen overflow-auto">
@@ -14,15 +18,17 @@ export const ConfigurationProfilePage: SFC = () => {
               <img src={Logo} className="" />
             </div>
             <div className="flex flex-col items-start justify-start w-full mb-10">
-              <span className="text-xl font-medium">Welcome, Dear Client</span>
+              <span className="text-xl font-medium">
+                Welcome, {data?.Firstname ?? ""}
+              </span>
               <span className="text-sm text-slate-600">
-                Let's setup your profile.
+                Let's setup your profession profile.
               </span>
             </div>
             <div className="">
-              <Form.Setup.User
+              <Form.Setup.Profession
                 IsSetup={true}
-                Redirect={RouteChannel.CLIENT_HEALTH_SETUP}
+                Redirect={RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP}
               />
             </div>
           </div>
@@ -32,4 +38,4 @@ export const ConfigurationProfilePage: SFC = () => {
   );
 };
 
-export default memo(ConfigurationProfilePage);
+export default memo(ConfigurationProfessionPage);

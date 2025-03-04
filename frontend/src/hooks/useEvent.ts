@@ -7,6 +7,7 @@ interface AppEvent<PayloadType = unknown> extends Event {
 export interface CustomWindowEventMap extends WindowEventMap {
   /* Custom Event */
   onCountUpdate: AppEvent<string>;
+  onClickUpdate: AppEvent<number>;
 }
 
 export const useEvent = <PayloadType = unknown>(

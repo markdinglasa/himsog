@@ -79,6 +79,9 @@ export enum RouteChannel {
   // NUTRITIONIST PAGES
   NUTRITIONIST_DASHBOARD = "/n",
   NUTRITIONIST_NOTIFICATIONS = "/n/notifications",
+  NUTRITIONIST_PROFILE_SETUP = "/n/setup-profile",
+  NUTRITIONIST_PROFESSION_SETUP = "/n/setup-profession",
+  NUTRITIONIST_CERTIFICATE_SETUP = "/n/setup-certificate",
   NUTRITIONIST_PROFIFLE = "/n/profile/:Id",
   NUTRITIONIST_UTILITY = "/n/utility/",
   NUTRITIONIST_SETTINGS = "/n/settings",

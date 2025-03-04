@@ -8,6 +8,6 @@ export const registerValidator = () => {
       .string()
       .oneOf([yup.ref("Password")], "Passwords must match")
       .required("Confirm Password is required"), // should match the Password
-    Role: yup.string().required("Role is required"),
+    Role: yup.string().optional(),
   });
 };

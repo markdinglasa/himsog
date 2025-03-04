@@ -1,4 +1,3 @@
-import { twMerge } from "tailwind-merge";
 import { SelectInputProps, SFC } from "../../../types";
 import * as S from "./Styles";
 import { cn } from "../../../utils";

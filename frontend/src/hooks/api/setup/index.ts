@@ -15,9 +15,11 @@ import Subscription from "./subscription";
 import SubscriptionLine from "./subscriptionLine";
 import Unit from "./unit";
 import User from "./user";
+import Certificate from "./certificate";
 
 export default {
   Unit,
+  Certificate,
   Ingredient,
   Subscription,
   SubscriptionLine,

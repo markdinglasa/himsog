@@ -43,7 +43,7 @@ export const ConfigurationAllergenPage: SFC = () => {
               </span>
             </div>
             <div className="">
-              <Form.Setup.HealthConditionForm IsAllergen={true} />
+              <Form.Setup.HealthCondition IsAllergen={true} />
             </div>
             <div className="w-full mb-2 flex flex-wrap gap-2">
               {isLoading ? (

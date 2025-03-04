@@ -38,7 +38,7 @@ const PublicEventDetailsPage: SFC = ({ ClassName }) => {
                 <S.Divider>
                   <Icon.Calendar className="p-[2px] text-zinc-600 " />
                   <S.Span className="ml-2 text-sm ">
-                    {getCurrentDate(event?.ScheduleDate)}
+                    {getCurrentDate(event?.Schedule)}
                   </S.Span>
                 </S.Divider>
               </S.Divider>

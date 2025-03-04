@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import {
+  AccessControl,
   AutoComplete,
   CustomButton,
   CustomInput,
@@ -9,6 +10,8 @@ import {
   ButtonType,
   CivilStatus,
   InputType,
+  RouteChannel,
+  SetupForm,
   SFC,
   ToastType,
   UserRole,
@@ -22,10 +25,15 @@ import { displayToast, formatDateForInput } from "../../../../../utils";
 import { userValidator } from "../../../../../validators/";
 import { CivilStatusOptions } from "../../../../../shared/data/options";
 import API from "../../../../../hooks/api";
+import Icon from "../../../../../constants/icon";
 
-const UserForm: SFC = ({ ClassName }) => {
+const UserForm: SFC<SetupForm> = ({
+  ClassName,
+  IsSetup = false,
+  Redirect = RouteChannel.INDEX,
+}) => {
   const { auth } = useAuth();
-  const { update } = API.Setup.User.Update(true);
+  const { update } = API.Setup.User.Update(true, Redirect);
   const { data, isLoading } = API.Setup.User.Get(auth?.user ?? 0);
 
   const InitialValues: UserTable = {
@@ -187,15 +195,29 @@ const UserForm: SFC = ({ ClassName }) => {
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full flex justify-end items-center">
-                          <CustomButton
-                            text="Next"
-                            ClassName=""
-                            disabled={!isValid || isSubmitting}
-                            type={ButtonType.submit}
-                            morph={false}
-                          />
-                        </S.Divider>
+                        <AccessControl OtherCondition={IsSetup}>
+                          <S.Divider className="w-full flex justify-end items-center">
+                            <CustomButton
+                              text="Next"
+                              ClassName=""
+                              disabled={!isValid || isSubmitting}
+                              type={ButtonType.submit}
+                              morph={false}
+                            />
+                          </S.Divider>
+                        </AccessControl>
+                        <AccessControl OtherCondition={!IsSetup}>
+                          <S.Divider className="w-full flex justify-end items-center">
+                            <CustomButton
+                              leftIcon={<Icon.Save />}
+                              text="Save"
+                              ClassName=""
+                              disabled={!isValid || isSubmitting}
+                              type={ButtonType.submit}
+                              morph={false}
+                            />
+                          </S.Divider>
+                        </AccessControl>
                       </Form>
                     ) : (
                       <Skeleton />

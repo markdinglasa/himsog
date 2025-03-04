@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { CircleButton } from "../CircleButton";
 
 export interface ButtonProps {
+  id?: string;
   color?: string;
   dirty?: boolean;
   disabled?: boolean;
@@ -20,6 +21,7 @@ export interface ButtonProps {
 
 export const CustomButton: SFC<ButtonProps> = ({
   ClassName,
+  id,
   color = "primary",
   dirty = false,
   disabled = false,
@@ -73,6 +75,7 @@ export const CustomButton: SFC<ButtonProps> = ({
     <>
       <div className={morph ? "md:block hidden" : ""}>
         <Button
+          id={id}
           title={text}
           startIcon={leftIcon}
           endIcon={rightIcon}
