@@ -75,11 +75,7 @@ export const JWTAuth = async (
         Role: user.data.Role,
         AccessToken: accessToken.data,
         RefreshToken: refreshToken.data,
-        IsSetup:
-          user.data.Role !== UserRole.ADMINISTRATOR ||
-          user.data.Role !== UserRole.SUPERUSER
-            ? user.data.IsSetup
-            : true,
+        IsSetup: renderSetup(user.data.Role),
       },
       message: Success.m001,
     });
