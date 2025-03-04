@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Roles, SFC } from "../../types";
-import { PageFooter, SideNav, Header } from "../../components";
+import { PageFooter, Header, NutritionistSideNav } from "../../components";
 import { useAuth, useSignOut, useToggle } from "../../hooks";
 import * as S from "./Styles";
 import { useEffect } from "react";
@@ -36,7 +36,7 @@ export const NutritionistLayout: SFC = ({ ClassName }) => {
             $isCollapse={isCollapse}
             $isSidebarOpen={isSidebarOpen}
           >
-            <SideNav Toggle={toggle} Collapse={isCollapse} />
+            <NutritionistSideNav Toggle={toggle} Collapse={isCollapse} />
           </S.Nav>
           <S.Main $isCollapse={isCollapse}>
             <Header Toggle={toggle} Collapse={Collapse} />
