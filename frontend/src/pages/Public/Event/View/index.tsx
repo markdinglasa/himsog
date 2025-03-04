@@ -1,24 +1,20 @@
-import { ButtonType, Roles, SFC, ToastType } from "../../../../types";
+import { Roles, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { useAuth } from "../../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { memo, useEffect, useState } from "react";
-import { a11yProps, cn, displayToast, renderPath } from "../../../../utils";
+import { a11yProps, cn, renderPath } from "../../../../utils";
 import Card from "../../../../components/Surfaces/Cards";
 import { Pagination, PaginationItem, Tab, Tabs } from "@mui/material";
 import { colors } from "../../../../styles";
-import {
-  CustomButton,
-  CustomInput,
-  SelectOption,
-} from "../../../../components";
+import { CustomButton, SelectOption } from "../../../../components";
 import Icon from "../../../../constants/icon";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../modals";
 import SampleImage from "../../../../asset/images/sample-image.jpg";
 import UIcon from "@mdi/react";
 import { mdiAlertOutline, mdiThumbUpOutline } from "@mdi/js";
-
+import Form from "../../../../components/Surfaces/Forms";
 const PublicEventPage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -36,22 +32,14 @@ const PublicEventPage: SFC = ({ ClassName }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [modIndex, setModIndex] = useState<number>(0);
 
-  const handleSubmitEmail = () => {
-    try {
-      setModIndex(2);
-    } catch (error: any) {
-      displayToast(
-        error.message || "Something went wrong, please try again.",
-        ToastType.error,
-      );
-    }
-  };
   return (
     <>
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
         <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10">
           <S.Divider className="h-32 w-full relative mb-5 items-center justify-center flex bg-white">
-            Ads here
+            <S.Span className="text-md uppercase font-medium">
+              Commercial Space for Lease
+            </S.Span>
           </S.Divider>
           <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-10">
             <Tabs
@@ -180,20 +168,7 @@ const PublicEventPage: SFC = ({ ClassName }) => {
           </S.Span>
         </S.Divider>
         <S.Divider className="w-full">
-          <S.Divider className="w-full flex flex-col">
-            <CustomInput
-              name="Email"
-              placeholder="example@doh.gov.ph"
-              ClassName="w-full"
-            />
-          </S.Divider>
-          <S.Divider className="w-full flex justify-end items-center">
-            <CustomButton
-              text="Request Access"
-              type={ButtonType.button}
-              onClick={handleSubmitEmail}
-            />
-          </S.Divider>
+          <Form.Public.RequestAccess OnClose={toggleDisplay} />
         </S.Divider>
       </CustomModal>
       <CustomModal

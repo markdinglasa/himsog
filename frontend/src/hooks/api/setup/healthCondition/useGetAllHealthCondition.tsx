@@ -1,5 +1,10 @@
 import { Error } from "../../../../shared";
-import { APIChannel, QueryKey, ToastType } from "../../../../types";
+import {
+  APIChannel,
+  HealthConditionTables,
+  QueryKey,
+  ToastType,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
@@ -9,16 +14,18 @@ const useGetAllHealthCondition = (Id: string) => {
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.HEALTH_CONDITION],
     queryFn: async () => {
-      const response = await axios.get(
-        `${APIChannel.HEALTH_CONDITION_PARENT.replace(":Id", Id.toString())}`,
-      );
+      const response: HealthConditionTables = (
+        await axios.get(
+          `${APIChannel.HEALTH_CONDITION_PARENT.replace(":Id", Id.toString())}`,
+        )
+      ).data?.data;
       //console.log("Response:", response);
-      return response?.data?.data || [];
+      return response || [];
     },
     enabled: !!Id,
   });
   // console.log("DATA:", data);
-  if (error) displayToast(data?.message || Error.m00003, ToastType.error);
+  if (error) displayToast(Error.m00003, ToastType.error);
   return {
     data,
     isLoading,

@@ -1,4 +1,11 @@
-import { HeadCell, notificationHC, RouteChannel, SFC } from "../../../types";
+import {
+  APIChannel,
+  HeadCell,
+  notificationHC,
+  QueryKey,
+  RouteChannel,
+  SFC,
+} from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +27,7 @@ export const ClientNotificationPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Notifications"
@@ -28,8 +35,9 @@ export const ClientNotificationPage: SFC = ({ ClassName }) => {
               HeadCells={notificationHC as HeadCell<unknown>[]}
               IsLoading={false}
               OnRecordDelete={() => {}}
-              //RemoveApiRoute={RouteChannel.NOTIFICATION_REMOVE}
+              RemoveApiRoute={APIChannel.NOTIFICATION_ID}
               ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.NOTIFICATION}
             />
           </Suspense>
         </S.PageContent>

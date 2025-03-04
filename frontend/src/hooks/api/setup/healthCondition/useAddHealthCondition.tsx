@@ -1,19 +1,25 @@
 import { useCallback } from "react";
-import { APIChannel, ToastType, HealthConditionTable } from "../../../../types";
+import {
+  APIChannel,
+  ToastType,
+  HealthConditionTable,
+  QueryKey,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddHealthCondition = () => {
   const axios = useAxiosPrivate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: HealthConditionTable) => {
       const response = await axios.post(`${APIChannel.HEALTH_CONDITION}`, data);
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.HEALTH_CONDITION] });
       displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {

@@ -14,10 +14,7 @@ export const HealthConditionGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    return res.status(200).json({ data: [], message: `${"Error.m005"}` });
-    const HealthId: number = parseInt(req.params?.Id, 10);
-    console.log("Id:", req.params?.Id);
-
+    const HealthId: number = parseInt(req.params?.Id as string, 10);
     if (!HealthId || HealthId === 0 || HealthId === undefined)
       return res
         .status(401)

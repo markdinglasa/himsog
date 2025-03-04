@@ -34,6 +34,7 @@ export const initializeApp = async () => {
   app.use(router);
   app.use(route404);
   app.use(bodyParser.json({ strict: true }));
+
   logging.log("----------------------------------------");
   logging.log("Starting Server");
   logging.log("----------------------------------------");

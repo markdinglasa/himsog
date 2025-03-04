@@ -16,7 +16,7 @@ export const RequestAccessGetController = async (
     if (!(await isFound(RequestAccessQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check RequestAccess existence
     const response = await GetService.byFields(
-      RequestAccessQuery.q001,
+      RequestAccessQuery.q003,
       ["Id"],
       [Number],
       [Id],

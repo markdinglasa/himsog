@@ -64,10 +64,14 @@ const HealthConditionForm: SFC<SetupForm> = ({ ClassName, IsAllergen }) => {
                   }) =>
                     !isLoading ? (
                       <Form>
-                        <S.Divider className="w-full pb-1 flex flex-row items-center justify-center gap-5  h-[80px]">
+                        <S.Divider className="w-full pb-1 flex flex-row items-center justify-center gap-2  h-[80px]">
                           <S.Divider className="w-full h-full  flex items-center justify-center">
                             <AutoComplete
-                              Label={"What is your dietary preferences"}
+                              Label={
+                                IsAllergen
+                                  ? "What are your allergen?"
+                                  : "What are your dietary preferences?"
+                              }
                               IsTooltip={true}
                               ClassName="h-full"
                               TooltipMessage="Help Description here"
@@ -77,7 +81,9 @@ const HealthConditionForm: SFC<SetupForm> = ({ ClassName, IsAllergen }) => {
                               }
                               Name="Description"
                               OptionName="Label"
-                              Placeholder="e.g. Gluten-Free"
+                              Placeholder={
+                                IsAllergen ? "e.g Peanuts" : "e.g. Gluten-Free"
+                              }
                               OnChange={(_: any, value: any) => {
                                 setFieldValue("Description", value?.Id || "");
                                 setTouched({ Description: true });
@@ -90,7 +96,7 @@ const HealthConditionForm: SFC<SetupForm> = ({ ClassName, IsAllergen }) => {
                           <S.Divider className="h-full  flex items-center justify-center">
                             <CustomButton
                               leftIcon={<Icon.Add />}
-                              text="New"
+                              text="Add"
                               disabled={!isValid || isSubmitting}
                               type={ButtonType.submit}
                               morph={false}

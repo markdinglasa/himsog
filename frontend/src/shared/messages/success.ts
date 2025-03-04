@@ -9,4 +9,5 @@ export enum Success {
   m00007 = "Connected",
   m00008 = "Sales Tendered",
   m00009 = "Sales Discounted",
+  m000010 = "Request sent",
 }

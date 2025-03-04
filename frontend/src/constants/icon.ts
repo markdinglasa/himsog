@@ -13,6 +13,9 @@ import Cart from "@mui/icons-material/ShoppingCartOutlined";
 import Cancel from "@mui/icons-material/Cancel";
 import Edit from "@mui/icons-material/Edit";
 import Help from "@mui/icons-material/HelpOutline";
+import Done from "@mui/icons-material/Done";
+import Delete from "@mui/icons-material/Delete";
+import Save from "@mui/icons-material/Save";
 export default {
   ThumpUp,
   Add,
@@ -29,4 +32,7 @@ export default {
   Cancel,
   Edit,
   Help,
+  Done,
+  Delete,
+  Save,
 };

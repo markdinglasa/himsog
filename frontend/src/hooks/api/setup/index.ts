@@ -1,5 +1,3 @@
-export * from "./user";
-
 import Article from "./article";
 import Event from "./event";
 import Health from "./health";
