@@ -189,7 +189,10 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.CLIENT_DASHBOARD}
                 element={<Page.Client.Dashboard />}
               />
-
+              <Route
+                path={RouteChannel.CLIENT_SETTINGS}
+                element={<Page.Client.Settings />}
+              />
               <Route
                 path={RouteChannel.CLIENT_PROFIFLE}
                 element={<Page.Client.Profile />}

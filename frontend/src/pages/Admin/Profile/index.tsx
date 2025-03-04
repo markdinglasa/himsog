@@ -1,6 +1,6 @@
 import { RouteChannel, SFC, UserInitial } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { PageBreadCrumbs, ProfileCard, Skeleton } from "../../../components";
+import { PageBreadCrumbs, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 //import { useAuth } from "../../../hooks";
@@ -26,11 +26,6 @@ export const AdminProfilePage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.DoubleCol>
           <S.Divider className="w-full md:w-[80%] h-fit rounded-md ">
-            <ProfileCard
-              ClassName="mb-2"
-              Name={user.Fullname ?? "NA"}
-              RoleName={user.Role ?? "NA"}
-            />
             <S.PageContent>
               <Suspense fallback={<Skeleton />}></Suspense>
             </S.PageContent>

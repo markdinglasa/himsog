@@ -8,6 +8,7 @@ import Reminder from "./Reminder";
 import Subscription from "./Subscription";
 import Notification from "./Notification";
 import Configuration from "./Configuration";
+import Settings from "./Settings";
 
 const Client = {
   Dashboard,
@@ -20,6 +21,7 @@ const Client = {
   Reminder,
   Subscription,
   Notification,
+  Settings,
 };
 
 export default Client;

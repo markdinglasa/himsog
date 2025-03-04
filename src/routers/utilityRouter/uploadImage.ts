@@ -22,7 +22,7 @@ router.post(
         });
       return res.status(200).json({
         data: upload.data,
-        message: "Image is uploaded",
+        message: upload.message || "Image is uploaded",
       });
     } catch (error: any) {
       return res.status(500).json({

@@ -1,7 +1,6 @@
 import fs from "fs/promises"; // Using fs/promises for promise-based methods
 import path from "path";
 import { createHash } from "crypto";
-import { fileURLToPath } from "url";
 import multer from "multer";
 
 /****************************************************************
@@ -11,8 +10,18 @@ import multer from "multer";
   PROGRAMMER           : MARK DINGLASA
   FUNCTION NAME        : uploadImage(imagePath)
 ****************************************************************/
-
-const targetDir = path.join(__dirname, "./frontend", "public", "image");
+// using ES module
+const targetDir = path.join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "..",
+  "frontend",
+  "public",
+  "image",
+);
+// the frontend is in the root folder of this project folder
 
 const storage = multer.diskStorage({
   destination: function (
@@ -39,7 +48,8 @@ export const uploadImage = async (imagePath: string) => {
     //sends the image to the client side
     const targetFile = path.join(targetDir, imgfile);
     const imageFileType = path.extname(targetFile).toLowerCase();
-
+    //console.log(targetFile);
+    //return { data: targetFile, message: "" };
     // Check if imagePath is a directory
     const isDirectory = await fs
       .stat(imagePath)

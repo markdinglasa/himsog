@@ -7,17 +7,18 @@ import {
   UserInitial,
   UserTable,
 } from "../../../../types";
-import { displayToast, renderPath } from "../../../../utils";
+import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "../../../useAuth";
 
-const useUpdateUser = (IsSetup: boolean = false, Redirect: RouteChannel) => {
+const useUpdateUser = (
+  IsSetup: boolean = false,
+  Redirect: RouteChannel = RouteChannel.INDEX,
+) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-  const { auth } = useAuth();
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: UserTable }) => {
       const response = await axios.patch(
@@ -29,9 +30,7 @@ const useUpdateUser = (IsSetup: boolean = false, Redirect: RouteChannel) => {
     },
     onSuccess: () => {
       if (!IsSetup) {
-        const path = renderPath(auth.roles as Roles);
         displayToast(Success.m00004, ToastType.success);
-        navigate(path);
       } else navigate(Redirect);
     },
     onError: (error: any) => {
