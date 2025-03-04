@@ -2,28 +2,28 @@
 
 - Account Management = 3mod
 
-- [ ] Client, Registration
+- [x] Client, Registration
 - [ ] Nutritionist, Registration
 - [ ] Admin, Registration / Create Other Account
 
-- [ ] Client, Login/Logout
-- [ ] Nutritionist, Login/Logout
-- [ ] Admin, Login/Logout
+- [x] Client, Login/Logout
+- [x] Nutritionist, Login/Logout
+- [x] Admin, Login/Logout
 
-- [ ] Client, Profile Management
+- [x] Client, Profile Management
 - [ ] Nutritionist, Profile Management
 
-- [ ] Client, Health Data - Setup
+- [x] Client, Health Data - Setup
 - [ ] Nutritionist, Profession - Setup
 - [ ] Nutritionist, Verification
 
-- [ ] Admin, Remove Account
+- [x] Admin, Remove Account
 - [ ] Admin, Suspend Account
 
 - [ ] Client, Avail Subscription
 - [ ] Client, View Subscriptions
 - [ ] Client, Cancel Subscription
-- [ ] Admin, Manage Subscriptions
+- [x] Admin, Manage Subscriptions
 
 - [ ] Client, Manage Reminders
 

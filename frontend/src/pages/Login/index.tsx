@@ -52,7 +52,7 @@ const PageLogin: SFC = ({ ClassName }) => {
         const roles: Roles = response.data.data.Role;
         const accessToken: string = response.data.data.AccessToken;
         const refreshToken: string = response.data.data.RefreshToken;
-        const IsSetup: boolean = IsBoolean(response.data.data.IsSetup);
+        const IsSetup: boolean = response.data.data.IsSetup;
         setAuth({
           user,
           roles,

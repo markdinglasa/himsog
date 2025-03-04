@@ -54,6 +54,20 @@ export const JWTAuth = async (
       [user.data.Id, new Date(), networkInfo], // log the user's network where he login
     );
 
+    const renderSetup = (Role: UserRole): boolean => {
+      switch (Role) {
+        case UserRole.ADMINISTRATOR:
+        case UserRole.SUPERUSER:
+          return true;
+        case UserRole.CLIENT:
+          return user.data.IsSetup > 0;
+        case UserRole.NUTRITIONIST:
+          return user.data.IsSetup > 0;
+        default:
+          return false;
+      }
+    };
+
     return res.status(200).json({
       data: {
         Success: true,
@@ -61,11 +75,7 @@ export const JWTAuth = async (
         Role: user.data.Role,
         AccessToken: accessToken.data,
         RefreshToken: refreshToken.data,
-        IsSetup:
-          user.data.Role !== UserRole.ADMINISTRATOR ||
-          user.data.Role !== UserRole.SUPERUSER
-            ? user.data.IsSetup
-            : true,
+        IsSetup: renderSetup(user.data.Role),
       },
       message: Success.m001,
     });
