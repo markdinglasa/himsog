@@ -1,36 +1,29 @@
 import { useCallback } from "react";
-import {
-  APIChannel,
-  RouteChannel,
-  ToastType,
-  UserInitial,
-  UserTable,
-} from "../../../../types";
+import { APIChannel, ToastType } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useUpdateUser = (
-  IsSetup: boolean = false,
-  Redirect: RouteChannel = RouteChannel.INDEX,
-) => {
+const useUpdateUserPhoto = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: async ({ Id, data }: { Id: number; data: UserTable }) => {
+    mutationFn: async ({
+      Id,
+      data,
+    }: {
+      Id: number;
+      data: { ProfilePhoto: string };
+    }) => {
       const response = await axios.patch(
-        `${APIChannel.USER_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.USER_PHOTO.replace(":Id", Id.toString())}`,
         data,
       );
       console.log("response:", response);
       return response.data;
     },
     onSuccess: () => {
-      if (!IsSetup) {
-        displayToast(Success.m00004, ToastType.success);
-      } else navigate(Redirect);
+      displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(
@@ -41,7 +34,7 @@ const useUpdateUser = (
   });
 
   const update = useCallback(
-    (Id: number = 0, data: UserTable = UserInitial) => {
+    (Id: number = 0, data: { ProfilePhoto: string }) => {
       if (Id !== 0 && !data) return;
       mutation.mutate({ Id, data });
     },
@@ -55,4 +48,4 @@ const useUpdateUser = (
   };
 };
 
-export default useUpdateUser;
+export default useUpdateUserPhoto;

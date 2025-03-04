@@ -5,6 +5,7 @@ import {
   UserRegisterController,
   UserRemoveController,
   UserUpdateController,
+  UserUpdatePhotoController,
 } from "../../controllers";
 import express from "express";
 import { TokenHandler } from "../../middleware";
@@ -42,7 +43,11 @@ router.patch(
   TokenHandler.verifyToken,
   UserUpdateController,
 );
-
+router.patch(
+  `${API_VERSION}${RouteChannel.USER_PHOTO}`,
+  TokenHandler.verifyToken,
+  UserUpdatePhotoController,
+);
 logging.log("----------------------------------------");
 logging.log("-------------USER CONTROLLER------------");
 logging.log(`GET ${RouteChannel.USER} [get-all]`);
@@ -51,6 +56,7 @@ logging.log(`POST ${RouteChannel.USER_REGISTER} [register]`);
 logging.log(`GET ${RouteChannel.USER_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.USER_ID} [remove]`);
 logging.log(`PATCH ${RouteChannel.USER_ID} [update]`);
+logging.log(`PATCH ${RouteChannel.USER_PHOTO} [update-photo]`);
 logging.log("----------------------------------------");
 
 export default router;

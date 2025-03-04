@@ -3,12 +3,9 @@ import * as S from "../../../../styles/Styles";
 import { cn } from "../../../../utils";
 import { memo } from "react";
 import Card from "../../../../components/Surfaces/Cards";
-import API from "../../../../hooks/api";
-import { useAuth } from "../../../../hooks";
+
 export const CredentialPanel: SFC = ({ ClassName }) => {
-  const { auth } = useAuth();
-  const { data: user } = API.Setup.User.Get(auth?.user ?? 0);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
