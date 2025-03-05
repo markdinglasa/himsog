@@ -1,30 +1,18 @@
-import {
-  ButtonColor,
-  ButtonType,
-  HealthConditionTable,
-  RouteChannel,
-  SFC,
-} from "../../../../types";
+import { ButtonColor, ButtonType, RouteChannel, SFC } from "../../../../types";
 import * as S from "./Styles";
 import { memo } from "react";
 import Logo from "../../../../asset/svg/logo.svg";
 import Form from "../../../../components/Surfaces/Forms";
 import API from "../../../../hooks/api";
 import { useAuth } from "../../../../hooks";
-import { CustomButton, Skeleton } from "../../../../components";
+import { CustomButton } from "../../../../components";
 import { useNavigate } from "react-router-dom";
-import { Chip } from "@mui/material";
-import Icon from "../../../../constants/icon";
-import { colors } from "../../../../styles";
+import HealthCondtions from "../../../../components/DataDisplay/HealthConditions";
+
 export const ConfigurationAllergenPage: SFC = () => {
   const { auth } = useAuth();
   const { data } = API.Setup.User.Get(auth?.user ?? 0);
-  const { remove } = API.Setup.HealthCondition.Remove();
-  const { data: health } = API.Setup.Health.Get(auth?.user ?? 0);
   const navigate = useNavigate();
-  const { data: dietary, isLoading } = API.Setup.HealthCondition.GetAll(
-    health?.Id ?? 0,
-  );
 
   return (
     <>
@@ -45,32 +33,8 @@ export const ConfigurationAllergenPage: SFC = () => {
             <div className="">
               <Form.Setup.HealthCondition IsAllergen={true} />
             </div>
-            <div className="w-full mb-2 flex flex-wrap gap-2">
-              {isLoading ? (
-                <Skeleton />
-              ) : dietary?.length ? (
-                dietary
-                  .filter(
-                    (record: HealthConditionTable) =>
-                      record.Category == "allergen",
-                  )
-                  .map((record: HealthConditionTable) => (
-                    <div key={record.Id?.toString()} className="w-fit h-22">
-                      <Chip
-                        label={record?.Description ?? ""}
-                        onDelete={() => remove(Number(record?.Id ?? 0))}
-                        deleteIcon={
-                          <Icon.Delete style={{ color: colors.primary }} />
-                        }
-                        variant="outlined"
-                      />
-                    </div>
-                  ))
-              ) : (
-                <div>
-                  <span>No Allergen's</span>
-                </div>
-              )}
+            <div>
+              <HealthCondtions IsAllergen={true} />
             </div>
             <div className="w-full flex justify-between items-center">
               <CustomButton

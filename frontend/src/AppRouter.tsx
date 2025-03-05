@@ -291,6 +291,18 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.NUTRITIONIST_DASHBOARD}
                 element={<Page.Nutritionist.Dashboard />}
               />
+              <Route
+                path={RouteChannel.NUTRITIONIST_SETTINGS}
+                element={<Page.Nutritionist.Settings />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_NOTIFICATIONS}
+                element={<Page.Nutritionist.Notification />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_MESSENGER}
+                element={<Page.UnderConstruction />}
+              />
             </Route>
           </Route>
           {/*NUTRITIONIST*/}

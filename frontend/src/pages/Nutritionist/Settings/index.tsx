@@ -4,11 +4,11 @@ import { a11yProps, cn, CustomTabPanel } from "../../../utils";
 import { memo, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { colors } from "../../../styles";
-import Panel from "../../../components/Surfaces/Panels";
 import { PageBreadCrumbs } from "../../../components";
 import { useNavigate } from "react-router-dom";
+import Panel from "../../../components/Surfaces/Panels";
 
-export const ClientSettings: SFC = ({ ClassName }) => {
+export const NutritionistSettings: SFC = ({ ClassName }) => {
   const [index, setIndex] = useState<number>(0);
   const handleChanges = (_event: React.SyntheticEvent, newValue: number) => {
     setIndex(newValue);
@@ -17,7 +17,7 @@ export const ClientSettings: SFC = ({ ClassName }) => {
   const links = [
     {
       Text: "Dashboard",
-      OnClick: () => navigate(RouteChannel.CLIENT_DASHBOARD),
+      OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
   return (
@@ -28,11 +28,11 @@ export const ClientSettings: SFC = ({ ClassName }) => {
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-10">
+          <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-3">
             <Tabs
               value={index}
               onChange={handleChanges}
-              aria-label="New item tabs"
+              aria-label="New tabs"
               sx={{
                 "& .MuiTabs-indicator": {
                   backgroundColor: colors.primary, // Customize the active indicator color
@@ -58,7 +58,7 @@ export const ClientSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Diet & Nutrition"
+                label="Profession"
                 {...a11yProps(1)}
               />
               <Tab
@@ -69,7 +69,7 @@ export const ClientSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Medical Records"
+                label="Certificates"
                 {...a11yProps(2)}
               />
               <Tab
@@ -101,17 +101,13 @@ export const ClientSettings: SFC = ({ ClassName }) => {
               <Panel.Credential />
             </CustomTabPanel>
             <CustomTabPanel index={1} value={index}>
-              <Panel.Health />
+              <Panel.Profession />
             </CustomTabPanel>
             <CustomTabPanel index={2} value={index}>
-              <Panel.MedicalRecord />
+              <Panel.Certificates />
             </CustomTabPanel>
-            <CustomTabPanel index={3} value={index}>
-              <Panel.Subscription />
-            </CustomTabPanel>
-            <CustomTabPanel index={4} value={index}>
-              <Panel.Security />
-            </CustomTabPanel>
+            <CustomTabPanel index={3} value={index}></CustomTabPanel>
+            <CustomTabPanel index={4} value={index}></CustomTabPanel>
           </S.Divider>
         </S.PageContent>
       </S.Container>
@@ -119,4 +115,4 @@ export const ClientSettings: SFC = ({ ClassName }) => {
   );
 };
 
-export default memo(ClientSettings);
+export default memo(NutritionistSettings);

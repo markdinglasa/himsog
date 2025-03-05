@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import {
   AccessControl,
   AutoComplete,
+  CircleButton,
   CustomButton,
   CustomInput,
   Skeleton,
@@ -16,7 +17,7 @@ import {
   SFC,
   ToastType,
 } from "../../../../../types";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
@@ -24,8 +25,15 @@ import { displayToast } from "../../../../../utils";
 import { healthValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import { useNavigate } from "react-router-dom";
+import Icon from "../../../../../constants/icon";
 
-const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
+const HealthForm: SFC<SetupForm> = ({
+  ClassName,
+  IsSetup = false,
+  IsDetails = false,
+  Title,
+}) => {
+  const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
   const Id = parseInt(auth?.user ?? 0);
   const { add } = API.Setup.Health.Add(IsSetup);
@@ -52,7 +60,19 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
 
   return (
     <S.Container className={ClassName}>
-      <S.Content className="flex justify-center items-center w-full ">
+      <S.Content className="flex justify-center flex-col items-center w-full ">
+        <S.FormHeader className="flex flex-row items-center justify-between mb-3">
+          <S.Span className="text-lg font-medium">{Title}</S.Span>
+          <S.Divider>
+            <AccessControl OtherCondition={IsEdit && IsDetails}>
+              <CircleButton
+                OnClick={() => SetIsEdit(false)}
+                Icon={<Icon.Edit className="text-primary" />}
+                Type={ButtonType.button}
+              />
+            </AccessControl>
+          </S.Divider>
+        </S.FormHeader>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">
@@ -74,12 +94,14 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                     values,
                     setTouched,
                     isValid,
+                    resetForm,
                   }) =>
                     !isLoading ? (
                       <Form>
                         <S.Divider className="w-full flex md:flex-row flex-col md:gap-2">
                           <S.Divider className="w-full py-1">
                             <CustomInput
+                              disabled={IsEdit}
                               errors={errors}
                               type={InputType.number}
                               label="Weight (kg)"
@@ -93,6 +115,7 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                           </S.Divider>
                           <S.Divider className="w-full py-1">
                             <CustomInput
+                              disabled={IsEdit}
                               errors={errors}
                               type={InputType.number}
                               label="Height (cm)"
@@ -107,6 +130,7 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                         </S.Divider>
                         <S.Divider className="w-full pb-1">
                           <AutoComplete
+                            IsEdit={IsEdit}
                             Label={"I want to"}
                             IsTooltip={true}
                             TooltipMessage="Fitness goal Help Description here"
@@ -133,6 +157,7 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                         </S.Divider>
                         <S.Divider className="w-full pb-1">
                           <AutoComplete
+                            IsEdit={IsEdit}
                             Label="Activity Level"
                             Values={values.ActivityLevel}
                             Options={[
@@ -173,6 +198,7 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                         </S.Divider>
                         <S.Divider className="w-full pb-1">
                           <AutoComplete
+                            IsEdit={IsEdit}
                             Label="PrimaryDiet"
                             Values={values.PrimaryDiet}
                             Options={[
@@ -204,7 +230,7 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                             Touched={touched}
                           />
                         </S.Divider>
-                        <AccessControl OtherCondition={IsSetup}>
+                        <AccessControl OtherCondition={IsSetup && !IsDetails}>
                           <S.Divider className="w-full flex justify-between items-center">
                             <CustomButton
                               text="Back"
@@ -218,6 +244,32 @@ const HealthForm: SFC<SetupForm> = ({ ClassName, IsSetup }) => {
                             />
                             <CustomButton
                               text="Next"
+                              ClassName=""
+                              disabled={!isValid || isSubmitting}
+                              type={ButtonType.submit}
+                              morph={false}
+                            />
+                          </S.Divider>
+                        </AccessControl>
+                        <AccessControl OtherCondition={!IsSetup && !IsEdit}>
+                          <S.Divider className="w-full flex justify-end items-center gap-3">
+                            <CustomButton
+                              leftIcon={
+                                <Icon.Cancel className="text-primary" />
+                              }
+                              text="Cancel"
+                              ClassName=""
+                              color={ButtonColor.default}
+                              onClick={() => {
+                                SetIsEdit(true);
+                                resetForm();
+                              }}
+                              type={ButtonType.button}
+                              morph={false}
+                            />
+                            <CustomButton
+                              leftIcon={<Icon.Save />}
+                              text="Save"
                               ClassName=""
                               disabled={!isValid || isSubmitting}
                               type={ButtonType.submit}

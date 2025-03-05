@@ -5,7 +5,7 @@ import {
   InputType,
   SFC,
   ToastType,
-  UnitTable,
+  UserEmail,
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
@@ -14,36 +14,30 @@ import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { useAuth } from "../../../../../hooks";
-import { unitValidator } from "../../../../../validators";
+import { userEmailValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
-import { useParams } from "react-router-dom";
 
-export const UnitForm: SFC<FormProps> = ({
+export const EmailForm: SFC<FormProps> = ({
   ClassName,
   Title = "NA",
   IsDetails = true,
 }) => {
   const [IsEdit, SetIsEdit] = useState(IsDetails);
-  const { Id } = useParams<{ Id: string }>();
   const { auth } = useAuth();
-  const { add } = API.Setup.Unit.Add();
-  const { update } = API.Setup.Unit.Update();
-  const { data, isLoading } = API.Setup.Unit.Get(Number(Id));
+  const Id: number = useMemo(() => Number(auth?.user ?? 0), [auth?.user]);
+  const { update } = API.Setup.User.UpdateEmail();
+  const { data, isLoading } = API.Setup.User.Get(Id);
 
-  const InitialValues: UnitTable = {
-    Name: data?.Name || "",
-    Description: data?.Description || null,
-    CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
-    UpdatedBy: IsDetails ? auth?.user : null,
+  const InitialValues: UserEmail = {
+    Email: data?.Email || "",
   };
 
-  const handleSubmit = async (values: UnitTable) => {
+  const handleSubmit = async (values: UserEmail) => {
     try {
       if (Id) update(Number(Id), values);
-      else add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
     }
@@ -72,7 +66,7 @@ export const UnitForm: SFC<FormProps> = ({
                 onSubmit={handleSubmit}
                 enableReinitialize={true}
                 validateOnMount={true}
-                validationSchema={unitValidator}
+                validationSchema={userEmailValidator}
               >
                 {({
                   errors,
@@ -87,25 +81,12 @@ export const UnitForm: SFC<FormProps> = ({
                   <Form>
                     <S.Divider className="w-full mb-2">
                       <CustomInput
-                        placeholder="e.g. Kg(s)"
-                        label="Name"
-                        name="Name"
+                        placeholder="juandela_cruz@hotmail.com"
+                        label="Email"
+                        name="Email"
                         errors={errors}
                         touched={touched}
-                        value={values.Name}
-                        onChange={handleChange}
-                        disabled={IsEdit}
-                        type={InputType.text}
-                      />
-                    </S.Divider>
-                    <S.Divider className="w-full">
-                      <CustomInput
-                        placeholder="e.g. Kilogram(s)"
-                        label="Description (optional)"
-                        name="Description"
-                        errors={errors}
-                        touched={touched}
-                        value={values.Description ?? ""}
+                        value={values.Email}
                         onChange={handleChange}
                         disabled={IsEdit}
                         type={InputType.text}
@@ -145,4 +126,4 @@ export const UnitForm: SFC<FormProps> = ({
     </>
   );
 };
-export default memo(UnitForm);
+export default memo(EmailForm);

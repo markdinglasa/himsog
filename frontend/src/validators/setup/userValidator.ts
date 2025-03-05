@@ -42,3 +42,9 @@ export const userValidator = () => {
     Role: yup.string().required("Role is required"),
   });
 };
+
+export const userEmailValidator = () => {
+  return yup.object().shape({
+    Email: yup.string().email().required("Email is required"),
+  });
+};

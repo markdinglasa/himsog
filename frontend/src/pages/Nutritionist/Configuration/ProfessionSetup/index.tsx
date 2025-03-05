@@ -29,6 +29,7 @@ export const ConfigurationProfessionPage: SFC = () => {
               <Form.Setup.Profession
                 IsSetup={true}
                 Redirect={RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP}
+                IsRedirect={true}
               />
             </div>
           </div>

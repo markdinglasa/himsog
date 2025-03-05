@@ -11,7 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
-const useAddProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
+const useAddProfession = (
+  IsSetup: boolean,
+  Redirect: RouteChannel,
+  IsRedirect: boolean = false,
+) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
 
@@ -24,7 +28,7 @@ const useAddProfession = (IsSetup: boolean, Redirect: RouteChannel) => {
       if (!IsSetup) {
         displayToast(Success.m00002, ToastType.success);
         navigate(RouteChannel.NUTRITIONIST_PROFESSION);
-      } else navigate(Redirect);
+      } else if (IsRedirect) navigate(Redirect);
     },
     onError: (error: any) => {
       displayToast(

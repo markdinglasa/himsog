@@ -2,11 +2,13 @@ import { Form, Formik } from "formik";
 import {
   AccessControl,
   AutoComplete,
+  CircleButton,
   CustomButton,
   CustomInput,
   Skeleton,
 } from "../../../../../components";
 import {
+  ButtonColor,
   ButtonType,
   CivilStatus,
   InputType,
@@ -17,7 +19,7 @@ import {
   UserRole,
   UserTable,
 } from "../../../../../types";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
@@ -31,9 +33,13 @@ const UserForm: SFC<SetupForm> = ({
   ClassName,
   IsSetup = false,
   Redirect = RouteChannel.INDEX,
+  IsDetails = false,
+  IsRedirect = false,
+  Title,
 }) => {
+  const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
-  const { update } = API.Setup.User.Update(true, Redirect);
+  const { update } = API.Setup.User.Update(true, Redirect, IsRedirect);
   const { data, isLoading } = API.Setup.User.Get(auth?.user ?? 0);
 
   const InitialValues: UserTable = {
@@ -63,7 +69,19 @@ const UserForm: SFC<SetupForm> = ({
 
   return (
     <S.Container className={ClassName}>
-      <S.Content className="flex justify-center items-center w-full ">
+      <S.Content className="flex justify-center items-center w-full flex-col ">
+        <S.FormHeader className="flex flex-row items-center justify-between mb-3">
+          <S.Span className="text-lg font-medium">{Title}</S.Span>
+          <S.Divider>
+            <AccessControl OtherCondition={IsEdit && IsDetails}>
+              <CircleButton
+                OnClick={() => SetIsEdit(false)}
+                Icon={<Icon.Edit className="text-primary" />}
+                Type={ButtonType.button}
+              />
+            </AccessControl>
+          </S.Divider>
+        </S.FormHeader>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">
@@ -85,6 +103,7 @@ const UserForm: SFC<SetupForm> = ({
                     values,
                     setTouched,
                     isValid,
+                    resetForm,
                   }) =>
                     !isLoading ? (
                       <Form>
@@ -94,6 +113,7 @@ const UserForm: SFC<SetupForm> = ({
                               errors={errors}
                               type={InputType.text}
                               label="First Name"
+                              disabled={IsEdit}
                               value={values?.Firstname}
                               placeholder="First Name"
                               name="Firstname"
@@ -107,6 +127,7 @@ const UserForm: SFC<SetupForm> = ({
                               errors={errors}
                               type={InputType.text}
                               label="Middle Name (Optional)"
+                              disabled={IsEdit}
                               value={values?.Middlename ?? ""}
                               placeholder="Middle Name"
                               name="Middlename"
@@ -121,6 +142,7 @@ const UserForm: SFC<SetupForm> = ({
                             errors={errors}
                             type={InputType.text}
                             label="Last Name"
+                            disabled={IsEdit}
                             value={values.Lastname}
                             placeholder="Last Name"
                             name="Lastname"
@@ -134,6 +156,7 @@ const UserForm: SFC<SetupForm> = ({
                             errors={errors}
                             type={InputType.date}
                             label="Birth Date"
+                            disabled={IsEdit}
                             value={
                               String(values.BirthDate?.toString() ?? "").split(
                                 "T",
@@ -151,6 +174,7 @@ const UserForm: SFC<SetupForm> = ({
                             Label="Civil Status"
                             Values={values.CivilStatus}
                             Options={CivilStatusOptions}
+                            IsEdit={IsEdit}
                             Name="CivilStatus"
                             OptionName="label"
                             Placeholder="Civil Status"
@@ -172,6 +196,7 @@ const UserForm: SFC<SetupForm> = ({
                               { Id: "other", Label: "Other" },
                             ]}
                             Name="Gender"
+                            IsEdit={IsEdit}
                             OptionName="Label"
                             Placeholder="Gender"
                             OnChange={(_: any, value: any) => {
@@ -187,6 +212,7 @@ const UserForm: SFC<SetupForm> = ({
                             errors={errors}
                             type={InputType.text}
                             label="Mobile Number"
+                            disabled={IsEdit}
                             value={values?.ContactNumber.toString()}
                             placeholder="+63 9XX-XXX-XXXX"
                             name="ContactNumber"
@@ -206,8 +232,22 @@ const UserForm: SFC<SetupForm> = ({
                             />
                           </S.Divider>
                         </AccessControl>
-                        <AccessControl OtherCondition={!IsSetup}>
-                          <S.Divider className="w-full flex justify-end items-center">
+                        <AccessControl OtherCondition={!IsSetup && !IsEdit}>
+                          <S.Divider className="w-full flex justify-end items-center gap-3">
+                            <CustomButton
+                              leftIcon={
+                                <Icon.Cancel className="text-primary" />
+                              }
+                              text="Cancel"
+                              ClassName=""
+                              color={ButtonColor.default}
+                              onClick={() => {
+                                SetIsEdit(true);
+                                resetForm();
+                              }}
+                              type={ButtonType.button}
+                              morph={false}
+                            />
                             <CustomButton
                               leftIcon={<Icon.Save />}
                               text="Save"

@@ -28,6 +28,7 @@ const CertificateForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   RecordId,
+  OnClose,
 }) => {
   const { auth } = useAuth();
   const { add } = API.Setup.Certificate.Add();
@@ -221,13 +222,18 @@ const CertificateForm: SFC<FormProps> = ({
                         <AccessControl OtherCondition={!IsDetails}>
                           <S.Divider className="w-full flex justify-end gap-2 items-center">
                             <CustomButton
-                              leftIcon={<Icon.Cancel />}
+                              leftIcon={
+                                <Icon.Cancel className="text-primary" />
+                              }
                               text="Cancel"
                               ClassName=""
                               type={ButtonType.button}
                               color={ButtonColor.default}
                               morph={false}
-                              onClick={() => resetForm()}
+                              onClick={() => {
+                                OnClose && OnClose();
+                                resetForm();
+                              }}
                             />
                             <CustomButton
                               leftIcon={<Icon.Save />}

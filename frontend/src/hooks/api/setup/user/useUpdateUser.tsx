@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import {
   APIChannel,
+  QueryKey,
   RouteChannel,
   ToastType,
   UserInitial,
@@ -10,13 +11,15 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateUser = (
   IsSetup: boolean = false,
   Redirect: RouteChannel = RouteChannel.INDEX,
+  IsRedirect: boolean = false,
 ) => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: UserTable }) => {
@@ -27,10 +30,12 @@ const useUpdateUser = (
       console.log("response:", response);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      const { Id } = variables;
+      queryClient.invalidateQueries({ queryKey: [QueryKey.USER, Id] });
       if (!IsSetup) {
         displayToast(Success.m00004, ToastType.success);
-      } else navigate(Redirect);
+      } else if (IsRedirect) navigate(Redirect);
     },
     onError: (error: any) => {
       displayToast(

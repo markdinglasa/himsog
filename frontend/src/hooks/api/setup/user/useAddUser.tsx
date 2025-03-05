@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import {
   APIChannel,
+  QueryKey,
   RouteChannel,
   ToastType,
   UserTable,
@@ -9,18 +10,19 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddUser = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: UserTable) => {
       const response = await axios.post(`${APIChannel.USER}`, data);
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.USER] });
       displayToast(Success.m00002, ToastType.success);
       navigate(RouteChannel.ADMIN_USER);
     },

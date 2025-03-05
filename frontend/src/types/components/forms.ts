@@ -22,4 +22,7 @@ export interface SetupForm {
   IsAllergen?: boolean;
   IsClient?: boolean;
   Redirect?: RouteChannel;
+  IsDetails?: boolean;
+  IsRedirect?: boolean;
+  Title?: string;
 }

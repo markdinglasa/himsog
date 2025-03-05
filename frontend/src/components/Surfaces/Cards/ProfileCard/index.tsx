@@ -8,13 +8,13 @@ import { useAuth, useAxiosPrivate, useToggle } from "../../../../hooks";
 import API from "../../../../hooks/api";
 import { CustomModal } from "../../../../modals";
 import { CustomButton } from "../../../Inputs";
-import axios from "axios";
+import { AccessControl } from "../../../DataDisplay";
 
 export const ProfileCard: SFC = ({ ClassName }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const axios = useAxiosPrivate();
   const { auth } = useAuth();
   const { update } = API.Setup.User.UpdatePhoto();
   const { data } = API.Setup.User.Get(auth?.user ?? 0);
@@ -30,44 +30,35 @@ export const ProfileCard: SFC = ({ ClassName }) => {
 
   const handleUploadImage = async () => {
     if (!imageFile) {
-      console.error("No image file selected.");
+      displayToast("No image file selected.", ToastType.error);
       return;
     }
-
-    console.log("Selected file:", imageFile); // Debugging
-
     try {
       const formData = new FormData();
-      formData.append("Image", imageFile);
-
-      console.log("FormData:", formData.get("Image")); // Debugging
-
+      formData.append("image", imageFile);
       const uploadResponse = await axios.post(
         `${BASE_URL}/utility/upload-image`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } },
       );
-
       const uploadedImagePath = uploadResponse.data?.path || null;
-      console.log("ImagePath:", uploadedImagePath);
-      //update(auth?.user, { ProfilePhoto: uploadedImagePath });
+      update(auth?.user, { ProfilePhoto: uploadedImagePath });
       toggleDisplay(); // Close the modal after successful upload
     } catch (error: any) {
-      console.error("Image upload failed:", error.message);
-      // Optionally, show a toast or alert to the user
+      displayToast(error.message || "No image file selected.", ToastType.error);
     }
   };
   const resetImagePreview = () => {
     setImagePreview(null);
     setImageFile(null);
   };
-
+  // console.log("data:", data);
   return (
     <>
-      <S.Container className={cn("w-full bg-white p-2 rounded-md", ClassName)}>
+      <S.Container className={cn("w-full bg-white py-2 rounded-md", ClassName)}>
         <S.Content className="w-full flex items-center gap-2">
           {/* Profile Image Upload Section */}
-          <label className="relative inline-block w-[100px] h-[80px] rounded-md overflow-hidden cursor-pointer border-primary">
+          <label className="relative inline-block w-[100px] h-[100px] rounded-md overflow-hidden cursor-pointer border-primary hover:opacity-90">
             <S.Image
               alt="Profile Image"
               src={data?.ProfilePhoto || DefaultImage}
@@ -93,14 +84,14 @@ export const ProfileCard: SFC = ({ ClassName }) => {
         }}
         title="Choose profile picture"
         open={isDisplay}
-        ClassName="md:w-[500px] w-[80vw]"
+        ClassName="md:w-[30rem] md:h-[30rem] w-[80vw]"
       >
-        <S.Divider>
-          <S.Divider>
-            <label className="relative inline-block border-red w-full h-[200px] rounded-md overflow-hidden cursor-pointer border-primary">
+        <S.Divider className="flex flex-col items-center justify-center gap-2">
+          <S.Divider className="h-full">
+            <label className="relative inline-block border w-full h-[23rem] rounded-md overflow-hidden cursor-pointer ">
               <S.Image
                 alt="Profile Image"
-                src={imagePreview || DefaultImage}
+                src={imagePreview || (data?.ProfilePhoto ?? DefaultImage)}
                 className="object-cover w-full h-full"
                 onClick={toggleDisplay}
               />
@@ -120,36 +111,41 @@ export const ProfileCard: SFC = ({ ClassName }) => {
               />
             </label>
           </S.Divider>
-          <S.Divider className=" w-full">
-            <CustomButton
-              text={"Upload Photo"}
-              ClassName="w-full"
-              onClick={() => fileInputRef.current?.click()} // Correctly trigger file input
-              type={ButtonType.button}
-              morph={false}
-            />
-          </S.Divider>
-          <S.Divider className=" w-full flex flex-row gap-2">
-            <CustomButton
-              text="Cancel"
-              ClassName="w-full"
-              color={ButtonColor.default}
-              onClick={() => {
-                toggleDisplay();
-                resetImagePreview();
-              }}
-              type={ButtonType.button}
-              morph={false}
-            />
-            <CustomButton
-              text="Save"
-              ClassName="w-full"
-              color={ButtonColor.primary}
-              onClick={handleUploadImage}
-              type={ButtonType.button}
-              morph={false}
-            />
-          </S.Divider>
+
+          <AccessControl OtherCondition={!imageFile}>
+            <S.Divider className="w-full">
+              <CustomButton
+                text={"Upload Photo"}
+                ClassName="w-full"
+                onClick={() => fileInputRef.current?.click()} // Correctly trigger file input
+                type={ButtonType.button}
+                morph={false}
+              />
+            </S.Divider>
+          </AccessControl>
+          <AccessControl OtherCondition={imageFile !== null}>
+            <S.Divider className=" w-full flex flex-row items-center justify-end gap-2 mb-0">
+              <CustomButton
+                text="Cancel"
+                ClassName="w-full"
+                color={ButtonColor.default}
+                onClick={() => {
+                  toggleDisplay();
+                  resetImagePreview();
+                }}
+                type={ButtonType.button}
+                morph={false}
+              />
+              <CustomButton
+                text="Save"
+                ClassName="w-full"
+                color={ButtonColor.primary}
+                onClick={handleUploadImage}
+                type={ButtonType.button}
+                morph={false}
+              />
+            </S.Divider>
+          </AccessControl>
         </S.Divider>
       </CustomModal>
     </>

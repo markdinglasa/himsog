@@ -103,4 +103,6 @@ export enum RouteChannel {
   NUTRITIONIST_SUBSCRIPTION_DETAILS = "/n/nutritionist/subscription/:Id",
   NUTRITIOIST_INGREDIENT = "/n/ingredient",
   NUTRITIOIST_INGREDIENT_DETAILS = "/n/ingredient/d/:Id",
+  NUTRITIONIST_MESSENGER = "/n/messenger/:Id",
+  NUTRITIONIST_MESSENGER_NEW = "/n/messenger/new",
 }

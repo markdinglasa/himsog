@@ -12,6 +12,7 @@ export const userValidator = Joi.object({
     .required(),
   Middlename: Joi.string()
     .pattern(/^[A-Za-z\s.,-]+$/)
+    .allow("")
     .allow(null)
     .optional(),
   ContactNumber: Joi.string()

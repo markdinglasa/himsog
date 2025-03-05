@@ -1,26 +1,20 @@
 import { useCallback } from "react";
-import { APIChannel, QueryKey, ToastType } from "../../../../types";
+import { APIChannel, QueryKey, ToastType, UserEmail } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useUpdateUserPhoto = () => {
+const useUpdateUserEmail = () => {
   const axios = useAxiosPrivate();
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async ({
-      Id,
-      data,
-    }: {
-      Id: number;
-      data: { ProfilePhoto: string };
-    }) => {
+    mutationFn: async ({ Id, data }: { Id: number; data: UserEmail }) => {
       const response = await axios.patch(
-        `${APIChannel.USER_PHOTO.replace(":Id", Id.toString())}`,
+        `${APIChannel.USER_EMAIL.replace(":Id", Id.toString())}`,
         data,
       );
-      console.log("response:", response);
+      // console.log("response:", response);
       return response.data;
     },
     onSuccess: (_data, variables) => {
@@ -37,7 +31,7 @@ const useUpdateUserPhoto = () => {
   });
 
   const update = useCallback(
-    (Id: number = 0, data: { ProfilePhoto: string }) => {
+    (Id: number = 0, data: UserEmail) => {
       if (Id !== 0 && !data) return;
       mutation.mutate({ Id, data });
     },
@@ -51,4 +45,4 @@ const useUpdateUserPhoto = () => {
   };
 };
 
-export default useUpdateUserPhoto;
+export default useUpdateUserEmail;

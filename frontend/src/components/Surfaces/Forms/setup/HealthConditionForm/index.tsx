@@ -20,14 +20,18 @@ import { healthConditionValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 
-const HealthConditionForm: SFC<SetupForm> = ({ ClassName, IsAllergen }) => {
+const HealthConditionForm: SFC<SetupForm> = ({
+  ClassName,
+  IsAllergen,
+  Title,
+}) => {
   const { auth } = useAuth();
   const { data, isLoading } = API.Setup.Health.Get(auth?.user ?? 0);
   const { add } = API.Setup.HealthCondition.Add();
-  //console.log("data:", data);
+  // console.log("data:", data);
   const InitialValues: HealthConditionTable = {
     HealthId: data?.Id || 0,
-    Category: IsAllergen ? "allergen" : " dietery-preference",
+    Category: IsAllergen ? "allergen" : "dietery-preference",
     Description: "",
   };
   const handleSubmit = async (values: HealthConditionTable): Promise<void> => {
@@ -40,7 +44,11 @@ const HealthConditionForm: SFC<SetupForm> = ({ ClassName, IsAllergen }) => {
 
   return (
     <S.Container className={ClassName}>
-      <S.Content className="flex justify-center items-center w-full ">
+      <S.Content className="flex justify-center flex-col items-center w-full ">
+        <S.FormHeader className="flex flex-row items-center justify-between mb-3">
+          <S.Span className="text-lg text-slate-900">{Title}</S.Span>
+          <S.Divider></S.Divider>
+        </S.FormHeader>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">

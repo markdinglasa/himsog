@@ -31,6 +31,7 @@ export interface UserTable extends Id, Logs {
   Fullname?: string;
   Gender: string;
 }
+
 export type UserTables = UserTable[];
 export const UserInitial: UserTable = {
   Email: "",
@@ -46,3 +47,7 @@ export const UserInitial: UserTable = {
   BirthDate: "",
   Gender: "",
 };
+
+export interface UserEmail extends Id, Logs {
+  Email: string;
+}

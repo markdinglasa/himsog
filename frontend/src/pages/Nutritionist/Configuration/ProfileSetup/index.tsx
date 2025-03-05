@@ -24,6 +24,7 @@ export const ConfigurationProfilePage: SFC = () => {
             <div className="">
               <Form.Setup.User
                 IsSetup={true}
+                IsRedirect={true}
                 Redirect={RouteChannel.NUTRITIONIST_PROFESSION_SETUP}
               />
             </div>
