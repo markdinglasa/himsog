@@ -2,6 +2,8 @@ import { memo } from "react";
 import { CertificateTable, SFC } from "../../../types";
 import { cn, formatDateToMMDDYY } from "../../../utils";
 import { MoreOption } from "../../Surfaces";
+import * as S from "./Styles";
+import QRCode from "react-qr-code";
 
 interface CertificateProps {
   OnEdit: () => void;
@@ -16,11 +18,8 @@ export const Certificate: SFC<CertificateProps> = ({
 }) => {
   return (
     <>
-      <div
-        className={cn(
-          "w-full p-5 rounded-md border bg-gradient-to-r from-green-500 to-teal-400",
-          ClassName,
-        )}
+      <S.Certificate
+        className={cn("w-full p-5 rounded-md border text-slate-200", ClassName)}
       >
         <div className="w-full h-22 items-center justify-between flex mb-10">
           <span className="text-md font-medium">
@@ -35,33 +34,35 @@ export const Certificate: SFC<CertificateProps> = ({
           </div>
         </div>
         <div className="w-full h-22 items-center justify-center flex flex-col mb-5 ">
-          <span className="text-3xl text-slate-800 font-semibold text-center px-3 border-b border-slate-500">
+          <span className="text-3xl text-slate-100 font-semibold text-center px-3 border-b border-slate-100">
             {Data?.IssuedTo ?? "NA"}
           </span>
           <span className="text-md font-medium text-center">
             {Data?.CertificateType ?? "NA"}
           </span>
         </div>
-        {Data?.AttachmentURL && (
-          <div className="w-full h-32items-center justify-center flex flex-col mb-5 text-center">
-            <p className="text-sm ">{Data?.AttachmentURL ?? ""}</p>
-          </div>
-        )}
         <div className="w-full h-22 items-center justify-between flex flex-row gap-10">
           <div className="w-1/2 flex flex-col items-center justify-center">
-            <span className="text-md font-medium border-b px-3 border-slate-500">
+            <span className="text-md font-medium border-b px-3 border-slate-100">
               {formatDateToMMDDYY(Data?.ExpiryDate) ?? "NA"}
             </span>
             <span>Expiry Date</span>
           </div>
           <div className="w-1/2 flex flex-col items-center justify-center">
-            <span className="text-md font-medium border-b px-3 border-slate-500">
+            <span className="text-md font-medium border-b px-3 border-slate-100">
               {Data?.Issuer ?? "NA"}
             </span>
             <span>Issuer</span>
           </div>
         </div>
-      </div>
+        <div className="flex justify-end w-full relative h-[40px] items-center px-3">
+          <QRCode
+            value={Data?.AttachmentURL ?? ""}
+            className="w-[50px] h-[50px]"
+            style={{ margin: "0px 0px 15px" }}
+          />
+        </div>
+      </S.Certificate>
     </>
   );
 };

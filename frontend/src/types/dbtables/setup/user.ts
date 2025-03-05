@@ -50,4 +50,10 @@ export const UserInitial: UserTable = {
 
 export interface UserEmail extends Id, Logs {
   Email: string;
+  Password: string;
+}
+export interface UserPassword extends Id, Logs {
+  Password: string;
+  ConfirmPassword: string;
+  CurrentPassword: string;
 }

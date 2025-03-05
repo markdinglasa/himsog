@@ -21,7 +21,7 @@ export const Certificates: SFC = () => {
   return (
     <>
       <div className="flex flex-row items-center justify-between">
-        <span className="text-lg font-medium">Profession Certificate</span>
+        <span className="text-lg font-medium">Profession Certificates</span>
         <CustomButton
           leftIcon={<Icon.Add />}
           text={"Add"}
@@ -32,7 +32,15 @@ export const Certificates: SFC = () => {
           morph={false}
         />
       </div>
-      <div className="w-full mb-2 flex flex-wrap gap-3 mb-2 mt-2">
+      <div>
+        <div>
+          <span className="text-sm text-slate-600">
+            View and manage your certificates to keep receiving newsletters,
+            himsog tips, and more.
+          </span>
+        </div>
+      </div>
+      <div className="w-full mb-2 flex flex-wrap gap-3 mt-3">
         {isLoading ? (
           <Skeleton />
         ) : certificates?.length ? (

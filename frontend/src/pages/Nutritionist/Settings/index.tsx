@@ -106,8 +106,12 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
             <CustomTabPanel index={2} value={index}>
               <Panel.Certificates />
             </CustomTabPanel>
-            <CustomTabPanel index={3} value={index}></CustomTabPanel>
-            <CustomTabPanel index={4} value={index}></CustomTabPanel>
+            <CustomTabPanel index={3} value={index}>
+              <Panel.Subscription />
+            </CustomTabPanel>
+            <CustomTabPanel index={4} value={index}>
+              <Panel.Security />
+            </CustomTabPanel>
           </S.Divider>
         </S.PageContent>
       </S.Container>

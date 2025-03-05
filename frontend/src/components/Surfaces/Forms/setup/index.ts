@@ -6,7 +6,8 @@ import Health from "./HealthForm";
 import HealthCondition from "./HealthConditionForm";
 import Profession from "./ProfessionForm";
 import Certificate from "./CertificateForm";
-
+import EmailForm from "./EmailForm";
+import PasswordForm from "./PasswordForm";
 export default {
   Unit,
   Ingredient,
@@ -16,4 +17,6 @@ export default {
   HealthCondition,
   Profession,
   Certificate,
+  EmailForm,
+  PasswordForm,
 };

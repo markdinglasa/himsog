@@ -82,7 +82,11 @@ const HealthConditionForm: SFC<SetupForm> = ({
                               }
                               IsTooltip={true}
                               ClassName="h-full"
-                              TooltipMessage="Help Description here"
+                              TooltipMessage={
+                                IsAllergen
+                                  ? "An allergen is an otherwise harmless substance that triggers an allergic reaction in sensitive individuals by stimulating an immune response."
+                                  : "Dietary preference refers to the specific choices individuals make regarding the foods they consume, often influenced by health considerations, ethical beliefs, cultural norms, and personal tastes."
+                              }
                               Values={values.Description}
                               Options={
                                 IsAllergen ? Allergen : DieteryPreferences

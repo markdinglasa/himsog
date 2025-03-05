@@ -7,7 +7,6 @@ import Form from "../../Forms";
 import { FeedbackEmail } from "../../../DataDisplay";
 
 export const CredentialPanel: SFC = ({ ClassName }) => {
-  // console.log(user);
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
@@ -15,8 +14,9 @@ export const CredentialPanel: SFC = ({ ClassName }) => {
           <S.Divider className="w-full border-b mb-2">
             <Card.Profile ClassName="" />
           </S.Divider>
+
           <S.Divider className="w-full">
-            <Form.Setup.User IsDetails={true} Title="Account Details" />
+            <Form.Setup.User IsDetails={true} Title="Basic Info" />
           </S.Divider>
           <S.Divider className="w-full">
             <FeedbackEmail />

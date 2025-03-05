@@ -5,3 +5,5 @@ export * from "./removeController";
 export * from "./updateController";
 export * from "./registerController";
 export * from "./updatePhotoController";
+export * from "./updatePasswordController";
+export * from "./updateEmailController";

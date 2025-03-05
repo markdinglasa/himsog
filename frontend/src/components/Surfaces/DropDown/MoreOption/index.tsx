@@ -40,7 +40,7 @@ export const MoreOption: SFC<OptionProps> = ({
 
   return (
     <div
-      className={twMerge("relative inline-block ", ClassName)}
+      className={twMerge("relative inline-block  ", ClassName)}
       ref={dropdownRef}
     >
       <IconButton
@@ -49,10 +49,10 @@ export const MoreOption: SFC<OptionProps> = ({
         }
         type={ButtonType.button}
       >
-        <MoreVert className="text-slate-700" />
+        <MoreVert className="text-slate-100" />
       </IconButton>
       {activeDropdown === "NewItem" && (
-        <S.Dropdown className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+        <S.Dropdown className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
           <S.DropdownItem
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={EditOnClick}

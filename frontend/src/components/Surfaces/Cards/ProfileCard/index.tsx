@@ -55,8 +55,8 @@ export const ProfileCard: SFC = ({ ClassName }) => {
   // console.log("data:", data);
   return (
     <>
-      <S.Container className={cn("w-full bg-white py-2 rounded-md", ClassName)}>
-        <S.Content className="w-full flex items-center gap-2">
+      <S.Container className={cn("w-full bg-white py-3 rounded-md", ClassName)}>
+        <S.Content className="w-full flex items-center gap-4">
           {/* Profile Image Upload Section */}
           <label className="relative inline-block w-[100px] h-[100px] rounded-md overflow-hidden cursor-pointer border-primary hover:opacity-90">
             <S.Image
@@ -71,8 +71,11 @@ export const ProfileCard: SFC = ({ ClassName }) => {
             <S.Span className="text-slate-700 text-xl font-bold uppercase">
               {data?.Fullname || "N/A"}
             </S.Span>
-            <S.Span className="text-zinc-800 uppercase text-sm">
+            <S.Span className="text-zinc-800 uppercase text-sm ">
               {data?.Role || "N/A"}
+            </S.Span>
+            <S.Span className="text-zinc-800 text-sm">
+              {data?.Email || "N/A"}
             </S.Span>
           </S.Divider>
         </S.Content>

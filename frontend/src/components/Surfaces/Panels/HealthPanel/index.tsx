@@ -15,7 +15,7 @@ export const HealthPanel: SFC = ({ ClassName }) => {
             <Form.Setup.Health
               IsSetup={false}
               IsDetails={true}
-              Title="Health Details"
+              Title="Health Info"
             />
           </S.Divider>
           <S.Divider className="w-full mb-2">

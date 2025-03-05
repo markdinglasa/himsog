@@ -3,6 +3,7 @@ import * as S from "../../../../styles/Styles";
 import { cn } from "../../../../utils";
 import { memo } from "react";
 import Certificates from "../../../DataDisplay/Certificates";
+import { FeedbackEmail } from "../../../DataDisplay";
 export const CertificatePanel: SFC = ({ ClassName }) => {
   return (
     <>
@@ -10,6 +11,9 @@ export const CertificatePanel: SFC = ({ ClassName }) => {
         <S.Content className="w-full">
           <S.Divider>
             <Certificates />
+          </S.Divider>
+          <S.Divider>
+            <FeedbackEmail />
           </S.Divider>
         </S.Content>
       </S.Container>

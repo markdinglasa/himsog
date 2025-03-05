@@ -5,7 +5,7 @@ import {
   InputType,
   SFC,
   ToastType,
-  UserEmail,
+  UserPassword,
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
@@ -15,27 +15,28 @@ import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { memo, useMemo, useState } from "react";
 import { useAuth } from "../../../../../hooks";
-import { userEmailValidator } from "../../../../../validators";
+import { userPasswordValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 
-export const EmailForm: SFC<FormProps> = ({
+export const PasswordForm: SFC<FormProps> = ({
   ClassName,
   Title,
-  IsDetails = true,
   OnClose,
+  IsDetails = true,
 }) => {
   const [IsEdit, SetIsEdit] = useState(IsDetails);
   const { auth } = useAuth();
   const Id: number = useMemo(() => Number(auth?.user ?? 0), [auth?.user]);
-  const { update } = API.Setup.User.UpdateEmail();
+  const { update } = API.Setup.User.UpdatePassword();
 
-  const InitialValues: UserEmail = {
-    Email: "",
+  const InitialValues: UserPassword = {
     Password: "",
+    ConfirmPassword: "",
+    CurrentPassword: "",
   };
 
-  const handleSubmit = async (values: UserEmail) => {
+  const handleSubmit = async (values: UserPassword) => {
     try {
       if (Id) update(Number(Id), values);
     } catch (error: any) {
@@ -47,7 +48,7 @@ export const EmailForm: SFC<FormProps> = ({
 
   return (
     <>
-      <S.Container className={cn("w-full mt-2", ClassName)}>
+      <S.Container className={cn("w-full", ClassName)}>
         <S.Content className="content">
           <S.Divider className="flex flex-row items-center justify-between">
             <AccessControl OtherCondition={Title !== null}>
@@ -63,13 +64,14 @@ export const EmailForm: SFC<FormProps> = ({
               </AccessControl>
             </S.Divider>
           </S.Divider>
+
           <S.Divider>
             <Formik
               initialValues={InitialValues}
               onSubmit={handleSubmit}
               enableReinitialize={true}
               validateOnMount={true}
-              validationSchema={userEmailValidator}
+              validationSchema={userPasswordValidator}
             >
               {({
                 errors,
@@ -83,43 +85,59 @@ export const EmailForm: SFC<FormProps> = ({
                 handleBlur,
               }) => (
                 <Form>
-                  <S.Divider className="w-full mb-2">
-                    <CustomInput
-                      placeholder="Current Password"
-                      label="Current Password"
-                      name="Password"
-                      errors={errors}
-                      touched={touched}
-                      value={values.Password}
-                      onChange={handleChange}
-                      disabled={IsEdit}
-                      onBlur={handleBlur}
-                      type={InputType.password}
-                    />
-                  </S.Divider>
-                  <S.Divider className="w-full mb-2">
-                    <CustomInput
-                      placeholder="e.g. juandela_cruz@hotmail.com"
-                      label="New Email"
-                      name="Email"
-                      errors={errors}
-                      touched={touched}
-                      value={values.Email}
-                      onChange={handleChange}
-                      disabled={IsEdit}
-                      onBlur={handleBlur}
-                      type={InputType.text}
-                    />
+                  <S.Divider className="w-full flex flex-col gap-3">
+                    <S.Divider className="w-full">
+                      <CustomInput
+                        placeholder="Current Password"
+                        label="Current Password"
+                        name="CurrentPassword"
+                        errors={errors}
+                        touched={touched}
+                        value={values.CurrentPassword}
+                        onChange={handleChange}
+                        disabled={IsEdit}
+                        type={InputType.password}
+                        onBlur={handleBlur}
+                      />
+                    </S.Divider>
+                    <S.Divider className="w-full">
+                      <CustomInput
+                        placeholder="New Password"
+                        label="New Password"
+                        name="Password"
+                        errors={errors}
+                        touched={touched}
+                        value={values.Password}
+                        onChange={handleChange}
+                        disabled={IsEdit}
+                        type={InputType.password}
+                        onBlur={handleBlur}
+                      />
+                    </S.Divider>
+                    <S.Divider className="w-full">
+                      <CustomInput
+                        placeholder="Confirm Password"
+                        label="Confirm Password"
+                        name="ConfirmPassword"
+                        errors={errors}
+                        touched={touched}
+                        value={values.ConfirmPassword}
+                        onChange={handleChange}
+                        disabled={IsEdit}
+                        onBlur={handleBlur}
+                        type={InputType.password}
+                      />
+                    </S.Divider>
                   </S.Divider>
                   <AccessControl OtherCondition={!IsEdit}>
-                    <S.Divider className="w-full flex justify-end items-center gap-4 ">
+                    <S.Divider className="w-full flex justify-end items-center gap-4 mt-2">
                       <CustomButton
                         leftIcon={<Icon.Cancel className="text-primary" />}
                         text="Cancel"
                         onClick={() => {
                           if (IsDetails) SetIsEdit(true);
-                          resetForm();
                           OnClose && OnClose();
+                          resetForm();
                         }}
                         color={ButtonColor.default}
                         type={ButtonType.button}
@@ -143,4 +161,4 @@ export const EmailForm: SFC<FormProps> = ({
     </>
   );
 };
-export default memo(EmailForm);
+export default memo(PasswordForm);

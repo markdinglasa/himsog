@@ -39,7 +39,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
           )}
           {IsTooltip && (
             <Icon.Help
-              className="ml-2 text-primary cursor-pointer "
+              className="ml-1 p-[1.5px] text-primary cursor-pointer "
               fontSize="small"
               onClick={toggleHelp}
             />
@@ -73,7 +73,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
       </S.Container>
       <CustomModal
         close={toggleHelp}
-        title={""}
+        title={Label ?? ""}
         open={isHelp}
         ClassName="md:w-[30rem] w-[80vw]"
       >

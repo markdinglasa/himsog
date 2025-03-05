@@ -45,6 +45,18 @@ export const userValidator = () => {
 
 export const userEmailValidator = () => {
   return yup.object().shape({
+    Password: yup.string().required("Current Password is required"),
     Email: yup.string().email().required("Email is required"),
+  });
+};
+
+export const userPasswordValidator = () => {
+  return yup.object().shape({
+    CurrentPassword: yup.string().required("Current Password is required"),
+    Password: yup.string().required("New Password is required"),
+    ConfirmPassword: yup
+      .string()
+      .oneOf([yup.ref("Password")], "Passwords must match")
+      .required("Confirm Password is required"), // should match the Password
   });
 };

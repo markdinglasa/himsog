@@ -45,4 +45,5 @@ export enum Error {
   m044 = "User already already health record.",
   m045 = "Unit already exists.",
   m046 = "No user found.",
+  m047 = "Password is incorrect",
 }

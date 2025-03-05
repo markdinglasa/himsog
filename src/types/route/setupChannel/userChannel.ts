@@ -3,4 +3,6 @@ export enum UserChannel {
   USER = "/setup/user",
   USER_ID = "/setup/user/:Id",
   USER_PHOTO = "/setup/user/photo/:Id",
+  USER_EMAIL = "/setup/user/email/:Id",
+  USER_PASSWORD = "/setup/user/password/:Id",
 }

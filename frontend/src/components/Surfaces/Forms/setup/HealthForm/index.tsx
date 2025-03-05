@@ -21,7 +21,7 @@ import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
-import { displayToast } from "../../../../../utils";
+import { cn, displayToast } from "../../../../../utils";
 import { healthValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import { useNavigate } from "react-router-dom";
@@ -59,9 +59,9 @@ const HealthForm: SFC<SetupForm> = ({
   };
 
   return (
-    <S.Container className={ClassName}>
+    <S.Container className={cn("", ClassName)}>
       <S.Content className="flex justify-center flex-col items-center w-full ">
-        <S.FormHeader className="flex flex-row items-center justify-between mb-3">
+        <S.FormHeader className="flex flex-row items-center justify-between">
           <S.Span className="text-lg font-medium">{Title}</S.Span>
           <S.Divider>
             <AccessControl OtherCondition={IsEdit && IsDetails}>
@@ -73,6 +73,12 @@ const HealthForm: SFC<SetupForm> = ({
             </AccessControl>
           </S.Divider>
         </S.FormHeader>
+        <S.Divider className="w-full text-left mb-3">
+          <S.Span className="text-sm text-slate-600">
+            Some info may be visible to other people using Himsog services.
+            <S.Span className="text-blue-600"> Learn more.</S.Span>
+          </S.Span>
+        </S.Divider>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">

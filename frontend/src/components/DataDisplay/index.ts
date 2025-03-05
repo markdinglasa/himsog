@@ -8,7 +8,7 @@ export * from "./Charts";
 export * from "./Tables";
 export * from "./Reports";
 export * from "./Feedback";
-
+export * from "./StaticSubscription";
 export {
   AccessControl,
   Avatar,

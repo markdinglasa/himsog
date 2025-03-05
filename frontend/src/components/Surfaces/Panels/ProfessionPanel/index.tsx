@@ -14,7 +14,7 @@ export const ProfessionPanel: SFC = ({ ClassName }) => {
               IsSetup={false}
               IsDetails={true}
               IsRedirect={false}
-              Title="Profession Details"
+              Title="Profession Info"
             />
           </S.Divider>
           <S.Divider>

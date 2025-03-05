@@ -31,3 +31,17 @@ export const userValidator = Joi.object({
   DateCreated: Joi.date().iso().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });
+
+export const userEmailValidator = Joi.object({
+  Password: Joi.string().required(),
+  Email: Joi.string().email().required(),
+  DateCreated: Joi.date().iso().optional(),
+  DateUpdated: Joi.date().allow(null).optional(),
+});
+
+export const userPasswordValidator = Joi.object({
+  Password: Joi.string().required(),
+  CurrentPassword: Joi.string().required(),
+  DateCreated: Joi.date().iso().optional(),
+  DateUpdated: Joi.date().allow(null).optional(),
+});

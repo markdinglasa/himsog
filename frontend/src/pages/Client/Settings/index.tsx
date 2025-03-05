@@ -28,7 +28,7 @@ export const ClientSettings: SFC = ({ ClassName }) => {
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-10">
+          <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-5">
             <Tabs
               value={index}
               onChange={handleChanges}

@@ -38,7 +38,7 @@ export const Main = styled.main<{ $isCollapse: boolean }>`
     margin-left 0.3s ease-in-out,
     width 0.3s ease-in-out;
   padding: 8px;
-  background: ${colors.palette.neutral["100"]};
+  background: ${colors.palette.neutral["050"]};
   position: relative;
   height: 100vh;
   overflow: auto;

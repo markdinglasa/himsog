@@ -17,7 +17,9 @@ import Done from "@mui/icons-material/Done";
 import Delete from "@mui/icons-material/Delete";
 import Save from "@mui/icons-material/Save";
 import MoreVert from "@mui/icons-material/MoreVert";
-
+import Email from "@mui/icons-material/MailOutline";
+import Password from "@mui/icons-material/LockOpen";
+import Check from "@mui/icons-material/Check";
 export default {
   ThumpUp,
   Add,
@@ -38,4 +40,7 @@ export default {
   Delete,
   Save,
   MoreVert,
+  Email,
+  Password,
+  Check,
 };

@@ -5,6 +5,8 @@ import {
   UserRegisterController,
   UserRemoveController,
   UserUpdateController,
+  UserUpdateEmailController,
+  UserUpdatePasswordController,
   UserUpdatePhotoController,
 } from "../../controllers";
 import express from "express";
@@ -48,6 +50,16 @@ router.patch(
   TokenHandler.verifyToken,
   UserUpdatePhotoController,
 );
+router.patch(
+  `${API_VERSION}${RouteChannel.USER_EMAIL}`,
+  TokenHandler.verifyToken,
+  UserUpdateEmailController,
+);
+router.patch(
+  `${API_VERSION}${RouteChannel.USER_PASSWORD}`,
+  TokenHandler.verifyToken,
+  UserUpdatePasswordController,
+);
 logging.log("----------------------------------------");
 logging.log("-------------USER CONTROLLER------------");
 logging.log(`GET ${RouteChannel.USER} [get-all]`);
@@ -57,6 +69,8 @@ logging.log(`GET ${RouteChannel.USER_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.USER_ID} [remove]`);
 logging.log(`PATCH ${RouteChannel.USER_ID} [update]`);
 logging.log(`PATCH ${RouteChannel.USER_PHOTO} [update-photo]`);
+logging.log(`PATCH ${RouteChannel.USER_EMAIL} [update-email]`);
+logging.log(`PATCH ${RouteChannel.USER_PASSWORD} [update-password]`);
 logging.log("----------------------------------------");
 
 export default router;

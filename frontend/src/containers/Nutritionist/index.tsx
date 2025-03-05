@@ -32,7 +32,7 @@ export const NutritionistLayout: SFC = ({ ClassName }) => {
       <S.Container className={ClassName}>
         <S.Content>
           <S.Nav
-            className="hide-on-small "
+            className="hide-on-small border-r"
             $isCollapse={isCollapse}
             $isSidebarOpen={isSidebarOpen}
           >
