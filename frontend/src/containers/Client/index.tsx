@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Roles, SFC } from "../../types";
-import { PageFooter, Header, ClientSideNav } from "../../components";
+import { PageFooter, Header, SideNav } from "../../components";
 import { useAuth, useSignOut, useToggle } from "../../hooks";
 import * as S from "./Styles";
 import { useEffect } from "react";
@@ -36,7 +36,7 @@ export const ClientLayout: SFC = ({ ClassName }) => {
             $isCollapse={isCollapse}
             $isSidebarOpen={isSidebarOpen}
           >
-            <ClientSideNav Toggle={toggle} Collapse={isCollapse} ClassName="" />
+            <SideNav Toggle={toggle} Collapse={isCollapse} ClassName="" />
           </S.Nav>
           <S.Main $isCollapse={isCollapse}>
             <Header Toggle={toggle} Collapse={Collapse} />

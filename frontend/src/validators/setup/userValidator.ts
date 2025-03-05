@@ -53,7 +53,13 @@ export const userEmailValidator = () => {
 export const userPasswordValidator = () => {
   return yup.object().shape({
     CurrentPassword: yup.string().required("Current Password is required"),
-    Password: yup.string().required("New Password is required"),
+    Password: yup
+      .string()
+      .notOneOf(
+        [yup.ref("CurrentPassword")],
+        "New Passwords should not match the current password",
+      )
+      .required("New Password is required"),
     ConfirmPassword: yup
       .string()
       .oneOf([yup.ref("Password")], "Passwords must match")

@@ -23,7 +23,7 @@ export const Header: SFC<HeaderProps> = ({
 
   return (
     <>
-      <S.Container className={cn("px-4", ClassName)}>
+      <S.Container className={cn("px-4 py-2 ", ClassName)}>
         <S.LeftContent className="">
           <S.MobileMenu $IsTeller={IsTeller} className="">
             <AccessControl OtherCondition={!IsTeller}>

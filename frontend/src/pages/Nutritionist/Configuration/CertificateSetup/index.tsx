@@ -7,8 +7,6 @@ import { useAuth } from "../../../../hooks";
 import { CustomButton } from "../../../../components";
 import Certificates from "../../../../components/DataDisplay/Certificates";
 import { useNavigate } from "react-router-dom";
-import Icon from "../../../../constants/icon";
-import { useToggle } from "react-use";
 
 export const ConfigurationCertificatePage: SFC = () => {
   const { auth } = useAuth();

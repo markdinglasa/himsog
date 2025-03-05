@@ -49,7 +49,9 @@ export const Menu: SFC<MenuProps> = ({
                   </S.Text>
                 </S.MenuContent>
               </S.Menu>
-              <S.ChildContent $isDisplay={isDisplay}>{children}</S.ChildContent>
+              <S.ChildContent $isDisplay={isDisplay} className="">
+                {children}
+              </S.ChildContent>
             </>
           ) : (
             <S.ChildMenu className="" $IsActive={IsActive}>

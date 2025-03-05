@@ -1,6 +1,7 @@
 import {
   ButtonColor,
   ButtonType,
+  DialogType,
   FormProps,
   InputType,
   SFC,
@@ -14,10 +15,11 @@ import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { memo, useMemo, useState } from "react";
-import { useAuth } from "../../../../../hooks";
+import { useAuth, useSignOut, useToggle } from "../../../../../hooks";
 import { userPasswordValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
+import { ConfirmationDialog } from "../../../../Feedback";
 
 export const PasswordForm: SFC<FormProps> = ({
   ClassName,
@@ -29,7 +31,7 @@ export const PasswordForm: SFC<FormProps> = ({
   const { auth } = useAuth();
   const Id: number = useMemo(() => Number(auth?.user ?? 0), [auth?.user]);
   const { update } = API.Setup.User.UpdatePassword();
-
+  const { reSignOut } = useSignOut();
   const InitialValues: UserPassword = {
     Password: "",
     ConfirmPassword: "",
@@ -45,7 +47,7 @@ export const PasswordForm: SFC<FormProps> = ({
       OnClose && OnClose();
     }
   };
-
+  const [isDisplay, toggleDisplay] = useToggle(false);
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
@@ -129,7 +131,7 @@ export const PasswordForm: SFC<FormProps> = ({
                       />
                     </S.Divider>
                   </S.Divider>
-                  <AccessControl OtherCondition={!IsEdit}>
+                  <AccessControl OtherCondition={true}>
                     <S.Divider className="w-full flex justify-end items-center gap-4 mt-2">
                       <CustomButton
                         leftIcon={<Icon.Cancel className="text-primary" />}
@@ -148,6 +150,15 @@ export const PasswordForm: SFC<FormProps> = ({
                         }
                         disabled={!dirty || !isValid || isSubmitting}
                         text="Save"
+                        type={ButtonType.button}
+                        onClick={toggleDisplay}
+                      />
+                    </S.Divider>
+                    <S.Divider className="hidden">
+                      <CustomButton
+                        id="submit-button"
+                        disabled={!dirty || !isValid || isSubmitting}
+                        text="Save"
                         type={ButtonType.submit}
                       />
                     </S.Divider>
@@ -158,6 +169,18 @@ export const PasswordForm: SFC<FormProps> = ({
           </S.Divider>
         </S.Content>
       </S.Container>
+      <ConfirmationDialog
+        ClassName="md:w-[500px]"
+        title="Account Security"
+        message="For security reasons, your account will be logged out after changing your password. Please sign in again to continue."
+        open={isDisplay}
+        close={toggleDisplay}
+        confirm={() => {
+          document.getElementById("submit-button")?.click();
+          reSignOut();
+        }}
+        dialogType={DialogType.confirm}
+      />
     </>
   );
 };

@@ -63,8 +63,8 @@ export const ConfirmationDialog: SFC<ConfirmationDialogProps> = ({
       aria-describedby={title}
     >
       <Box sx={ModalStyle}>
-        <S.Content className="md:w-[30rem]">
-          <S.MessageContainer>
+        <S.Content className="md:w-[30rem] ">
+          <S.MessageContainer className="w-full flex items-end justify-end pt-5">
             <S.Icon path={mdiAlertCircleOutline} size="28px" />
             <S.Message>{message}</S.Message>
           </S.MessageContainer>

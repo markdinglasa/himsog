@@ -23,14 +23,14 @@ export const Menu = styled.div<{ $isDisplay: boolean }>`
   ${({ $isDisplay }) =>
     $isDisplay
       ? `
-      background: ${colors.primaryHover};
+      background: ${colors.palette.neutral["100"]};
     `
       : `
       background: none;
     `};
 
   &:hover {
-    background: ${colors.primaryHover};
+    background: ${colors.palette.neutral["100"]};
   }
 `;
 export const MenuContent = styled.div<{ $isDisplay: boolean }>`
@@ -41,13 +41,13 @@ export const MenuContent = styled.div<{ $isDisplay: boolean }>`
   ${({ $isDisplay }) =>
     $isDisplay
       ? `& > * {  color: ${colors.primary}; }`
-      : `& > * { color: ${colors.white} }`};
+      : `& > * { color: ${colors.palette.neutral["600"]} }`};
 
   &:hover {
-    color: red;
+    color: ${colors.primary};
 
     & > * {
-      color: red;
+      color: ${colors.primary};
     }
   }
 `;

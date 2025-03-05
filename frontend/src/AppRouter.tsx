@@ -167,7 +167,11 @@ export const AppRouter = createBrowserRouter(
           {/*ADMINISTRATOR*/}
           {/*CLIENT*/}
 
-          <Route element={<RequireAuth allowedRoles={[Roles.client]} />}>
+          <Route
+            element={
+              <RequireAuth allowedRoles={[Roles.superuser, Roles.client]} />
+            }
+          >
             <Route
               path={RouteChannel.CLIENT_PROFILE_SETUP}
               element={<Page.Client.Configuration.ProfileSetup />}
@@ -273,7 +277,13 @@ export const AppRouter = createBrowserRouter(
           </Route>
           {/*CLIENT*/}
           {/*NUTRITIONIST*/}
-          <Route element={<RequireAuth allowedRoles={[Roles.nutritionist]} />}>
+          <Route
+            element={
+              <RequireAuth
+                allowedRoles={[Roles.superuser, Roles.nutritionist]}
+              />
+            }
+          >
             <Route
               path={RouteChannel.NUTRITIONIST_PROFILE_SETUP}
               element={<Page.Nutritionist.Configuration.ProfileSetup />}

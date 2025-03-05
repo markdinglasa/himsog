@@ -5,7 +5,7 @@ import { RouteChannel, ToastType } from "../types";
 import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { ContextType } from "../context";
-import { axiosPrivate } from "../shared";
+import { BASE_URL, axiosPrivate } from "../shared";
 
 export const useSignOut = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const useSignOut = () => {
   const signOut = useCallback(async () => {
     setLoading(true);
     try {
-      //const response = await axiosPrivate.get(`${BASE_URL}/auth/logout/`);
+      await axiosPrivate.get(`${BASE_URL}/auth/logout`);
       setAuth({
         user: null,
         roles: undefined,
@@ -27,7 +27,6 @@ export const useSignOut = () => {
       localStorage.removeItem(ContextType.AUTH);
       localStorage.removeItem(ContextType.PERSIST);
       navigate(RouteChannel.INDEX);
-      //setRecords(response.data.data);
     } catch (error: any) {
       setRecords(false);
       displayToast(

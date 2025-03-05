@@ -17,7 +17,7 @@ export const AdminSettings: SFC = ({ ClassName }) => {
   const links = [
     {
       Text: "Dashboard",
-      OnClick: () => navigate(RouteChannel.CLIENT_DASHBOARD),
+      OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
   return (

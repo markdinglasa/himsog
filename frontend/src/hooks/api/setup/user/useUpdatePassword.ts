@@ -7,7 +7,6 @@ import {
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateUserPassword = () => {
@@ -25,7 +24,7 @@ const useUpdateUserPassword = () => {
     onSuccess: (_data, variables) => {
       const { Id } = variables;
       queryClient.invalidateQueries({ queryKey: [QueryKey.USER, Id] });
-      displayToast(Success.m00004, ToastType.success);
+      // displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(

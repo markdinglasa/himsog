@@ -3,18 +3,18 @@
 - Account Management = 3mod
 
 - [x] Client, Registration
-- [ ] Nutritionist, Registration
-- [ ] Admin, Registration / Create Other Account
+- [x] Nutritionist, Registration
+- [x] Admin, Registration / Create Other Account
 
 - [x] Client, Login/Logout
 - [x] Nutritionist, Login/Logout
 - [x] Admin, Login/Logout
 
 - [x] Client, Profile Management
-- [ ] Nutritionist, Profile Management
+- [x] Nutritionist, Profile Management
 
 - [x] Client, Health Data - Setup
-- [ ] Nutritionist, Profession - Setup
+- [x] Nutritionist, Profession - Setup
 - [ ] Nutritionist, Verification
 
 - [x] Admin, Remove Account

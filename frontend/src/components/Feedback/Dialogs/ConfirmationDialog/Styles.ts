@@ -3,22 +3,23 @@ import { colors } from "../../../../styles";
 import styled from "styled-components";
 
 export const ConfirmationButtons = styled.div`
-  border-top: 1px solid ${colors.palette.neutral["200"]};
   display: flex;
   justify-content: end;
   gap: 1rem;
 `;
 export const MessageContainer = styled.div`
-  padding: 1rem 1rem;
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: end;
+  width: 100%;
 `;
 export const Message = styled.div`
-  align-items: center;
+  align-items: end;
   display: flex;
+  justify-content: end;
   margin-left: 10px;
   font-size: 16px;
+  width: 90%;
   color: ${colors.palette.neutral["900"]};
 `;
 export const Icon = styled(UIcon)`
