@@ -8,4 +8,5 @@ export interface MenuProps {
   isParent?: boolean;
   children?: ReactNode;
   isChild?: boolean;
+  IsActive?: boolean;
 }

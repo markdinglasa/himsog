@@ -28,6 +28,7 @@ export const SecurityPanel: SFC = ({ ClassName }) => {
                 leftIcon={<Icon.Email className="text-white" />}
                 text="Change Email"
                 onClick={toggleEmail}
+                morph={false}
               />
             </S.Divider>
           </S.Divider>
@@ -43,6 +44,7 @@ export const SecurityPanel: SFC = ({ ClassName }) => {
                 leftIcon={<Icon.Password className="text-white" />}
                 text="Change Password"
                 onClick={togglePassword}
+                morph={false}
               />
             </S.Divider>
           </S.Divider>

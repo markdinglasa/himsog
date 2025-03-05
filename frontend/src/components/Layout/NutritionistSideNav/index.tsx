@@ -1,19 +1,21 @@
-import { RouteChannel, SFC, SideNavProps } from "../../../types";
+import { RouteChannel, SFC, SideNavProps, Roles } from "../../../types";
 import { Menu } from "../../Navigation";
 import {
-  mdiAccountCreditCardOutline,
-  mdiBookOpenVariantOutline,
-  mdiBottleTonicPlusOutline,
   mdiCalendarOutline,
-  mdiChartMultiple,
+  mdiCalendarTextOutline,
   mdiFoodOutline,
+  mdiInvoiceSendOutline,
+  mdiNewspaperVariantOutline,
   mdiViewDashboardOutline,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
 import Logo from "../../../asset/svg/logo.svg";
 import Logo2 from "../../../asset/svg/logo2.svg";
-import { cn } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
+import API from "../../../hooks/api";
+import { useAuth } from "../../../hooks";
+import { useState } from "react";
 
 export const NutritionistSideNav: SFC<SideNavProps> = ({
   ClassName,
@@ -21,6 +23,10 @@ export const NutritionistSideNav: SFC<SideNavProps> = ({
   Collapse = false,
 }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+  const { data } = API.Setup.User.Get(Number(auth?.user ?? 0));
+  const path = renderPath(auth?.roles as Roles);
+  const [active, setActive] = useState<RouteChannel>(path as RouteChannel);
   return (
     <>
       <S.Container
@@ -35,6 +41,21 @@ export const NutritionistSideNav: SFC<SideNavProps> = ({
             onClick={() => navigate(RouteChannel.NUTRITIONIST_DASHBOARD)}
           />
         </S.LogoCon>
+        {!Collapse && (
+          <div className="w-full py-3 px-2 border-b">
+            <div>
+              <span className="text-sm font-medium">
+                {data?.Fullname ?? ""}
+              </span>
+            </div>
+            <div>
+              <span className="text-sm text-slate-600">
+                {data?.Email ?? ""}
+              </span>
+            </div>
+          </div>
+        )}
+        {!Collapse ? <S.Category>Menu</S.Category> : <S.HR />}
         <S.MenuContainer className="overflow-auto h-full">
           <S.MenuContent $isCollapse={Collapse}>
             <Menu
@@ -44,73 +65,67 @@ export const NutritionistSideNav: SFC<SideNavProps> = ({
               onClick={() => {
                 Toggle();
                 navigate(RouteChannel.NUTRITIONIST_DASHBOARD);
+                setActive(path as RouteChannel);
               }}
+              IsActive={active === path}
             />
-            {!Collapse ? <S.Category>setups</S.Category> : <S.HR />}
-            <Menu
-              icon={mdiBottleTonicPlusOutline}
-              isCollapse={Collapse}
-              isChild={true}
-              label="Profession"
-              onClick={() => {
-                Toggle();
-                navigate(RouteChannel.NUTRITIONIST_PROFESSION);
-              }}
-            />
-            <Menu
-              icon={mdiBookOpenVariantOutline}
-              isCollapse={Collapse}
-              isChild={true}
-              label="Ingridient"
-              onClick={() => {
-                Toggle();
-                navigate(RouteChannel.NUTRITIOIST_INGREDIENT);
-              }}
-            />
-            {!Collapse ? <S.Category>transactions</S.Category> : <S.HR />}
           </S.MenuContent>
           <S.MenuContent $isCollapse={Collapse}>
-            <Menu
-              icon={mdiCalendarOutline}
-              isCollapse={Collapse}
-              label="Appointment"
-              onClick={() => {
-                Toggle();
-                navigate(RouteChannel.NUTRITIONIST_APPOINTMENT);
-              }}
-            />
             <Menu
               icon={mdiFoodOutline}
               isCollapse={Collapse}
-              label="Meal Plan"
+              label="Meal Plans"
               onClick={() => {
                 Toggle();
                 navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN);
+                setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN);
               }}
+              IsActive={active === RouteChannel.NUTRITIONIST_MEAL_PLAN}
             />
             <Menu
-              icon={mdiAccountCreditCardOutline}
+              icon={mdiInvoiceSendOutline}
               isCollapse={Collapse}
-              label="Subscription"
+              label="Requests"
               onClick={() => {
                 Toggle();
-                navigate(RouteChannel.NUTRITIONIST_SUBSCRIPTION);
+                navigate(RouteChannel.NUTRITIONIST_REQUEST);
+                setActive(RouteChannel.NUTRITIONIST_REQUEST);
               }}
+              IsActive={active === RouteChannel.NUTRITIONIST_REQUEST}
             />
-            {/*!Collapse ? <S.Category>reports</S.Category> : <S.HR />*/}
-          </S.MenuContent>
-          <S.MenuContent $isCollapse={Collapse}>
             <Menu
-              icon={mdiChartMultiple}
+              icon={mdiCalendarTextOutline}
               isCollapse={Collapse}
-              label="Insights & Analytics"
-              isParent={true}
-              ClassName={Collapse ? "mb-[300px] " : "mb-20"}
+              label="Events"
               onClick={() => {
                 Toggle();
-                //navigate(RouteChannel.REPORTS);
+                navigate(RouteChannel.NUTRITIONIST_EVENT);
+                setActive(RouteChannel.NUTRITIONIST_EVENT);
               }}
-            ></Menu>
+              IsActive={active === RouteChannel.NUTRITIONIST_EVENT}
+            />
+            <Menu
+              icon={mdiCalendarOutline}
+              isCollapse={Collapse}
+              label="Appointments"
+              onClick={() => {
+                Toggle();
+                navigate(RouteChannel.NUTRITIONIST_APPOINTMENT);
+                setActive(RouteChannel.NUTRITIONIST_APPOINTMENT);
+              }}
+              IsActive={active === RouteChannel.NUTRITIONIST_APPOINTMENT}
+            />
+            <Menu
+              icon={mdiNewspaperVariantOutline}
+              isCollapse={Collapse}
+              label="Health Articles"
+              onClick={() => {
+                Toggle();
+                navigate(RouteChannel.NUTRITIONIST_ARTICLE);
+                setActive(RouteChannel.NUTRITIONIST_ARTICLE);
+              }}
+              IsActive={active === RouteChannel.NUTRITIONIST_ARTICLE}
+            />
           </S.MenuContent>
         </S.MenuContainer>
       </S.Container>

@@ -55,11 +55,10 @@ export const Certificate: SFC<CertificateProps> = ({
             <span>Issuer</span>
           </div>
         </div>
-        <div className="flex justify-end w-full relative h-[40px] items-center px-3">
+        <div className="flex justify-end w-full relative h-[50px] items-center">
           <QRCode
             value={Data?.AttachmentURL ?? ""}
             className="w-[50px] h-[50px]"
-            style={{ margin: "0px 0px 15px" }}
           />
         </div>
       </S.Certificate>

@@ -14,7 +14,7 @@ export const Container = styled.div<{ $isParent: boolean }>`
     `
       : `&:hover { 
           color: #fff;
-          background: ${colors.primaryHover};
+          background: ${colors.palette.neutral["100"]};
       }`};
 `;
 export const Menu = styled.div<{ $isDisplay: boolean }>`
@@ -40,14 +40,14 @@ export const MenuContent = styled.div<{ $isDisplay: boolean }>`
 
   ${({ $isDisplay }) =>
     $isDisplay
-      ? `& > * {  color: ${colors.white}; }`
-      : `& > * { color: ${colors.primary} }`};
+      ? `& > * {  color: ${colors.primary}; }`
+      : `& > * { color: ${colors.white} }`};
 
   &:hover {
-    color: white;
+    color: red;
 
     & > * {
-      color: white;
+      color: red;
     }
   }
 `;
@@ -82,20 +82,27 @@ export const ChildContent = styled.div<{ $isDisplay: boolean }>`
       max-height:0px;
     `};
   &:hover {
-    color: #fff;
+    color: ${colors.primary};
   }
 `;
 
-export const ChildMenu = styled.div`
+export const ChildMenu = styled.div<{ $IsActive: boolean }>`
   display: flex;
   align-items: center;
   padding: 8px;
-
+  ${({ $IsActive }) =>
+    $IsActive
+      ? `
+       color: ${colors.primary};
+        & > * {
+        color: ${colors.primary};
+        }`
+      : ``};
   &:hover {
-    color: white;
+    color: ${colors.primary};
 
     & > * {
-      color: white;
+      color: ${colors.primary};
     }
   }
 `;
@@ -103,7 +110,6 @@ export const ChildLabel = styled.label`
   margin-left: 8px;
   font-weight: semibold;
   font-size: 16px;
-  color: ${colors.primary};
   cursor: pointer;
   width: 100%;
 `;

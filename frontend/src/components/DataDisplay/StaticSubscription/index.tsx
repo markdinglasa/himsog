@@ -18,7 +18,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
           ClassName,
         )}
       >
-        <S.Divider className="w-full md:w-5/12 border h-[400px] rounded-md p-5 border-slate-300">
+        <S.Divider className="w-full md:w-5/12 border h-[400px] rounded-md p-5 border-slate-300 overflow-auto">
           <S.Divider className=" h-16 py-3 flex items-end justify-start border-b border-slate-300">
             <S.Span className="text-lg font-medium  w-full">Free Plan</S.Span>
           </S.Divider>
@@ -50,11 +50,15 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
               <S.Span className="text-md">month</S.Span>
             </S.Divider>
             <S.Divider>
-              <CustomButton text="Get Started" onClick={onClick} />
+              <CustomButton
+                text="Get Started"
+                onClick={onClick}
+                morph={false}
+              />
             </S.Divider>
           </S.Divider>
         </S.Divider>
-        <S.Divider className="w-full md:w-7/12 border h-[400px] rounded-md p-5 bg-primary text-white">
+        <S.Divider className="w-full md:w-7/12 border h-full md:h-[400px] rounded-md p-5 bg-primary text-white overflow-auto">
           <S.Divider className=" h-16 py-3 flex items-end justify-start border-b border-slate-300">
             <S.Span className="text-lg font-medium  w-full">Free Plan</S.Span>
           </S.Divider>
@@ -83,7 +87,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
             </S.Span>
           </S.Divider>
 
-          <S.Divider className=" h-16 py-3 flex items-center justify-between border-t border-slate-300">
+          <S.Divider className=" h-full md:h-16 py-3 flex items-center justify-between border-t border-slate-300 ">
             <S.Divider>
               <S.Span className="text-lg font-medium  w-full">₱ 599 /</S.Span>
               <S.Span className="text-md">month</S.Span>
@@ -93,6 +97,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
                 color={ButtonColor.white}
                 text="Get Started"
                 onClick={onClick}
+                morph={false}
               />
             </S.Divider>
           </S.Divider>

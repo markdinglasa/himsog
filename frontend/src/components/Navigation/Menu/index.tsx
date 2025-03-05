@@ -21,6 +21,7 @@ export const Menu: SFC<MenuProps> = ({
   isCollapse = false,
   isChild = false,
   children,
+  IsActive = false,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
@@ -51,8 +52,8 @@ export const Menu: SFC<MenuProps> = ({
               <S.ChildContent $isDisplay={isDisplay}>{children}</S.ChildContent>
             </>
           ) : (
-            <S.ChildMenu className="">
-              <S.Icon path={icon} size="30px" className="text-primary" />
+            <S.ChildMenu className="" $IsActive={IsActive}>
+              <S.Icon path={icon} size="30px" />
               <S.ChildLabel>{label}</S.ChildLabel>
             </S.ChildMenu>
           )}
@@ -66,7 +67,11 @@ export const Menu: SFC<MenuProps> = ({
               Placement={TooltipPlacement.right}
               Color={ButtonColor.white}
               Icon={
-                <MdiIcon path={icon} size="30px" className="text-primary" />
+                <MdiIcon
+                  path={icon}
+                  size="30px"
+                  className={IsActive ? "text-primary" : "text-slate-600"}
+                />
               }
               ClassName={isChild ? "mb-2" : ""}
               Type={ButtonType.button}

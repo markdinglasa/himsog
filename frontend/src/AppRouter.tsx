@@ -303,6 +303,30 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.NUTRITIONIST_MESSENGER}
                 element={<Page.UnderConstruction />}
               />
+              <Route
+                path={RouteChannel.NUTRITIONIST_APPOINTMENT}
+                element={<Page.UnderConstruction />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_ARTICLE}
+                element={<Page.UnderConstruction />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_EVENT}
+                element={<Page.UnderConstruction />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_REQUEST}
+                element={<Page.UnderConstruction />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_MEAL_PLAN}
+                element={<Page.UnderConstruction />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_MEAL}
+                element={<Page.UnderConstruction />}
+              />
             </Route>
           </Route>
           {/*NUTRITIONIST*/}

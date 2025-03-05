@@ -13,6 +13,7 @@ export const UserUpdateEmailController = async (
   try {
     const Id = parseInt(req.params.Id ?? 0),
       Data: { Password: string; Email: string; DateUpdated: Date } = req.body;
+    const { Password, ...filtereddata } = Data;
     if (!Id || typeof Id !== "number")
       return res.status(401).json({ data: false, message: Error.m005 });
     if (
@@ -35,9 +36,9 @@ export const UserUpdateEmailController = async (
     if (!(await compare(Data.Password, user.Password)))
       return res.status(401).json({ data: false, message: Error.m047 });
     Data.DateUpdated = new Date();
-    const Fields = Object.keys(Data);
-    const Types = Object.values(Data).map((val) => typeof val);
-    const Values = Object.values(Data);
+    const Fields = Object.keys(filtereddata);
+    const Types = Object.values(filtereddata).map((val) => typeof val);
+    const Values = Object.values(filtereddata);
     if (!(await UpdateService.record(Id, DBTable.t016, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m003 });
     return res.status(200).json({ data: true, message: Success.m004 });
