@@ -25,4 +25,5 @@ export interface SetupForm {
   IsDetails?: boolean;
   IsRedirect?: boolean;
   Title?: string;
+  OnClose?: () => void;
 }

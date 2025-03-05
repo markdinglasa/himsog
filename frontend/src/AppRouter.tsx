@@ -88,7 +88,7 @@ export const AppRouter = createBrowserRouter(
               />
               <Route
                 path={RouteChannel.ADMIN_SETTINGS}
-                element={<Page.UnderConstruction />}
+                element={<Page.Admin.Settings />}
               />
               <Route
                 path={RouteChannel.ADMIN_PROFIFLE}

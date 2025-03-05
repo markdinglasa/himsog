@@ -50,13 +50,20 @@ router.post(
   TokenHandler.verifyToken,
   upload.single("image"),
   (req, res) => {
-    if (req.file) {
-      res.json({
-        message: "Image uploaded successfully",
-        path: `/image/${req.file.filename}`,
+    try {
+      if (req.file) {
+        res.json({
+          message: "Image uploaded successfully",
+          path: `/image/${req.file.filename}`,
+        });
+      } else {
+        res.status(400).json({ path: null, message: "Failed to upload image" });
+      }
+    } catch (error: any) {
+      res.status(500).json({
+        path: null,
+        message: error.message || "Failed to upload image",
       });
-    } else {
-      res.status(400).json({ message: "Failed to upload image" });
     }
   },
 );

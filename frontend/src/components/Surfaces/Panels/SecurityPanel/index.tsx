@@ -41,7 +41,7 @@ export const SecurityPanel: SFC = ({ ClassName }) => {
             <S.Divider>
               <CustomButton
                 leftIcon={<Icon.Password className="text-white" />}
-                text="Change password"
+                text="Change Password"
                 onClick={togglePassword}
               />
             </S.Divider>

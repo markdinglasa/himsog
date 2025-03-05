@@ -112,7 +112,7 @@ export const UnitForm: SFC<FormProps> = ({
                       />
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
-                      <S.Divider className="w-full flex justify-end items-center border-t gap-4 mt-4 pt-4">
+                      <S.Divider className="w-full flex justify-end items-center gap-4 mt-2 ">
                         <CustomButton
                           leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"

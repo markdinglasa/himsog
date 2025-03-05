@@ -1,6 +1,6 @@
 import Dashboard from "./Dashboard";
 import Notification from "./Notification";
-//import * from "./Settings";
+import Settings from "./Settings";
 import Profile from "./Profile";
 import Setups from "./Setups";
 // import * from "./Transactions";
@@ -12,6 +12,7 @@ const AdminPages = {
   Notification,
   Profile,
   Setups,
+  Settings,
 };
 
 export default AdminPages;

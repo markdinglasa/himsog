@@ -64,6 +64,8 @@ const UserForm: SFC<SetupForm> = ({
       update(auth?.user, values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
+    } finally {
+      IsDetails && SetIsEdit(true);
     }
   };
 

@@ -34,7 +34,7 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Users" />
+          <PageBreadCrumbs Links={links} Active="Ingredients" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Add className="md:text-white text-primary" />}

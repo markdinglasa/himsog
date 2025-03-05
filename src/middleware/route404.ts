@@ -25,8 +25,8 @@ export function route500(
   next: NextFunction,
 ) {
   logging.error(err.message);
-  res
-    .status(500)
-    .json({ error: "Something went wrong. Please try again later." });
+  res.status(500).json({
+    error: err.message || "Something went wrong. Please try again later.",
+  });
   next();
 }
