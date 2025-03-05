@@ -272,7 +272,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                       backgroundColor:
                         activeRowId === String(row["Id"])
                           ? colors.palette.neutral["100"]
-                          : row["IsLocked"] && row["IsCancelled"]
+                          : row["IsSuspended"]
                             ? colors.palette.red["200"]
                             : row["IsLocked"]
                               ? colors.palette.green["050"]

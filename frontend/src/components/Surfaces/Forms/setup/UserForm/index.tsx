@@ -28,6 +28,7 @@ import { userValidator } from "../../../../../validators/";
 import { CivilStatusOptions } from "../../../../../shared/data/options";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
+import { useParams } from "react-router-dom";
 
 const UserForm: SFC<SetupForm> = ({
   ClassName,
@@ -37,10 +38,12 @@ const UserForm: SFC<SetupForm> = ({
   IsRedirect = false,
   Title,
 }) => {
+  const { Id } = useParams<{ Id: string }>();
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
   const { update } = API.Setup.User.Update(true, Redirect, IsRedirect);
-  const { data, isLoading } = API.Setup.User.Get(auth?.user ?? 0);
+  const UserId: number = Id ? Id : (auth?.user ?? 0);
+  const { data, isLoading } = API.Setup.User.Get(UserId);
 
   const InitialValues: UserTable = {
     Email: data?.Email || "",

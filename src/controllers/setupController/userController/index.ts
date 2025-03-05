@@ -7,3 +7,4 @@ export * from "./registerController";
 export * from "./updatePhotoController";
 export * from "./updatePasswordController";
 export * from "./updateEmailController";
+export * from "./suspendController";

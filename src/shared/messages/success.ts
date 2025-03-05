@@ -7,4 +7,6 @@ export enum Success {
   m006 = "Term unlock",
   m007 = "New access token generated",
   m008 = "Refresh token generated",
+  m009 = "User suspended",
+  m010 = "User activated",
 }

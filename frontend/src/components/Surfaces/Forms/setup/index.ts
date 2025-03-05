@@ -8,6 +8,8 @@ import Profession from "./ProfessionForm";
 import Certificate from "./CertificateForm";
 import EmailForm from "./EmailForm";
 import PasswordForm from "./PasswordForm";
+import AdminAccount from "./AdminAccountForm";
+
 export default {
   Unit,
   Ingredient,
@@ -19,4 +21,5 @@ export default {
   Certificate,
   EmailForm,
   PasswordForm,
+  AdminAccount,
 };

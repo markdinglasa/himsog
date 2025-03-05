@@ -52,6 +52,9 @@ export interface UserEmail extends Id, Logs {
   Email: string;
   Password: string;
 }
+export interface UserSuspend extends Id, Logs {
+  IsSuspended: boolean;
+}
 export interface UserPassword extends Id, Logs {
   Password: string;
   ConfirmPassword: string;

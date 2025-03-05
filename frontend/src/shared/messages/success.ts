@@ -10,4 +10,6 @@ export enum Success {
   m00008 = "Sales Tendered",
   m00009 = "Sales Discounted",
   m000010 = "Request sent",
+  m000011 = "User suspended",
+  m000012 = "User activated",
 }

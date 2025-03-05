@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import Form from "../../../../../components/Surfaces/Forms";
 
 export const AdminUserNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const AdminUserNewPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar>
-          <PageBreadCrumbs Links={links} Active="New User" />
+          <PageBreadCrumbs Links={links} Active="New User Administrator" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Back className="md:text-white text-primary" />}
@@ -35,7 +36,12 @@ export const AdminUserNewPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <Form.Setup.AdminAccount
+              IsDetails={false}
+              Title="New User Administrator"
+            />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

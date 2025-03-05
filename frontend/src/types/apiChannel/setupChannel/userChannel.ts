@@ -7,4 +7,5 @@ export const UserChannel = {
   USER_PHOTO: `${BASE_URL}/setup/user/photo/:Id`,
   USER_EMAIL: `${BASE_URL}/setup/user/email/:Id`,
   USER_PASSWORD: `${BASE_URL}/setup/user/password/:Id`,
+  USER_SUSPEND: `${BASE_URL}/setup/user/suspend/:Id`,
 };

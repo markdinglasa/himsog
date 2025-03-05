@@ -18,7 +18,7 @@
 - [ ] Nutritionist, Verification
 
 - [x] Admin, Remove Account
-- [ ] Admin, Suspend Account
+- [x] Admin, Suspend Account
 
 - [ ] Client, Avail Subscription
 - [ ] Client, View Subscriptions

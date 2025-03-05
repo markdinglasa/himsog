@@ -1,14 +1,21 @@
-import { ButtonType, RouteChannel, SFC } from "../../../../../types";
+import {
+  ButtonColor,
+  ButtonType,
+  RouteChannel,
+  SFC,
+} from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
 import {
   PageBreadCrumbs,
   Skeleton,
   CustomButton,
 } from "../../../../../components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import Form from "../../../../../components/Surfaces/Forms";
+import API from "../../../../../hooks/api";
 
 export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -20,6 +27,9 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
     { Text: "Users", OnClick: () => navigate(RouteChannel.ADMIN_USER) },
   ];
 
+  const { Id } = useParams<{ Id: string }>();
+  const { update } = API.Setup.User.SuspendUser();
+  const { data } = API.Setup.User.Get(Number(Id));
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -35,7 +45,34 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <Form.Setup.User
+              IsSetup={false}
+              IsRedirect={false}
+              IsDetails={true}
+              Title="User Details"
+              ClassName="w-full"
+            />
+          </Suspense>
+          <S.Divider className="w-full flex flex-row items-center justify-end">
+            {(data?.IsSuspended ?? false) ? (
+              <CustomButton
+                text={"Activate"}
+                color={ButtonColor.primary}
+                onClick={() => {
+                  update(Number(Id), { IsSuspended: false });
+                }}
+              />
+            ) : (
+              <CustomButton
+                text={"Suspend"}
+                color={ButtonColor.red}
+                onClick={() => {
+                  update(Number(Id), { IsSuspended: true });
+                }}
+              />
+            )}
+          </S.Divider>
         </S.PageContent>
       </S.Container>
     </>

@@ -4,6 +4,7 @@ import {
   UserGetController,
   UserRegisterController,
   UserRemoveController,
+  UserSuspendController,
   UserUpdateController,
   UserUpdateEmailController,
   UserUpdatePasswordController,
@@ -60,6 +61,11 @@ router.patch(
   TokenHandler.verifyToken,
   UserUpdatePasswordController,
 );
+router.patch(
+  `${API_VERSION}${RouteChannel.USER_SUSPEND}`,
+  TokenHandler.verifyToken,
+  UserSuspendController,
+);
 logging.log("----------------------------------------");
 logging.log("-------------USER CONTROLLER------------");
 logging.log(`GET ${RouteChannel.USER} [get-all]`);
@@ -71,6 +77,7 @@ logging.log(`PATCH ${RouteChannel.USER_ID} [update]`);
 logging.log(`PATCH ${RouteChannel.USER_PHOTO} [update-photo]`);
 logging.log(`PATCH ${RouteChannel.USER_EMAIL} [update-email]`);
 logging.log(`PATCH ${RouteChannel.USER_PASSWORD} [update-password]`);
+logging.log(`PATCH ${RouteChannel.USER_SUSPEND} [suspend-account]`);
 logging.log("----------------------------------------");
 
 export default router;

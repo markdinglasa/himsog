@@ -23,7 +23,7 @@ export const singleMailSender = (
       return { data: false, message: "Invalid email parameters" };
     }
     transnporter.sendMail({
-      from: "no-reply@innosoft.com",
+      from: DEFAULT_EMAIL,
       to: To,
       subject: Subject,
       html: Message,
@@ -36,3 +36,7 @@ export const singleMailSender = (
     return { data: false, message: error.message || Error.m001 };
   }
 };
+
+/*async () => {
+  singleMailSender("ryanmarkmj@gmail.com", "test", "test");
+};*/
