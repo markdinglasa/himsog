@@ -44,17 +44,17 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent className="border rounded-md">
+        <S.PageContent className="border rounded-md ">
           <Suspense fallback={<Skeleton />}>
             <Form.Setup.User
               IsSetup={false}
               IsRedirect={false}
               IsDetails={true}
               Title="User Details"
-              ClassName="w-full"
+              ClassName="w-full mb-3"
             />
           </Suspense>
-          <S.Divider className="w-full flex flex-row items-center justify-end">
+          <S.Divider className="w-full flex flex-row items-center justify-end ">
             {(data?.IsSuspended ?? false) ? (
               <CustomButton
                 text={"Activate"}

@@ -29,4 +29,5 @@ export enum InputType {
   email = "email",
   file = "file",
   hidden = "hidden",
+  time = "time",
 }

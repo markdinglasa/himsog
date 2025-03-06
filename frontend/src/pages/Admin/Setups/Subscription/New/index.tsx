@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-
+import Form from "../../../../../components/Surfaces/Forms";
 export const AdminSubscriptionNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -38,7 +38,12 @@ export const AdminSubscriptionNewPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent>
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <Form.Setup.Subscription
+              IsDetails={false}
+              Title="New Subscription"
+            />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

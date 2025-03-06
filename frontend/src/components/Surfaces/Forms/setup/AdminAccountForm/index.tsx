@@ -95,7 +95,7 @@ export const AdminAccountForm: SFC<FormProps> = ({
                   <S.Divider className="w-full mb-2">
                     <CustomInput
                       placeholder="e.g. juandela_cruz@hotmail.com"
-                      label="New Email"
+                      label="Email"
                       name="Email"
                       errors={errors}
                       touched={touched}

@@ -323,7 +323,15 @@ export const AppRouter = createBrowserRouter(
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_EVENT}
-                element={<Page.UnderConstruction />}
+                element={<Page.Nutritionist.Event.View />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_EVENT_NEW}
+                element={<Page.Nutritionist.Event.New />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_EVENT_DETAILS}
+                element={<Page.Nutritionist.Event.Details />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_REQUEST}

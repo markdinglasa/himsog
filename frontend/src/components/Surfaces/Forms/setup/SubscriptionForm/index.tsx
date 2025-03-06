@@ -32,7 +32,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
   const { add } = API.Setup.Subscription.Add();
   const { update } = API.Setup.Subscription.Update();
   const { data, isLoading } = API.Setup.Subscription.Get(Number(Id));
-
+  //   console.log("data:", data);
   const InitialValues: SubscriptionTable = {
     Name: data?.Name || "",
     Description: data?.Description || null,
@@ -44,7 +44,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
 
   const handleSubmit = async (values: SubscriptionTable) => {
     try {
-      console.log("values:", values);
+      // console.log("values:", values);
       if (Id) update(Number(Id), values);
       else add(values);
     } catch (error: any) {
@@ -91,7 +91,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
                     <S.Divider className="w-full flex flex-col gap-2">
                       <S.Divider className="w-full ">
                         <CustomInput
-                          placeholder="e.g. Ginger"
+                          placeholder="e.g. Premium"
                           label="Name"
                           name="Name"
                           errors={errors}
@@ -104,7 +104,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
                       </S.Divider>
                       <S.Divider className="w-full ">
                         <CustomInput
-                          placeholder="e.g. Zingiber officinale"
+                          placeholder="e.g. Premium Subscription"
                           label="Description (optional)"
                           name="Description"
                           errors={errors}
@@ -145,7 +145,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
                       </S.Divider>
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
-                      <S.Divider className="w-full flex justify-end items-center border-t gap-4 mt-4 pt-4">
+                      <S.Divider className="w-full flex justify-end items-center gap-4 mt-1">
                         <CustomButton
                           leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"

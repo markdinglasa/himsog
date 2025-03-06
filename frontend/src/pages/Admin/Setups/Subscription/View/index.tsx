@@ -1,4 +1,5 @@
 import {
+  APIChannel,
   ButtonType,
   HeadCell,
   QueryKey,
@@ -17,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
+import API from "../../../../../hooks/api";
 
 export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
+  const { data, isLoading } = API.Setup.Subscription.GetAll();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -44,11 +47,11 @@ export const AdminSubscriptionViewPage: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
               Title="Subscriptions"
-              Rows={[]}
+              Rows={data ?? []}
               HeadCells={subscriptionHC as HeadCell<unknown>[]}
-              IsLoading={false}
+              IsLoading={isLoading}
               OnRecordDelete={() => {}}
-              //RemoveApiRoute={RouteChannel.NO_ACCESS_RIGHT}
+              RemoveApiRoute={APIChannel.SUBSCRIPTION_ID}
               DetailsRoute={RouteChannel.ADMIN_SUBSCRIPTION_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
               QueryKey={QueryKey.SUBSCRIPTION}
