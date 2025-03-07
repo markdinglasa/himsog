@@ -10,7 +10,8 @@ export const professionValidator = Joi.object({
     .required(),
   YearsExp: Joi.number().required(),
   Description: Joi.string().allow("").allow(null).optional(),
-  IsVerified: Joi.boolean().required(),
+  IsVerified: Joi.boolean().allow(null).required(),
+  Remarks: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

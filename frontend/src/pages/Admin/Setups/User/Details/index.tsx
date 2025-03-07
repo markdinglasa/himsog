@@ -1,14 +1,18 @@
 import {
   ButtonColor,
   ButtonType,
+  DialogType,
   RouteChannel,
   SFC,
+  UserRole,
 } from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
 import {
   PageBreadCrumbs,
   Skeleton,
   CustomButton,
+  AccessControl,
+  ConfirmationDialog,
 } from "../../../../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { Suspense } from "react";
@@ -16,7 +20,9 @@ import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import Form from "../../../../../components/Surfaces/Forms";
 import API from "../../../../../hooks/api";
-
+import Certificates from "../../../../../components/DataDisplay/Certificates";
+import { useToggle } from "react-use";
+import { CustomModal } from "../../../../../modals";
 export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -30,9 +36,11 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const { Id } = useParams<{ Id: string }>();
   const { update } = API.Setup.User.SuspendUser();
   const { data } = API.Setup.User.Get(Number(Id));
+  const [isValidate, toggleValidate] = useToggle(false);
+  const [isDeclined, toggleDecline] = useToggle(false);
   return (
     <>
-      <S.Container className={cn("", ClassName)}>
+      <S.Container className={cn("w-full", ClassName)}>
         <S.PageTopBar>
           <PageBreadCrumbs Links={links} Active="User Details" />
           <S.Actions>
@@ -62,6 +70,7 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
                 onClick={() => {
                   update(Number(Id), { IsSuspended: false });
                 }}
+                morph={false}
               />
             ) : (
               <CustomButton
@@ -70,11 +79,74 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
                 onClick={() => {
                   update(Number(Id), { IsSuspended: true });
                 }}
+                morph={false}
               />
             )}
           </S.Divider>
         </S.PageContent>
+        <AccessControl OtherCondition={data?.Role === UserRole.NUTRITIONIST}>
+          <S.PageContent className="border rounded-md ">
+            <Suspense fallback={<Skeleton />}>
+              <Form.Setup.Profession
+                IsSetup={false}
+                IsRedirect={false}
+                IsDetails={true}
+                Title="Profession Info"
+                ClassName="w-full mb-3"
+              />
+            </Suspense>
+          </S.PageContent>
+          <S.PageContent className="border rounded-md w-full">
+            <Suspense fallback={<Skeleton />}>
+              <Certificates IsEdit={false} />
+            </Suspense>
+          </S.PageContent>
+          <S.PageContent className="border rounded-md w-full">
+            <S.Divider className="w-full flex flex-col items-start justify-start mb-4">
+              <S.Span className="text-lg font-medium">
+                Health Professional Validation
+              </S.Span>
+              <S.Span className="text-sm text-slate-600">
+                description ala lorem ipusm
+              </S.Span>
+            </S.Divider>
+            <S.Divider className="w-full flex flex-row items-center justify-end gap-4">
+              <CustomButton
+                leftIcon={<Icon.Cancel />}
+                text="Disapprove"
+                color={ButtonColor.red}
+                onClick={toggleDecline}
+                morph={false}
+              />
+              <CustomButton
+                leftIcon={<Icon.Check />}
+                text="Approved"
+                color={ButtonColor.primary}
+                onClick={toggleValidate}
+                morph={false}
+              />
+            </S.Divider>
+          </S.PageContent>
+        </AccessControl>
       </S.Container>
+      <ConfirmationDialog
+        title="Approving a Health Profession"
+        message="Are you sure to approve this Health Professional?"
+        close={toggleValidate}
+        open={isValidate}
+        confirm={() => {}}
+        dialogType={DialogType.confirm}
+      />
+      <CustomModal
+        close={toggleDecline}
+        title={"Disapproving a Health Professional"}
+        open={isDeclined}
+        ClassName="md:w-[40rem] w-[80vw]"
+      >
+        <S.Divider>
+          <Form.Setup.DisapproveProfession OnClose={toggleDecline} />
+        </S.Divider>
+      </CustomModal>
     </>
   );
 };

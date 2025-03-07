@@ -1,5 +1,5 @@
 import { useAuth } from "../../../hooks";
-import { CertificateTable, SFC } from "../../../types";
+import { CertificateTable, FormProps, SFC } from "../../../types";
 import API from "../../../hooks/api";
 import { memo, useState } from "react";
 import { Skeleton } from "../../Feedback";
@@ -9,10 +9,14 @@ import { useToggle } from "react-use";
 import { CustomModal } from "../../../modals";
 import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
-export const Certificates: SFC = () => {
+import { useParams } from "react-router-dom";
+import { AccessControl } from "..";
+export const Certificates: SFC<FormProps> = ({ IsEdit = true }) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.Certificate.Remove();
-  const { data: profession } = API.Setup.Profession.Get(auth?.user ?? 0);
+  const { Id: UserId } = useParams<{ Id: string }>();
+  const Id = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
+  const { data: profession } = API.Setup.Profession.Get(Id);
   const [record, setRecord] = useState<string>("");
   const { data: certificates, isLoading } = API.Setup.Certificate.GetAll(
     profession?.Id ?? 0,
@@ -20,26 +24,31 @@ export const Certificates: SFC = () => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
     <>
-      <div className="flex flex-row items-center justify-between">
+      <div className="w-full flex flex-row items-center justify-between">
         <span className="text-lg font-medium">Profession Certificates</span>
-        <CustomButton
-          leftIcon={<Icon.Add />}
-          text={"Add"}
-          onClick={() => {
-            setRecord("");
-            toggleDisplay();
-          }}
-          morph={false}
-        />
+        <AccessControl OtherCondition={IsEdit}>
+          <CustomButton
+            leftIcon={<Icon.Add />}
+            text={"Add"}
+            onClick={() => {
+              setRecord("");
+              toggleDisplay();
+            }}
+            disabled={IsEdit}
+            morph={false}
+          />
+        </AccessControl>
       </div>
-      <div>
+      <AccessControl OtherCondition={IsEdit}>
         <div>
-          <span className="text-sm text-slate-600">
-            View and manage your certificates to keep receiving newsletters,
-            himsog tips, and more.
-          </span>
+          <div>
+            <span className="text-sm text-slate-600">
+              View and manage your certificates to keep receiving newsletters,
+              himsog tips, and more.
+            </span>
+          </div>
         </div>
-      </div>
+      </AccessControl>
       <div className="w-full mb-2 flex flex-wrap gap-3 mt-3">
         {isLoading ? (
           <Skeleton />
