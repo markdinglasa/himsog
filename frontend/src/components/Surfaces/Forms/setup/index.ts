@@ -9,7 +9,7 @@ import Certificate from "./CertificateForm";
 import EmailForm from "./EmailForm";
 import PasswordForm from "./PasswordForm";
 import AdminAccount from "./AdminAccountForm";
-
+import DisapproveProfession from "./DisapproveProfessionForm";
 export default {
   Unit,
   Ingredient,
@@ -22,4 +22,5 @@ export default {
   EmailForm,
   PasswordForm,
   AdminAccount,
+  DisapproveProfession,
 };

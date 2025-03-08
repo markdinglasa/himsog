@@ -19,6 +19,7 @@ export const professionValidator = () => {
       .required(),
     YearsExp: yup.number().required(),
     Description: yup.string().nullable().optional(),
-    IsVerified: yup.boolean().required(),
+    IsVerified: yup.boolean().nullable().required(),
+    Remarks: yup.string().nullable().optional(),
   });
 };

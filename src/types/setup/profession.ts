@@ -8,7 +8,8 @@ export interface ProfessionTable extends Id, Logs {
   YearsExp: number;
   Description: string;
   Certifications?: CertificateTables; // FK to CertificateTable
-  IsVerified: boolean;
+  IsVerified: boolean | null;
+  Remarks: string | null;
 }
 export type ProfessionTables = ProfessionTable[];
 export const ProfessionInitial: ProfessionTable = {
@@ -18,4 +19,5 @@ export const ProfessionInitial: ProfessionTable = {
   YearsExp: 0,
   Description: "",
   IsVerified: false,
+  Remarks: null,
 };

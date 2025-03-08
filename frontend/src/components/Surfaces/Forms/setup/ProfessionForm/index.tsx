@@ -23,7 +23,7 @@ import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
 import { professionValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Icon from "../../../../../constants/icon";
 
 const ProfessionForm: SFC<SetupForm> = ({
@@ -36,7 +36,8 @@ const ProfessionForm: SFC<SetupForm> = ({
 }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
-  const Id = parseInt(auth?.user ?? 0);
+  const { Id: UserId } = useParams<{ Id: string }>();
+  const Id = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
   const { add } = API.Setup.Profession.Add(IsSetup, Redirect, IsRedirect);
   const { update } = API.Setup.Profession.Update(IsSetup, Redirect, IsRedirect);
   const { data, isLoading } = API.Setup.Profession.Get(Id);
@@ -48,7 +49,8 @@ const ProfessionForm: SFC<SetupForm> = ({
     LicenseNumber: data?.LicenseNumber || "",
     YearsExp: data?.YearsExp || 0,
     Description: data?.Description || "",
-    IsVerified: data?.IsVerified || false,
+    IsVerified: data?.IsVerified || null,
+    Remarks: null,
   };
   const handleSubmit = async (values: ProfessionTable): Promise<void> => {
     try {
