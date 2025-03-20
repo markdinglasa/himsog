@@ -18,6 +18,6 @@ export const ProfessionInitial: ProfessionTable = {
   LicenseNumber: "",
   YearsExp: 0,
   Description: "",
-  IsVerified: false,
+  IsVerified: null,
   Remarks: null,
 };

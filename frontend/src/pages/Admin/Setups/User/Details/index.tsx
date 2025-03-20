@@ -2,6 +2,7 @@ import {
   ButtonColor,
   ButtonType,
   DialogType,
+  ProfessionTable,
   RouteChannel,
   SFC,
   UserRole,
@@ -16,13 +17,14 @@ import {
 } from "../../../../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { Suspense } from "react";
-import { cn } from "../../../../../utils";
+import { cn, IsBoolean } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import Form from "../../../../../components/Surfaces/Forms";
 import API from "../../../../../hooks/api";
 import Certificates from "../../../../../components/DataDisplay/Certificates";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../../modals";
+import ActivatedProfessional from "../../../../../components/DataDisplay/Activated";
 export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -33,11 +35,20 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
     { Text: "Users", OnClick: () => navigate(RouteChannel.ADMIN_USER) },
   ];
 
-  const { Id } = useParams<{ Id: string }>();
+  const { Id } = useParams<{ Id: string }>() ?? {};
   const { update } = API.Setup.User.SuspendUser();
   const { data } = API.Setup.User.Get(Number(Id));
   const [isValidate, toggleValidate] = useToggle(false);
   const [isDeclined, toggleDecline] = useToggle(false);
+
+  const { data: profession } = API.Setup.Profession.Get(Number(Id));
+  const { update: UpdateProfession } = API.Setup.Profession.Update(
+    false,
+    RouteChannel.INDEX,
+    false,
+  );
+
+  const IsValidated: boolean = IsBoolean(profession?.IsVerified) ?? false;
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
@@ -101,6 +112,7 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
               <Certificates IsEdit={false} />
             </Suspense>
           </S.PageContent>
+
           <S.PageContent className="border rounded-md w-full">
             <S.Divider className="w-full flex flex-col items-start justify-start mb-4">
               <S.Span className="text-lg font-medium">
@@ -127,6 +139,11 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
               />
             </S.Divider>
           </S.PageContent>
+
+          <ActivatedProfessional
+            IsActivated={IsValidated}
+            Remarks={profession?.Remarks ?? null}
+          />
         </AccessControl>
       </S.Container>
       <ConfirmationDialog
@@ -134,7 +151,21 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
         message="Are you sure to approve this Health Professional?"
         close={toggleValidate}
         open={isValidate}
-        confirm={() => {}}
+        confirm={() => {
+          // exclude Id on data
+          const data: ProfessionTable = {
+            UserId: profession.UserId,
+            IsVerified: true,
+            Title: profession.Title,
+            LicenseNumber: profession.LicenseNumber,
+            YearsExp: profession.YearsExp,
+            Description: profession.Description,
+            Remarks: null,
+          };
+          console.log("data", data);
+          UpdateProfession(Number(profession.Id), data);
+          toggleValidate();
+        }}
         dialogType={DialogType.confirm}
       />
       <CustomModal

@@ -4,6 +4,7 @@ import Icon from "./Icon";
 import Certificate from "./Certificate";
 import HealthCondtions from "./HealthConditions";
 import Certificates from "./Certificates";
+import ActivatedProfessional from "./Activated";
 export * from "./Charts";
 export * from "./Tables";
 export * from "./Reports";
@@ -16,4 +17,5 @@ export {
   Certificate,
   HealthCondtions,
   Certificates,
+  ActivatedProfessional,
 };

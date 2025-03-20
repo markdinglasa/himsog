@@ -20,6 +20,8 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import Email from "@mui/icons-material/MailOutline";
 import Password from "@mui/icons-material/LockOpen";
 import Check from "@mui/icons-material/Check";
+import CheckCircle from "@mui/icons-material/CheckCircleOutline";
+import Close from "@mui/icons-material/HighlightOff";
 export default {
   ThumpUp,
   Add,
@@ -43,4 +45,6 @@ export default {
   Email,
   Password,
   Check,
+  CheckCircle,
+  Close,
 };
