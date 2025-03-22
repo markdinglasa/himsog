@@ -24,14 +24,14 @@ const useUpdateProfessionInstitute = () => {
       data: ProfessionInstituteTable;
     }) => {
       const response = await axios.patch(
-        `${APIChannel.PROFESSION_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.PROFESSION_INSTITUTE_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey.PROFESSION],
+        queryKey: [QueryKey.PROFESSION_INSTITUTE],
       });
       displayToast(Success.m00004, ToastType.success);
     },

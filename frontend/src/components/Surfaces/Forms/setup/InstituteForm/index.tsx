@@ -19,10 +19,11 @@ import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
-import { displayToast } from "../../../../../utils";
+import { displayToast, formatDateForInput } from "../../../../../utils";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 import { professionInstituteValidator } from "../../../../../validators/setup/professionInstitute";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 const InstituteForm: SFC<FormProps> = ({
   ClassName,
@@ -46,13 +47,19 @@ const InstituteForm: SFC<FormProps> = ({
     Address: data?.Address || "",
     DateStarted: data?.DateStarted || "",
     DateEnded: data?.DateEnded || "",
+    IsCurrentWork: data?.IsCurrentWork || false,
   };
-
+  console.log("InitialValues:", InitialValues);
   const handleSubmit = async (
     values: ProfessionInstituteTable,
   ): Promise<void> => {
     try {
-      if (Object.keys(data).length !== 0) update(Number(data.Id), values);
+      values.DateStarted =
+        values?.DateStarted &&
+        formatDateForInput(new Date(values?.DateStarted));
+      values.DateEnded =
+        values?.DateEnded && formatDateForInput(new Date(values?.DateEnded));
+      if (data?.Id) update(Number(data.Id), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
@@ -179,6 +186,22 @@ const InstituteForm: SFC<FormProps> = ({
                               onBlur={handleBlur}
                             />
                           </S.Divider>
+                        </S.Divider>
+                        <S.Divider className="w-full">
+                          <FormControlLabel
+                            className="text-[sm] text-slate-700"
+                            control={<Checkbox size="small" color="success" />}
+                            label="I currently work here"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontFamily: "Montserrat",
+                                fontSize: "14px",
+                                color: "#3f3f3f",
+                                alignItems: "center",
+                                display: "flex",
+                              },
+                            }}
+                          />
                         </S.Divider>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end gap-3 items-center">

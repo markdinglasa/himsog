@@ -10,6 +10,7 @@ export const professionInstituteValidator = () => {
         "Title should not contain special characters",
       )
       .required(),
+    Position: yup.string().required(),
     Address: yup.string().required(),
     DateStarted: yup
       .date()

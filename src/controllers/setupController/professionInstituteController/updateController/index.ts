@@ -6,7 +6,7 @@ import {
   Success,
   ProfessionInstituteQuery,
 } from "../../../../shared";
-import { professionValidator } from "../../../../validators";
+import { professionInstituteValidator } from "../../../../validators";
 import { UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
@@ -20,7 +20,7 @@ export const ProfessionInstituteUpdateController = async (
       Data: ProfessionInstituteTable = req.body;
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
-    const { error } = professionValidator.validate({ ...Data });
+    const { error } = professionInstituteValidator.validate({ ...Data });
     if (error)
       return res.status(401).json({
         data: false,

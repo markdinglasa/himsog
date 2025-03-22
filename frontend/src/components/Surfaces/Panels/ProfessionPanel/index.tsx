@@ -5,6 +5,7 @@ import { memo } from "react";
 import { FeedbackEmail } from "../../../DataDisplay";
 import Professions from "../../../DataDisplay/Professions";
 import Certificates from "../../../DataDisplay/Certificates";
+import Institutes from "../../../DataDisplay/Institutes";
 export const ProfessionPanel: SFC = ({ ClassName }) => {
   return (
     <>
@@ -14,8 +15,12 @@ export const ProfessionPanel: SFC = ({ ClassName }) => {
             <Professions />
           </S.Divider>
           <S.Divider className="w-full mb-[1rem]">
+            <Institutes />
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem]">
             <Certificates />
           </S.Divider>
+
           <S.Divider>
             <FeedbackEmail />
           </S.Divider>

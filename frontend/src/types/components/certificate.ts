@@ -1,4 +1,4 @@
-import { CertificateTable, ProfessionTable } from "../dbtables";
+import { CertificateTable } from "../dbtables";
 
 export interface CertificateProps {
   OnEdit: () => void;
@@ -9,5 +9,5 @@ export interface CertificateProps {
 export interface ProfessionProps {
   OnEdit: () => void;
   OnDelete: () => void;
-  Data: ProfessionTable;
+  Data: any;
 }

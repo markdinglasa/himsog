@@ -8,6 +8,7 @@ import Dashboard from "./DashboardCard";
 import Profile from "./ProfileCard";
 import License from "./LicenseCard";
 import Notification from "./NotificationCard";
+import Institute from "./InstituteCard";
 
 const Card = {
   Event,
@@ -17,6 +18,7 @@ const Card = {
   Profile,
   License,
   Notification,
+  Institute,
 };
 
 export default Card;

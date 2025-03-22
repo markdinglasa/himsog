@@ -7,6 +7,7 @@ export interface ProfessionInstituteTable extends Id, Logs {
   Address: string;
   DateStarted: string;
   DateEnded: string;
+  IsCurrentWork: boolean;
 }
 export type ProfessionInstituteTables = ProfessionInstituteTable[];
 export const ProfessionInstituteInitial: ProfessionInstituteTable = {
@@ -16,4 +17,5 @@ export const ProfessionInstituteInitial: ProfessionInstituteTable = {
   DateStarted: "",
   DateEnded: "",
   UserId: 0,
+  IsCurrentWork: false,
 };
