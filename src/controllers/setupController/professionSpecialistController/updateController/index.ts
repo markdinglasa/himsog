@@ -1,23 +1,23 @@
 import { NextFunction, Request, Response } from "express";
-import { ProfessionInstituteTable } from "../../../../types";
+import { ProfessionSpecialistTable } from "../../../../types";
 import {
   DBTable,
   Error,
   Success,
-  ProfessionInstituteQuery,
+  ProfessionSpecialistQuery,
 } from "../../../../shared";
 import { professionValidator } from "../../../../validators";
 import { UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
-export const ProfessionInstituteUpdateController = async (
+export const ProfessionSpecialistUpdateController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<any> => {
   try {
     const Id: number = parseInt(req.params?.Id, 10),
-      Data: ProfessionInstituteTable = req.body;
+      Data: ProfessionSpecialistTable = req.body;
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = professionValidator.validate({ ...Data });
@@ -28,17 +28,17 @@ export const ProfessionInstituteUpdateController = async (
       });
     // Other Fn here
     if (
-      !(await isFound(ProfessionInstituteQuery.q002, ["Id"], [Number], [Id]))
+      !(await isFound(ProfessionSpecialistQuery.q002, ["Id"], [Number], [Id]))
         .data
     )
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
     if (
       (
         await isFound(
-          ProfessionInstituteQuery.q005,
-          ["Id", "UserId", "Name"],
+          ProfessionSpecialistQuery.q005,
+          ["Id", "UserId", "Title"],
           [Number, Number, String],
-          [Id, Data.UserId, Data.Name],
+          [Id, Data.UserId, Data.Title],
         )
       ).data
     )
@@ -47,12 +47,12 @@ export const ProfessionInstituteUpdateController = async (
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await UpdateService.record(Id, DBTable.t027, Fields, Types, Values)))
+    if (!(await UpdateService.record(Id, DBTable.t028, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("ProfessionInstitute-Controller [Update]:", error.message);
+    logging.error("ProfessionSpecialist-Controller [Update]:", error.message);
     logging.log("----------------------------------------");
     return res
       .status(500)

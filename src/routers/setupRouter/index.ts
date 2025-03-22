@@ -17,6 +17,7 @@ import RequestAccessRouter from "./requestAccessRouter";
 import UnitRouter from "./unitRouter";
 import ProfessionValidation from "./professionValidationRouter";
 import ProfessionInstitute from "./professionInstituteRouter";
+import ProfessionSpecialist from "./professionSpecialistRouter";
 
 import express from "express";
 
@@ -40,5 +41,6 @@ Router.use(RequestAccessRouter);
 Router.use(UnitRouter);
 Router.use(ProfessionValidation);
 Router.use(ProfessionInstitute);
+Router.use(ProfessionSpecialist);
 
 export default Router;
