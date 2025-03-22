@@ -11,6 +11,7 @@ import PasswordForm from "./PasswordForm";
 import AdminAccount from "./AdminAccountForm";
 import DisapproveProfession from "./DisapproveProfessionForm";
 import InstituteForm from "./InstituteForm";
+import SpecialistForm from "./SpecialistForm";
 
 export default {
   Unit,
@@ -26,4 +27,5 @@ export default {
   AdminAccount,
   DisapproveProfession,
   InstituteForm,
+  SpecialistForm,
 };
