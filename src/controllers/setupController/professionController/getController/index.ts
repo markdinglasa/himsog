@@ -10,16 +10,11 @@ export const ProfessionGetController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Id: number = parseInt(req.params?.Id, 10); // UserId
+    const Id: number = parseInt(req.params?.Id, 10);
     if (!Id || Id === 0 || Id === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
     const response: ProfessionTable = (
-      await GetService.byFields(
-        ProfessionQuery.q003,
-        ["UserId"],
-        [Number],
-        [Id],
-      )
+      await GetService.byFields(ProfessionQuery.q003, ["Id"], [Number], [Id])
     )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {

@@ -18,3 +18,5 @@ export * from "./eventValidator";
 export * from "./requestAccessValdiator";
 export * from "./articleValidator";
 export * from "./professionValidationValidator";
+export * from "./professionInstituteValidator";
+export * from "./professionSpecialistValidator";

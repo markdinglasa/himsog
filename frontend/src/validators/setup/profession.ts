@@ -17,9 +17,20 @@ export const professionValidator = () => {
         "License Number should not contain special characters",
       )
       .required(),
-    YearsExp: yup.number().required(),
-    Description: yup.string().nullable().optional(),
-    IsVerified: yup.boolean().nullable().required(),
-    Remarks: yup.string().nullable().optional(),
+    Issuer: yup
+      .string()
+      .matches(
+        /^[A-Za-z\s.&)(-,]+$/,
+        "Issuer should not contain special characters",
+      )
+      .required(),
+    DateIssued: yup
+      .date()
+      .required("Date Issued is required")
+      .max(
+        yup.ref("DateExpired"),
+        "Date Issued should not surpass the Expiry Date",
+      ), // should not surpass the expiry date
+    DateExpired: yup.date().required("Expiry Date is required"),
   });
 };

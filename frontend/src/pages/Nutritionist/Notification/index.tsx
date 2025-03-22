@@ -1,16 +1,12 @@
-import {
-  APIChannel,
-  HeadCell,
-  notificationHC,
-  QueryKey,
-  RouteChannel,
-  SFC,
-} from "../../../types";
+import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
+import { PageBreadCrumbs, Skeleton, NoRecord } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
-
+import API from "../../../hooks/api";
+import { useAuth } from "../../../hooks";
+import Card from "../../../components/Surfaces/Cards";
+import React from "react";
 export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -19,6 +15,10 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
+  const { auth } = useAuth();
+  const { data: notifications } = API.Utility.Notification.GetAll(
+    Number(auth?.user ?? 0),
+  );
 
   return (
     <>
@@ -27,20 +27,32 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.PageContent className="border rounded-md">
-          <Suspense fallback={<Skeleton />}>
-            <EnhancedTable
-              Title="Notifications"
-              Rows={[]}
-              HeadCells={notificationHC as HeadCell<unknown>[]}
-              IsLoading={false}
-              OnRecordDelete={() => {}}
-              RemoveApiRoute={APIChannel.NOTIFICATION_ID}
-              ClassName="md:max-h-[calc(100vh-200px)]"
-              QueryKey={QueryKey.NOTIFICATION}
-            />
-          </Suspense>
-        </S.PageContent>
+        <S.Divider className="flex flex-col items-center justify-start mb-2 h-full min-h-[30rem]">
+          <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
+            <S.Divider className="w-full text-left mb-2">
+              <S.Span className="text-lg font-medium"> Notifications</S.Span>
+            </S.Divider>
+            <Suspense fallback={<Skeleton />}>
+              {notifications && notifications.length > 0 ? (
+                notifications.map((record: any) => {
+                  return (
+                    <React.Fragment key={record?.Id}>
+                      <Card.Notification
+                        IsRead={record?.IsRead}
+                        Description={record?.Description}
+                        Id={record?.Id}
+                        Date={record?.DateCreated}
+                        Link={record?.Link}
+                      />
+                    </React.Fragment>
+                  );
+                })
+              ) : (
+                <NoRecord Message={"No Notifications"} />
+              )}
+            </Suspense>
+          </S.Divider>
+        </S.Divider>
       </S.Container>
     </>
   );

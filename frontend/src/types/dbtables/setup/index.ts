@@ -17,3 +17,4 @@ export * from "./unit";
 export * from "./event";
 export * from "./article";
 export * from "./professionValidtion";
+export * from "./professionInstitute";

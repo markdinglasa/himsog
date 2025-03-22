@@ -7,7 +7,7 @@ export interface ProfessionTable extends Id, Logs {
   Description: string;
   Issuer: string;
   DateIssued: string;
-  DateExpiry: string;
+  DateExpired: string;
   Document: string | null;
 }
 export type ProfessionTables = ProfessionTable[];
@@ -18,6 +18,6 @@ export const ProfessionInitial: ProfessionTable = {
   Description: "",
   Issuer: "",
   DateIssued: "",
-  DateExpiry: "",
+  DateExpired: "",
   Document: null,
 };

@@ -9,10 +9,9 @@ import {
 import {
   ButtonColor,
   ButtonType,
+  FormProps,
   InputType,
   ProfessionTable,
-  RouteChannel,
-  SetupForm,
   SFC,
   ToastType,
 } from "../../../../../types";
@@ -23,35 +22,31 @@ import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
 import { professionValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
-import { useNavigate, useParams } from "react-router-dom";
 import Icon from "../../../../../constants/icon";
 
-const ProfessionForm: SFC<SetupForm> = ({
+const ProfessionForm: SFC<FormProps> = ({
   ClassName,
-  IsSetup = false,
-  Redirect = RouteChannel.INDEX,
-  IsRedirect = false,
   IsDetails = false,
+  RecordId,
+  OnClose,
   Title,
 }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
-  const { Id: UserId } = useParams<{ Id: string }>();
-  const Id = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
-  const { add } = API.Setup.Profession.Add(IsSetup, Redirect, IsRedirect);
-  const { update } = API.Setup.Profession.Update(IsSetup, Redirect, IsRedirect);
-  const { data, isLoading } = API.Setup.Profession.Get(Id);
-  // console.log("data:", data);
-  const navigate = useNavigate();
+  const { add } = API.Setup.Profession.Add();
+  const { update } = API.Setup.Profession.Update();
+  const { data, isLoading } = API.Setup.Profession.Get(Number(RecordId));
+
   const InitialValues: ProfessionTable = {
     UserId: data?.UserId || (auth?.user ?? 0),
     Title: data?.Title || "",
     LicenseNumber: data?.LicenseNumber || "",
-    YearsExp: data?.YearsExp || 0,
-    Description: data?.Description || "",
-    IsVerified: data?.IsVerified || null,
-    Remarks: null,
+    Issuer: data?.Issuer || "",
+    DateIssued: data?.DateIssued || "",
+    DateExpired: data?.DateExpired || "",
+    Document: data?.Document || null,
   };
+
   const handleSubmit = async (values: ProfessionTable): Promise<void> => {
     try {
       if (Object.keys(data).length !== 0) update(Number(data.Id), values);
@@ -64,20 +59,22 @@ const ProfessionForm: SFC<SetupForm> = ({
   return (
     <S.Container className={ClassName}>
       <S.Content className="flex justify-center items-center w-full flex-col ">
-        <S.FormHeader className="flex flex-row items-center justify-between mb-3">
-          <S.Divider className="flex flex-col items-start">
-            <S.Span className="text-lg font-medium">{Title}</S.Span>
-          </S.Divider>
-          <S.Divider>
-            <AccessControl OtherCondition={IsEdit && IsDetails}>
-              <CircleButton
-                OnClick={() => SetIsEdit(false)}
-                Icon={<Icon.Edit className="text-primary" />}
-                Type={ButtonType.button}
-              />
-            </AccessControl>
-          </S.Divider>
-        </S.FormHeader>
+        <AccessControl OtherCondition={IsEdit && IsDetails}>
+          <S.FormHeader className="flex flex-row items-center justify-between mb-3">
+            <S.Divider className="flex flex-col items-start">
+              <S.Span className="text-lg font-medium">{Title}</S.Span>
+            </S.Divider>
+            <S.Divider>
+              <AccessControl OtherCondition={IsEdit && IsDetails}>
+                <CircleButton
+                  OnClick={() => SetIsEdit(false)}
+                  Icon={<Icon.Edit className="text-primary" />}
+                  Type={ButtonType.button}
+                />
+              </AccessControl>
+            </S.Divider>
+          </S.FormHeader>
+        </AccessControl>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">
@@ -109,7 +106,7 @@ const ProfessionForm: SFC<SetupForm> = ({
                             label="Title"
                             disabled={IsEdit}
                             value={values?.Title.toString()}
-                            placeholder="e.g. Nutritionist"
+                            placeholder="e.g. Registered Nutritionist-Dietitian"
                             name="Title"
                             touched={touched}
                             onChange={handleChange}
@@ -123,22 +120,8 @@ const ProfessionForm: SFC<SetupForm> = ({
                             disabled={IsEdit}
                             label="License Number"
                             value={values?.LicenseNumber.toString()}
-                            placeholder="Valid License Number"
+                            placeholder="e.g. RND-199485"
                             name="LicenseNumber"
-                            touched={touched}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </S.Divider>
-                        <S.Divider className="w-full py-1">
-                          <CustomInput
-                            errors={errors}
-                            type={InputType.number}
-                            disabled={IsEdit}
-                            label="Years of Experience"
-                            value={values?.YearsExp.toString()}
-                            placeholder="e.g. 3 years"
-                            name="YearsExp"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -149,16 +132,68 @@ const ProfessionForm: SFC<SetupForm> = ({
                             errors={errors}
                             type={InputType.text}
                             disabled={IsEdit}
-                            label="Description (optional)"
-                            value={values?.Description.toString()}
-                            placeholder="Description"
-                            name="Description"
+                            label="Issuer"
+                            value={values?.Issuer}
+                            placeholder="e.g. Professional Regulation Commission (PRC)"
+                            name="Issuer"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <AccessControl OtherCondition={IsSetup}>
+                        <S.Divider className="w-full flex md:flex-row flex-col gap-[1rem]">
+                          <S.Divider className="w-full py-1">
+                            <CustomInput
+                              errors={errors}
+                              type={InputType.date}
+                              label="Date Issued"
+                              disabled={IsEdit}
+                              value={
+                                String(
+                                  values.DateIssued?.toString() ?? "",
+                                ).split("T")[0]
+                              }
+                              name="DateIssued"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </S.Divider>
+                          <S.Divider className="w-full py-1">
+                            <CustomInput
+                              errors={errors}
+                              type={InputType.date}
+                              label="Expiry Date"
+                              disabled={IsEdit}
+                              value={
+                                String(
+                                  values.DateExpired?.toString() ?? "",
+                                ).split("T")[0]
+                              }
+                              name="DateExpired"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </S.Divider>
+                        </S.Divider>
+                        <S.Divider className="w-full mb-[1rem]">
+                          <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <S.Span className="text-sm text-slate-600 text-center">
+                              Drag & drop your supporting document or click the
+                              button to browse.
+                            </S.Span>
+                            <S.Span className="text-sm text-slate-600 mb-3">
+                              PDF, JPG, PNG (max 3MB)
+                            </S.Span>
+                            <CustomButton
+                              morph={false}
+                              text="Upload Document"
+                              color={ButtonColor.default}
+                            />
+                          </S.Divider>
+                        </S.Divider>
+                        {/*<AccessControl OtherCondition={IsSetup}>
                           <S.Divider className="w-full flex justify-between items-center">
                             <CustomButton
                               text="Back"
@@ -180,8 +215,8 @@ const ProfessionForm: SFC<SetupForm> = ({
                               morph={false}
                             />
                           </S.Divider>
-                        </AccessControl>
-                        <AccessControl OtherCondition={!IsSetup && !IsEdit}>
+                        </AccessControl>*/}
+                        <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end gap-3 items-center">
                             <CustomButton
                               leftIcon={
@@ -193,7 +228,7 @@ const ProfessionForm: SFC<SetupForm> = ({
                               color={ButtonColor.default}
                               morph={false}
                               onClick={() => {
-                                SetIsEdit(true);
+                                OnClose && OnClose();
                                 resetForm();
                               }}
                             />

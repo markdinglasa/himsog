@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const certificateValidator = Joi.object({
-  ProfessionId: Joi.number().integer().positive().required(),
+  UserId: Joi.number().integer().positive().required(),
   Name: Joi.string()
     .pattern(/^[A-Za-z\s.,]+$/)
     .required(),

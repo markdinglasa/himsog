@@ -5,6 +5,7 @@ export interface IngredientTable extends Id, Logs {
   UnitId: number;
   UnitName?: string;
   Category: string;
+  Quantity: number;
 }
 export type IngredientTables = IngredientTable[];
 export const IngredientInitial: IngredientTable = {
@@ -12,4 +13,5 @@ export const IngredientInitial: IngredientTable = {
   Description: null,
   UnitId: 0,
   Category: "",
+  Quantity: 0,
 };

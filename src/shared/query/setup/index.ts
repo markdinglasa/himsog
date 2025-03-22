@@ -17,3 +17,4 @@ export * from "./professionRatingQuery";
 export * from "./eventQuery";
 export * from "./requestAccessQuery";
 export * from "./professionValidationQuery";
+export * from "./professionInstituteQuery";

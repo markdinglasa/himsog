@@ -18,3 +18,5 @@ export * from "./event";
 export * from "../public/request";
 export * from "./article";
 export * from "./profession_validation";
+export * from "./profession_institute";
+export * from "./profession_specialist";

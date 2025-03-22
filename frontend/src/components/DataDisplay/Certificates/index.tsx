@@ -16,26 +16,25 @@ export const Certificates: SFC<FormProps> = ({ IsEdit = true }) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.Certificate.Remove();
   const { Id: UserId } = useParams<{ Id: string }>();
-  const Id = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
-  const { data: profession } = API.Setup.Profession.Get(Id);
+  const Id: number = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
   const [record, setRecord] = useState<string>("");
   const { data: certificates, isLoading } = API.Setup.Certificate.GetAll(
-    profession?.Id ?? 0,
+    Id ?? 0,
   );
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
     <>
       <div className="w-full flex flex-row items-center justify-between">
-        <span className="text-lg font-medium">Profession Certificates</span>
+        <span className="text-lg font-medium">Certificates</span>
         <AccessControl OtherCondition={IsEdit}>
           <CustomButton
             leftIcon={<Icon.Add />}
-            text={"Add"}
+            text={"New"}
             onClick={() => {
               setRecord("");
               toggleDisplay();
             }}
-            disabled={IsEdit}
+            disabled={false}
             morph={false}
           />
         </AccessControl>

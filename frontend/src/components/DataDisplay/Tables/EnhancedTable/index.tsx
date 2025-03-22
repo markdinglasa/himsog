@@ -307,6 +307,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "IsCancelled":
                           case "IsLocked":
                           case "IsInventory":
+                          case "IsRead":
                             return row[HeadCell.Id] ? (
                               <CheckBoxIcon className="text-green-500" />
                             ) : (

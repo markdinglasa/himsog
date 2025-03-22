@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ProfessionTable } from "../../../../types";
-import { DBTable, Error, ProfessionQuery, Success } from "../../../../shared";
+import { DBTable, Error, Success } from "../../../../shared";
 import { professionValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
-import { isFound } from "../../../../functions";
 
 export const ProfessionAddController = async (
   req: Request,

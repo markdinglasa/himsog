@@ -11,7 +11,7 @@ import {
 import { API_VERSION } from "../../constants";
 
 const router = express.Router();
-router.get(
+router.post(
   `${API_VERSION}${RouteChannel.NOTIFICATION}`,
   TokenHandler.verifyToken,
   NotificationAddController,
@@ -26,12 +26,12 @@ router.get(
   TokenHandler.verifyToken,
   NotificationGetAllController,
 );
-router.get(
+router.delete(
   `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,
   TokenHandler.verifyToken,
   NotificationRemoveController,
 );
-router.get(
+router.patch(
   `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,
   TokenHandler.verifyToken,
   NotificationUpdateController,

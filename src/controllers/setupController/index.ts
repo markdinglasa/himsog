@@ -17,3 +17,4 @@ export * from "./unitController";
 export * from "./eventController";
 export * from "./requestAccessController";
 export * from "./professionValidationController";
+export * from "./professionInstituteController";

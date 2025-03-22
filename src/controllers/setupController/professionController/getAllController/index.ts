@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Error, Success } from "../../../../shared";
 import { ProfessionQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { ProfessionTables } from "../../../../types";
 
 export const ProfessionGetAllController = async (
   req: Request,
@@ -9,7 +10,13 @@ export const ProfessionGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const response = await GetService.byQuery(ProfessionQuery.q001);
+    const UserId: number = parseInt(req.params?.Id, 10);
+    const response: ProfessionTables = await GetService.byFields(
+      ProfessionQuery.q001,
+      ["UserId"],
+      [Number],
+      [UserId],
+    );
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

@@ -3,16 +3,17 @@ import {
   APIChannel,
   NotificationInitial,
   NotificationTable,
+  QueryKey,
   ToastType,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+// import { Success } from "../../../../shared";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateNotification = () => {
   const axios = useAxiosPrivate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async ({
       Id,
@@ -22,13 +23,16 @@ const useUpdateNotification = () => {
       data: NotificationTable;
     }) => {
       const response = await axios.patch(
-        `${APIChannel.REQUEST_ACCESS_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.NOTIFICATION_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00004, ToastType.success);
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.NOTIFICATION],
+      });
+      // displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(

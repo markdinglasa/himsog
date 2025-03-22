@@ -9,7 +9,7 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllCertificate = (Id: string) => {
+const useGetAllCertificate = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.CERTIFICATE],

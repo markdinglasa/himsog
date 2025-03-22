@@ -4,7 +4,7 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllNotification = (UserId: string) => {
+const useGetAllNotification = (UserId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.NOTIFICATION, UserId], // Unique key for the query, including the Id
