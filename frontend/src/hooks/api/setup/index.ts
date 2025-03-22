@@ -16,6 +16,7 @@ import SubscriptionLine from "./subscriptionLine";
 import Unit from "./unit";
 import User from "./user";
 import Certificate from "./certificate";
+import ProfessionValidtion from "./professionValidation";
 
 export default {
   Unit,
@@ -34,6 +35,7 @@ export default {
   MealPlanLine,
   Profession,
   ProfessionRating,
+  ProfessionValidtion,
   Recipe,
   RecipeLine,
 };

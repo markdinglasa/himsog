@@ -1,0 +1,6 @@
+import Add from "./useAddProfessionValidation";
+import Update from "./useUpdateProfessionValidation";
+import Get from "./useGetProfessionValidation";
+import Remove from "./useRemoveProfessionValidation";
+
+export default { Add, Update, Get, Remove };
