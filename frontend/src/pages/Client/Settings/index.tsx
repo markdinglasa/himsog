@@ -47,7 +47,7 @@ export const ClientSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Credentials"
+                label="Personal"
                 {...a11yProps(0)}
               />
               <Tab

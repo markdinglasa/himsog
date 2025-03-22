@@ -11,6 +11,7 @@ import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { useParams } from "react-router-dom";
 import { AccessControl } from "..";
+
 export const Certificates: SFC<FormProps> = ({ IsEdit = true }) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.Certificate.Remove();

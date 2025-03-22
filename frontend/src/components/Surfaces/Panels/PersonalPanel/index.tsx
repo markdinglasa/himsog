@@ -6,7 +6,7 @@ import Card from "../../Cards";
 import Form from "../../Forms";
 import { FeedbackEmail } from "../../../DataDisplay";
 
-export const CredentialPanel: SFC = ({ ClassName }) => {
+export const PersonalPanel: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
@@ -14,7 +14,6 @@ export const CredentialPanel: SFC = ({ ClassName }) => {
           <S.Divider className="w-full border-b mb-2">
             <Card.Profile ClassName="" />
           </S.Divider>
-
           <S.Divider className="w-full">
             <Form.Setup.User IsDetails={true} Title="Basic Info" />
           </S.Divider>
@@ -27,4 +26,4 @@ export const CredentialPanel: SFC = ({ ClassName }) => {
   );
 };
 
-export default memo(CredentialPanel);
+export default memo(PersonalPanel);

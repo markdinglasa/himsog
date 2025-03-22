@@ -8,10 +8,11 @@ export const professionValidator = Joi.object({
   LicenseNumber: Joi.string()
     .pattern(/^[0-9\s.-]+$/)
     .required(),
-  YearsExp: Joi.number().required(),
   Description: Joi.string().allow("").allow(null).optional(),
-  IsVerified: Joi.boolean().allow(null).required(),
-  Remarks: Joi.string().allow("").allow(null).optional(),
+  Issuer: Joi.string().required(),
+  DateIssued: Joi.date().required(),
+  DateExpiry: Joi.date().required(),
+  Document: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

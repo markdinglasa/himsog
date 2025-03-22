@@ -1,12 +1,14 @@
-import { RouteChannel, SFC } from "../../../types";
+import { RouteChannel, SFC, UserRole } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { a11yProps, cn, CustomTabPanel } from "../../../utils";
 import { memo, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { colors } from "../../../styles";
-import { PageBreadCrumbs } from "../../../components";
+import { AccessControl, PageBreadCrumbs } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import Panel from "../../../components/Surfaces/Panels";
+import { ActivatedProfessional } from "../../../components/DataDisplay/Activated";
+import { useAuth } from "../../../hooks";
 
 export const NutritionistSettings: SFC = ({ ClassName }) => {
   const [index, setIndex] = useState<number>(0);
@@ -20,6 +22,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
+  const { auth } = useAuth();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -47,7 +50,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Credentials"
+                label="Personal"
                 {...a11yProps(0)}
               />
               <Tab
@@ -58,7 +61,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Profession"
+                label="Professional Credentials"
                 {...a11yProps(1)}
               />
               <Tab
@@ -69,7 +72,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Certificates"
+                label="Transactions"
                 {...a11yProps(2)}
               />
               <Tab
@@ -114,6 +117,16 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
             </CustomTabPanel>
           </S.Divider>
         </S.PageContent>
+        <AccessControl
+          OtherCondition={
+            index === 0 &&
+            (auth?.roles as unknown as UserRole) === UserRole.NUTRITIONIST
+          }
+        >
+          <S.Divider className="w-full mb-5 mt-5">
+            <ActivatedProfessional IsActivated={false} Remarks={null} />
+          </S.Divider>
+        </AccessControl>
       </S.Container>
     </>
   );

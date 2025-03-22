@@ -15,7 +15,7 @@ import SubscriptionRouter from "./subscriptionRouter";
 import MealPlanLineRouter from "./mealPlanLineRouter";
 import RequestAccessRouter from "./requestAccessRouter";
 import UnitRouter from "./unitRouter";
-
+import ProfessionValidation from "./professionValidationRouter";
 import express from "express";
 
 const Router = express.Router();
@@ -36,5 +36,6 @@ Router.use(SubcriptionLineRouter);
 Router.use(SubscriptionRouter);
 Router.use(RequestAccessRouter);
 Router.use(UnitRouter);
+Router.use(ProfessionValidation);
 
 export default Router;

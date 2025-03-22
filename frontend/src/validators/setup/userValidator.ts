@@ -40,6 +40,7 @@ export const userValidator = () => {
     CivilStatus: yup.string().required("Civil Status is required"),
     Gender: yup.string().required("Gender is required"),
     Role: yup.string().required("Role is required"),
+    Religion: yup.string().required("Religion is required"),
   });
 };
 

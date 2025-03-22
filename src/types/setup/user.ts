@@ -33,6 +33,7 @@ export interface UserTable extends Id, Logs {
   ProfilePhoto: string | null;
   IsSuspended: boolean;
   Genrder: string;
+  Religion: string;
 }
 export type UserTables = UserTable[];
 export const UserInital: UserTable = {
@@ -47,4 +48,5 @@ export const UserInital: UserTable = {
   ProfilePhoto: null,
   IsSuspended: false,
   Genrder: "",
+  Religion: "",
 };

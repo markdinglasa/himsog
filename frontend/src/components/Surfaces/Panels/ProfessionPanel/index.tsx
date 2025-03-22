@@ -4,6 +4,7 @@ import { cn } from "../../../../utils";
 import { memo } from "react";
 import Form from "../../Forms";
 import { FeedbackEmail } from "../../../DataDisplay";
+
 export const ProfessionPanel: SFC = ({ ClassName }) => {
   return (
     <>
@@ -17,6 +18,7 @@ export const ProfessionPanel: SFC = ({ ClassName }) => {
               Title="Profession Info"
             />
           </S.Divider>
+
           <S.Divider>
             <FeedbackEmail />
           </S.Divider>

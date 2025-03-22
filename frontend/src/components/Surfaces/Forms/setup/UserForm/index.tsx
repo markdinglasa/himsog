@@ -58,8 +58,9 @@ const UserForm: SFC<SetupForm> = ({
     IsSuspended: data?.IsSuspended || false,
     BirthDate: data?.BirthDate || "",
     Gender: data?.Gender || "",
+    Religion: data?.Religion || "",
   };
-  // console.log("data:", data);
+
   const handleSubmit = async (values: UserTable): Promise<void> => {
     try {
       values.BirthDate =
@@ -213,6 +214,52 @@ const UserForm: SFC<SetupForm> = ({
                             OnChange={(_: any, value: any) => {
                               setFieldValue("Gender", value?.Id || "");
                               setTouched({ Gender: true });
+                            }}
+                            Errors={errors}
+                            Touched={touched}
+                          />
+                        </S.Divider>
+                        <S.Divider className="w-full pb-1">
+                          <AutoComplete
+                            Label="Religion"
+                            Values={values.Religion}
+                            Options={[
+                              { Id: "Christianity", Label: "Christianity" },
+                              {
+                                Id: "Roman Catholic",
+                                Label: "Roman Catholic",
+                              },
+                              { Id: "Islam", Label: "Islam" },
+                              { Id: "Hinduism", Label: "Hinduism" },
+                              { Id: "Buddhism", Label: "Buddhism" },
+                              { Id: "Sikhism", Label: "Sikhism" },
+                              { Id: "Judaism", Label: "Judaism" },
+                              { Id: "Bahai", Label: "Bahá'í Faith" },
+                              { Id: "Jainism", Label: "Jainism" },
+                              { Id: "Shinto", Label: "Shinto" },
+                              { Id: "Taoism", Label: "Taoism" },
+                              {
+                                Id: "Zoroastrianism",
+                                Label: "Zoroastrianism",
+                              },
+                              { Id: "Confucianism", Label: "Confucianism" },
+                              { Id: "Paganism", Label: "Paganism" },
+                              { Id: "Animism", Label: "Animism" },
+                              {
+                                Id: "Rastafarianism",
+                                Label: "Rastafarianism",
+                              },
+                              { Id: "NewAge", Label: "New Age" },
+                              { Id: "Atheism", Label: "Atheism" },
+                              { Id: "Agnosticism", Label: "Agnosticism" },
+                            ]}
+                            Name="Religion"
+                            IsEdit={IsEdit}
+                            OptionName="Label"
+                            Placeholder="Religion"
+                            OnChange={(_: any, value: any) => {
+                              setFieldValue("Religion", value?.Id || "");
+                              setTouched({ Religion: true });
                             }}
                             Errors={errors}
                             Touched={touched}

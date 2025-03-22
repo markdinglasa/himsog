@@ -47,7 +47,7 @@ export const AdminSettings: SFC = ({ ClassName }) => {
                     color: colors.primary, // Active tab color
                   },
                 }}
-                label="Account"
+                label="Personal"
                 {...a11yProps(0)}
               />
               <Tab

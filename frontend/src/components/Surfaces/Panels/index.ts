@@ -1,4 +1,4 @@
-import Credential from "./CredentialPanel";
+import Credential from "./PersonalPanel";
 import Health from "./HealthPanel";
 import MedicalRecord from "./MedicalRecordPanel";
 import Security from "./SecurityPanel";

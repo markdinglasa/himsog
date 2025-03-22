@@ -65,7 +65,9 @@ const ProfessionForm: SFC<SetupForm> = ({
     <S.Container className={ClassName}>
       <S.Content className="flex justify-center items-center w-full flex-col ">
         <S.FormHeader className="flex flex-row items-center justify-between mb-3">
-          <S.Span className="text-lg font-medium">{Title}</S.Span>
+          <S.Divider className="flex flex-col items-start">
+            <S.Span className="text-lg font-medium">{Title}</S.Span>
+          </S.Divider>
           <S.Divider>
             <AccessControl OtherCondition={IsEdit && IsDetails}>
               <CircleButton

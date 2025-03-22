@@ -1,15 +1,10 @@
 import { memo } from "react";
-import { CertificateTable, SFC } from "../../../types";
+import { CertificateProps, SFC } from "../../../types";
 import { cn, formatDateToMMDDYY } from "../../../utils";
 import { MoreOption } from "../../Surfaces";
 import * as S from "./Styles";
 import QRCode from "react-qr-code";
 
-interface CertificateProps {
-  OnEdit: () => void;
-  OnDelete: () => void;
-  Data: CertificateTable;
-}
 export const Certificate: SFC<CertificateProps> = ({
   ClassName,
   Data,

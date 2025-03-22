@@ -30,6 +30,7 @@ export interface UserTable extends Id, Logs {
   BirthDate: string | null;
   Fullname?: string;
   Gender: string;
+  Religion: string;
 }
 
 export type UserTables = UserTable[];
@@ -46,6 +47,7 @@ export const UserInitial: UserTable = {
   IsSuspended: false,
   BirthDate: "",
   Gender: "",
+  Religion: "",
 };
 
 export interface UserEmail extends Id, Logs {

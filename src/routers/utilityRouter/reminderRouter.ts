@@ -10,6 +10,7 @@ router.get(RouteChannel.REMINDER_REMOVE, TokenHandler.verifyToken);
 router.get(RouteChannel.REMINDER_UPDATE, TokenHandler.verifyToken);
 
 logging.log("----------------------------------------");
+logging.log("----------REMINDER CONTROLLER-----------");
 logging.log(`POST ${RouteChannel.REMINDER} [add]`);
 logging.log(`GET ${RouteChannel.REMINDER_PARENT} [get-all]`);
 logging.log(`GET ${RouteChannel.REMINDER_ID} [get]`);

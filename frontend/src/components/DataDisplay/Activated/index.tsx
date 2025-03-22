@@ -17,7 +17,7 @@ export const ActivatedProfessional: SFC<ActivatedProfessionalProps> = ({
       className={cn("w-full border rounded-lg bg-white p-[1rem]", ClassName)}
     >
       <div className="w-full">
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <span className="text-lg font-medium">Account Status</span>
           <span className="text-sm text-slate-600">
             Your current account status and verification.
