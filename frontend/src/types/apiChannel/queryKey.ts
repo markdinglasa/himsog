@@ -18,6 +18,8 @@ export enum QueryKey {
   PROFESSION = "profession",
   PROFESSION_RATING = "profession-rating",
   PROFESSION_VALIDATION = "profession-validation",
+  PROFESSION_INSTITUTE = "profession-institute",
+  PROFESSION_SPECIALIST = "profession-specialist",
   RECIPE = "recipe",
   RECIPE_LINE = "recipe-line",
   REMINDER = "reminder",

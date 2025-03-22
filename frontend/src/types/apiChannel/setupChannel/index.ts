@@ -18,7 +18,8 @@ import { EventChannel } from "./eventChannel";
 import { ArticleChannel } from "./articleChannel";
 import { RequestAccessChannel } from "./requestAccessChannel";
 import { ProfessionValidationChannel } from "./professionValidationChannel";
-
+import { ProfessionSpecialistChannel } from "./professionSpecialist";
+import { ProfessionInstituteChannel } from "./professionInstituteChannel";
 export const SetupChannel = {
   ...MealChannel,
   ...CertificateChannel,
@@ -40,4 +41,6 @@ export const SetupChannel = {
   ...UnitChannel,
   ...UserChannel,
   ...ProfessionValidationChannel,
+  ...ProfessionInstituteChannel,
+  ...ProfessionSpecialistChannel,
 } as const;

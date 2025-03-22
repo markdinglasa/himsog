@@ -17,6 +17,8 @@ import Unit from "./unit";
 import User from "./user";
 import Certificate from "./certificate";
 import ProfessionValidtion from "./professionValidation";
+import ProfessionInstitute from "./professionInstitute";
+import ProfessionSpecialist from "./professionSpecialist";
 
 export default {
   Unit,
@@ -36,6 +38,8 @@ export default {
   Profession,
   ProfessionRating,
   ProfessionValidtion,
+  ProfessionInstitute,
+  ProfessionSpecialist,
   Recipe,
   RecipeLine,
 };

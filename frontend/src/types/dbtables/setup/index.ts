@@ -18,3 +18,4 @@ export * from "./event";
 export * from "./article";
 export * from "./professionValidtion";
 export * from "./professionInstitute";
+export * from "./professionSpecialist";

@@ -21,7 +21,7 @@
 - [x] Admin, Suspend Account
 
 - [ ] Client, Avail Subscription
-- [ ] Client, View Subscriptions
+- [x] Client, View Subscriptions
 - [ ] Client, Cancel Subscription
 - [x] Admin, Manage Subscriptions
 
@@ -84,13 +84,13 @@
 - [0/6] Subtotal - Reports & Analytics
 
 - Notification = 3mod
-- [ ] Client, Receive system notification
+- [x] Client, Receive system notification
 - [ ] Client, Subscription Expiration Reminder notification
 
-- [ ] Nutritionist, Profile Approval Notification
-- [ ] Nutritionist, Receive system notification
+- [x] Nutritionist, Profile Approval Notification
+- [x] Nutritionist, Receive system notification
 - [ ] Nutritionist, New Feedback Notification
 
-- [ ] Admin, Receive system notification
+- [x] Admin, Receive system notification
 
 - [0/6] Subtotal - Notification
