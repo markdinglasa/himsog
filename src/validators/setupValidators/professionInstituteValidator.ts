@@ -8,6 +8,7 @@ export const professionInstituteValidator = Joi.object({
   Address: Joi.string().allow("").allow(null).optional(),
   DateStarted: Joi.date().required(),
   DateEnded: Joi.date().required(),
+  IsCurrentWork: Joi.boolean().required(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });
