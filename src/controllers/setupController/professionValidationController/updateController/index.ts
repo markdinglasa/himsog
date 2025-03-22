@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { ProfessionValidationTable } from "../../../../types";
+import {
+  NotificationTable,
+  ProfessionValidationTable,
+} from "../../../../types";
 import {
   DBTable,
   Error,
@@ -7,7 +10,7 @@ import {
   ProfessionValidationQuery,
 } from "../../../../shared";
 import { ProfessionValidationValidator } from "../../../../validators";
-import { UpdateService } from "../../../../services";
+import { AddService, UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const ProfessionValidationUpdate = async (
@@ -33,6 +36,22 @@ export const ProfessionValidationUpdate = async (
     )
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
     Data.DateUpdated = new Date();
+    const nofifyOnReject: NotificationTable = {
+      UserId: Data.UserId,
+      Description: Data.IsValidated
+        ? "Your account is now verified."
+        : (Data?.Remarks ?? "Your account verification has been disapproved."),
+      Link: "/n/settings",
+      IsRead: false,
+      DateCreated: new Date(),
+    };
+    const notify = await AddService.record(
+      DBTable.t008,
+      Object.keys(nofifyOnReject),
+      Object.values(nofifyOnReject).map((val) => typeof val),
+      Object.values(nofifyOnReject),
+    );
+
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);

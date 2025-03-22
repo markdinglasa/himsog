@@ -1,8 +1,17 @@
 import { NextFunction, Request, Response } from "express";
-import { ProfessionValidationTable } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import {
+  NotificationTable,
+  ProfessionValidationTable,
+} from "../../../../types";
+import {
+  DBTable,
+  Error,
+  ProfessionValidationQuery,
+  Success,
+} from "../../../../shared";
 import { ProfessionValidationValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
+import { isFound } from "../../../../functions";
 
 export const ProfessionValidationAdd = async (
   req: Request,
@@ -20,7 +29,36 @@ export const ProfessionValidationAdd = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+    if (
+      (
+        await isFound(
+          ProfessionValidationQuery.q004,
+          ["UserId"],
+          [Number],
+          [Data.UserId],
+        )
+      ).data
+    )
+      return res.status(401).json({ data: false, message: Error.m016 }); // check duplicate
     Data.DateCreated = new Date();
+    // Notify the user if account validation has been rejected.
+
+    const nofifyOnReject: NotificationTable = {
+      UserId: Data.UserId,
+      Description: Data.IsValidated
+        ? "Your account is now verified."
+        : (Data?.Remarks ?? "Your account verification has been disapproved."),
+      Link: "/n/settings",
+      IsRead: false,
+      DateCreated: new Date(),
+    };
+    const notify = await AddService.record(
+      DBTable.t008,
+      Object.keys(nofifyOnReject),
+      Object.values(nofifyOnReject).map((val) => typeof val),
+      Object.values(nofifyOnReject),
+    );
+    // console.log("notify:", notify);
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);

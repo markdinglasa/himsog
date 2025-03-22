@@ -2,7 +2,7 @@ import {
   ButtonColor,
   ButtonType,
   DialogType,
-  ProfessionTable,
+  ProfessionValidationTable,
   RouteChannel,
   SFC,
   UserRole,
@@ -25,6 +25,7 @@ import Certificates from "../../../../../components/DataDisplay/Certificates";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../../modals";
 import ActivatedProfessional from "../../../../../components/DataDisplay/Activated";
+
 export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -40,15 +41,15 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const { data } = API.Setup.User.Get(Number(Id));
   const [isValidate, toggleValidate] = useToggle(false);
   const [isDeclined, toggleDecline] = useToggle(false);
-
-  const { data: profession } = API.Setup.Profession.Get(Number(Id));
-  const { update: UpdateProfession } = API.Setup.Profession.Update(
-    false,
-    RouteChannel.INDEX,
-    false,
+  const { data: validation } = API.Setup.ProfessionValidtion.GetByUser(
+    Number(Id),
   );
+  // console.log("validation:", validation);
+  const ValidationId: number = parseInt(`${validation?.Id ?? 0}`, 10);
+  const { add: AddValidation } = API.Setup.ProfessionValidtion.Add();
+  const { update: UpdateValidation } = API.Setup.ProfessionValidtion.Update();
 
-  const IsValidated: boolean = IsBoolean(profession?.IsVerified) ?? false;
+  const IsValidated: boolean = IsBoolean(validation?.IsValidated) ?? false;
   return (
     <>
       <S.Container className={cn("w-full", ClassName)}>
@@ -113,7 +114,7 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
             </Suspense>
           </S.PageContent>
 
-          <S.PageContent className="border rounded-md w-full">
+          <S.PageContent className="border rounded-md w-full mb-3">
             <S.Divider className="w-full flex flex-col items-start justify-start mb-4">
               <S.Span className="text-lg font-medium">
                 Health Professional Validation
@@ -141,8 +142,9 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
           </S.PageContent>
 
           <ActivatedProfessional
+            ClassName="mb-3"
             IsActivated={IsValidated}
-            Remarks={profession?.Remarks ?? null}
+            Remarks={validation?.Remarks ?? null}
           />
         </AccessControl>
       </S.Container>
@@ -153,18 +155,17 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
         open={isValidate}
         confirm={() => {
           // exclude Id on data
-          const data: ProfessionTable = {
-            UserId: profession.UserId,
-            IsVerified: true,
-            Title: profession.Title,
-            LicenseNumber: profession.LicenseNumber,
-            YearsExp: profession.YearsExp,
-            Description: profession.Description,
+          const data: ProfessionValidationTable = {
+            UserId: Number(Id),
             Remarks: null,
+            IsValidated: true,
+            IsRejected: false,
           };
-          console.log("data", data);
-          UpdateProfession(Number(profession.Id), data);
-          toggleValidate();
+          // console.log("data", data);
+          console.log("ValidationId:", ValidationId);
+          if (ValidationId < 1) AddValidation(data);
+          else UpdateValidation(Number(validation?.Id), data);
+          toggleValidate;
         }}
         dialogType={DialogType.confirm}
       />

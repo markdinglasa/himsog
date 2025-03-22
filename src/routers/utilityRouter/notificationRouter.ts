@@ -1,13 +1,41 @@
 import express from "express";
 import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
+import {
+  NotificationAddController,
+  NotificationGetController,
+  NotificationGetAllController,
+  NotificationRemoveController,
+  NotificationUpdateController,
+} from "../../controllers";
+import { API_VERSION } from "../../constants";
 
 const router = express.Router();
-router.get(RouteChannel.NOTIFICATION_GET, TokenHandler.verifyToken);
-router.get(RouteChannel.NOTIFICATION_GET_ALL, TokenHandler.verifyToken);
-router.get(RouteChannel.NOTIFICATION_NEW, TokenHandler.verifyToken);
-router.get(RouteChannel.NOTIFICATION_REMOVE, TokenHandler.verifyToken);
-router.get(RouteChannel.NOTIFICATION_UPDATE, TokenHandler.verifyToken);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION}`,
+  TokenHandler.verifyToken,
+  NotificationAddController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,
+  TokenHandler.verifyToken,
+  NotificationGetController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION_PARENT}`,
+  TokenHandler.verifyToken,
+  NotificationGetAllController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,
+  TokenHandler.verifyToken,
+  NotificationRemoveController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,
+  TokenHandler.verifyToken,
+  NotificationUpdateController,
+);
 
 logging.log("----------------------------------------");
 logging.log("----------NOTIFICATION CONTROLLER-----------");

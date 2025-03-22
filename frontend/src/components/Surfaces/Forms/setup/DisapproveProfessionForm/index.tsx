@@ -2,8 +2,7 @@ import {
   ButtonColor,
   ButtonType,
   FormProps,
-  ProfessionTable,
-  RouteChannel,
+  ProfessionValidationTable,
   SFC,
   ToastType,
 } from "../../../../../types";
@@ -15,7 +14,7 @@ import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { memo } from "react";
 import { useAuth } from "../../../../../hooks";
-import { professionValidator } from "../../../../../validators";
+import { professionValidation } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
@@ -29,27 +28,22 @@ export const DisapproveProfessionForm: SFC<FormProps> = ({
   const { auth } = useAuth();
   const { Id: UserId } = useParams<{ Id: string }>();
   const Id = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
-  console.log("ProfessionId", Id);
-  const { update } = API.Setup.Profession.Update(
-    false,
-    RouteChannel.INDEX,
-    false,
-  );
-  const { data, isLoading } = API.Setup.Profession.Get(Id);
+  // console.log("ProfessionId", Id);
+  const { update } = API.Setup.ProfessionValidtion.Update();
+  const { add } = API.Setup.ProfessionValidtion.Add();
+  const { data, isLoading } = API.Setup.ProfessionValidtion.GetByUser(Id);
 
-  const InitialValues: ProfessionTable = {
+  const InitialValues: ProfessionValidationTable = {
     UserId: data?.UserId || 0,
-    Title: data?.Title || "",
-    LicenseNumber: data?.LicenseNumber || "",
-    YearsExp: data?.YearsExp || 0,
-    Description: data?.Description || "",
-    IsVerified: false,
+    IsValidated: false,
+    IsRejected: true,
     Remarks: null,
   };
 
-  const handleSubmit = async (values: ProfessionTable) => {
+  const handleSubmit = async (values: ProfessionValidationTable) => {
     try {
       if (Id) update(Number(data?.Id), values);
+      else add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
     } finally {
@@ -73,7 +67,7 @@ export const DisapproveProfessionForm: SFC<FormProps> = ({
               onSubmit={handleSubmit}
               enableReinitialize={true}
               validateOnMount={true}
-              validationSchema={professionValidator}
+              validationSchema={professionValidation}
             >
               {({
                 isValid,

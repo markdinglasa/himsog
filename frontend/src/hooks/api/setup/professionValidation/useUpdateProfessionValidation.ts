@@ -4,14 +4,16 @@ import {
   ToastType,
   ProfessionValidationTable,
   ProfessionValidationInitial,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateProfessionValidation = () => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -29,6 +31,9 @@ const useUpdateProfessionValidation = () => {
     },
     onSuccess: () => {
       displayToast(Success.m00004, ToastType.success);
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.PROFESSION_VALIDATION],
+      });
     },
     onError: (error: any) => {
       displayToast(

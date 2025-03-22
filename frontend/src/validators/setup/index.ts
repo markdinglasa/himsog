@@ -16,3 +16,4 @@ export * from "./subscription";
 export * from "./subscriptionLine";
 export * from "./userValidator";
 export * from "./unitValidator";
+export * from "./professionValidation";

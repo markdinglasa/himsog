@@ -5,6 +5,7 @@ import { API_VERSION } from "../../constants";
 import {
   ProfessionValidationAdd,
   ProfessionValidationGet,
+  ProfessionValidationGetByUser,
   ProfessionValidationRemoved,
   ProfessionValidationUpdate,
 } from "../../controllers";
@@ -20,6 +21,11 @@ router.get(
   `${API_VERSION}${RouteChannel.PROFESSION_VALIDITION_ID}`,
   TokenHandler.verifyToken,
   ProfessionValidationGet,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PROFESSION_VALIDITION_USER}`,
+  TokenHandler.verifyToken,
+  ProfessionValidationGetByUser,
 );
 
 router.delete(

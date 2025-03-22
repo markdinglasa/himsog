@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Panel from "../../../components/Surfaces/Panels";
 import { ActivatedProfessional } from "../../../components/DataDisplay/Activated";
 import { useAuth } from "../../../hooks";
-
+import API from "../../../hooks/api";
 export const NutritionistSettings: SFC = ({ ClassName }) => {
   const [index, setIndex] = useState<number>(0);
   const handleChanges = (_event: React.SyntheticEvent, newValue: number) => {
@@ -23,6 +23,9 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
     },
   ];
   const { auth } = useAuth();
+  const { data: validation } = API.Setup.ProfessionValidtion.GetByUser(
+    Number(auth?.user ?? 0),
+  );
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -123,8 +126,11 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
             (auth?.roles as unknown as UserRole) === UserRole.NUTRITIONIST
           }
         >
-          <S.Divider className="w-full mb-5 mt-5">
-            <ActivatedProfessional IsActivated={false} Remarks={null} />
+          <S.Divider className="w-full mb-2 mt-2">
+            <ActivatedProfessional
+              IsActivated={validation?.IsValidated ?? false}
+              Remarks={validation?.Remarks ?? null}
+            />
           </S.Divider>
         </AccessControl>
       </S.Container>
