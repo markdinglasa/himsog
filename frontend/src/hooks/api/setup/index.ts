@@ -19,6 +19,7 @@ import Certificate from "./certificate";
 import ProfessionValidtion from "./professionValidation";
 import ProfessionInstitute from "./professionInstitute";
 import ProfessionSpecialist from "./professionSpecialist";
+import PayType from "./payType";
 
 export default {
   Unit,
@@ -35,6 +36,7 @@ export default {
   MealPlan,
   NutritionFact,
   MealPlanLine,
+  PayType,
   Profession,
   ProfessionRating,
   ProfessionValidtion,

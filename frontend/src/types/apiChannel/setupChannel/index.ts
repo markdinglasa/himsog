@@ -20,6 +20,8 @@ import { RequestAccessChannel } from "./requestAccessChannel";
 import { ProfessionValidationChannel } from "./professionValidationChannel";
 import { ProfessionSpecialistChannel } from "./professionSpecialist";
 import { ProfessionInstituteChannel } from "./professionInstituteChannel";
+import { PayTypeChannel } from "./payTypeChannel";
+
 export const SetupChannel = {
   ...MealChannel,
   ...CertificateChannel,
@@ -43,4 +45,5 @@ export const SetupChannel = {
   ...ProfessionValidationChannel,
   ...ProfessionInstituteChannel,
   ...ProfessionSpecialistChannel,
+  ...PayTypeChannel,
 } as const;
