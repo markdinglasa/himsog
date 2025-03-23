@@ -24,14 +24,14 @@ const useUpdateProfessionSpecialist = () => {
       data: ProfessionSpecialistTable;
     }) => {
       const response = await axios.patch(
-        `${APIChannel.PROFESSION_ID.replace(":Id", Id.toString())}`,
+        `${APIChannel.PROFESSION_SPECIALIST_ID.replace(":Id", Id.toString())}`,
         data,
       );
       return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey.PROFESSION],
+        queryKey: [QueryKey.PROFESSION_SPECIALIST],
       });
       displayToast(Success.m00004, ToastType.success);
     },

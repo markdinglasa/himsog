@@ -4,12 +4,19 @@ import { a11yProps, cn, CustomTabPanel } from "../../../utils";
 import { memo, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { colors } from "../../../styles";
-import { AccessControl, PageBreadCrumbs } from "../../../components";
+import {
+  AccessControl,
+  FeedbackEmail,
+  PageBreadCrumbs,
+} from "../../../components";
 import { useNavigate } from "react-router-dom";
 import Panel from "../../../components/Surfaces/Panels";
 import { ActivatedProfessional } from "../../../components/DataDisplay/Activated";
 import { useAuth } from "../../../hooks";
 import API from "../../../hooks/api";
+import Institutes from "../../../components/DataDisplay/Institutes";
+import { Specialists } from "../../../components/DataDisplay/Specalists";
+import { Certificates } from "../../../components/DataDisplay/Certificates";
 export const NutritionistSettings: SFC = ({ ClassName }) => {
   const [index, setIndex] = useState<number>(0);
   const handleChanges = (_event: React.SyntheticEvent, newValue: number) => {
@@ -110,7 +117,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
               <Panel.Profession />
             </CustomTabPanel>
             <CustomTabPanel index={2} value={index}>
-              <Panel.Certificates />
+              <Panel.Transaction />
             </CustomTabPanel>
             <CustomTabPanel index={3} value={index}>
               <Panel.Subscription />
@@ -126,11 +133,30 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
             (auth?.roles as unknown as UserRole) === UserRole.NUTRITIONIST
           }
         >
-          <S.Divider className="w-full mb-2 mt-2">
+          <S.Divider className="w-full mb-[1rem] mt-[1rem]">
             <ActivatedProfessional
               IsActivated={validation?.IsValidated ?? false}
               Remarks={validation?.Remarks ?? null}
             />
+          </S.Divider>
+        </AccessControl>
+        <AccessControl
+          OtherCondition={
+            index === 1 &&
+            (auth?.roles as unknown as UserRole) === UserRole.NUTRITIONIST
+          }
+        >
+          <S.Divider className="w-full mt-[1rem] mb-[1rem] bg-white p-[1rem] border border-slate-300 rounded-md">
+            <Institutes />
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem] bg-white p-[1rem] border border-slate-300 rounded-md">
+            <Specialists />
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem] bg-white p-[1rem] border border-slate-300 rounded-md">
+            <Certificates />
+            <S.Divider>
+              <FeedbackEmail />
+            </S.Divider>
           </S.Divider>
         </AccessControl>
       </S.Container>

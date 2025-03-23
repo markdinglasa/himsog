@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Error, ProfessionInstituteQuery, Success } from "../../../../shared";
+import { Error, ProfessionSpecialistQuery, Success } from "../../../../shared";
 import { GetService } from "../../../../services";
 import { ProfessionSpecialistTables } from "../../../../types";
 
@@ -11,7 +11,7 @@ export const ProfessionSpecialistGetAllController = async (
   try {
     const UserId: number = parseInt(req.params?.Id, 10);
     const response: ProfessionSpecialistTables = await GetService.byFields(
-      ProfessionInstituteQuery.q001,
+      ProfessionSpecialistQuery.q001,
       ["UserId"],
       [Number],
       [UserId],

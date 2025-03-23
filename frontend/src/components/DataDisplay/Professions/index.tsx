@@ -23,7 +23,7 @@ export const Professions: SFC<FormProps> = ({ IsEdit = true }) => {
 
   return (
     <>
-      <div className="w-full flex flex-row items-center justify-between">
+      <div className="w-full flex flex-row items-center justify-between ">
         <div className="flex flex-col">
           <span className="text-lg font-medium">Licenses</span>
           <AccessControl OtherCondition={IsEdit}>
@@ -52,7 +52,7 @@ export const Professions: SFC<FormProps> = ({ IsEdit = true }) => {
         </AccessControl>
       </div>
 
-      <div className="w-full mb-2 flex flex-wrap gap-3 mt-3">
+      <div className="w-full flex flex-wrap gap-3 mt-3 ">
         {isLoading ? (
           <Skeleton />
         ) : professions?.length ? (

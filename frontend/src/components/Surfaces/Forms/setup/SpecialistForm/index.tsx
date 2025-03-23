@@ -22,7 +22,7 @@ import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
-import { professionInstituteValidator } from "../../../../../validators/setup/professionInstitute";
+import { professionSpecialistValidator } from "../../../../../validators";
 
 const SpecialistForm: SFC<FormProps> = ({
   ClassName,
@@ -50,7 +50,7 @@ const SpecialistForm: SFC<FormProps> = ({
     values: ProfessionSpecialistTable,
   ): Promise<void> => {
     try {
-      if (Object.keys(data).length !== 0) update(Number(data.Id), values);
+      if (data?.Id) update(Number(data.Id), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
@@ -85,7 +85,7 @@ const SpecialistForm: SFC<FormProps> = ({
                   onSubmit={handleSubmit}
                   enableReinitialize={true}
                   validateOnMount={true}
-                  validationSchema={professionInstituteValidator}
+                  validationSchema={professionSpecialistValidator}
                 >
                   {({
                     errors,
@@ -108,7 +108,7 @@ const SpecialistForm: SFC<FormProps> = ({
                             disabled={IsEdit}
                             value={values?.Title}
                             placeholder="e.g. Clinical Nutrition"
-                            name="Name"
+                            name="Title"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -116,9 +116,10 @@ const SpecialistForm: SFC<FormProps> = ({
                         </S.Divider>
                         <S.Divider className="w-full py-1">
                           <textarea
-                            className="w-full h-[300px] p-3 bg-inherit border border-[#C4C4C4] hover:border-[#202020] resize-none"
+                            className="w-full h-[10rem] p-3 bg-inherit border border-[#C4C4C4] hover:border-[#202020] resize-none"
                             placeholder="e.g. Medical nutrition therapy for various health conditions."
                             name="Description"
+                            value={values?.Description ?? ""}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
@@ -126,7 +127,7 @@ const SpecialistForm: SFC<FormProps> = ({
                         <S.Divider className="w-full py-1">
                           <CustomInput
                             errors={errors}
-                            type={InputType.text}
+                            type={InputType.number}
                             disabled={IsEdit}
                             label="Year of Experience"
                             value={values?.Experience.toString()}

@@ -9,6 +9,7 @@ import Profile from "./ProfileCard";
 import License from "./LicenseCard";
 import Notification from "./NotificationCard";
 import Institute from "./InstituteCard";
+import Specialist from "./SpecialistCard";
 
 const Card = {
   Event,
@@ -19,6 +20,7 @@ const Card = {
   License,
   Notification,
   Institute,
+  Specialist,
 };
 
 export default Card;

@@ -45,7 +45,7 @@ export const PageContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 1rem;
   background: ${colors.white};
   padding: 1rem;
 `;

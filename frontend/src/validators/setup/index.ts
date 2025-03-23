@@ -17,3 +17,5 @@ export * from "./subscriptionLine";
 export * from "./userValidator";
 export * from "./unitValidator";
 export * from "./professionValidation";
+export * from "./professionInstitute";
+export * from "./professionSpecialist";

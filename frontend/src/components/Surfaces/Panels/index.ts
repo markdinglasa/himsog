@@ -5,6 +5,7 @@ import Security from "./SecurityPanel";
 import Subscription from "./SubscriptionPanel";
 import Profession from "./ProfessionPanel";
 import Certificates from "./CertifcatePanel";
+import Transaction from "./TransactionPanel";
 
 export default {
   Credential,
@@ -14,4 +15,5 @@ export default {
   Security,
   Profession,
   Certificates,
+  Transaction,
 };

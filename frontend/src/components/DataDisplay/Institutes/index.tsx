@@ -52,7 +52,7 @@ export const Institutes: SFC<FormProps> = ({ IsEdit = true }) => {
         </AccessControl>
       </div>
 
-      <div className="w-full mb-2 flex flex-wrap gap-3 mt-3">
+      <div className="w-full flex flex-wrap gap-3 mt-3">
         {isLoading ? (
           <Skeleton />
         ) : institutes?.length ? (
