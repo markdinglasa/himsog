@@ -20,3 +20,4 @@ export * from "./articleValidator";
 export * from "./professionValidationValidator";
 export * from "./professionInstituteValidator";
 export * from "./professionSpecialistValidator";
+export * from "./payTypeValidator";
