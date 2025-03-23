@@ -5,6 +5,7 @@ export interface PayTypeTable extends Id, Logs {
   Name: string;
   Holder: string;
   MobileNumber: string;
+  Image: string | null;
 }
 
 export type PayTypeTables = PayTypeTable[];
@@ -13,4 +14,5 @@ export const PayTypeInitial: PayTypeTable = {
   Name: "",
   MobileNumber: "",
   UserId: 0,
+  Image: null,
 };

@@ -12,6 +12,7 @@ export const payTypeValidator = Joi.object({
     .pattern(/^(09|\+639)\d{9}$/)
     .allow(null)
     .optional(),
+  Image: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

@@ -12,6 +12,7 @@ import AdminAccount from "./AdminAccountForm";
 import DisapproveProfession from "./DisapproveProfessionForm";
 import Institute from "./InstituteForm";
 import Specialist from "./SpecialistForm";
+import PayType from "./PayTypeForm";
 
 export default {
   Unit,
@@ -28,4 +29,5 @@ export default {
   DisapproveProfession,
   Institute,
   Specialist,
+  PayType,
 };

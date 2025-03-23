@@ -21,5 +21,6 @@ export const payTypeValidator = () => {
       .string()
       .matches(/^(09|\+639)\d{9}$/, "Please use valid mobile number")
       .required("Mobile Number is required"),
+    Image: yup.string().nullable().optional(),
   });
 };
