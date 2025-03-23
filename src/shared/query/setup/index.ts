@@ -19,3 +19,4 @@ export * from "./requestAccessQuery";
 export * from "./professionValidationQuery";
 export * from "./professionInstituteQuery";
 export * from "./professionSpecialistQuery";
+export * from "./payTypeQuery";

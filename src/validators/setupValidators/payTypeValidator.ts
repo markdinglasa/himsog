@@ -2,6 +2,9 @@ import Joi from "joi";
 
 export const payTypeValidator = Joi.object({
   UserId: Joi.number().integer().positive().required(),
+  Name: Joi.string()
+    .pattern(/^[A-Za-z\s.,&-]+$/)
+    .required(),
   Holder: Joi.string()
     .pattern(/^[A-Za-z\s.,&-]+$/)
     .required(),

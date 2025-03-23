@@ -19,3 +19,4 @@ export * from "./requestAccessController";
 export * from "./professionValidationController";
 export * from "./professionInstituteController";
 export * from "./professionSpecialistController";
+export * from "./payTypeController";

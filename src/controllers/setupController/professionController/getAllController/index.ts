@@ -11,6 +11,8 @@ export const ProfessionGetAllController = async (
 ): Promise<any> => {
   try {
     const UserId: number = parseInt(req.params?.Id, 10);
+    if (!UserId || UserId === 0 || UserId === undefined)
+      return res.status(401).json({ data: [], message: Error.m005 });
     const response: ProfessionTables = await GetService.byFields(
       ProfessionQuery.q001,
       ["UserId"],

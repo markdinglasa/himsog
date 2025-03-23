@@ -28,7 +28,7 @@ export enum DBTable {
   t026 = "profession_validation",
   t027 = "institute",
   t028 = "specialist",
-  t029 = "",
+  t029 = "pay_type",
   t030 = "",
   t031 = "",
   t032 = "",

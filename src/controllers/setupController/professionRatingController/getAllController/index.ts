@@ -10,19 +10,16 @@ export const ProfessionRatingGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const ProfessionId: number = parseInt(req.params?.Id, 10);
-    if (!ProfessionId || ProfessionId === 0 || ProfessionId === undefined)
+    const UserId: number = parseInt(req.params?.Id, 10);
+    if (!UserId || UserId === 0 || UserId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
-    if (
-      !(await isFound(ProfessionQuery.q002, ["Id"], [Number], [ProfessionId]))
-        .data
-    )
+    if (!(await isFound(ProfessionQuery.q002, ["Id"], [Number], [UserId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Profession existence
     const response = await GetService.byFields(
       ProfessionRatingQuery.q001,
-      ["ProfessionId"],
+      ["UserId"],
       [Number],
-      [ProfessionId],
+      [UserId],
     );
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
