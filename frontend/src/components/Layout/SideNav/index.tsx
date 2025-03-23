@@ -186,10 +186,12 @@ export const SideNav: SFC<SideNavProps> = ({
                 label="Requests"
                 onClick={() => {
                   Toggle();
-                  navigate(RouteChannel.NUTRITIONIST_REQUEST);
-                  setActive(RouteChannel.NUTRITIONIST_REQUEST);
+                  navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
+                  setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
                 }}
-                IsActive={active === RouteChannel.NUTRITIONIST_REQUEST}
+                IsActive={
+                  active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
+                }
               />
             </AccessControl>
             <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>

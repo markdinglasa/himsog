@@ -39,7 +39,7 @@ export const PaymentMethodCard: SFC<ProfessionProps> = ({
                 Mobile Number: {Data?.MobileNumber ?? ""}
               </span>
               <span className="text-sm text-slate-600">
-                Date Added: {formatDateToYYMMDD(Data?.DateCreateed ?? "") ?? ""}
+                Date Added: {formatDateToYYMMDD(Data?.DateCreated ?? "") ?? ""}
               </span>
             </div>
             <MoreOption

@@ -4,7 +4,7 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllMealPlanRequest = (UserId: string) => {
+const useGetAllMealPlanRequest = (UserId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.MEAL_PLAN_REQUEST, UserId], // Unique key for the query, including the Id

@@ -3,6 +3,8 @@ import { AppoinmentStatus } from "./appointment";
 
 export interface MealPlanRequestTable extends Id, Logs {
   UserId: number; // FK to UserTable
+  UserName?: string;
+  UserPhoto?: string;
   NutritionistId: number; // FK to UserTable
   Duration: number; // Number of days
   Remarks: string | null;

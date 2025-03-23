@@ -22,13 +22,12 @@ const TableToolbar: SFC<TableToolbarProps> = ({ Title, children }) => {
             <Typography
               sx={{
                 fontFamily: "Montserrat",
-                color: colors.palette.neutral["800"],
                 minWidth: "300px",
                 maxWidth: "100%",
                 flex: "1 1 100%",
-                fontSize: { xs: "1rem", md: "1.25rem" },
+                fontSize: { xs: "large", md: "large" },
+                fontWeight: "medium",
               }}
-              variant="h6"
               id="tableTitle"
               component="div"
             >

@@ -20,7 +20,7 @@ import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
-import { professionValidator } from "../../../../../validators/";
+import { payTypeValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
@@ -31,6 +31,8 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import { mdiWalletBifoldOutline } from "@mdi/js";
+import UIcon from "@mdi/react";
 
 const PayTypeForm: SFC<FormProps> = ({
   ClassName,
@@ -55,8 +57,10 @@ const PayTypeForm: SFC<FormProps> = ({
 
   const handleSubmit = async (values: PayTypeTable): Promise<void> => {
     try {
-      if (Object.keys(data).length !== 0) update(Number(data.Id), values);
+      // console.log("values:", values);
+      if (data?.Id) update(Number(data.Id), values);
       else add(values);
+      OnClose && OnClose();
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }
@@ -90,7 +94,7 @@ const PayTypeForm: SFC<FormProps> = ({
                   onSubmit={handleSubmit}
                   enableReinitialize={true}
                   validateOnMount={true}
-                  validationSchema={professionValidator}
+                  validationSchema={payTypeValidator}
                 >
                   {({
                     errors,
@@ -101,34 +105,107 @@ const PayTypeForm: SFC<FormProps> = ({
                     values,
                     resetForm,
                     isValid,
-                  }) =>
-                    !isLoading ? (
+                    setFieldValue,
+                  }) => {
+                    return !isLoading ? (
                       <Form>
                         <S.Divider className="w-full flex md:flex-row flex-col md:gap-2"></S.Divider>
                         <S.Divider className="w-full py-1">
                           <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">
+                            <FormLabel
+                              id="demo-radio-buttons-group-label"
+                              color="success"
+                              sx={{
+                                fontSize: "small",
+                              }}
+                            >
                               Online Payment Method
                             </FormLabel>
                             <RadioGroup
                               aria-labelledby="demo-radio-buttons-group-label"
-                              defaultValue="gcash"
                               name="Name"
+                              value={values.Name}
+                              onChange={(e) =>
+                                setFieldValue("Name", e.target.value)
+                              }
                             >
                               <FormControlLabel
                                 value="gcash"
-                                control={<Radio />}
-                                label="GCash"
+                                control={
+                                  <Radio
+                                    size="small"
+                                    sx={{
+                                      color: S.colors.primary,
+                                      "&.Mui-checked": {
+                                        color: S.colors.primary,
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <>
+                                    <div className="flex items-center gap-2 justify-center flex-row text-left">
+                                      <UIcon
+                                        path={mdiWalletBifoldOutline}
+                                        size={1}
+                                        className="text-green-400"
+                                      />
+                                      <span>GCash</span>
+                                    </div>
+                                  </>
+                                }
                               />
                               <FormControlLabel
                                 value="maya"
-                                control={<Radio />}
-                                label="Maya"
+                                control={
+                                  <Radio
+                                    size="small"
+                                    sx={{
+                                      color: S.colors.primary,
+                                      "&.Mui-checked": {
+                                        color: S.colors.primary,
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <>
+                                    <div className="flex items-center gap-2 justify-center flex-row text-left">
+                                      <UIcon
+                                        path={mdiWalletBifoldOutline}
+                                        size={1}
+                                        className="text-green-400"
+                                      />
+                                      <span>Maya</span>
+                                    </div>
+                                  </>
+                                }
                               />
                               <FormControlLabel
                                 value="gotyme"
-                                control={<Radio />}
-                                label="GoTyme"
+                                control={
+                                  <Radio
+                                    size="small"
+                                    sx={{
+                                      color: S.colors.primary,
+                                      "&.Mui-checked": {
+                                        color: S.colors.primary,
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <>
+                                    <div className="flex items-center gap-2 justify-center flex-row text-left">
+                                      <UIcon
+                                        path={mdiWalletBifoldOutline}
+                                        size={1}
+                                        className="text-green-400"
+                                      />
+                                      <span>GoTyme</span>
+                                    </div>
+                                  </>
+                                }
                               />
                             </RadioGroup>
                           </FormControl>
@@ -164,10 +241,7 @@ const PayTypeForm: SFC<FormProps> = ({
                         <S.Divider className="w-full mb-[1rem]">
                           <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
                             <S.Span>
-                              <FolderOpenIcon
-                                className="text-slate-600"
-                                fontSize="small"
-                              />
+                              <FolderOpenIcon className="text-slate-600" />
                             </S.Span>
                             <S.Span className="text-sm text-slate-600 text-center">
                               Drag & drop your supporting document or click the
@@ -212,8 +286,8 @@ const PayTypeForm: SFC<FormProps> = ({
                       </Form>
                     ) : (
                       <Skeleton />
-                    )
-                  }
+                    );
+                  }}
                 </Formik>
               </S.Divider>
             </S.Divider>

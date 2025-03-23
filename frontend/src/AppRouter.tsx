@@ -302,6 +302,14 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Nutritionist.Dashboard />}
               />
               <Route
+                path={RouteChannel.NUTRITIONIST_TERMS_AND_CONDITIONS}
+                element={<Page.Nutritionist.TermsCondition />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_PRIVACY_POLICY}
+                element={<Page.Nutritionist.PrivacyPolicy />}
+              />
+              <Route
                 path={RouteChannel.NUTRITIONIST_SETTINGS}
                 element={<Page.Nutritionist.Settings />}
               />
@@ -311,15 +319,19 @@ export const AppRouter = createBrowserRouter(
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_MESSENGER}
-                element={<Page.UnderConstruction />}
-              />
-              <Route
-                path={RouteChannel.NUTRITIONIST_APPOINTMENT}
-                element={<Page.UnderConstruction />}
+                element={<Page.Nutritionist.Messenger />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_ARTICLE}
-                element={<Page.UnderConstruction />}
+                element={<Page.Nutritionist.Article.View />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_ARTICLE_DETAILS}
+                element={<Page.Nutritionist.Article.Details />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_ARTICLE_NEW}
+                element={<Page.Nutritionist.Article.New />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_EVENT}
@@ -334,16 +346,28 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Nutritionist.Event.Details />}
               />
               <Route
-                path={RouteChannel.NUTRITIONIST_REQUEST}
-                element={<Page.UnderConstruction />}
+                path={RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST}
+                element={<Page.Nutritionist.Requests.View />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST_DETAILS}
+                element={<Page.Nutritionist.Requests.Details />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_MEAL_PLAN}
-                element={<Page.UnderConstruction />}
+                element={<Page.Nutritionist.MealPlan />}
               />
               <Route
-                path={RouteChannel.NUTRITIONIST_MEAL}
-                element={<Page.UnderConstruction />}
+                path={RouteChannel.NUTRITIONIST_APPOINTMENT}
+                element={<Page.Nutritionist.Appointment.View />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_APPOINTMENT_DETAILS}
+                element={<Page.Nutritionist.Appointment.Details />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_APPOINTMENT_NEW}
+                element={<Page.Nutritionist.Appointment.New />}
               />
             </Route>
           </Route>

@@ -10,8 +10,8 @@ export enum PaymentStatus {
 export interface PaymentTable extends Id, Logs {
   TransactionDate: string;
   TransactionId: string;
-  UserId: number;
-  SubscriptionId: number; // FK to SubscriptionTable
+  UserId: number; // PAYEE
+  SubscriptionId: number; // FK to SubscriptionTable or NutritionistId
   Curreny: Currency; //  PHP as default
   Amount: number;
   Method: string;

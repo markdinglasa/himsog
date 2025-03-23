@@ -1,13 +1,22 @@
-import { RouteChannel, SFC, UserRole } from "../../../types";
+import {
+  HeadCell,
+  paymentHC,
+  QueryKey,
+  RouteChannel,
+  SFC,
+  UserRole,
+} from "../../../types";
 import * as S from "../../../styles/Styles";
 import { a11yProps, cn, CustomTabPanel } from "../../../utils";
-import { memo, useState } from "react";
+import { memo, Suspense, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { colors } from "../../../styles";
 import {
   AccessControl,
+  EnhancedTable,
   FeedbackEmail,
   PageBreadCrumbs,
+  Skeleton,
 } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import Panel from "../../../components/Surfaces/Panels";
@@ -157,6 +166,36 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
             <S.Divider>
               <FeedbackEmail />
             </S.Divider>
+          </S.Divider>
+        </AccessControl>
+        <AccessControl
+          OtherCondition={
+            index === 2 &&
+            (auth?.roles as unknown as UserRole) === UserRole.NUTRITIONIST
+          }
+        >
+          <S.Divider className="w-full mt-[1rem] mb-[1rem] bg-white p-[1rem] border border-slate-300 rounded-md">
+            <div className="flex flex-col">
+              <span className="text-lg font-medium">Transaction History</span>
+              <div>
+                <span className="text-sm text-slate-600">
+                  Previous transactions and payments.
+                </span>
+              </div>
+            </div>
+            <div>
+              <Suspense fallback={<Skeleton />}>
+                <EnhancedTable
+                  Title="Transaction History"
+                  Rows={[]}
+                  HeadCells={paymentHC as HeadCell<unknown>[]}
+                  IsLoading={false}
+                  ClassName="md:max-h-[calc(100vh-200px)]"
+                  QueryKey={QueryKey.PAYMENT}
+                  IsTableTool={false}
+                />
+              </Suspense>
+            </div>
           </S.Divider>
         </AccessControl>
       </S.Container>

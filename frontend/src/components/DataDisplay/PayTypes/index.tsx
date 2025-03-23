@@ -67,20 +67,17 @@ export const PayTypes: SFC<FormProps> = ({ IsEdit = true }) => {
           ))
         ) : (
           <div className="w-full text-center items-center">
-            <span>No Pay Type</span>
+            <span>No Payment Method</span>
           </div>
         )}
       </div>
       <CustomModal
         close={toggleDisplay}
-        title="New Pay Type"
+        title="New Payment Method"
         open={isDisplay}
         ClassName="md:w-[800px] w-[80vw]"
       >
-        <Form.Setup.Institute
-          RecordId={record}
-          OnClose={() => toggleDisplay()}
-        />
+        <Form.Setup.PayType RecordId={record} OnClose={() => toggleDisplay()} />
       </CustomModal>
     </>
   );

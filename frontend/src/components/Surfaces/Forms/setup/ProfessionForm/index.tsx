@@ -23,6 +23,7 @@ import { displayToast } from "../../../../../utils";
 import { professionValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 
 const ProfessionForm: SFC<FormProps> = ({
   ClassName,
@@ -179,6 +180,9 @@ const ProfessionForm: SFC<FormProps> = ({
                         </S.Divider>
                         <S.Divider className="w-full mb-[1rem]">
                           <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <S.Span>
+                              <FolderOpenIcon className="text-slate-600" />
+                            </S.Span>
                             <S.Span className="text-sm text-slate-600 text-center">
                               Drag & drop your supporting document or click the
                               button to browse.

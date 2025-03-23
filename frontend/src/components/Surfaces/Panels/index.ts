@@ -6,6 +6,9 @@ import Subscription from "./SubscriptionPanel";
 import Profession from "./ProfessionPanel";
 import Certificates from "./CertifcatePanel";
 import Transaction from "./TransactionPanel";
+import CustomMadePlan from "./CustomMadePlanPanel";
+import MealPlan from "./MealPlanPanel";
+import PreMadePlan from "./PreMadePlanPanel";
 
 export default {
   Credential,
@@ -16,4 +19,7 @@ export default {
   Profession,
   Certificates,
   Transaction,
+  CustomMadePlan,
+  MealPlan,
+  PreMadePlan,
 };
