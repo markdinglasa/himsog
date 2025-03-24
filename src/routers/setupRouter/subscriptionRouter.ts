@@ -5,6 +5,7 @@ import { API_VERSION } from "../../constants";
 import {
   SubscriptionAddController,
   SubscriptionGetAllController,
+  SubscriptionGetByNameController,
   SubscriptionGetController,
   SubscriptionRemoveController,
   SubscriptionUpdateController,
@@ -26,6 +27,11 @@ router.get(
   TokenHandler.verifyToken,
   SubscriptionGetController,
 );
+router.get(
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_NAME}`,
+  TokenHandler.verifyToken,
+  SubscriptionGetByNameController,
+);
 router.delete(
   `${API_VERSION}${RouteChannel.SUBSCRIPTION_ID}`,
   TokenHandler.verifyToken,
@@ -42,6 +48,7 @@ logging.log("--------SUBSCRIPTION CONTROLLER---------");
 logging.log(`GET ${RouteChannel.SUBSCRIPTION} [get-all]`);
 logging.log(`POST ${RouteChannel.SUBSCRIPTION} [add]`);
 logging.log(`GET ${RouteChannel.SUBSCRIPTION_ID} [get]`);
+logging.log(`GET ${RouteChannel.SUBSCRIPTION_NAME} [getByName]`);
 logging.log(`DELETE ${RouteChannel.SUBSCRIPTION_ID} [remove]`);
 logging.log(`PATCH ${RouteChannel.SUBSCRIPTION_ID} [update]`);
 logging.log("----------------------------------------");

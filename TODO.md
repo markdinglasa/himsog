@@ -15,7 +15,7 @@
 
 - [x] Client, Health Data - Setup
 - [x] Nutritionist, Profession - Setup
-- [ ] Nutritionist, Verification
+- [x] Nutritionist, Verification
 
 - [x] Admin, Remove Account
 - [x] Admin, Suspend Account
@@ -27,7 +27,7 @@
 
 - [ ] Client, Manage Reminders
 
-- [0/18] Subtotal - Account Management
+- [15/18] Subtotal - Account Management
 
 - Meal Plan Management = 3mod
 - [ ] Client, View Meal Plan
@@ -93,4 +93,4 @@
 
 - [x] Admin, Receive system notification
 
-- [0/6] Subtotal - Notification
+- [4/6] Subtotal - Notification

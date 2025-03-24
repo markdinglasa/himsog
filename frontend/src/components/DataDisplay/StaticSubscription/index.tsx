@@ -1,15 +1,20 @@
-import { ButtonColor, SFC } from "../../../types";
+import { ButtonColor, Roles, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import Icon from "../../../constants/icon";
 import { CustomButton } from "../../Inputs";
-import { cn } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
+import { useAuth } from "../../../hooks";
+import { useNavigate } from "react-router-dom";
+
 interface StatisSubscriptionProps {
   onClick: () => void;
 }
 export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
   ClassName,
-  onClick,
 }) => {
+  const { auth } = useAuth();
+  const path = renderPath(auth?.roles as Roles);
+  const navigate = useNavigate();
   return (
     <>
       <S.Divider
@@ -52,7 +57,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
             <S.Divider>
               <CustomButton
                 text="Get Started"
-                onClick={onClick}
+                onClick={() => navigate(`${path}/subscription/free`)}
                 morph={false}
               />
             </S.Divider>
@@ -96,7 +101,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
               <CustomButton
                 color={ButtonColor.white}
                 text="Get Started"
-                onClick={onClick}
+                onClick={() => navigate(`${path}/subscription/premium`)}
                 morph={false}
               />
             </S.Divider>

@@ -11,6 +11,7 @@ import Article from "./Articles";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsCondition from "./TermsCondition";
 import Ingredient from "./Ingredient";
+import Subscription from "./Subscription";
 
 const Nutritionist = {
   Dashboard,
@@ -26,6 +27,7 @@ const Nutritionist = {
   PrivacyPolicy,
   TermsCondition,
   Ingredient,
+  Subscription,
 };
 
 export default Nutritionist;
