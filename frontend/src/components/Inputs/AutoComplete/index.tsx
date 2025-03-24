@@ -47,7 +47,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
         </div>
         <S.Content>
           <S.AutoComplete
-            className={`border border-[#C4C4C4] ${IsEdit ? "" : "hover:border-[#202020]"}`}
+            className={`border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "" : "hover:border-[#202020]"}`}
             options={Options}
             getOptionLabel={(option: any) => option[OptionName]}
             value={selectedValue}

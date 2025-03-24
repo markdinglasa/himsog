@@ -81,6 +81,22 @@ export const formatDateToFD = (isoDateString: string) => {
   }
 };
 
+export const lastDate = (currentdate: string): string => {
+  const date = new Date(currentdate);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (diffInSeconds < 60) return `${diffInSeconds}s`;
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `${diffInMinutes}m`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `${diffInHours}h`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 7) return `${diffInDays}d`;
+  const diffInWeeks = Math.floor(diffInDays / 7);
+  return `${diffInWeeks}w`;
+};
+
 export const formatNumber = (Amount: number): string => {
   const parts = Amount.toFixed(2).split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");

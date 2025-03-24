@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../utils";
 // import API from "../../../../hooks/api";
+import Panel from "../../../components/Surfaces/Panels";
 
 export const NutritionistMessengerViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -22,9 +23,10 @@ export const NutritionistMessengerViewPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Messenger" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.PageContent className="rounded-md border">
-          <Suspense fallback={<Skeleton />}></Suspense>
-        </S.PageContent>
+        <S.Divider className="flex items-start justify-center gap-[1rem] mb-[1rem]">
+          <Panel.Participant />
+          <Panel.ChatBox />
+        </S.Divider>
       </S.Container>
     </>
   );

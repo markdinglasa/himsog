@@ -11,6 +11,7 @@ import Notification from "./NotificationCard";
 import Institute from "./InstituteCard";
 import Specialist from "./SpecialistCard";
 import PaymentMethod from "./PaymentMethodCard";
+import Participant from "./ParticipantCard";
 
 const Card = {
   Event,
@@ -23,6 +24,7 @@ const Card = {
   Institute,
   Specialist,
   PaymentMethod,
+  Participant,
 };
 
 export default Card;

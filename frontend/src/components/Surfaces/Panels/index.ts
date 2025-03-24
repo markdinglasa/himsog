@@ -9,6 +9,8 @@ import Transaction from "./TransactionPanel";
 import CustomMadePlan from "./CustomMadePlanPanel";
 import MealPlan from "./MealPlanPanel";
 import PreMadePlan from "./PreMadePlanPanel";
+import Participant from "./ParticipantPanel";
+import ChatBox from "./ChatBoxPanel";
 
 export default {
   Credential,
@@ -22,4 +24,6 @@ export default {
   CustomMadePlan,
   MealPlan,
   PreMadePlan,
+  Participant,
+  ChatBox,
 };

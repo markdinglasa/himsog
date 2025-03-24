@@ -27,6 +27,7 @@ export const CustomInput: SFC<InputProps> = ({
   onBlur,
   onClick,
   isRequired,
+  leftIcon,
 }) => {
   const [isPassword, togglePassword] = useToggle(false);
 
@@ -58,13 +59,13 @@ export const CustomInput: SFC<InputProps> = ({
           //defaultValue={value}
           value={value}
           sx={{
-            borderRadius: 0,
             width: "100%",
           }}
           size="small"
           id={`outlined-adornment-${name}`}
           type={isPassword ? InputType.text : type}
           color={errors && errors[name] ? "error" : "success"}
+          startAdornment={leftIcon && leftIcon}
           endAdornment={
             type === InputType.password && (
               <InputAdornment position="end">
