@@ -30,7 +30,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
   const [isHelp, toggleHelp] = useToggle(false);
   return (
     <>
-      <S.Container className={cn("mb-0", ClassName)}>
+      <S.Container className={cn("mb-0 ", ClassName)}>
         <div className="flex flex-row w-full items-center">
           {Label && (
             <S.Label className="text-[#666666] font-medium ml-3">

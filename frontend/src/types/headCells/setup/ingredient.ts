@@ -20,6 +20,7 @@ export const ingredientHC: HeadCell<IngredientTable>[] = [
     disablePadding: false,
     label: "Unit",
   },
+
   {
     Id: "Id",
     numeric: true,

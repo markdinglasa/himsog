@@ -26,7 +26,7 @@ const useUpdateIngredient = () => {
     },
     onSuccess: () => {
       displayToast(Success.m00004, ToastType.success);
-      navigate(RouteChannel.ADMIN_INGREDIENT);
+      navigate(RouteChannel.NUTRITIONIST_INGREDIENT);
     },
     onError: (error: any) => {
       displayToast(

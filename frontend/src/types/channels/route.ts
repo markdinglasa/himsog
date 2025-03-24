@@ -27,9 +27,7 @@ export enum RouteChannel {
   ADMIN_PROFIFLE = "/a/profile/:Id",
   ADMIN_UTILITY = "/a/utility/",
   ADMIN_SETTINGS = "/a/settings",
-  ADMIN_INGREDIENT = "/a/ingredient",
-  ADMIN_INGREDIENT_NEW = "/a/ingredient/new",
-  ADMIN_INGREDIENT_DETAILS = "/a/ingredient/d/:Id",
+
   ADMIN_UNIT = "/a/unit",
   ADMIN_UNIT_NEW = "/a/unit/new",
   ADMIN_UNIT_DETAILS = "/a/unit/d/:Id",
@@ -121,6 +119,7 @@ export enum RouteChannel {
   NUTRITIONIST_SUBSCRIPTION = "/n/nutritionist/subscription",
   NUTRITIONIST_SUBSCRIPTION_DETAILS = "/n/nutritionist/subscription/:Id",
   NUTRITIONIST_INGREDIENT = "/n/ingredient",
+  NUTRITIONIST_INGREDIENT_NEW = "/n/ingredient/new",
   NUTRITIONIST_INGREDIENT_DETAILS = "/n/ingredient/d/:Id",
   NUTRITIONIST_ARTICLE = "/n/health-article",
   NUTRITIONIST_ARTICLE_NEW = "/n/health-article/new",

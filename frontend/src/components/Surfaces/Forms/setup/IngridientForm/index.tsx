@@ -48,11 +48,11 @@ export const IngridientForm: SFC<FormProps> = ({
     Category: data?.Category || "",
     CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
     UpdatedBy: IsDetails ? auth?.user : null,
+    Quantity: data?.Quantity || 0,
   };
 
   const handleSubmit = async (values: IngredientTable) => {
     try {
-      console.log("values:", values);
       if (Id) update(Number(Id), values);
       else add(values);
     } catch (error: any) {
@@ -67,7 +67,7 @@ export const IngridientForm: SFC<FormProps> = ({
           <S.FormHeader className="flex flex-row items-center justify-between mb-4">
             <S.Span className="text-lg text-slate-900">{Title}</S.Span>
             <S.Divider>
-              <AccessControl OtherCondition={IsDetails}>
+              <AccessControl OtherCondition={IsEdit}>
                 <CircleButton
                   OnClick={() => SetIsEdit(false)}
                   Icon={<Icon.Edit className="text-primary" />}
@@ -99,8 +99,8 @@ export const IngridientForm: SFC<FormProps> = ({
                   setTouched,
                 }) => (
                   <Form>
-                    <S.Divider className="w-full flex flex-col gap-2">
-                      <S.Divider className="w-full ">
+                    <S.Divider className="w-full flex flex-col gap-1">
+                      <S.Divider className="w-full mb-2">
                         <CustomInput
                           placeholder="e.g. Ginger"
                           label="Name"
@@ -126,7 +126,7 @@ export const IngridientForm: SFC<FormProps> = ({
                           type={InputType.text}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full flex md:flex-row flex-col gap-4">
+                      <S.Divider className="w-full flex md:flex-row flex-col gap-4 mb-2">
                         <S.Divider className="w-full ">
                           <AutoComplete
                             Placeholder="Select Unit"
@@ -164,6 +164,19 @@ export const IngridientForm: SFC<FormProps> = ({
                           />
                         </S.Divider>
                       </S.Divider>
+                    </S.Divider>
+                    <S.Divider className="w-full py-1">
+                      <CustomInput
+                        placeholder="Quantity"
+                        label="Quantity"
+                        name="Quantity"
+                        errors={errors}
+                        touched={touched}
+                        value={values.Quantity.toString()}
+                        onChange={handleChange}
+                        disabled={IsEdit}
+                        type={InputType.number}
+                      />
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
                       <S.Divider className="w-full flex justify-end items-center gap-4 mt-2 ">

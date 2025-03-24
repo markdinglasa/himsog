@@ -118,18 +118,7 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.ADMIN_USER_DETAILS}
                 element={<Page.Admin.Setups.User.Details />}
               />
-              <Route
-                path={RouteChannel.ADMIN_INGREDIENT}
-                element={<Page.Admin.Setups.Ingredient.View />}
-              />
-              <Route
-                path={RouteChannel.ADMIN_INGREDIENT_NEW}
-                element={<Page.Admin.Setups.Ingredient.New />}
-              />
-              <Route
-                path={RouteChannel.ADMIN_INGREDIENT_DETAILS}
-                element={<Page.Admin.Setups.Ingredient.Details />}
-              />
+
               <Route
                 path={RouteChannel.ADMIN_UNIT}
                 element={<Page.Admin.Setups.Unit.View />}
@@ -348,6 +337,18 @@ export const AppRouter = createBrowserRouter(
               <Route
                 path={RouteChannel.NUTRITIONIST_MESSENGER}
                 element={<Page.Nutritionist.Messenger />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_INGREDIENT}
+                element={<Page.Nutritionist.Ingredient.View />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_INGREDIENT_NEW}
+                element={<Page.Nutritionist.Ingredient.New />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_INGREDIENT_DETAILS}
+                element={<Page.Nutritionist.Ingredient.Details />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_ARTICLE}

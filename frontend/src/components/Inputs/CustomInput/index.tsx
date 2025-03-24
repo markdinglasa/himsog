@@ -32,7 +32,7 @@ export const CustomInput: SFC<InputProps> = ({
   const [isPassword, togglePassword] = useToggle(false);
 
   return (
-    <div className="py-2">
+    <div className="py-2 ">
       <FormControl
         sx={{ width: "100%", padding: 0 }}
         variant="outlined"

@@ -92,19 +92,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.ADMIN_USER}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.admin]}>
-              <Menu
-                icon={mdiBookOpenVariantOutline}
-                isCollapse={Collapse}
-                label="Ingredients"
-                onClick={() => {
-                  Toggle();
-                  navigate(RouteChannel.ADMIN_INGREDIENT);
-                  setActive(RouteChannel.ADMIN_INGREDIENT);
-                }}
-                IsActive={active === RouteChannel.ADMIN_INGREDIENT}
-              />
-            </AccessControl>
+
             <AccessControl UserRoles={[Roles.admin]}>
               <Menu
                 icon={mdiScale}
@@ -231,6 +219,19 @@ export const SideNav: SFC<SideNavProps> = ({
                   setActive(`${path}/health-article` as RouteChannel);
                 }}
                 IsActive={active === `${path}/health-article`}
+              />
+            </AccessControl>
+            <AccessControl UserRoles={[Roles.nutritionist]}>
+              <Menu
+                icon={mdiBookOpenVariantOutline}
+                isCollapse={Collapse}
+                label="Ingredients"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.NUTRITIONIST_INGREDIENT);
+                  setActive(RouteChannel.NUTRITIONIST_INGREDIENT);
+                }}
+                IsActive={active === RouteChannel.NUTRITIONIST_INGREDIENT}
               />
             </AccessControl>
           </S.MenuContent>

@@ -10,6 +10,7 @@ import Appointment from "./Appointment";
 import Article from "./Articles";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsCondition from "./TermsCondition";
+import Ingredient from "./Ingredient";
 
 const Nutritionist = {
   Dashboard,
@@ -24,6 +25,7 @@ const Nutritionist = {
   Article,
   PrivacyPolicy,
   TermsCondition,
+  Ingredient,
 };
 
 export default Nutritionist;

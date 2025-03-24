@@ -7,26 +7,26 @@ import {
   QueryKey,
   RouteChannel,
   SFC,
-} from "../../../../../types";
-import * as S from "../../../../../styles/Styles";
+} from "../../../../types";
+import * as S from "../../../../styles/Styles";
 import {
   PageBreadCrumbs,
   EnhancedTable,
   Skeleton,
   CustomButton,
-} from "../../../../../components";
+} from "../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
-import { cn } from "../../../../../utils";
-import Icon from "../../../../../constants/icon";
-import API from "../../../../../hooks/api";
+import { cn } from "../../../../utils";
+import Icon from "../../../../constants/icon";
+import API from "../../../../hooks/api";
 
-export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
+export const IngredientViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
     {
       Text: "Dashboard",
-      OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
+      OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
   const { data, isLoading } = API.Setup.Ingredient.GetAll();
@@ -38,7 +38,7 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Add className="md:text-white text-primary" />}
-              onClick={() => navigate(RouteChannel.ADMIN_INGREDIENT_NEW)}
+              onClick={() => navigate(RouteChannel.NUTRITIONIST_INGREDIENT_NEW)}
               text="New"
               type={ButtonType.button}
             />
@@ -52,7 +52,7 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
               HeadCells={ingredientHC as HeadCell<unknown>[]}
               IsLoading={isLoading}
               RemoveApiRoute={APIChannel.INGREDIENT_ID}
-              DetailsRoute={RouteChannel.ADMIN_INGREDIENT_DETAILS}
+              DetailsRoute={RouteChannel.NUTRITIONIST_INGREDIENT_DETAILS}
               ClassName="md:max-h-[calc(100vh-200px)]"
               QueryKey={QueryKey.INGREDIENT}
             />
@@ -62,4 +62,4 @@ export const AdminIngredientViewPage: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default memo(AdminIngredientViewPage);
+export default memo(IngredientViewPage);

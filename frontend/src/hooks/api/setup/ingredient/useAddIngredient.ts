@@ -22,7 +22,7 @@ const useAddIngredient = () => {
     },
     onSuccess: () => {
       displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.ADMIN_INGREDIENT);
+      navigate(RouteChannel.NUTRITIONIST_INGREDIENT);
     },
     onError: (error: any) => {
       displayToast(
