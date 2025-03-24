@@ -30,7 +30,7 @@ export enum TooltipPlacement {
   bottomEnd = "bottom-end",
 }
 export interface CircleButtonProps {
-  OnClick: any | GenericFunction;
+  OnClick?: any | GenericFunction;
   IsNotification?: boolean;
   Icon: ReactNode;
   Type: ButtonType;

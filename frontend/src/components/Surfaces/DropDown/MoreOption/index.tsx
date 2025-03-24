@@ -11,6 +11,7 @@ interface OptionProps {
   EditOnClick?: (e: any) => void;
   DeleteOnClick?: (e: any) => void;
   MarkAsRead?: (e: any) => void;
+  UnsentMessage?: (e: any) => void;
   IconColor?: string;
 }
 
@@ -19,6 +20,7 @@ export const MoreOption: SFC<OptionProps> = ({
   EditOnClick,
   DeleteOnClick,
   MarkAsRead,
+  UnsentMessage,
   IconColor = "text-slate-100",
 }) => {
   const [activeDropdown, setActiveDropdown] = useState<null | string>(null);
@@ -68,6 +70,17 @@ export const MoreOption: SFC<OptionProps> = ({
             >
               <CheckIcon className="text-primary" />{" "}
               <span className="ml-2">Mark as read</span>
+            </S.DropdownItem>
+          )}
+          {UnsentMessage && (
+            <S.DropdownItem
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
+              onClick={(e) => {
+                UnsentMessage(e);
+                setActiveDropdown(null);
+              }}
+            >
+              <span className="ml-2">Unsent Message</span>
             </S.DropdownItem>
           )}
           {EditOnClick && (

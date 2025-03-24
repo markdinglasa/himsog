@@ -1,1 +1,3 @@
-export default {};
+import Message from "./MessageForm";
+
+export default { Message };

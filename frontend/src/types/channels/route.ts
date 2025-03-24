@@ -47,6 +47,8 @@ export enum RouteChannel {
   ADMIN_REQUEST_ACCESS_DETAILS = "/a/request-access/d/:Id",
   // CLIENT PAGES
   CLIENT_DASHBOARD = "/c",
+  CLIENT_TERMS_AND_CONDITIONS = "/c/terms-and-conditions",
+  CLIENT_PRIVACY_POLICY = "/c/privacy-policy",
   CLIENT_PROFILE_SETUP = "/c/setup-profile",
   CLIENT_HEALTH_SETUP = "/c/setup-health",
   CLIENT_DIETERY_PREFERENCE_SETUP = "/c/setup-dietery-preference",
@@ -55,6 +57,13 @@ export enum RouteChannel {
   CLIENT_PROFIFLE = "/c/profile/:Id",
   CLIENT_UTILITY = "/c/utility/",
   CLIENT_SETTINGS = "/c/settings",
+  CLIENT_EVENT = "/c/event",
+  CLIENT_EVENT_NEW = "/c/event/new",
+  CLIENT_EVENT_DETAILS = "/c/event/d/:Id",
+
+  CLIENT_ARTICLE = "/c/health-article",
+  CLIENT_ARTICLE_NEW = "/c/health-article/new",
+  CLIENT_ARTICLE_DETAILS = "/c/health-article/d/:Id",
   CLIENT_HEALTH = "/c/health",
   CLIENT_HEALTH_NEW = "/c/health/new",
   CLIENT_HEALTH_DETAILS = "/c/health/d/:Id",
@@ -79,6 +88,7 @@ export enum RouteChannel {
   CLIENT_REQUEST_MEAL_PLAN = "/c/meal-planner/request",
   CLIENT_REQUEST_MEAL_PLAN_NEW = "/c/meal-planner/request/new",
   CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/meal-planner/request/d/:id",
+
   // NUTRITIONIST PAGES
   NUTRITIONIST_DASHBOARD = "/n",
   NUTRITIONIST_PRIVACY_POLICY = "/n/privacy-policy",

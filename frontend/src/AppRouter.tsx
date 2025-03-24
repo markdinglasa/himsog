@@ -194,6 +194,14 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Client.Dashboard />}
               />
               <Route
+                path={RouteChannel.CLIENT_PRIVACY_POLICY}
+                element={<Page.Client.PrivacyPolicy />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_TERMS_AND_CONDITIONS}
+                element={<Page.Client.TermsConditions />}
+              />
+              <Route
                 path={RouteChannel.CLIENT_SETTINGS}
                 element={<Page.Client.Settings />}
               />
@@ -206,16 +214,36 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Client.Notification />}
               />
               <Route
-                path={RouteChannel.CLIENT_SETTINGS}
-                element={<Page.UnderConstruction />}
-              />
-              <Route
                 path={RouteChannel.CLIENT_MESSENGER}
-                element={<Page.UnderConstruction />}
+                element={<Page.Client.Messenger />}
               />
               <Route
                 path={RouteChannel.CLIENT_HEALTH}
                 element={<Page.Client.Health.View />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_EVENT}
+                element={<Page.Client.Event.View />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_EVENT_NEW}
+                element={<Page.Client.Event.New />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_EVENT_DETAILS}
+                element={<Page.Client.Event.Details />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_ARTICLE}
+                element={<Page.Client.Article.View />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_ARTICLE_NEW}
+                element={<Page.Client.Article.New />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_ARTICLE_DETAILS}
+                element={<Page.Client.Article.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_INGREDIENT}
