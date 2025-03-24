@@ -4,17 +4,17 @@ import { PageBreadCrumbs } from "../../../components";
 import { cn } from "../../../utils";
 import { memo } from "react";
 
-export const PrivacyPolicy: SFC = ({ ClassName }) => {
+export const TermsConditions: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={[]} Active="Privacy Policy" />
+          <PageBreadCrumbs Links={[]} Active="Term & Conditions" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Content className="">Privacy Policy</S.Content>
+        <S.Content className="">Terms & Conditions</S.Content>
       </S.Container>
     </>
   );
 };
-export default memo(PrivacyPolicy);
+export default memo(TermsConditions);

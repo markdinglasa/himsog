@@ -57,7 +57,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
       <S.Container className={cn("w-full", ClassName)}>
         <S.Content className="content">
           <S.FormHeader className="flex flex-row items-center justify-between mb-4">
-            <S.Span className="text-lg text-slate-900">{Title}</S.Span>
+            <S.Span className="text-lg font-medium">{Title}</S.Span>
             <S.Divider>
               <AccessControl OtherCondition={IsDetails}>
                 <CircleButton
@@ -119,7 +119,7 @@ export const SubscriptionForm: SFC<FormProps> = ({
                         <S.Divider className="w-full ">
                           <CustomInput
                             placeholder="e.g. 30 days"
-                            label="Duration"
+                            label="Duration (days)"
                             name="Duration"
                             errors={errors}
                             touched={touched}

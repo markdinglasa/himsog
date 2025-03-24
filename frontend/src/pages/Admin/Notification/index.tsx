@@ -1,16 +1,14 @@
-import {
-  HeadCell,
-  notificationHC,
-  QueryKey,
-  RouteChannel,
-  SFC,
-} from "../../../types";
+import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { PageBreadCrumbs, EnhancedTable, Skeleton } from "../../../components";
+import { PageBreadCrumbs, Skeleton, NoRecord } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
+import API from "../../../hooks/api";
+import { useAuth } from "../../../hooks";
+import Card from "../../../components/Surfaces/Cards";
+import React from "react";
 
-export const AdminNotificationPage: SFC = ({ ClassName }) => {
+export const NotificationPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
     {
@@ -18,29 +16,49 @@ export const AdminNotificationPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
+  const { auth } = useAuth();
+  const { data: notifications } = API.Utility.Notification.GetAll(
+    Number(auth?.user ?? 0),
+  );
+
   return (
     <>
       <S.Container className={ClassName}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Notifications" />
+          <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.PageContent className="border rounded-md">
-          <Suspense fallback={<Skeleton />}>
-            <EnhancedTable
-              Title="Notifications"
-              Rows={[]}
-              HeadCells={notificationHC as HeadCell<unknown>[]}
-              IsLoading={false}
-              OnRecordDelete={() => {}}
-              //RemoveApiRoute={Routes.NOTIFICATION_REMOVE}
-              ClassName="md:max-h-[calc(100vh-200px)]"
-              QueryKey={QueryKey.NOTIFICATION}
-            />
-          </Suspense>
-        </S.PageContent>
+        <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)]">
+          <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
+            <S.Divider className="w-full text-left mb-2">
+              <S.Span className="text-lg font-medium">Notifications</S.Span>
+            </S.Divider>
+            <Suspense fallback={<Skeleton />}>
+              {notifications && notifications.length > 0 ? (
+                notifications.map((record: any) => {
+                  return (
+                    <React.Fragment key={record?.Id}>
+                      <Card.Notification
+                        IsRead={record?.IsRead}
+                        Description={record?.Description}
+                        Id={record?.Id}
+                        Date={record?.DateCreated}
+                        Link={record?.Link}
+                      />
+                    </React.Fragment>
+                  );
+                })
+              ) : (
+                <div className="w-full md:h-[20rem] flex items-center justify-center">
+                  <NoRecord Message={"No Notifications"} />
+                </div>
+              )}
+            </Suspense>
+          </S.Divider>
+        </S.Divider>
       </S.Container>
     </>
   );
 };
-export default memo(AdminNotificationPage);
+
+export default memo(NotificationPage);

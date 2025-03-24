@@ -10,10 +10,10 @@ const useGetByNameSubscription = (Name: string) => {
     queryKey: [QueryKey.SUBSCRIPTION, Name],
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.SUBSCRIPTION_ID.replace(":Id", Name.toString())}`,
+        `${APIChannel.SUBSCRIPTION_NAME.replace(":Id", Name.toString())}`,
       );
       //console.log("Response:", response);
-      return response?.data?.data || {};
+      return response?.data?.data || [];
     },
     enabled: !!Name, // Only fetch data if Id is provided
   });

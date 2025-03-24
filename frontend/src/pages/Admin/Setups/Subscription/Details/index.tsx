@@ -37,7 +37,7 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent>
+        <S.PageContent className="border rounded-md border-slate-200">
           <Suspense fallback={<Skeleton />}>
             <Form.Setup.Subscription
               IsDetails={true}

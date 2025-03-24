@@ -87,6 +87,18 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Admin.Dashboard />}
               />
               <Route
+                path={RouteChannel.ADMIN_PRIVACY_POLICY}
+                element={<Page.Admin.PrivacyPolicy />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_TERMS_AND_CONDITION}
+                element={<Page.Admin.TermsConditions />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_MESSENGER}
+                element={<Page.Admin.Messenger />}
+              />
+              <Route
                 path={RouteChannel.ADMIN_SETTINGS}
                 element={<Page.Admin.Settings />}
               />

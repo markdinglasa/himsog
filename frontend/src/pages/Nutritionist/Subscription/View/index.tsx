@@ -25,7 +25,7 @@ export const SubscriptionViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
-  const { data: subscriptions, isLoading } = API.Setup.Subscription.GetAll();
+  // const { data: subscriptions, isLoading } = API.Setup.Subscription.GetAll();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -43,7 +43,7 @@ export const SubscriptionViewPage: SFC = ({ ClassName }) => {
         <S.PageContent className="rounded-md border">
           <Suspense fallback={<Skeleton />}>
             <div className="w-full flex flex-wrap gap-3 mt-3">
-              {isLoading ? (
+              {/*isLoading ? (
                 <Skeleton />
               ) : subscriptions?.length ? (
                 subscriptions.map((record: SubscriptionTable) => (
@@ -53,7 +53,7 @@ export const SubscriptionViewPage: SFC = ({ ClassName }) => {
                 <div className="w-full text-center items-center">
                   <NoRecord Message="No Subscription" />
                 </div>
-              )}
+              )*/}
             </div>
           </Suspense>
         </S.PageContent>

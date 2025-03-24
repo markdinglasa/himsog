@@ -61,8 +61,8 @@ export const ProfileOption: SFC = () => {
           <S.DropdownItem
             className=" block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-center flex"
             onClick={() => {
-              setActiveDropdown(null);
-              navigate(`${path}/profile/${user.Id ?? 0}`);
+              //setActiveDropdown(null);
+              //navigate(`${path}/profile/${user.Id ?? 0}`);
             }}
           >
             <div className="w-full flex flex-col items-center">

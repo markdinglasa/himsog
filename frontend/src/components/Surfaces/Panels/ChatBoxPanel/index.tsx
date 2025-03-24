@@ -62,7 +62,7 @@ export const ChatBoxPanel: SFC = ({ ClassName }) => {
           CurrentDate={new Date().toString()}
         />
       </MessagesContainer>
-      <div className="w-full h-fit border h-[10%]">
+      <div className="w-full h-fit border-t h-[10%]">
         <Form.Transaction.Message />
       </div>
     </div>

@@ -19,7 +19,11 @@ import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
-import { displayToast, formatDateForInput } from "../../../../../utils";
+import {
+  displayToast,
+  formatDateForInput,
+  IsBoolean,
+} from "../../../../../utils";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 import { professionInstituteValidator } from "../../../../../validators/setup/professionInstitute";
@@ -47,9 +51,9 @@ const InstituteForm: SFC<FormProps> = ({
     Address: data?.Address || "",
     DateStarted: data?.DateStarted || "",
     DateEnded: data?.DateEnded || "",
-    IsCurrentWork: data?.IsCurrentWork || false,
+    IsCurrentWork: IsBoolean(data?.IsCurrentWork) || false,
   };
-  console.log("InitialValues:", InitialValues);
+  // console.log("InitialValues:", InitialValues);
   const handleSubmit = async (
     values: ProfessionInstituteTable,
   ): Promise<void> => {
@@ -190,7 +194,15 @@ const InstituteForm: SFC<FormProps> = ({
                         <S.Divider className="w-full">
                           <FormControlLabel
                             className="text-[sm] text-slate-700"
-                            control={<Checkbox size="small" color="success" />}
+                            control={
+                              <Checkbox
+                                size="small"
+                                color="success"
+                                checked={values.IsCurrentWork}
+                                onChange={handleChange}
+                                name="IsCurrentWork"
+                              />
+                            }
                             label="I currently work here"
                             sx={{
                               "& .MuiFormControlLabel-label": {

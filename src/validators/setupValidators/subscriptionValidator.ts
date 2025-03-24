@@ -6,7 +6,7 @@ export const subscriptionValidator = Joi.object({
     .required(),
   Description: Joi.string().allow("").allow(null).optional(),
   Duration: Joi.number().positive().required(),
-  Price: Joi.number().positive().required(),
+  Price: Joi.number().required(),
   CreatedBy: Joi.number().integer().positive().required(),
   DateCreated: Joi.date().iso().optional(),
   UpdatedBy: Joi.number().integer().positive().allow(null).optional(),

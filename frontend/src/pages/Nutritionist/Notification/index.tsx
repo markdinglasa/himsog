@@ -27,7 +27,7 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Divider className="flex flex-col items-center justify-start mb-2 h-full min-h-[30rem]">
+        <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)]">
           <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
             <S.Divider className="w-full text-left mb-2">
               <S.Span className="text-lg font-medium"> Notifications</S.Span>
@@ -48,7 +48,9 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
                   );
                 })
               ) : (
-                <NoRecord Message={"No Notifications"} />
+                <div className="w-full md:h-[20rem] flex items-center justify-center">
+                  <NoRecord Message={"No Notifications"} />
+                </div>
               )}
             </Suspense>
           </S.Divider>

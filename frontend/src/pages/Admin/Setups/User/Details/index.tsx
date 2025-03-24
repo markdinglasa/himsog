@@ -25,6 +25,9 @@ import Certificates from "../../../../../components/DataDisplay/Certificates";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../../modals";
 import ActivatedProfessional from "../../../../../components/DataDisplay/Activated";
+import { Professions } from "../../../../../components/DataDisplay/Professions";
+import Institutes from "../../../../../components/DataDisplay/Institutes";
+import { Specialists } from "../../../../../components/DataDisplay/Specalists";
 
 export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -99,13 +102,17 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
         <AccessControl OtherCondition={data?.Role === UserRole.NUTRITIONIST}>
           <S.PageContent className="border rounded-md ">
             <Suspense fallback={<Skeleton />}>
-              <Form.Setup.Profession
-                IsSetup={false}
-                IsRedirect={false}
-                IsDetails={true}
-                Title="Profession Info"
-                ClassName="w-full mb-3"
-              />
+              <Professions />
+            </Suspense>
+          </S.PageContent>
+          <S.PageContent className="border rounded-md ">
+            <Suspense fallback={<Skeleton />}>
+              <Institutes />
+            </Suspense>
+          </S.PageContent>
+          <S.PageContent className="border rounded-md ">
+            <Suspense fallback={<Skeleton />}>
+              <Specialists />
             </Suspense>
           </S.PageContent>
           <S.PageContent className="border rounded-md w-full">
@@ -162,10 +169,10 @@ export const AdminUserDetailsPage: SFC = ({ ClassName }) => {
             IsRejected: false,
           };
           // console.log("data", data);
-          console.log("ValidationId:", ValidationId);
+          // console.log("ValidationId:", ValidationId);
           if (ValidationId < 1) AddValidation(data);
           else UpdateValidation(Number(validation?.Id), data);
-          toggleValidate;
+          toggleValidate();
         }}
         dialogType={DialogType.confirm}
       />
