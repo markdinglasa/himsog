@@ -20,6 +20,7 @@ import { memo, Suspense } from "react";
 import { cn } from "../../../../utils";
 import Icon from "../../../../constants/icon";
 import API from "../../../../hooks/api";
+import { useAuth } from "../../../../hooks";
 
 export const IngredientViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -29,7 +30,10 @@ export const IngredientViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
-  const { data, isLoading } = API.Setup.Ingredient.GetAll();
+  const { auth } = useAuth();
+  const { data, isLoading } = API.Setup.Ingredient.GetAll(
+    Number(auth?.user ?? 0),
+  );
   return (
     <>
       <S.Container className={cn("", ClassName)}>

@@ -15,9 +15,6 @@ import * as S from "../../../../../styles/Styles";
 import { CircleButton } from "../../../../Inputs";
 import SendIcon from "@mui/icons-material/Send";
 import { messageValidator } from "../../../../../validators";
-interface MessageFormProps {
-  onChange: any;
-}
 
 export const MessageForm: SFC = ({ ClassName }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);

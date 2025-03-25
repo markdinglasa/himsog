@@ -18,6 +18,14 @@ export interface PaymentTable extends Id, Logs {
   Method: string;
   Token: string;
   BillingAddress: string | null;
+  City: string;
+  ZIPCode: number;
+  Country: string;
+  Holder: string;
+  CVCNumber: number;
+  ExpiryMonth: string;
+  ExpiryYear: string;
+  CardNumber: string;
   Status: PaymentStatus;
 }
 export type PaymentTables = PaymentTable[];
@@ -32,4 +40,12 @@ export const PaymentInitial: PaymentTable = {
   Token: "",
   BillingAddress: null,
   Status: PaymentStatus.DEFAULT,
+  City: "",
+  ZIPCode: 0,
+  Country: "",
+  Holder: "",
+  CVCNumber: 0,
+  ExpiryMonth: "",
+  ExpiryYear: "",
+  CardNumber: "",
 };

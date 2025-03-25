@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.INGREDIENT}`,
+  `${API_VERSION}${RouteChannel.INGREDIENT_USER}`,
   TokenHandler.verifyToken,
   IngredientGetAllController,
 );
@@ -39,7 +39,7 @@ router.patch(
 
 logging.log("----------------------------------------");
 logging.log("---------INGREDIENT CONTROLLER----------");
-logging.log(`GET ${RouteChannel.INGREDIENT} [get-all]`);
+logging.log(`GET ${RouteChannel.INGREDIENT_USER} [get-all]`);
 logging.log(`POST ${RouteChannel.INGREDIENT} [add]`);
 logging.log(`GET ${RouteChannel.INGREDIENT_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.INGREDIENT_ID} [remove]`);

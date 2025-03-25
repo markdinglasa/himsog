@@ -11,6 +11,16 @@ export const paymentValidator = Joi.object({
   Token: Joi.string().required(),
   BillingAddress: Joi.string().allow("").allow(null).optional(),
   Status: Joi.string().required(),
+  Country: Joi.string().required(),
+  City: Joi.string().required(),
+  ZIPCode: Joi.number().required(),
+  Holder: Joi.string().required(),
+  CVCNumber: Joi.number().required(),
+  ExpiryMonth: Joi.number().required(),
+  ExpiryYear: Joi.number().required(),
+  CardNumber: Joi.string()
+    .regex(/^\d{16}$/)
+    .required(),
   DateCreated: Joi.date().iso().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

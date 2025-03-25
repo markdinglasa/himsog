@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { NotificationTable, SFC } from "../../../../types";
-import { cn, formatDateToMMDDYY } from "../../../../utils";
+import { cn, lastDate } from "../../../../utils";
 import { MoreOption } from "../../DropDown";
 import { useNavigate } from "react-router-dom";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -44,15 +44,13 @@ export const NotificationCard: SFC<NotificationCardProps> = ({
       }}
       key={Id}
       className={cn(
-        `w-full md:w-[35rem] border rounded-md p-3 bg-slate-100/10 hover:bg-white duration-300 ease-in-out cursor-pointer ${IsRead ? "" : "font-medium"}`,
+        `w-full border rounded-md p-3 bg-slate-100/10 hover:bg-white duration-300 ease-in-out cursor-pointer ${IsRead ? "" : "font-medium"}`,
         ClassName,
       )}
     >
       <div className="w-full flex flex-row items-center justify-between ">
         <div className="top w-full flex flex-col items-start justify-between">
-          <span className="text-sm text-slate-600">
-            {formatDateToMMDDYY(Date)}
-          </span>
+          <span className="text-sm text-slate-600">{lastDate(Date)}</span>
           <div className="w-full">
             <span className="text-sm">{Description}</span>
           </div>

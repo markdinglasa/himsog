@@ -16,7 +16,7 @@ router.get(
   TokenHandler.verifyToken,
   PaymentGetAllController,
 );
-router.get(
+router.post(
   `${API_VERSION}${RouteChannel.PAYMENT}`,
   TokenHandler.verifyToken,
   PaymentAddController,
@@ -26,12 +26,12 @@ router.get(
   TokenHandler.verifyToken,
   PaymentGetController,
 );
-router.get(
+router.delete(
   `${API_VERSION}${RouteChannel.PAYMENT_ID}`,
   TokenHandler.verifyToken,
   PaymentRemoveController,
 );
-router.get(
+router.patch(
   `${API_VERSION}${RouteChannel.PAYMENT_ID}`,
   TokenHandler.verifyToken,
   PaymentUpdateController,

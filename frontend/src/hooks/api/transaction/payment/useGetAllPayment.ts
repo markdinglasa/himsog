@@ -4,24 +4,22 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllIngredient = (UserId: number = 0) => {
+const useGetAllPayment = () => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.INGREDIENT, UserId],
+    queryKey: [QueryKey.PAYMENT],
     queryFn: async () => {
-      const response = await axios.get(
-        `${APIChannel.INGREDIENT_USER.replace(":Id", UserId.toString())}`,
-      );
+      const response = await axios.get(`${APIChannel.PAYMENT}`);
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!UserId, // Only fetch data if Id is provided
   });
-  if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
+  // console.log("DATA:", data);
+  if (error) displayToast(data?.message || Error.m00003, ToastType.error);
   return {
     data,
     isLoading,
     error,
   };
 };
-export default useGetAllIngredient;
+export default useGetAllPayment;

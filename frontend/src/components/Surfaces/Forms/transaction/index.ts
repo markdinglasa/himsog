@@ -1,3 +1,4 @@
 import Message from "./MessageForm";
+import PaymentForm from "./PaymentForm";
 
-export default { Message };
+export default { Message, PaymentForm };

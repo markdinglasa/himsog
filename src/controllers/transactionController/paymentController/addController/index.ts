@@ -11,6 +11,7 @@ export const PaymentAddController = async (
 ): Promise<any> => {
   try {
     const Data: PaymentTable = req.body;
+    console.log(Data);
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = paymentValidator.validate({ ...Data });

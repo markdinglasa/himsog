@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { IngredientTable } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import { DBTable, Error, IngredientQuery, Success } from "../../../../shared";
 import { ingredientValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
+import { isFound } from "../../../../functions";
 
 export const IngredientAddController = async (
   req: Request,
@@ -21,6 +22,17 @@ export const IngredientAddController = async (
       });
     // Other Fn
     // check duplicate
+    if (
+      (
+        await isFound(
+          IngredientQuery.q006,
+          ["UserId", "Name"],
+          [Number, String],
+          [Data.UserId, Data.Name],
+        )
+      ).data
+    )
+      return res.status(401).json({ data: false, message: Error.m016 }); // check duplication
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

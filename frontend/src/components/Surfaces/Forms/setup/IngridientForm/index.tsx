@@ -48,7 +48,7 @@ export const IngridientForm: SFC<FormProps> = ({
     Category: data?.Category || "",
     CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
     UpdatedBy: IsDetails ? auth?.user : null,
-    Quantity: data?.Quantity || 0,
+    UserId: data?.UserId || (auth?.user ?? 0),
   };
 
   const handleSubmit = async (values: IngredientTable) => {
@@ -165,19 +165,7 @@ export const IngridientForm: SFC<FormProps> = ({
                         </S.Divider>
                       </S.Divider>
                     </S.Divider>
-                    <S.Divider className="w-full py-1">
-                      <CustomInput
-                        placeholder="Quantity"
-                        label="Quantity"
-                        name="Quantity"
-                        errors={errors}
-                        touched={touched}
-                        value={values.Quantity.toString()}
-                        onChange={handleChange}
-                        disabled={IsEdit}
-                        type={InputType.number}
-                      />
-                    </S.Divider>
+
                     <AccessControl OtherCondition={!IsEdit}>
                       <S.Divider className="w-full flex justify-end items-center gap-4 mt-2 ">
                         <CustomButton

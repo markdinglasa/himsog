@@ -32,27 +32,29 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
             <S.Divider className="w-full text-left mb-2">
               <S.Span className="text-lg font-medium"> Notifications</S.Span>
             </S.Divider>
-            <Suspense fallback={<Skeleton />}>
-              {notifications && notifications.length > 0 ? (
-                notifications.map((record: any) => {
-                  return (
-                    <React.Fragment key={record?.Id}>
-                      <Card.Notification
-                        IsRead={record?.IsRead}
-                        Description={record?.Description}
-                        Id={record?.Id}
-                        Date={record?.DateCreated}
-                        Link={record?.Link}
-                      />
-                    </React.Fragment>
-                  );
-                })
-              ) : (
-                <div className="w-full md:h-[20rem] flex items-center justify-center">
-                  <NoRecord Message={"No Notifications"} />
-                </div>
-              )}
-            </Suspense>
+            <div className="w-full flex flex-col gap-2">
+              <Suspense fallback={<Skeleton />}>
+                {notifications && notifications.length > 0 ? (
+                  notifications.map((record: any) => {
+                    return (
+                      <React.Fragment key={record?.Id}>
+                        <Card.Notification
+                          IsRead={record?.IsRead}
+                          Description={record?.Description}
+                          Id={record?.Id}
+                          Date={record?.DateCreated}
+                          Link={record?.Link}
+                        />
+                      </React.Fragment>
+                    );
+                  })
+                ) : (
+                  <div className="w-full md:h-[20rem] flex items-center justify-center">
+                    <NoRecord Message={"No Notifications"} />
+                  </div>
+                )}
+              </Suspense>
+            </div>
           </S.Divider>
         </S.Divider>
       </S.Container>

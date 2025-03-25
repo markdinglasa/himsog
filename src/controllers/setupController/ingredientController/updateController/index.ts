@@ -24,7 +24,16 @@ export const IngredientUpdateController = async (
     // Other Fn here
     if (!(await isFound(IngredientQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
-    if ((await isFound(IngredientQuery.q005, ["Id"], [Number], [Id])).data)
+    if (
+      (
+        await isFound(
+          IngredientQuery.q005,
+          ["Id", "UserId", "Name"],
+          [Number, Number, String],
+          [Id, Data.UserId, Data.Name],
+        )
+      ).data
+    )
       return res.status(401).json({ data: false, message: Error.m016 }); // check duplication
     Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
