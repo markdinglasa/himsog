@@ -3,11 +3,10 @@ import * as S from "../../../../styles/Styles";
 import { Tooltip } from "@mui/material";
 import { MoreOption } from "../../DropDown";
 import { memo } from "react";
-import { lastDate } from "../../../../utils";
 
 export interface MessageCardProps {
   Id: string;
-  ConvoId: number;
+  // ConvoId: number;
   IsSender: boolean;
   Message: string;
   CurrentDate: string;
@@ -15,7 +14,6 @@ export interface MessageCardProps {
 
 export const MessageCard: SFC<MessageCardProps> = ({
   Id,
-  ConvoId,
   IsSender,
   Message,
   CurrentDate,

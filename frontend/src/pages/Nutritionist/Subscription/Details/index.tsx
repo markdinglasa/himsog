@@ -1,11 +1,6 @@
 import { RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles/Styles";
-import {
-  CustomButton,
-  NoRecord,
-  PageBreadCrumbs,
-  Skeleton,
-} from "../../../../components";
+import { NoRecord, PageBreadCrumbs, Skeleton } from "../../../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn, formatNumber } from "../../../../utils";
@@ -26,7 +21,7 @@ export const SubscriptionDetailsPage: SFC = ({ ClassName }) => {
   const { data: subscription, isLoading } = API.Setup.Subscription.GetByName(
     Id ?? "",
   );
-  console.log(subscription);
+  // console.log(subscription);
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
     <>

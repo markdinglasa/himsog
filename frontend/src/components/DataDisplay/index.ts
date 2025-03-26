@@ -11,7 +11,7 @@ export * from "./Tables";
 export * from "./Reports";
 export * from "./Feedback";
 export * from "./StaticSubscription";
-
+export * from "./Verified";
 export {
   AccessControl,
   Avatar,

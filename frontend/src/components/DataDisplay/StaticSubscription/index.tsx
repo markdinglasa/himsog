@@ -65,7 +65,9 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
         </S.Divider>
         <S.Divider className="w-full md:w-7/12 border h-full md:h-[400px] rounded-md p-5 bg-primary text-white overflow-auto">
           <S.Divider className=" h-16 py-3 flex items-end justify-start border-b border-slate-300">
-            <S.Span className="text-lg font-medium  w-full">Free Plan</S.Span>
+            <S.Span className="text-lg font-medium  w-full">
+              Premium Plan
+            </S.Span>
           </S.Divider>
           <S.Divider className="w-full flex items-center py-3 mt-5">
             <Icon.Check className="" />

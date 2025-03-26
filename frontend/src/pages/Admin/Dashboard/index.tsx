@@ -12,7 +12,6 @@ import Icon from "../../../constants/icon";
 import {
   mdiAccountCreditCardOutline,
   mdiAccountOutline,
-  mdiBookOpenVariantOutline,
   mdiCommentQuoteOutline,
   mdiScale,
 } from "@mdi/js";
@@ -111,12 +110,6 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Text={"0"}
               Title="User"
               OnClick={() => navigate(RouteChannel.ADMIN_USER)}
-            />
-            <Card.Dashboard
-              Icons={mdiBookOpenVariantOutline}
-              Text={"0"}
-              Title="Ingredient"
-              OnClick={() => navigate(RouteChannel.ADMIN_INGREDIENT)}
             />
             <Card.Dashboard
               Icons={mdiScale}

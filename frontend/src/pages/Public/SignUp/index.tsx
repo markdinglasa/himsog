@@ -51,6 +51,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
     IsSuspended: false,
     BirthDate: null,
     Gender: "",
+    Religion: "",
   };
 
   const handleSubmit = async (values: UserTable): Promise<void> => {

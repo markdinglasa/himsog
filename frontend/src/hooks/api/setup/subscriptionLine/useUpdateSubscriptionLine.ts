@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import {
   APIChannel,
+  QueryKey,
   SubscriptionLineInitial,
   SubscriptionLineTable,
   ToastType,
@@ -8,10 +9,11 @@ import {
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateSubscriptionLine = () => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -28,6 +30,9 @@ const useUpdateSubscriptionLine = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.SUBSCRIPTION_LINE],
+      });
       displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {

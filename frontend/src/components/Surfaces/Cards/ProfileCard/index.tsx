@@ -8,7 +8,7 @@ import { useAuth, useAxiosPrivate, useToggle } from "../../../../hooks";
 import API from "../../../../hooks/api";
 import { CustomModal } from "../../../../modals";
 import { CustomButton } from "../../../Inputs";
-import { AccessControl } from "../../../DataDisplay";
+import { AccessControl, Verified } from "../../../DataDisplay";
 
 export const ProfileCard: SFC = ({ ClassName }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -53,6 +53,9 @@ export const ProfileCard: SFC = ({ ClassName }) => {
     setImageFile(null);
   };
   // console.log("data:", data);
+  const { data: validation } = API.Setup.ProfessionValidtion.GetByUser(
+    Number(auth?.user ?? 0),
+  );
   return (
     <>
       <S.Container className={cn("w-full bg-white py-3 rounded-md", ClassName)}>
@@ -68,8 +71,11 @@ export const ProfileCard: SFC = ({ ClassName }) => {
           </label>
           {/* User Details Section */}
           <S.Divider className="flex flex-col h-[80px] justify-center">
-            <S.Span className="text-slate-700 text-xl font-bold uppercase">
-              {data?.Fullname || "N/A"}
+            <S.Span className="text-slate-700 text-xl font-bold uppercase flex flex-row gap-2 items-center">
+              {data?.Fullname || "N/A"}{" "}
+              {(validation?.IsValidated ?? false) ? (
+                <Verified ClassName="" />
+              ) : null}
             </S.Span>
             <S.Span className="text-zinc-800 uppercase text-sm ">
               {data?.Role || "N/A"}

@@ -97,10 +97,10 @@ export const NutritionistSideNav: SFC<SideNavProps> = ({
                 label="Ingredients"
                 onClick={() => {
                   Toggle();
-                  navigate(RouteChannel.ADMIN_INGREDIENT);
-                  setActive(RouteChannel.ADMIN_INGREDIENT);
+                  navigate(RouteChannel.NUTRITIONIST_INGREDIENT);
+                  setActive(RouteChannel.NUTRITIONIST_INGREDIENT);
                 }}
-                IsActive={active === RouteChannel.ADMIN_INGREDIENT}
+                IsActive={active === RouteChannel.NUTRITIONIST_INGREDIENT}
               />
             </AccessControl>
             <AccessControl UserRoles={[Roles.admin]}>

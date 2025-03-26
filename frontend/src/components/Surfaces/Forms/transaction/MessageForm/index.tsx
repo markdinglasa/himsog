@@ -1,11 +1,5 @@
 import { Form, Formik } from "formik";
-import {
-  ButtonType,
-  ConvoTable,
-  MessageTable,
-  SFC,
-  ToastType,
-} from "../../../../../types";
+import { ButtonType, MessageTable, SFC, ToastType } from "../../../../../types";
 import { memo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../../../../hooks";
@@ -34,14 +28,15 @@ export const MessageForm: SFC = ({ ClassName }) => {
 
   const handleSubmit = async (values: FormValues, { setFieldValue }: any) => {
     try {
-      const data: MessageTable = { ...values };
-      //await add(data);
+      console.log("values:", values);
+      /*const data: MessageTable = { ...values };
+      await add(data);
       const convo: ConvoTable = {
         LastMessage: values.Contents,
         Date: new Date().toLocaleTimeString(),
       };
-      //await update(String(Id), convo);
-
+      await update(String(Id), convo);
+      */
       setFieldValue("Contents", "");
       // onChange();
       resetTextareaHeight();

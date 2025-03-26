@@ -3,14 +3,16 @@ import {
   APIChannel,
   ToastType,
   SubscriptionLineTable,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddSubscriptionLine = () => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async (data: SubscriptionLineTable) => {
@@ -18,6 +20,9 @@ const useAddSubscriptionLine = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.SUBSCRIPTION_LINE],
+      });
       displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {

@@ -1,8 +1,8 @@
 import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { PageBreadCrumbs, Skeleton } from "../../../components";
+import { PageBreadCrumbs } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { memo, Suspense } from "react";
+import { memo } from "react";
 import { cn } from "../../../utils";
 // import API from "../../../../hooks/api";
 import Panel from "../../../components/Surfaces/Panels";

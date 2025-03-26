@@ -14,9 +14,9 @@ export const MessageContainer = styled.div`
   width: 100%;
 `;
 export const Message = styled.div`
-  align-items: end;
+  align-items: center;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   margin-left: 10px;
   font-size: 16px;
   width: 90%;

@@ -1,4 +1,4 @@
-import { RouteChannel, SFC, UserInitial } from "../../../types";
+import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export const AdminProfilePage: SFC = ({ ClassName }) => {
     },
   ];
   //const { auth } = useAuth();
-  const user = UserInitial;
+  // const user = UserInitial;
   //const { records: user } = useGetUser(auth?.user ?? 0);
 
   return (

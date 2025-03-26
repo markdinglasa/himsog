@@ -1,14 +1,16 @@
-import { RouteChannel, SFC } from "../../../../types";
+import { ButtonColor, ButtonType, RouteChannel, SFC } from "../../../../types";
 import * as S from "./Styles";
 import { memo } from "react";
 import Logo from "../../../../asset/svg/logo.svg";
-import Form from "../../../../components/Surfaces/Forms";
 import API from "../../../../hooks/api";
 import { useAuth } from "../../../../hooks";
+import { CustomButton, Professions } from "../../../../components";
+import { useNavigate } from "react-router-dom";
 
 export const ConfigurationProfessionPage: SFC = () => {
   const { auth } = useAuth();
   const { data } = API.Setup.User.Get(auth?.user ?? 0);
+  const navigate = useNavigate();
   return (
     <>
       <S.Container className="w-screen h-screen overflow-auto">
@@ -25,12 +27,38 @@ export const ConfigurationProfessionPage: SFC = () => {
                 Let's setup your profession profile.
               </span>
             </div>
-            <div className="">
-              <Form.Setup.Profession
-                IsSetup={true}
-                Redirect={RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP}
-                IsRedirect={true}
+            <div>
+              <Professions />
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <CustomButton
+                text="Back"
+                ClassName=""
+                type={ButtonType.button}
+                color={ButtonColor.default}
+                morph={false}
+                onClick={() => navigate(RouteChannel.CLIENT_HEALTH_SETUP)}
               />
+              <div className="w-full flex justify-end flex-row items-center gap-2">
+                <CustomButton
+                  text="Skip"
+                  ClassName=""
+                  type={ButtonType.button}
+                  onClick={() => navigate(RouteChannel.NUTRITIONIST_DASHBOARD)}
+                  morph={false}
+                />
+              </div>
+              <div className="w-full flex justify-end flex-row items-center gap-2">
+                <CustomButton
+                  text="Next"
+                  ClassName=""
+                  type={ButtonType.button}
+                  onClick={() =>
+                    navigate(RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP)
+                  }
+                  morph={false}
+                />
+              </div>
             </div>
           </div>
         </S.MainContent>

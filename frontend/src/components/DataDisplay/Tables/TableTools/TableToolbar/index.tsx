@@ -2,7 +2,6 @@ import { Toolbar, Typography } from "@mui/material";
 import { SFC, TableToolbarProps } from "../../../../../types";
 import * as S from "./Styles";
 import { memo } from "react";
-import { colors } from "../../../../../styles";
 
 const TableToolbar: SFC<TableToolbarProps> = ({ Title, children }) => {
   return (

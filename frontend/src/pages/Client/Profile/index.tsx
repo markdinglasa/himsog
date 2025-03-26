@@ -1,4 +1,4 @@
-import { RouteChannel, SFC, UserInitial } from "../../../types";
+import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, Skeleton } from "../../../components";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +14,6 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
     },
   ];
   //const { auth } = useAuth();
-  const user = UserInitial;
-  const Fullname = `${user?.Firstname ?? "NA"} ${user?.Lastname ?? "NA"}`;
   return (
     <>
       <S.Container className={ClassName}>
