@@ -6,6 +6,7 @@ export interface SubscriptionLineTable extends Id, Logs {
   DateStart: string;
   DateEnd: string;
   Status?: string;
+  IsCancelled: boolean;
 }
 export type SubscriptionLineTables = SubscriptionLineTable[];
 export const SubscriptionLineInitial: SubscriptionLineTable = {
@@ -13,4 +14,5 @@ export const SubscriptionLineInitial: SubscriptionLineTable = {
   UserId: 0,
   DateStart: "",
   DateEnd: "",
+  IsCancelled: false,
 };

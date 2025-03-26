@@ -13,7 +13,7 @@ export interface PaymentTable extends Id, Logs {
   TransactionId: string;
   UserId: number;
   SubscriptionId: number; // FK to SubscriptionTable
-  Curreny: Currency; //  PHP as default
+  Currency: Currency; //  PHP as default
   Amount: number;
   Method: string;
   Token: string;
@@ -34,7 +34,7 @@ export const PaymentInitial: PaymentTable = {
   TransactionId: "",
   UserId: 0,
   SubscriptionId: 0,
-  Curreny: Currency.PHP,
+  Currency: Currency.PHP,
   Amount: 0,
   Method: "",
   Token: "",

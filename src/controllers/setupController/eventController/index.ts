@@ -1,5 +1,6 @@
 export * from "./addController";
-export * from "./getAllController";
+export * from "./getAllValidatedController";
+export * from "./getAllInvalidatedController";
 export * from "./getController";
 export * from "./removeController";
 export * from "./updateController";

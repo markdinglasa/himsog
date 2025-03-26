@@ -12,7 +12,6 @@ export const eventValidator = Joi.object({
     .required(),
   Description: Joi.string().allow("").allow(null).optional(),
   ScheduleDate: Joi.string().required(),
-  ScheduleTime: Joi.string().required(),
   Location: Joi.string().required(),
   ContactPerson: Joi.string().required(),
   ContactNumber: Joi.string().required(),

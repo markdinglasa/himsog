@@ -5,6 +5,7 @@ import { API_VERSION } from "../../constants";
 import {
   SubscriptionLineAddController,
   SubscriptionLineGetAllController,
+  SubscriptionLineGetByUserController,
   SubscriptionLineGetController,
   SubscriptionLineRemoveController,
   SubscriptionLineUpdateController,
@@ -12,9 +13,14 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE_PARENT}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE_ID}`,
   TokenHandler.verifyToken,
   SubscriptionLineGetController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE_USER}`,
+  TokenHandler.verifyToken,
+  SubscriptionLineGetByUserController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE}`,
@@ -22,7 +28,7 @@ router.post(
   SubscriptionLineAddController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE_ID}`,
+  `${API_VERSION}${RouteChannel.SUBSCRIPTION_LINE_PARENT}`,
   TokenHandler.verifyToken,
   SubscriptionLineGetAllController,
 );

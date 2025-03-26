@@ -5,6 +5,7 @@ export const subscriptionLineValidator = Joi.object({
   UserId: Joi.number().integer().positive().required(),
   DateStart: Joi.date().required(),
   DateEnd: Joi.date().required(),
+  IsCancelled: Joi.boolean().required(),
   DateCreated: Joi.date().iso().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

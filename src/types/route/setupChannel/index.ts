@@ -19,8 +19,12 @@ import { ProfessionValidationChannel } from "./professionValidationChannel";
 import { ProfessionInstituteChannel } from "./professionInstituteChannel";
 import { ProfessionSpecialistChannel } from "./professionSpecialist";
 import { PayTypeChannel } from "./payTypeChannel";
+import { ArticleChannel } from "./articleChannel";
+import { EventChannel } from "./eventChannel";
 
 export const SetupChannel = {
+  ...EventChannel,
+  ...ArticleChannel,
   ...MealChannel,
   ...CertificateChannel,
   ...HealthChannel,

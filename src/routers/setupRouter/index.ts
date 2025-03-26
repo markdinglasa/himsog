@@ -19,6 +19,8 @@ import ProfessionValidation from "./professionValidationRouter";
 import ProfessionInstitute from "./professionInstituteRouter";
 import ProfessionSpecialist from "./professionSpecialistRouter";
 import PayType from "./payTypeRouter";
+import Event from "./eventRouter";
+import Article from "./articleRouter";
 import express from "express";
 
 const Router = express.Router();
@@ -43,5 +45,7 @@ Router.use(ProfessionValidation);
 Router.use(ProfessionInstitute);
 Router.use(ProfessionSpecialist);
 Router.use(PayType);
+Router.use(Event);
+Router.use(Article);
 
 export default Router;
