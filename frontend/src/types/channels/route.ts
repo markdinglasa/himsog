@@ -29,6 +29,8 @@ export enum RouteChannel {
   ADMIN_SETTINGS = "/a/settings",
   ADMIN_PRIVACY_POLICY = "/a/privacy-policy",
   ADMIN_TERMS_AND_CONDITION = "/a/terms-and-conditions",
+  ADMIN_EVENT = "/a/event",
+  ADMIN_EVENT_DETAILS = "/a/event/d/:Id",
   ADMIN_UNIT = "/a/unit",
   ADMIN_UNIT_NEW = "/a/unit/new",
   ADMIN_UNIT_DETAILS = "/a/unit/d/:Id",

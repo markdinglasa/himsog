@@ -14,7 +14,6 @@ export const Label = styled.label`
   color: ${colors.primary};
 `;
 export const Select = styled.select<{ $disabled: boolean }>`
-  background: rgb(241, 245, 249);
   outline: none;
   height: 40px;
   color: rgb(39, 39, 42);
@@ -26,6 +25,8 @@ export const Select = styled.select<{ $disabled: boolean }>`
 `;
 export const Option = styled.option`
   height: 3.5rem;
+  border: 1px solid red;
   background: ${colors.white};
   color: rgb(39, 39, 42);
+  width: 500px;
 `;

@@ -9,12 +9,13 @@ import {
   EventGetAllInValidatedController,
   EventRemoveController,
   EventUpdateController,
+  EventGetWithQueryController,
 } from "../../controllers";
 
 const router = express.Router();
+router.get(`${API_VERSION}${RouteChannel.EVENTS}`, EventGetWithQueryController);
 router.get(
   `${API_VERSION}${RouteChannel.EVENT_VALIDATED}`,
-  TokenHandler.verifyToken,
   EventGetAllValidatedController,
 );
 router.get(
@@ -27,11 +28,7 @@ router.post(
   TokenHandler.verifyToken,
   EventAddController,
 );
-router.get(
-  `${API_VERSION}${RouteChannel.EVENT_ID}`,
-  TokenHandler.verifyToken,
-  EventGetController,
-);
+router.get(`${API_VERSION}${RouteChannel.EVENT_ID}`, EventGetController);
 router.delete(
   `${API_VERSION}${RouteChannel.EVENT_ID}`,
   TokenHandler.verifyToken,

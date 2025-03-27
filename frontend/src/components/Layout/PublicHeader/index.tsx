@@ -81,7 +81,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                     Article
                   </span>
                 </div>
-                <div
+                {/*<div
                   className="cursor-pointer"
                   onClick={() => {
                     setActivePage(RouteChannel.ABOUT_US);
@@ -93,7 +93,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   >
                     About Us
                   </span>
-                </div>
+                </div>*/}
                 <div
                   className="cursor-pointer"
                   onClick={() => {
@@ -107,7 +107,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                     Contact Us
                   </span>
                 </div>
-                <div
+                {/*<div
                   className="cursor-pointer"
                   onClick={() => {
                     setActivePage(RouteChannel.PRICING);
@@ -119,7 +119,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   >
                     Pricing
                   </span>
-                </div>
+                </div>*/}
               </div>
             </div>
           </S.LeftContent>

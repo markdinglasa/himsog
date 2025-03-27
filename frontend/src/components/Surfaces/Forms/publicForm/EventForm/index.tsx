@@ -24,36 +24,42 @@ import { displayToast } from "../../../../../utils";
 import { eventValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
+import { useParams } from "react-router-dom";
 
 const EventForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
+  // IsDisplay = false,
   RecordId,
   Title,
   OnClose,
 }) => {
-  const [IsEdit, SetIsEdit] = useState(false);
+  const [IsEdit, SetIsEdit] = useState(IsDetails);
   const { add } = API.Setup.Event.Add();
   const { update } = API.Setup.Event.Update();
-  const { data, isLoading } = API.Setup.Event.Get(Number(RecordId));
-
+  const { Id: ParamsId } = useParams<{ Id: string }>();
+  const Id: number = ParamsId ? Number(ParamsId) : Number(RecordId);
+  const { data, isLoading } = API.Setup.Event.Get(Id);
+  // console.log("Event:", data);
   const InitialValues: EventTable = {
     Title: data?.Title || "",
     Category: data?.Category || "",
     Type: data?.Type || "",
     Image: data?.Image || null,
     Description: data?.Description || null,
-    ScheduleDate: data?.Schedule || "",
+    ScheduleDate: data?.ScheduleDate || "",
     Location: data?.Location || "",
     ContactPerson: data?.ContactPerson || "",
     ContactNumber: data?.ContactNumber || "",
     ContactEmail: data?.ContactEmail || "",
+    TimeStart: data?.TimeStart || "",
+    TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
     IsValidated: data?.IsValidated || false,
   };
   const handleSubmit = async (values: EventTable): Promise<void> => {
     try {
-      if (Number(RecordId) !== 0) update(Number(RecordId), values);
+      if (RecordId) update(Number(RecordId), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
@@ -116,20 +122,10 @@ const EventForm: SFC<FormProps> = ({
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            disabled={IsEdit}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full py-1 flex flex-col pb-2">
-                          <span className="text-[12px] text-[#666666] ml-3">
-                            Description (Optional)
-                          </span>
-                          <textarea
-                            className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "" : "hover:border-[#202020]"}`}
-                            placeholder="Leave a Message"
-                            name="Message"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </S.Divider>
+
                         <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem] ">
                           <S.Divider className="w-full ">
                             <AutoComplete
@@ -151,8 +147,10 @@ const EventForm: SFC<FormProps> = ({
                               OnBlur={handleBlur}
                               Errors={errors}
                               Touched={touched}
+                              IsEdit={IsEdit}
                             />
                           </S.Divider>
+
                           <S.Divider className="w-full  ">
                             <AutoComplete
                               Label="Event Type"
@@ -177,8 +175,66 @@ const EventForm: SFC<FormProps> = ({
                               OnBlur={handleBlur}
                               Errors={errors}
                               Touched={touched}
+                              IsEdit={IsEdit}
                             />
                           </S.Divider>
+                        </S.Divider>
+                        <S.Divider className="w-full py-1 flex flex-col pb-3">
+                          <span className="text-[12px] text-[#666666] ml-3">
+                            Description (Optional)
+                          </span>
+                          <textarea
+                            className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "" : "hover:border-[#202020]"}`}
+                            placeholder="Descripion"
+                            name="Descripion"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            disabled={IsEdit}
+                          />
+                        </S.Divider>
+                        <S.Divider className="w-full flex flex-row gap-[1rem]">
+                          <S.Divider className="w-full py-1 ">
+                            <CustomInput
+                              errors={errors}
+                              type={InputType.text}
+                              label="Contact Person"
+                              value={values?.ContactPerson ?? ""}
+                              placeholder="Contact Person"
+                              name="ContactPerson"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              disabled={IsEdit}
+                            />
+                          </S.Divider>
+                          <S.Divider className="w-full py-1 ">
+                            <CustomInput
+                              errors={errors}
+                              type={InputType.text}
+                              label="Contact Number"
+                              value={values?.ContactNumber ?? ""}
+                              placeholder="Contact Number"
+                              name="ContactNumber"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              disabled={IsEdit}
+                            />
+                          </S.Divider>
+                        </S.Divider>
+                        <S.Divider className="w-full py-1 ">
+                          <CustomInput
+                            errors={errors}
+                            type={InputType.email}
+                            label="Contact Email"
+                            value={values?.ContactEmail ?? ""}
+                            placeholder="Contact Email"
+                            name="ContactEmail"
+                            touched={touched}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            disabled={IsEdit}
+                          />
                         </S.Divider>
                         <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem]">
                           <S.Divider className="w-full py-1 ">
@@ -186,12 +242,17 @@ const EventForm: SFC<FormProps> = ({
                               errors={errors}
                               type={InputType.date}
                               label="Date"
-                              value={values?.ScheduleDate ?? ""}
+                              value={
+                                String(
+                                  values?.ScheduleDate?.toString() ?? "",
+                                ).split("T")[0]
+                              }
                               placeholder="Schedule"
-                              name="Schedule"
+                              name="ScheduleDate"
                               touched={touched}
                               onChange={handleChange}
                               onBlur={handleBlur}
+                              disabled={IsEdit}
                             />
                           </S.Divider>
                           <S.Divider className="w-full flex flex-row gap-[1rem]">
@@ -200,12 +261,13 @@ const EventForm: SFC<FormProps> = ({
                                 errors={errors}
                                 type={InputType.time}
                                 label="Start Time"
-                                value={values?.ScheduleTime ?? ""}
-                                placeholder="Schedule"
-                                name="Schedule"
+                                value={values?.TimeStart ?? ""}
+                                placeholder="TimeStart"
+                                name="TimeStart"
                                 touched={touched}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                disabled={IsEdit}
                               />
                             </S.Divider>
                             <S.Divider className="w-full py-1 ">
@@ -213,12 +275,13 @@ const EventForm: SFC<FormProps> = ({
                                 errors={errors}
                                 type={InputType.time}
                                 label="End Time"
-                                value={values?.ScheduleTime ?? ""}
-                                placeholder="Schedule"
-                                name="Schedule"
+                                value={values?.TimeEnd ?? ""}
+                                placeholder="TimeEnd"
+                                name="TimeEnd"
                                 touched={touched}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                disabled={IsEdit}
                               />
                             </S.Divider>
                           </S.Divider>
@@ -234,6 +297,7 @@ const EventForm: SFC<FormProps> = ({
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            disabled={IsEdit}
                           />
                         </S.Divider>
                         <S.Divider className="w-full py-1  ">
@@ -247,6 +311,7 @@ const EventForm: SFC<FormProps> = ({
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            disabled={IsEdit}
                           />
                         </S.Divider>
                         <S.Divider className="w-full mb-[1rem] mt-1">
@@ -265,6 +330,7 @@ const EventForm: SFC<FormProps> = ({
                               morph={false}
                               text="Upload Document"
                               color={ButtonColor.default}
+                              disabled={IsEdit}
                             />
                           </S.Divider>
                         </S.Divider>

@@ -6,6 +6,7 @@ import Setups from "./Setups";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsConditions from "./TermsConditions";
 import Messenger from "./Messenger";
+import Event from "./Event";
 
 // import * from "./Transactions";
 //import * from "./Reports";
@@ -20,6 +21,7 @@ const AdminPages = {
   TermsConditions,
   PrivacyPolicy,
   Messenger,
+  Event,
 };
 
 export default AdminPages;

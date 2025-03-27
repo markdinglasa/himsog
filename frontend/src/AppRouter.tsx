@@ -99,6 +99,14 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Admin.Messenger />}
               />
               <Route
+                path={RouteChannel.ADMIN_EVENT}
+                element={<Page.Admin.Event.View />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_EVENT_DETAILS}
+                element={<Page.Admin.Event.Details />}
+              />
+              <Route
                 path={RouteChannel.ADMIN_SETTINGS}
                 element={<Page.Admin.Settings />}
               />

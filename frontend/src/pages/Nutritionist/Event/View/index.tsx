@@ -1,4 +1,4 @@
-import { EventTable, RouteChannel, SFC } from "../../../../types";
+import { EventFilter, EventTable, RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { memo, Suspense, useState } from "react";
 import { a11yProps, cn } from "../../../../utils";
@@ -17,18 +17,16 @@ import API from "../../../../hooks/api";
 import React from "react";
 
 const NutritionistViewPage: SFC = ({ ClassName }) => {
-  const [index, setIndex] = useState<number>(0);
+  const [filter, setFilter] = useState<EventFilter>(EventFilter.ALL);
   const navigate = useNavigate();
-  const handleChanges = (_event: React.SyntheticEvent, newValue: number) => {
-    setIndex(newValue);
-  };
+
   const links = [
     {
       Text: "Dashboard",
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
-  const { data: events } = API.Setup.Event.GetAll();
+  const { data: events } = API.Setup.Event.GetAllWithFilter(filter);
   return (
     <>
       <S.Container className={cn("w-full ", ClassName)}>
@@ -42,49 +40,31 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.Content className="">
+        <S.Content className="mb-[1rem] border rounded-md">
           <S.Content className="h-full flex flex-col justify-center items-center w-full  bg-white rounded-md p-[1rem] ">
-            <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-[1rem]">
-              <Tabs
-                value={index}
-                onChange={handleChanges}
-                aria-label="New item tabs"
-                sx={{
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: colors.primary, // Customize the active indicator color
-                  },
-                }}
-              >
-                <Tab
-                  sx={{
-                    textTransform: "none",
-                    color: "gray", // Default color
-                    "&.Mui-selected": {
-                      color: colors.primary, // Active tab color
-                    },
-                  }}
-                  label="Upcoming Events"
-                  {...a11yProps(0)}
-                />
-                <Tab
-                  sx={{
-                    textTransform: "none",
-                    color: "gray", // Default color
-                    "&.Mui-selected": {
-                      color: colors.primary, // Active tab color
-                    },
-                  }}
-                  label="Past Events"
-                  {...a11yProps(1)}
-                />
-              </Tabs>
-              <S.Divider className="flex flex-row items-center justify-center w-fit gap-2 ">
+            <S.Divider className=" flex flex-row justify-between items-center w-full mb-[1rem]">
+              <S.Divider className="w-1/2 flex flex-col items-start justify-start">
+                <S.Span className="text-lg font-medium">
+                  Health & Nutrition Events
+                </S.Span>
+                <S.Span className="text-sm text-slate-600">
+                  Discover and share events related to healty eating and
+                  nutrition.
+                </S.Span>
+              </S.Divider>
+              <S.Divider className="">
                 <SelectOption
                   placeholder="Event Type"
                   name="EventType"
+                  ClassName="bg-white"
+                  OnChange={(e: any) => {
+                    setFilter(e.target.value);
+                  }}
                   options={[
-                    { value: "Paid", label: "Paid" },
-                    { value: "Free", label: "Free" },
+                    { value: EventFilter.ALL, label: "All Events" },
+                    { value: EventFilter.UPCOMING, label: "Upcoming Events" },
+                    { value: EventFilter.PAST, label: "Past Events" },
+                    { value: EventFilter.MY, label: "My Events" },
                   ]}
                 />
               </S.Divider>
@@ -96,14 +76,7 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
                     return (
                       <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full border-red">
                         <React.Fragment key={record?.Id ?? ""}>
-                          <Card.Event
-                            Id={record?.Id?.toString() ?? ""}
-                            Image={record?.Image}
-                            Title={record?.Title}
-                            Descritpion={record?.Description}
-                            ScheduleDate={record?.ScheduleDate}
-                            Location={record?.Location}
-                          />
+                          <Card.Event Data={record} />
                         </React.Fragment>
                       </S.CardContainer>
                     );

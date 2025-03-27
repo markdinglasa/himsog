@@ -4,18 +4,15 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetEvent = (Id: number = 0) => {
+const useGetAllInvalidatedEvent = () => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.EVENT_DETAILS, Id],
+    queryKey: [QueryKey.EVENT_INVALIDATED],
     queryFn: async () => {
-      const response = await axios.get(
-        `${APIChannel.EVENT_ID.replace(":Id", Id.toString())}`,
-      );
+      const response = await axios.get(`${APIChannel.EVENT_INVALIDATED}`);
       //console.log("Response:", response);
-      return response?.data?.data || {};
+      return response?.data?.data || [];
     },
-    enabled: !!Id, // Only fetch data if Id is provided
   });
   if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
   return {
@@ -24,4 +21,4 @@ const useGetEvent = (Id: number = 0) => {
     error,
   };
 };
-export default useGetEvent;
+export default useGetAllInvalidatedEvent;

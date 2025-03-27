@@ -14,14 +14,19 @@ export const SelectOption: SFC<SelectInputProps> = ({
 }) => {
   return (
     <>
-      <S.Container className={cn("h-[40px] border rounded-md", ClassName)}>
+      <S.Container
+        className={cn(
+          "h-[40px] w-full border rounded-md border-[#C4C4C4]",
+          ClassName,
+        )}
+      >
         {label && (
           <S.Label htmlFor={name} className="text-sm text-primary text-red-300">
             {label}
           </S.Label>
         )}
         <S.Select
-          className="p-2 rounded-md w-full bg-slate-100 outline-none text-zinc-800 border-none"
+          className="p-2 px-3 rounded-md w-full outline-none text-zinc-800 border-none flex items-start justify-center"
           disabled={disabled}
           $disabled={disabled}
           as="select"
@@ -32,7 +37,11 @@ export const SelectOption: SFC<SelectInputProps> = ({
         >
           <S.Option value="">{placeholder}</S.Option>
           {options.map((option) => (
-            <S.Option key={option.value} value={option.value}>
+            <S.Option
+              key={option.value}
+              value={option.value}
+              className="border-red"
+            >
               {option.label}
             </S.Option>
           ))}

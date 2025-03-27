@@ -316,6 +316,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "DateCreated":
                           case "DateUpdated":
                           case "TrnDate":
+                          case "ScheduleDate":
                             return formatDateToMMDDYY(
                               row[HeadCell.Id].toString(),
                             );

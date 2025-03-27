@@ -7,6 +7,8 @@ export enum QueryKey {
   INGREDIENT = "ingredient",
   REQUEST_ACCESS = "request-access",
   EVENT = "event",
+  EVENT_DETAILS = "event-details",
+  EVENT_INVALIDATED = "event-invalidated",
   ARTICLE = "ariticle",
   MEAL = "meal",
   MEAL_PLAN = "meal-plan",

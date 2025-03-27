@@ -7,6 +7,8 @@ export interface EventTable extends Id, Logs {
   Description: string;
   ScheduleDate: string;
   ScheduleTime?: string;
+  TimeStart: string;
+  TimeEnd: string;
   Location: string;
   ContactPerson: string;
   ContactNumber: string;
@@ -29,4 +31,6 @@ export const EventInitial: EventTable = {
   ContactEmail: "",
   RegistrationLink: "",
   IsValidated: false,
+  TimeStart: "",
+  TimeEnd: "",
 };

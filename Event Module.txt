@@ -1,0 +1,17 @@
+Event Module
+- Diregard posted by
+- Event Type Filtering - removed
+
+Article Module
+- Article Like & Dislike
+- Diregard posted by
+
+H.Profession, Institute, Specialization.
+
+- Messenger
+- Prof Side - Advocates
+- Advocates Side - Professionals
+- Admin no messenger module
+
+H.Profesional Credentials 
+- License, Institutes, Specializations are clickable to view - modal

@@ -92,6 +92,19 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.ADMIN_USER}
               />
             </AccessControl>
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiCalendarTextOutline}
+                isCollapse={Collapse}
+                label="Events"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_EVENT);
+                  setActive(RouteChannel.ADMIN_EVENT);
+                }}
+                IsActive={active === RouteChannel.ADMIN_EVENT}
+              />
+            </AccessControl>
 
             <AccessControl UserRoles={[Roles.admin]}>
               <Menu

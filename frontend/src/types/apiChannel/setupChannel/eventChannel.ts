@@ -5,4 +5,5 @@ export const EventChannel = {
   EVENT_ID: `${BASE_URL}/setup/event/:Id`,
   EVENT_FILTER: `${BASE_URL}/setup/event/filter?=:Id`,
   EVENT_VALIDATED: `${BASE_URL}/setup/event/validated`,
+  EVENT_INVALIDATED: `${BASE_URL}/setup/event/invalidated`,
 };
