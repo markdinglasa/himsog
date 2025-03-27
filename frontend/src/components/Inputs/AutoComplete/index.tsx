@@ -32,11 +32,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
     <>
       <S.Container className={cn("mb-0 ", ClassName)}>
         <div className="flex flex-row w-full items-center">
-          {Label && (
-            <S.Label className="text-[#666666] font-medium ml-3">
-              {Label}
-            </S.Label>
-          )}
+          {Label && <S.Label className="text-[#666666] ml-3">{Label}</S.Label>}
           {IsTooltip && (
             <Icon.Help
               className="ml-1 p-[1.5px] text-primary cursor-pointer "

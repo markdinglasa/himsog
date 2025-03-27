@@ -3,6 +3,7 @@ import {
   APIChannel,
   EventInitial,
   EventTable,
+  QueryKey,
   RouteChannel,
   ToastType,
 } from "../../../../types";
@@ -10,11 +11,12 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateEvent = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: EventTable }) => {
@@ -25,6 +27,9 @@ const useUpdateEvent = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.EVENT],
+      });
       displayToast(Success.m00004, ToastType.success);
       navigate(RouteChannel.EVENT);
     },

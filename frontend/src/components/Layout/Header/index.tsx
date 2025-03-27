@@ -6,10 +6,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import * as S from "./Styles";
 import { AccessControl } from "../../DataDisplay";
 import { useAuth } from "../../../hooks";
-import { cn, renderPath } from "../../../utils";
+import { cn, IsBoolean, renderPath } from "../../../utils";
 import Logo from "../../../asset/svg/logo.svg";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import API from "../../../hooks/api";
 
 export const Header: SFC<HeaderProps> = ({
   ClassName,
@@ -21,6 +22,9 @@ export const Header: SFC<HeaderProps> = ({
   const { auth } = useAuth();
   const path = renderPath(auth?.roles ?? Roles.default);
 
+  const { data: IsNotified } = API.Utility.Notification.IsNotified(
+    Number(auth?.user ?? 0),
+  );
   return (
     <>
       <S.Container className={cn("px-4 py-2 ", ClassName)}>
@@ -64,7 +68,7 @@ export const Header: SFC<HeaderProps> = ({
           />
           <CircleButton
             OnClick={() => navigate(`${path}/notifications`)}
-            IsNotification={false}
+            IsNotification={IsBoolean(IsNotified?.IsNotification ?? 0)}
             Title="Notifications"
             Icon={<NotificationsNoneOutlinedIcon className="text-primary" />}
             Type={ButtonType.button}

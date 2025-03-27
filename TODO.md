@@ -69,7 +69,7 @@
 - Transactions = 1mod
 - [ ] Client, Access Ingredients
 - [ ] Client, Avail Custom Meal Plan
-- [ ] Client, Pay Subscription
+- [x] Client, Pay Subscription
 
 - Reports & Analytics = 3mod
 - [ ] Client, View Analytics
@@ -79,13 +79,13 @@
 
 - [ ] Admin, User Activity Logs
 - [ ] Admin, Review Feedback
-- [ ] Admin, View Analytics
+- [x] Admin, View Analytics
 
 - [0/6] Subtotal - Reports & Analytics
 
 - Notification = 3mod
 - [x] Client, Receive system notification
-- [ ] Client, Subscription Expiration Reminder notification
+- [x] Client, Subscription Expiration Reminder notification
 
 - [x] Nutritionist, Profile Approval Notification
 - [x] Nutritionist, Receive system notification

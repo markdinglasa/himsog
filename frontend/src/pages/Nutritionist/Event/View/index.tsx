@@ -1,18 +1,20 @@
-import { RouteChannel, SFC } from "../../../../types";
+import { EventTable, RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles";
-import { memo, useState } from "react";
+import { memo, Suspense, useState } from "react";
 import { a11yProps, cn } from "../../../../utils";
 import Card from "../../../../components/Surfaces/Cards";
-import { Pagination, PaginationItem, Tab, Tabs } from "@mui/material";
+import { Pagination, PaginationItem, Skeleton, Tab, Tabs } from "@mui/material";
 import { colors } from "../../../../styles";
 import {
   CustomButton,
+  NoRecord,
   PageBreadCrumbs,
   SelectOption,
 } from "../../../../components";
 import Icon from "../../../../constants/icon";
-import SampleImage from "../../../../asset/images/sample-image.jpg";
 import { useNavigate } from "react-router-dom";
+import API from "../../../../hooks/api";
+import React from "react";
 
 const NutritionistViewPage: SFC = ({ ClassName }) => {
   const [index, setIndex] = useState<number>(0);
@@ -26,6 +28,7 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
+  const { data: events } = API.Setup.Event.GetAll();
   return (
     <>
       <S.Container className={cn("w-full ", ClassName)}>
@@ -41,7 +44,7 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.Content className="">
           <S.Content className="h-full flex flex-col justify-center items-center w-full  bg-white rounded-md p-[1rem] ">
-            <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-10">
+            <S.Divider className="border-b flex flex-row justify-between items-center w-full mb-[1rem]">
               <Tabs
                 value={index}
                 onChange={handleChanges}
@@ -86,48 +89,32 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
                 />
               </S.Divider>
             </S.Divider>
-            <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full">
-              <Card.Event
-                Id={"2"}
-                Image={SampleImage}
-                Title={"Lorem ipsum negoro"}
-                Descritpion={
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                }
-                ScheduleDate={"2025-01-02"}
-                Location={"Cebu City"}
-              />
-              <Card.Event
-                Id={"3"}
-                Image={null}
-                Title={"Lorem ipsum negoro"}
-                Descritpion={
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                }
-                ScheduleDate={"2025-01-02"}
-                Location={"Somewhere Cebu City"}
-              />
-              <Card.Event
-                Id={"3"}
-                Image={null}
-                Title={"Lorem ipsum negoro"}
-                Descritpion={
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                }
-                ScheduleDate={"2025-01-02"}
-                Location={"Somewhere Cebu City"}
-              />
-              <Card.Event
-                Id={"3"}
-                Image={null}
-                Title={"Lorem ipsum negoro"}
-                Descritpion={
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                }
-                ScheduleDate={"2025-01-02"}
-                Location={"Somewhere Cebu City"}
-              />
-            </S.CardContainer>
+            <S.Divider className="w-full">
+              <Suspense fallback={<Skeleton />}>
+                {events && events?.length > 0 ? (
+                  events.map((record: EventTable) => {
+                    return (
+                      <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full border-red">
+                        <React.Fragment key={record?.Id ?? ""}>
+                          <Card.Event
+                            Id={record?.Id?.toString() ?? ""}
+                            Image={record?.Image}
+                            Title={record?.Title}
+                            Descritpion={record?.Description}
+                            ScheduleDate={record?.ScheduleDate}
+                            Location={record?.Location}
+                          />
+                        </React.Fragment>
+                      </S.CardContainer>
+                    );
+                  })
+                ) : (
+                  <S.Divider className="w-full flex items-center justify-center">
+                    <NoRecord Message="No Event" />
+                  </S.Divider>
+                )}
+              </Suspense>
+            </S.Divider>
             <S.Divider className="w-full flex items-center justify-center pt-5">
               <Pagination
                 count={10}

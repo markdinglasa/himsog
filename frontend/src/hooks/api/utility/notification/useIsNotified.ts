@@ -4,15 +4,18 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllValidatedEvent = () => {
+const useIsNotified = (UserId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.EVENT],
+    queryKey: [QueryKey.NOTIFICATION, UserId], // Unique key for the query, including the Id
     queryFn: async () => {
-      const response = await axios.get(`${APIChannel.EVENT_VALIDATED}`);
+      const response = await axios.get(
+        `${APIChannel.NOTIFICATION_HAS_NOTIFICATION.replace(":Id", UserId.toString())}`,
+      );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
+    enabled: !!UserId, // Only fetch data if Id is provided
   });
   if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
   return {
@@ -21,4 +24,4 @@ const useGetAllValidatedEvent = () => {
     error,
   };
 };
-export default useGetAllValidatedEvent;
+export default useIsNotified;

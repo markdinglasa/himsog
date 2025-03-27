@@ -18,6 +18,14 @@ export const getCurrentDate = (CurrentDate: string) => {
   });
 };
 
+export const getCurrentTime = (CurrentDate: string) => {
+  const today = new Date(CurrentDate);
+  return today.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+  }); // returns 10:45 PM, dont include the date
+};
+
 export const formatDateToMMDDYY = (isoDateString: any): string => {
   try {
     const date = new Date(isoDateString);

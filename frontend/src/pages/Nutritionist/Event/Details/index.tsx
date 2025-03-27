@@ -38,9 +38,13 @@ export const NutritionistEventDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.PageContent className="w-full border-red">
+        <S.PageContent className="w-full border rounded-md ">
           <Suspense fallback={<Skeleton />}>
-            <Form.Public.Event IsDetails={true} Title="Event Details" />
+            <Form.Public.Event
+              IsDetails={true}
+              Title="Event Details"
+              ClassName="w-full"
+            />
           </Suspense>
         </S.PageContent>
       </S.Container>

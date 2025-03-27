@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import {
   AccessControl,
   AutoComplete,
+  CircleButton,
   CustomButton,
   CustomInput,
   Skeleton,
@@ -15,7 +16,8 @@ import {
   ToastType,
   FormProps,
 } from "../../../../../types";
-import { memo } from "react";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import { memo, useState } from "react";
 import { Error } from "../../../../../shared";
 import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
@@ -27,8 +29,10 @@ const EventForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   RecordId,
+  Title,
   OnClose,
 }) => {
+  const [IsEdit, SetIsEdit] = useState(false);
   const { add } = API.Setup.Event.Add();
   const { update } = API.Setup.Event.Update();
   const { data, isLoading } = API.Setup.Event.Get(Number(RecordId));
@@ -39,7 +43,7 @@ const EventForm: SFC<FormProps> = ({
     Type: data?.Type || "",
     Image: data?.Image || null,
     Description: data?.Description || null,
-    Schedule: data?.Schedule || "",
+    ScheduleDate: data?.Schedule || "",
     Location: data?.Location || "",
     ContactPerson: data?.ContactPerson || "",
     ContactNumber: data?.ContactNumber || "",
@@ -58,8 +62,25 @@ const EventForm: SFC<FormProps> = ({
 
   return (
     <S.Container className={ClassName}>
-      <S.Content className="flex justify-center items-center w-full ">
-        <S.Divider className="flex  w-full  justify-center items-center ">
+      <S.Content className="flex justify-center items-center w-full flex-col">
+        <S.FormHeader className="flex flex-row items-center justify-between mb-4">
+          <S.Divider className="flex flex-col w-full">
+            <S.Span className="text-lg font-medium">{Title}</S.Span>
+            <S.Span className="text-sm ">
+              Fill in the details below to create a health and nutrition event.
+            </S.Span>
+          </S.Divider>
+          <S.Divider>
+            <AccessControl OtherCondition={IsDetails}>
+              <CircleButton
+                OnClick={() => SetIsEdit(false)}
+                Icon={<Icon.Edit className="text-primary" />}
+                Type={ButtonType.button}
+              />
+            </AccessControl>
+          </S.Divider>
+        </S.FormHeader>
+        <S.Divider className="flex w-full justify-center items-center">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">
               <S.Divider className="">
@@ -84,7 +105,7 @@ const EventForm: SFC<FormProps> = ({
                   }) =>
                     !isLoading ? (
                       <Form>
-                        <S.Divider className="w-full py-1 border-red">
+                        <S.Divider className="w-full pt-2 ">
                           <CustomInput
                             errors={errors}
                             type={InputType.text}
@@ -97,8 +118,20 @@ const EventForm: SFC<FormProps> = ({
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem] border-red">
-                          <S.Divider className="w-full border-red">
+                        <S.Divider className="w-full py-1 flex flex-col pb-2">
+                          <span className="text-[12px] text-[#666666] ml-3">
+                            Description (Optional)
+                          </span>
+                          <textarea
+                            className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "" : "hover:border-[#202020]"}`}
+                            placeholder="Leave a Message"
+                            name="Message"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </S.Divider>
+                        <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem] ">
+                          <S.Divider className="w-full ">
                             <AutoComplete
                               Label="Event Category"
                               Values={values.Category}
@@ -120,7 +153,7 @@ const EventForm: SFC<FormProps> = ({
                               Touched={touched}
                             />
                           </S.Divider>
-                          <S.Divider className="w-full  border-red">
+                          <S.Divider className="w-full  ">
                             <AutoComplete
                               Label="Event Type"
                               Values={values.Type}
@@ -147,49 +180,63 @@ const EventForm: SFC<FormProps> = ({
                             />
                           </S.Divider>
                         </S.Divider>
-                        <S.Divider className="w-full py-1 border-red">
+                        <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem]">
+                          <S.Divider className="w-full py-1 ">
+                            <CustomInput
+                              errors={errors}
+                              type={InputType.date}
+                              label="Date"
+                              value={values?.ScheduleDate ?? ""}
+                              placeholder="Schedule"
+                              name="Schedule"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </S.Divider>
+                          <S.Divider className="w-full flex flex-row gap-[1rem]">
+                            <S.Divider className="w-full py-1 ">
+                              <CustomInput
+                                errors={errors}
+                                type={InputType.time}
+                                label="Start Time"
+                                value={values?.ScheduleTime ?? ""}
+                                placeholder="Schedule"
+                                name="Schedule"
+                                touched={touched}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </S.Divider>
+                            <S.Divider className="w-full py-1 ">
+                              <CustomInput
+                                errors={errors}
+                                type={InputType.time}
+                                label="End Time"
+                                value={values?.ScheduleTime ?? ""}
+                                placeholder="Schedule"
+                                name="Schedule"
+                                touched={touched}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </S.Divider>
+                          </S.Divider>
+                        </S.Divider>
+                        <S.Divider className="w-full py-1  ">
                           <CustomInput
                             errors={errors}
                             type={InputType.text}
-                            label="Description (Optional)"
-                            value={values?.Description ?? ""}
-                            placeholder="Description"
-                            name="Description"
+                            label="Location"
+                            value={values?.Location ?? ""}
+                            placeholder="Location"
+                            name="Location"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem]">
-                          <S.Divider className="w-full py-1 border-red">
-                            <CustomInput
-                              errors={errors}
-                              type={InputType.date}
-                              label="Date"
-                              value={values?.Schedule ?? ""}
-                              placeholder="Schedule"
-                              name="Schedule"
-                              touched={touched}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                          </S.Divider>
-                          <S.Divider className="w-full py-1 border-red">
-                            <CustomInput
-                              errors={errors}
-                              type={InputType.time}
-                              label="Time"
-                              value={values?.Schedule ?? ""}
-                              placeholder="Schedule"
-                              name="Schedule"
-                              touched={touched}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                          </S.Divider>
-                        </S.Divider>
-
-                        <S.Divider className="w-full py-1  border-red">
+                        <S.Divider className="w-full py-1  ">
                           <CustomInput
                             errors={errors}
                             type={InputType.text}
@@ -202,8 +249,27 @@ const EventForm: SFC<FormProps> = ({
                             onBlur={handleBlur}
                           />
                         </S.Divider>
-                        <AccessControl OtherCondition={!IsDetails}>
-                          <S.Divider className="w-full flex justify-end gap-[1rem] items-center mt-[1rem]  border-red">
+                        <S.Divider className="w-full mb-[1rem] mt-1">
+                          <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <S.Span>
+                              <FolderOpenIcon className="text-slate-600" />
+                            </S.Span>
+                            <S.Span className="text-sm text-slate-600 text-center">
+                              Drag & drop your supporting document or click the
+                              button to browse.
+                            </S.Span>
+                            <S.Span className="text-sm text-slate-600 mb-3">
+                              PDF, JPG, PNG (max 3MB)
+                            </S.Span>
+                            <CustomButton
+                              morph={false}
+                              text="Upload Document"
+                              color={ButtonColor.default}
+                            />
+                          </S.Divider>
+                        </S.Divider>
+                        <AccessControl OtherCondition={!IsEdit}>
+                          <S.Divider className="w-full flex justify-end gap-[1rem] items-center ">
                             <CustomButton
                               leftIcon={
                                 <Icon.Cancel className="text-primary" />

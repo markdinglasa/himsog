@@ -6,6 +6,7 @@ export interface EventTable extends Id, Logs {
   Image: string | null;
   Description: string;
   ScheduleDate: string;
+  ScheduleTime?: string;
   Location: string;
   ContactPerson: string;
   ContactNumber: string;

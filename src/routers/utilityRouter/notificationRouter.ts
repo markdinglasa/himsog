@@ -7,6 +7,7 @@ import {
   NotificationGetAllController,
   NotificationRemoveController,
   NotificationUpdateController,
+  NotificationIsNotificationController,
 } from "../../controllers";
 import { API_VERSION } from "../../constants";
 
@@ -15,6 +16,11 @@ router.post(
   `${API_VERSION}${RouteChannel.NOTIFICATION}`,
   TokenHandler.verifyToken,
   NotificationAddController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NOTIFICATION_HAS_NOTIFICATION}`,
+  TokenHandler.verifyToken,
+  NotificationIsNotificationController,
 );
 router.get(
   `${API_VERSION}${RouteChannel.NOTIFICATION_ID}`,

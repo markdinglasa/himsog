@@ -9,7 +9,7 @@ import { CustomModal } from "../../../modals";
 import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { useParams } from "react-router-dom";
-import { AccessControl } from "..";
+import { AccessControl, NoRecord } from "..";
 import Card from "../../Surfaces/Cards";
 
 export const Specialists: SFC<FormProps> = ({ IsEdit = true }) => {
@@ -68,7 +68,7 @@ export const Specialists: SFC<FormProps> = ({ IsEdit = true }) => {
           ))
         ) : (
           <div className="w-full text-center items-center">
-            <span>No Specialization</span>
+            <NoRecord Message="No Specialization" />
           </div>
         )}
       </div>

@@ -16,7 +16,7 @@ export const eventValidator = Joi.object({
   ContactPerson: Joi.string().required(),
   ContactNumber: Joi.string().required(),
   ContactEmail: Joi.string().email().required(),
-  RegistrationLink: Joi.string().uri().required(),
+  RegistrationLink: Joi.string().uri().allow("").allow(null).required(),
   IsValidated: Joi.boolean().required(),
   Image: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),

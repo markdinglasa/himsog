@@ -53,12 +53,12 @@ export const SubscriptionPanel: SFC = ({ ClassName }) => {
           <S.Divider>
             {isLoading ? (
               <Skeleton />
-            ) : UserSubs && UserSubs.Id && !IsBoolean(UserSubs.IsCancelled) ? (
+            ) : UserSubs && UserSubs.Id ? (
               <>
                 <div className="w-full mt-[1rem]">
-                  <div className="w-full border rounded-mg">
+                  <div className="w-full rounded-mg">
                     <div className="flex flex-col w-full">
-                      <div className="w-full border-red flex items-center justify-between">
+                      <div className="w-full  flex items-center justify-between">
                         <div className="flex flex-col">
                           <span className="text-lg font-medium">
                             {UserSubs?.SubscriptionName ?? ""}
@@ -74,7 +74,7 @@ export const SubscriptionPanel: SFC = ({ ClassName }) => {
                           className={cn(
                             UserSubs?.Status === "Active"
                               ? "border border-green-500 bg-green-100 text-green-500"
-                              : "border border-red-500 bg-red-100 text-red-500",
+                              : "border -500 bg-red-100 text-red-500",
                             "px-5 py-1 rounded-full uppercase font-medium",
                           )}
                         >
@@ -89,7 +89,7 @@ export const SubscriptionPanel: SFC = ({ ClassName }) => {
                         {formatDateToMMDDYY(UserSubs?.DateEnd ?? "")}
                       </span>
                     </div>
-                    <div className="w-full border-red py-2 mt-[1rem] flex items-center flex-row justify-between">
+                    <div className="w-full  py-2 mt-[1rem] flex items-center flex-row justify-between">
                       <div className="flex flex-col ">
                         <span className="text-lg font-medium text-red-400">
                           Cancel Subscription

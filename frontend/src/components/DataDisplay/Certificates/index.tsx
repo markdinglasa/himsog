@@ -10,7 +10,7 @@ import { CustomModal } from "../../../modals";
 import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { useParams } from "react-router-dom";
-import { AccessControl } from "..";
+import { AccessControl, NoRecord } from "..";
 
 export const Certificates: SFC<FormProps> = ({ IsEdit = true }) => {
   const { auth } = useAuth();
@@ -67,7 +67,7 @@ export const Certificates: SFC<FormProps> = ({ IsEdit = true }) => {
           ))
         ) : (
           <div className="w-full text-center items-center">
-            <span>No Certificate</span>
+            <NoRecord Message="No Certificate" />
           </div>
         )}
       </div>
