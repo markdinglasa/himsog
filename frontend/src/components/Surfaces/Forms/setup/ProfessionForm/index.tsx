@@ -15,9 +15,9 @@ import {
   SFC,
   ToastType,
 } from "../../../../../types";
-import { memo, useState } from "react";
-import { Error } from "../../../../../shared";
-import { useAuth } from "../../../../../hooks";
+import { memo, useRef, useState } from "react";
+import { BASE_URL, Error } from "../../../../../shared";
+import { useAuth, useAxiosPrivate } from "../../../../../hooks";
 import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
 import { professionValidator } from "../../../../../validators/";
@@ -37,6 +37,9 @@ const ProfessionForm: SFC<FormProps> = ({
   const { add } = API.Setup.Profession.Add();
   const { update } = API.Setup.Profession.Update();
   const { data, isLoading } = API.Setup.Profession.Get(Number(RecordId));
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const axios = useAxiosPrivate();
 
   const InitialValues: ProfessionTable = {
     UserId: data?.UserId || (auth?.user ?? 0),
@@ -50,8 +53,20 @@ const ProfessionForm: SFC<FormProps> = ({
 
   const handleSubmit = async (values: ProfessionTable): Promise<void> => {
     try {
-      if (Object.keys(data).length !== 0) update(Number(data.Id), values);
+      const formData = new FormData();
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+      const uploadResponse = await axios.post(
+        `${BASE_URL}/utility/upload-image`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
+      );
+      const uploadedImagePath = uploadResponse.data?.path || null;
+      values.Document = uploadedImagePath;
+      if (data?.Id) update(Number(data.Id), values);
       else add(values);
+      OnClose && OnClose();
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }
@@ -180,19 +195,45 @@ const ProfessionForm: SFC<FormProps> = ({
                         </S.Divider>
                         <S.Divider className="w-full mb-[1rem]">
                           <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <input
+                              id="upload-image"
+                              type="file"
+                              accept="image/*"
+                              name="Image"
+                              ref={fileInputRef}
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  setImageFile(file);
+                                }
+                              }}
+                              className="absolute inset-0 opacity-0 cursor-pointer"
+                            />
                             <S.Span>
                               <FolderOpenIcon className="text-slate-600" />
                             </S.Span>
-                            <S.Span className="text-sm text-slate-600 text-center">
-                              Drag & drop your supporting document or click the
-                              button to browse.
-                            </S.Span>
-                            <S.Span className="text-sm text-slate-600 mb-3">
-                              PDF, JPG, PNG (max 3MB)
-                            </S.Span>
+                            {!imageFile ? (
+                              <>
+                                <S.Span className="text-sm text-slate-600 text-center">
+                                  Drag & drop your supporting document or click
+                                  the button to browse.
+                                </S.Span>
+                                <S.Span className="text-sm text-slate-600 mb-3">
+                                  PDF, JPG, PNG (max 3MB)
+                                </S.Span>
+                              </>
+                            ) : (
+                              <S.Divider className="py-5">
+                                <span>
+                                  {imageFile?.name || "No file selected"}
+                                </span>
+                              </S.Divider>
+                            )}
                             <CustomButton
                               morph={false}
                               text="Upload Document"
+                              onClick={() => fileInputRef.current?.click()}
+                              type={ButtonType.button}
                               color={ButtonColor.default}
                             />
                           </S.Divider>

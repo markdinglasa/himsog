@@ -35,6 +35,8 @@ export const ProfessionUpdateController = async (
       ).data
     )
       return res.status(401).json({ data: false, message: Error.m043 }); // check duplicate Profession
+    Data.DateIssued = new Date(Data.DateIssued);
+    Data.DateExpired = new Date(Data.DateExpired);
     Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

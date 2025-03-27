@@ -50,10 +50,10 @@ export const NotificationCard: SFC<NotificationCardProps> = ({
     >
       <div className="w-full flex flex-row items-center justify-between ">
         <div className="top w-full flex flex-col items-start justify-between">
-          <span className="text-sm text-slate-600">{lastDate(Date)}</span>
           <div className="w-full">
             <span className="text-sm">{Description}</span>
           </div>
+          <span className="text-[12px] text-slate-600">{lastDate(Date)}</span>
         </div>
 
         <div className="flex flex-row gap-2 items-center justify-center h-12">

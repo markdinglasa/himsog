@@ -13,6 +13,7 @@ export enum QueryKey {
   MEAL_PLAN_LINE = "meal-plan-line",
   MEAL_PLAN_REQUEST = "meal-plan-request",
   NOTIFICATION = "notification",
+  NOTIFICATION_IS_NOTIFY = "notification-is-notify",
   NUTRITION_FACT = "nutrition-fact",
   PAYMENT = "payment",
   PAY_TYPE = "pay-type",

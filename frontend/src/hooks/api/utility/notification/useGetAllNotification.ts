@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetAllNotification = (UserId: number = 0) => {
   const axios = useAxiosPrivate();
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: [QueryKey.NOTIFICATION, UserId], // Unique key for the query, including the Id
     queryFn: async () => {
       const response = await axios.get(
@@ -22,6 +22,7 @@ const useGetAllNotification = (UserId: number = 0) => {
     data,
     isLoading,
     error,
+    refetch,
   };
 };
 export default useGetAllNotification;

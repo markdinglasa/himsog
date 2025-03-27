@@ -52,6 +52,7 @@ const SpecialistForm: SFC<FormProps> = ({
     try {
       if (data?.Id) update(Number(data.Id), values);
       else add(values);
+      OnClose && OnClose();
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }

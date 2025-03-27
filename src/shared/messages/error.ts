@@ -46,4 +46,5 @@ export enum Error {
   m045 = "Unit already exists.",
   m046 = "No user found.",
   m047 = "Password is incorrect",
+  m048 = "User has an active subscription.",
 }

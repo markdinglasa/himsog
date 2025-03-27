@@ -6,8 +6,8 @@ export interface ProfessionTable extends Id, Logs {
   LicenseNumber: string;
   Description: string;
   Issuer: string;
-  DateIssued: string;
-  DateExpired: string;
+  DateIssued: string | Date;
+  DateExpired: string | Date;
   Document: string | null;
 }
 export type ProfessionTables = ProfessionTable[];

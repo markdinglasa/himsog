@@ -53,6 +53,7 @@ const CertificateForm: SFC<FormProps> = ({
         values?.ExpiryDate && formatDateForInput(new Date(values?.ExpiryDate));
       if (Number(RecordId) !== 0) update(Number(RecordId), values);
       else add(values);
+      OnClose && OnClose();
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }

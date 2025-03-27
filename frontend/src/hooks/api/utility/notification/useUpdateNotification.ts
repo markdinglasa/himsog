@@ -30,6 +30,9 @@ const useUpdateNotification = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: [QueryKey.NOTIFICATION_IS_NOTIFY],
+      });
+      queryClient.invalidateQueries({
         queryKey: [QueryKey.NOTIFICATION],
       });
       // displayToast(Success.m00004, ToastType.success);

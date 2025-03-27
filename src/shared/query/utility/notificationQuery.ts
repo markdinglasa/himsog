@@ -1,5 +1,5 @@
 export enum NotificationQuery {
-  q001 = "SELECT * FROM `notification` WHERE `UserId` = ?", // get all
+  q001 = "SELECT * FROM `notification` WHERE `UserId` = ? ORDER BY `DateCreated` DESC", // get all
   q002 = "SELECT `Id` FROM `notification` WHERE `Id` = ?", // exists
   q003 = "SELECT * FROM `notification` WHERE `Id` = ?", // get
   q004 = "SELECT `Id` FROM `user` WHERE `Id` = ?",

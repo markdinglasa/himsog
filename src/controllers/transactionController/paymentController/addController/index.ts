@@ -4,10 +4,11 @@ import {
   SubscriptionLineTable,
   SubscriptionTable,
 } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import { DBTable, Error, PaymentQuery, Success } from "../../../../shared";
 import { paymentValidator } from "../../../../validators";
 import { AddService, GetService } from "../../../../services";
 import { formatDateToYYYYMMDD } from "../../../../utils";
+import { isFound } from "../../../../functions";
 
 export const PaymentAddController = async (
   req: Request,
@@ -30,9 +31,15 @@ export const PaymentAddController = async (
       });
     // Other Fn
     Data.DateCreated = new Date();
+
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
+
+    // validate user if he/she already have an active subscription
+    if (await isFound(PaymentQuery.q004, ["UserId"], [Number], [Data.UserId]))
+      return res.status(401).json({ data: false, message: Error.m048 });
+
     const Verified: SubscriptionLineTable = {
       SubscriptionId: Data?.SubscriptionId || 0,
       UserId: Data?.UserId || 0,

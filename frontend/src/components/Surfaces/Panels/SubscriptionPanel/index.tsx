@@ -53,7 +53,7 @@ export const SubscriptionPanel: SFC = ({ ClassName }) => {
           <S.Divider>
             {isLoading ? (
               <Skeleton />
-            ) : UserSubs && UserSubs.Id ? (
+            ) : UserSubs && UserSubs.Id && !IsBoolean(UserSubs.IsCancelled) ? (
               <>
                 <div className="w-full mt-[1rem]">
                   <div className="w-full rounded-mg">

@@ -6,14 +6,14 @@ export const professionValidator = () => {
     Title: yup
       .string()
       .matches(
-        /^[A-Za-z\s.&)(-,]+$/,
+        /^[A-Za-z\s-.&)(,]+$/,
         "Title should not contain special characters",
       )
       .required(),
     LicenseNumber: yup
       .string()
       .matches(
-        /^[0-9\s-]+$/,
+        /^[a-zA-Z0-9\s-]+$/,
         "License Number should not contain special characters",
       )
       .required(),

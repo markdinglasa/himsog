@@ -12,7 +12,7 @@ export const InstituteCard: SFC<ProfessionProps> = ({
   return (
     <div
       className={cn(
-        "w-full rounded-md border border-slate-300 p-[1rem]",
+        "w-full rounded-md border border-slate-300 p-[1rem] hover:bg-slate-100/60 duration-300 ease-in-out",
         ClassName,
       )}
     >
