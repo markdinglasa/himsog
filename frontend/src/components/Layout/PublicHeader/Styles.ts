@@ -10,7 +10,7 @@ export const Container = styled.div`
   height: 50px;
 `;
 export const LeftContent = styled.div`
-  width: 100%;
+  width: fit;
 `;
 export const RightContent = styled.div`
   display: flex;

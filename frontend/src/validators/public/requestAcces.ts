@@ -6,5 +6,7 @@ export const requestAccessValidator = () => {
     Remarks: yup.string().nullable().optional(),
     Token: yup.string().optional(),
     IsApproved: yup.boolean().required(),
+    EventId: yup.number().nullable().optional(),
+    ArticleId: yup.number().nullable().optional(),
   });
 };

@@ -6,6 +6,7 @@ export interface NotificationTable extends Id, Logs {
   Link: string;
   IsRead: boolean;
   Subject?: string;
+  Email?: string | null;
   IsEmail?: boolean;
   HTML?: any;
 }

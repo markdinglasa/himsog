@@ -18,12 +18,21 @@ export const getCurrentDate = (CurrentDate: string) => {
   });
 };
 
-export const getCurrentTime = (CurrentDate: string) => {
-  const today = new Date(CurrentDate);
-  return today.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-  }); // returns 10:45 PM, dont include the date
+export const getCurrentTime = (CurrentTime: string) => {
+  // CurrentTime Sample Data = 08:00:00
+  // getting an incorrect output, 08:00:00 should be 08:00 AM
+  try {
+    const today = new Date(`2025-03-01T${CurrentTime}`); // Ensure valid time format without timezone conversion
+    if (isNaN(today.getTime())) throw new Error("Invalid time format");
+    return today.toLocaleTimeString("en-PH", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    }); // returns 10:45 PM, don't include the date
+  } catch (error: any) {
+    displayToast(error.message, ToastType.error);
+    return "";
+  }
 };
 
 export const formatDateToMMDDYY = (isoDateString: any): string => {

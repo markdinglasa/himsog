@@ -28,7 +28,7 @@ export const NutritionistEventDetailsPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar>
-          <PageBreadCrumbs Links={links} Active="New Event" />
+          <PageBreadCrumbs Links={links} Active="Event Details" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Back className="md:text-white text-primary" />}

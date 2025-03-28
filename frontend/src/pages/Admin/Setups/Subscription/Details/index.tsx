@@ -1,15 +1,26 @@
-import { ButtonType, RouteChannel, SFC } from "../../../../../types";
+import {
+  APIChannel,
+  ButtonType,
+  HeadCell,
+  QueryKey,
+  RouteChannel,
+  SFC,
+  subscriptionLineHC,
+} from "../../../../../types";
 import * as S from "../../../../../styles/Styles";
 import {
   PageBreadCrumbs,
   Skeleton,
   CustomButton,
+  EnhancedTable,
 } from "../../../../../components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import Form from "../../../../../components/Surfaces/Forms";
+import API from "../../../../../hooks/api";
+
 export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
@@ -22,7 +33,10 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_SUBSCRIPTION),
     },
   ];
-
+  const { Id } = useParams<{ Id: string }>();
+  const { data: subscribers, isLoading } = API.Setup.SubscriptionLine.GetAll(
+    Number(Id),
+  );
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -42,6 +56,21 @@ export const AdminSubscriptionDetailsPage: SFC = ({ ClassName }) => {
             <Form.Setup.Subscription
               IsDetails={true}
               Title="Subscription Details"
+            />
+          </Suspense>
+        </S.PageContent>
+        <S.PageContent className="border rounded-md">
+          <Suspense fallback={<Skeleton />}>
+            <EnhancedTable
+              Title="Subscribers"
+              Rows={subscribers ?? []}
+              HeadCells={subscriptionLineHC as HeadCell<unknown>[]}
+              IsLoading={isLoading}
+              OnRecordDelete={() => {}}
+              RemoveApiRoute={APIChannel.SUBSCRIPTION_LINE_ID}
+              // DetailsRoute={RouteChannel.ADMIN_SUBSCRIPTION_DETAILS}
+              ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.SUBSCRIPTION_LINE}
             />
           </Suspense>
         </S.PageContent>

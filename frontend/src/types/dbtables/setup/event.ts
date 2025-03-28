@@ -14,7 +14,8 @@ export interface EventTable extends Id, Logs {
   ContactNumber: string;
   ContactEmail: string;
   RegistrationLink: string;
-  IsValidated: boolean;
+  IsValidated: boolean | null;
+  Remarks: string | null;
 }
 export type EventTables = EventTable[];
 export const EventInitial: EventTable = {
@@ -33,4 +34,5 @@ export const EventInitial: EventTable = {
   IsValidated: false,
   TimeStart: "",
   TimeEnd: "",
+  Remarks: null,
 };

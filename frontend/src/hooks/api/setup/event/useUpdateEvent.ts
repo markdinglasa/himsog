@@ -4,19 +4,22 @@ import {
   EventInitial,
   EventTable,
   QueryKey,
-  RouteChannel,
+  Roles,
   ToastType,
 } from "../../../../types";
-import { displayToast } from "../../../../utils";
+import { displayToast, renderPath } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../../useAuth";
 
 const useUpdateEvent = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { auth } = useAuth();
+  const path = renderPath(auth?.roles as Roles);
 
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: EventTable }) => {
@@ -31,7 +34,7 @@ const useUpdateEvent = () => {
         queryKey: [QueryKey.EVENT],
       });
       displayToast(Success.m00004, ToastType.success);
-      navigate(RouteChannel.EVENT);
+      navigate(`${path}/event`);
     },
     onError: (error: any) => {
       displayToast(

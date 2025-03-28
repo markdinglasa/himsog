@@ -9,7 +9,6 @@ import {
 import { displayToast, renderPath } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
-import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../../useAuth";
 
@@ -28,7 +27,10 @@ const useAddEvent = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.EVENT],
       });
-      displayToast(Success.m00002, ToastType.success);
+      displayToast(
+        "Event successfully submitted for validation",
+        ToastType.success,
+      );
       navigate(`${path}/event`);
     },
     onError: (error: any) => {

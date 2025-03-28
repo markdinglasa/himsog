@@ -31,8 +31,8 @@ const NutritionistViewPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.Content className="mb-[1rem] border rounded-md">
-          <Events />
+        <S.Content className="mb-[1rem] border rounded-md p-[1rem] bg-white">
+          <Events IsPublic={false} />
         </S.Content>
       </S.Container>
     </>

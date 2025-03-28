@@ -7,6 +7,7 @@ export interface NotificationTable extends Id, Logs {
   IsRead: boolean;
   Subject?: string;
   IsEmail?: boolean;
+  Email?: string;
   HTML?: any;
 }
 export type NotificationTables = NotificationTable[];

@@ -15,9 +15,9 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
   return (
     <>
       <S.Container
-        className={cn("flex items-center justify-center", ClassName)}
+        className={cn("flex items-center justify-center px-[1rem]", ClassName)}
       >
-        <S.Content className="w-full md:w-11/12 flex flex-row">
+        <S.Content className="w-full md:w-11/12 flex flex-row border-red">
           <S.LeftContent className="flex flex-row items-center">
             <S.Image
               className=""
@@ -27,10 +27,12 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                 navigate(RouteChannel.INDEX);
               }}
             />
-            <div className="ml-5  px-2 hidden md:block border-l-2 border-slate-400">
-              <div className="flex flex-row gap-5">
+          </S.LeftContent>
+          <S.RightContent className="w-full flex flex-row items-center justify-end border-red">
+            <div className="px-2 hidden md:block">
+              <div className="flex flex-row gap-5 ">
                 <div
-                  className="cursor-pointer ml-4"
+                  className="cursor-pointer"
                   onClick={() => {
                     setActivePage(RouteChannel.INDEX);
                     navigate(RouteChannel.INDEX);
@@ -43,7 +45,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                   </span>
                 </div>
                 <div
-                  className="cursor-pointer ml-4"
+                  className="cursor-pointer"
                   onClick={() => {
                     setActivePage(RouteChannel.HOW_IT_WORKS);
                     navigate(RouteChannel.HOW_IT_WORKS);
@@ -122,25 +124,25 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
                 </div>*/}
               </div>
             </div>
-          </S.LeftContent>
-          <S.RightContent>
-            <CustomButton
-              morph={false}
-              color={ButtonColor.default}
-              text="Sign In"
-              onClick={() => {
-                setActivePage(RouteChannel.SIGN_IN);
-                navigate(RouteChannel.SIGN_IN);
-              }}
-            />
-            <CustomButton
-              morph={false}
-              text="Sign Up"
-              onClick={() => {
-                setActivePage(RouteChannel.SIGN_UP);
-                navigate(RouteChannel.SIGN_UP);
-              }}
-            />
+            <div className="flex flex-row items-center justify-end gap-[1rem]">
+              <CustomButton
+                morph={false}
+                color={ButtonColor.default}
+                text="Sign In"
+                onClick={() => {
+                  setActivePage(RouteChannel.SIGN_IN);
+                  navigate(RouteChannel.SIGN_IN);
+                }}
+              />
+              <CustomButton
+                morph={false}
+                text="Sign Up"
+                onClick={() => {
+                  setActivePage(RouteChannel.SIGN_UP);
+                  navigate(RouteChannel.SIGN_UP);
+                }}
+              />
+            </div>
           </S.RightContent>
         </S.Content>
       </S.Container>

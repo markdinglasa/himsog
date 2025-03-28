@@ -25,11 +25,12 @@ import { eventValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../../../../hooks";
 
 const EventForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
-  // IsDisplay = false,
+  IsDisplay = false,
   RecordId,
   Title,
   OnClose,
@@ -42,6 +43,8 @@ const EventForm: SFC<FormProps> = ({
   const { data, isLoading } = API.Setup.Event.Get(Id);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const { upload } = API.Utility.UploadImage();
+  const { auth } = useAuth();
   // console.log("Event:", data);
   const InitialValues: EventTable = {
     Title: data?.Title || "",
@@ -57,17 +60,25 @@ const EventForm: SFC<FormProps> = ({
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
-    IsValidated: data?.IsValidated || false,
+    IsValidated: data?.Id ? null : data?.IsValidated || null,
+    Remarks: data?.Remarks || null,
+    CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 0)),
+    UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 0)),
   };
   const handleSubmit = async (values: EventTable): Promise<void> => {
     try {
-      if (RecordId) update(Number(RecordId), values);
+      const formData = new FormData();
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+      const imagePath = await upload(formData);
+      values.Image = imagePath || null;
+      if (Id) update(Number(Id), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }
   };
-
   return (
     <S.Container className={ClassName}>
       <S.Content className="flex justify-center items-center w-full flex-col">
@@ -79,7 +90,7 @@ const EventForm: SFC<FormProps> = ({
             </S.Span>
           </S.Divider>
           <S.Divider>
-            <AccessControl OtherCondition={IsDetails}>
+            <AccessControl OtherCondition={IsEdit && !IsDisplay}>
               <CircleButton
                 OnClick={() => SetIsEdit(false)}
                 Icon={<Icon.Edit className="text-primary" />}
@@ -186,9 +197,10 @@ const EventForm: SFC<FormProps> = ({
                             Description (Optional)
                           </span>
                           <textarea
-                            className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "" : "hover:border-[#202020]"}`}
-                            placeholder="Descripion"
-                            name="Descripion"
+                            className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "text-[#666666]" : "hover:border-[#202020]"}`}
+                            placeholder="Description"
+                            name="Description"
+                            value={values?.Description ?? ""}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             disabled={IsEdit}
@@ -317,21 +329,24 @@ const EventForm: SFC<FormProps> = ({
                           />
                         </S.Divider>
                         <S.Divider className="w-full mb-[1rem]">
-                          <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
-                            <input
-                              id="upload-image"
-                              type="file"
-                              accept="image/*"
-                              name="Image"
-                              ref={fileInputRef}
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                  setImageFile(file);
-                                }
-                              }}
-                              className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
+                          <S.Divider className="w-full relative border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <label>
+                              <input
+                                id="upload-image"
+                                type="file"
+                                accept="image/*"
+                                name="Image"
+                                ref={fileInputRef}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    setImageFile(file);
+                                  }
+                                }}
+                                disabled={IsEdit}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                              />
+                            </label>
                             <S.Span>
                               <FolderOpenIcon className="text-slate-600" />
                             </S.Span>
@@ -358,9 +373,21 @@ const EventForm: SFC<FormProps> = ({
                               onClick={() => fileInputRef.current?.click()}
                               type={ButtonType.button}
                               color={ButtonColor.default}
+                              disabled={IsEdit}
                             />
                           </S.Divider>
                         </S.Divider>
+                        <AccessControl OtherCondition={data?.Image}>
+                          <S.Divider className="w-full overflow-hidden">
+                            <S.Divider className="w-full mb-[1rem]">
+                              <S.Image
+                                src={data?.Image}
+                                alt={data?.Title ?? "event-image"}
+                                className="w-full"
+                              />
+                            </S.Divider>
+                          </S.Divider>
+                        </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end gap-[1rem] items-center ">
                             <CustomButton
@@ -375,6 +402,7 @@ const EventForm: SFC<FormProps> = ({
                               onClick={() => {
                                 OnClose && OnClose();
                                 resetForm();
+                                SetIsEdit(true);
                               }}
                             />
                             <CustomButton

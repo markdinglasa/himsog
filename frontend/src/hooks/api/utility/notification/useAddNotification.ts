@@ -3,18 +3,16 @@ import {
   APIChannel,
   NotificationTable,
   QueryKey,
-  RouteChannel,
   ToastType,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddNotification = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: NotificationTable) => {
@@ -29,7 +27,7 @@ const useAddNotification = () => {
         queryKey: [QueryKey.NOTIFICATION],
       });
       displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.ADMIN_REQUEST_ACCESS);
+      //navigate(RouteChannel.ADMIN_REQUEST_ACCESS);
     },
     onError: (error: any) => {
       displayToast(

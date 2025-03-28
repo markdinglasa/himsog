@@ -5,7 +5,7 @@ export const eventValidator = () => {
     Title: yup
       .string()
       .matches(
-        /^[A-Za-z\s.&)(-,]+$/,
+        /^[0-9A-Za-z\s.&)(-,]+$/,
         "Title should not contain special characters",
       )
       .required(),
@@ -18,6 +18,9 @@ export const eventValidator = () => {
     TimeEnd: yup.string().required(),
     Image: yup.string().nullable().optional(),
     RegistrationLink: yup.string().nullable().optional(),
-    IsValidated: yup.boolean().required(),
+    Remarks: yup.string().nullable().optional(),
+    IsValidated: yup.boolean().nullable().optional(),
+    CreatedBy: yup.number().integer().required(),
+    UpdatedBy: yup.number().nullable().optional(),
   });
 };

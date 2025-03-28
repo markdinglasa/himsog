@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Error, RecipeQuery, Success } from "../../../../shared";
+import { Error, SubscriptionQuery, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { SubscriptionLineQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
@@ -14,8 +14,14 @@ export const SubscriptionLineGetAllController = async (
     if (!SubscriptionId || SubscriptionId === 0 || SubscriptionId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
     if (
-      !(await isFound(RecipeQuery.q002, ["Id"], [Number], [SubscriptionId]))
-        .data
+      !(
+        await isFound(
+          SubscriptionQuery.q002,
+          ["Id"],
+          [Number],
+          [SubscriptionId],
+        )
+      ).data
     )
       return res.status(401).json({ data: [], message: Error.m011 }); // check Susbcription existence
     const response = await GetService.byFields(

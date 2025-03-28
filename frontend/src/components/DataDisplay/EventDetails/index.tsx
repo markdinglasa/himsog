@@ -1,80 +1,95 @@
 import { EventInitial, EventTable, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { cn, getCurrentDate, truncate } from "../../../utils";
+import { cn, getCurrentDate, getCurrentTime } from "../../../utils";
 import { AccessControl } from "..";
 import Icon from "../../../constants/icon";
-import Card from "../../Surfaces/Cards";
 import { memo } from "react";
+import { Skeleton } from "../../Feedback";
 
 interface EventDetailsProps {
   Data: EventTable;
+  Loading: boolean;
 }
-export const EventDetails: SFC<EventDetailsProps> = ({ ClassName, Data }) => {
+export const EventDetails: SFC<EventDetailsProps> = ({
+  ClassName,
+  Data = EventInitial,
+  Loading = false,
+}) => {
+  if (Loading) return <Skeleton />;
   return (
     <S.Container className={cn("w-full", ClassName)}>
-      <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10 ">
-        <AccessControl OtherCondition={!!(Image && Image?.length > 0)}>
-          <S.Divider className="w-full">
-            <S.Image src={Data?.Image ?? ""} className="w-full h-[30rem]" />
+      <S.Divider className="w-full">
+        <AccessControl OtherCondition={(Data?.Remarks ?? "").length > 0}>
+          <S.Divider className="w-full overflow-hidden bg-blue-100 border-blue-400 p-[1rem] rounded-md border mb-[1rem] flex flex-col">
+            <S.Span className="text-md font-medium">Remarks</S.Span>
+            <S.Span className="text-sm ">{Data?.Remarks}</S.Span>
           </S.Divider>
         </AccessControl>
-        <S.Divider className="w-full  flex flex-col">
-          <S.Divider className="py-2">
-            <S.Span className="text-xl font-semibold">
-              {truncate(Data?.Title ?? "NA", 100)}
+        <S.Divider className="w-full flex flex-col">
+          <S.Divider className="w-full overflow-hidden ">
+            <S.Span className="text-2xl font-medium">{Data?.Title}</S.Span>
+          </S.Divider>
+          <S.Divider className="w-full flex flex-row items-center gap-[1rem] justify-start ">
+            <S.Divider className="flex items-center w-fit">
+              <Icon.Calendar className="p-[2px] text-slate-400 " />
+              <S.Span className="ml-2 text-sm text-slate-600">
+                {getCurrentDate(Data?.ScheduleDate)}
+              </S.Span>
+            </S.Divider>
+            <S.Divider className="flex items-center w-fit">
+              <Icon.Time className="p-[2px] text-slate-400 " />
+              <S.Span className="ml-2 text-sm text-slate-600">
+                {getCurrentTime(Data?.TimeStart)} -
+              </S.Span>
+              <S.Span className="ml-2 text-sm text-slate-600">
+                {getCurrentTime(Data?.TimeEnd)}
+              </S.Span>
+            </S.Divider>
+          </S.Divider>
+          <S.Divider className="flex items-center w-fit py-2">
+            <Icon.Location className="p-[2px] text-slate-400 " />
+            <S.Span className="ml-2 text-sm text-slate-600">
+              {Data?.Location}
             </S.Span>
           </S.Divider>
-          <S.Divider className="w-full flex md:flex-row felx-col  items-center justify-start mb-4">
-            <S.Divider className="flex flex-row items-center w-fit">
-              <S.Divider>
-                <Icon.Calendar className="p-[2px] text-zinc-600 " />
-                <S.Span className="ml-2 text-sm ">
-                  {getCurrentDate(Data?.ScheduleDate)}
-                </S.Span>
-              </S.Divider>
+
+          <AccessControl
+            OtherCondition={
+              !!(Data?.RegistrationLink && Data?.RegistrationLink?.length > 0)
+            }
+          >
+            <S.Divider className="w-full flex items-center flex-row justify-start py-5">
+              <S.Span className="text-sm text-slate-600">
+                Click here to register:
+              </S.Span>
+              <a
+                className="text-sm text-blue-400 ml-3"
+                href={Data?.RegistrationLink ?? ""}
+                target="_blank"
+              >
+                {Data?.RegistrationLink ?? ""}
+              </a>
             </S.Divider>
-            <S.Divider className="flex items-center w-fit ml-3">
-              <Icon.Location className="p-[2px] text-zinc-600 " />
-              <S.Span className="ml-1 text-sm ">{Data?.Location}</S.Span>
-            </S.Divider>
-          </S.Divider>
-          <S.Divider className="w-full flex md:flex-row felx-col  items-center justify-start mb-2">
-            <S.Span className="text-sm text-slate-600">
-              Click here to view more:{" "}
-              <S.Span className="text-blue-600">event link here</S.Span>
-            </S.Span>
-          </S.Divider>
-          <S.Divider className="flex md:flex-row flex-col gap-10">
-            <S.Divider className="w-full md:w-8/12 flex md:flex-row flex-col  items-start justify-start mb-2">
-              <S.P className="text-slate-600 text-justify">
-                {Data?.Description}
-              </S.P>
-            </S.Divider>
-            <S.Divider className="w-full md:w-4/12 flex flex-col  items-center justify-start">
-              <S.Divider className="flex items-start justify-start w-full py-2">
-                <S.Span className="text-lg font-medium">Upcoming events</S.Span>
-              </S.Divider>
-              <S.Divider className="">
-                <Card.Event
-                  ClassName="h-[10rem] cursor-pointer mb-2"
-                  Data={EventInitial}
-                  IsWidget={true}
-                />
-              </S.Divider>
-              <S.Divider className="flex items-center justify-start w-full mt-4">
-                <S.Span
-                  className="font-medium text-md cursor-pointer"
-                  onClick={() => {
-                    alert("fetch more upcoming-vents");
-                  }}
-                >
-                  Show more...
-                </S.Span>
-              </S.Divider>
-            </S.Divider>
+          </AccessControl>
+          <S.Divider className="w-full py-5">
+            <p className="text-md font-medium">About this event</p>
+            <p className="text-slate-600 text-sm text-justify">
+              {Data?.Description ?? "No Description"}
+            </p>
           </S.Divider>
         </S.Divider>
-      </S.Content>
+        <AccessControl
+          OtherCondition={!!(Data?.Image && Data?.Image?.length > 0)}
+        >
+          <S.Divider className="w-full border-t py-[1rem]">
+            <S.Image
+              src={Data?.Image ?? ""}
+              alt={Data?.Title ?? ""}
+              className="w-full"
+            />
+          </S.Divider>
+        </AccessControl>
+      </S.Divider>
     </S.Container>
   );
 };

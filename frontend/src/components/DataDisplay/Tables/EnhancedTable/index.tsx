@@ -272,7 +272,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                       backgroundColor:
                         activeRowId === String(row["Id"])
                           ? colors.palette.neutral["100"]
-                          : row["IsSuspended"]
+                          : row["IsSuspended"] || row["IsCancelled"]
                             ? colors.palette.red["200"]
                             : row["IsLocked"]
                               ? colors.palette.green["050"]
@@ -315,6 +315,8 @@ export const EnhancedTable = <T extends Record<string, any>>({
                             );
                           case "DateCreated":
                           case "DateUpdated":
+                          case "DateStart":
+                          case "DateEnd":
                           case "TrnDate":
                           case "ScheduleDate":
                             return formatDateToMMDDYY(

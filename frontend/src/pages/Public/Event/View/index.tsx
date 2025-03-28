@@ -26,13 +26,13 @@ const PublicEventPage: SFC = ({ ClassName }) => {
 
   return (
     <>
-      <S.Container className={cn("flex justify-center mb-10", ClassName)}>
-        <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10">
-          <S.Divider className="h-32 w-full relative mb-5 items-center justify-center flex bg-white">
+      <S.Container className={cn("flex justify-center mb-10 ", ClassName)}>
+        <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10 border-red">
+          {/*<S.Divider className="h-32 w-full relative mb-5 items-center justify-center flex bg-white">
             <S.Span className="text-md uppercase font-medium">
               Commercial Space for Lease
             </S.Span>
-          </S.Divider>
+          </S.Divider>*/}
           <S.Divider className="border-b flex justify-start items-start w-full mb-10">
             <Events />
           </S.Divider>

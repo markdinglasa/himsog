@@ -30,7 +30,7 @@ export const EventViewPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Users" />
+          <PageBreadCrumbs Links={links} Active="Events" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">

@@ -5,6 +5,8 @@ export interface RequestAccessTable extends Id, Logs {
   IsApproved: boolean;
   Token: string;
   Remarks: string | null;
+  EventId: number | null;
+  ArticleId: number | null;
 }
 export type RequestAccessTables = RequestAccessTable[];
 export const RequestAccessInitial: RequestAccessTable = {
@@ -12,4 +14,6 @@ export const RequestAccessInitial: RequestAccessTable = {
   IsApproved: false,
   Token: "",
   Remarks: null,
+  EventId: null,
+  ArticleId: null,
 };
