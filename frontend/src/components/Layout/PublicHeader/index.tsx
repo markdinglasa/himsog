@@ -17,7 +17,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
       <S.Container
         className={cn("flex items-center justify-center px-[1rem]", ClassName)}
       >
-        <S.Content className="w-full md:w-11/12 flex flex-row border-red">
+        <S.Content className="w-full md:w-11/12 flex flex-row ">
           <S.LeftContent className="flex flex-row items-center">
             <S.Image
               className=""
@@ -28,7 +28,7 @@ export const PublicHeader: SFC<HeaderProps> = ({ ClassName }) => {
               }}
             />
           </S.LeftContent>
-          <S.RightContent className="w-full flex flex-row items-center justify-end border-red">
+          <S.RightContent className="w-full flex flex-row items-center justify-end p-2">
             <div className="px-2 hidden md:block">
               <div className="flex flex-row gap-5 ">
                 <div

@@ -41,7 +41,6 @@ export const Main = styled.main`
   transition:
     margin-left 0.3s ease-in-out,
     width 0.3s ease-in-out;
-  padding: 8px;
   position: relative;
   height: 100vh;
   overflow: auto;

@@ -99,6 +99,10 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Admin.Messenger />}
               />
               <Route
+                path={RouteChannel.ADMIN_REQUEST_ACCESS}
+                element={<Page.Admin.Transaction.RequestAccess.View />}
+              />
+              <Route
                 path={RouteChannel.ADMIN_EVENT}
                 element={<Page.Admin.Event.View />}
               />

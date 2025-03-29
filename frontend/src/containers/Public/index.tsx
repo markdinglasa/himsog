@@ -10,7 +10,7 @@ export const PublicLayout: SFC = ({ ClassName }) => {
         <S.Content>
           <S.Main className="bg-slate-100">
             <PublicHeader />
-            <S.MainContent>
+            <S.MainContent className="">
               <Outlet />
               <PublicFooter />
             </S.MainContent>

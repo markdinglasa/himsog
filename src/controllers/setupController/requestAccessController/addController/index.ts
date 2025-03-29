@@ -11,6 +11,7 @@ export const RequestAccessAddController = async (
 ): Promise<any> => {
   try {
     const Data: RequestAccessTable = req.body;
+    console.log("RequestAccess Data:", Data);
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = requestAccessValidator.validate({ ...Data });

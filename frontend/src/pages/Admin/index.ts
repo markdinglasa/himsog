@@ -7,8 +7,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import TermsConditions from "./TermsConditions";
 import Messenger from "./Messenger";
 import Event from "./Event";
-
-// import * from "./Transactions";
+import Transaction from "./Transactions";
 //import * from "./Reports";
 //import * from "./Utilities";
 
@@ -22,6 +21,7 @@ const AdminPages = {
   PrivacyPolicy,
   Messenger,
   Event,
+  Transaction,
 };
 
 export default AdminPages;

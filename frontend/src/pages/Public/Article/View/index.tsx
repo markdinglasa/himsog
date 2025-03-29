@@ -1,15 +1,11 @@
-import { ButtonType, Roles, SFC, ToastType } from "../../../../types";
+import { Roles, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { useAuth, useToggle } from "../../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { memo, useEffect, useState } from "react";
-import { cn, displayToast, renderPath } from "../../../../utils";
+import { cn, renderPath } from "../../../../utils";
 import Card from "../../../../components/Surfaces/Cards";
-import {
-  CustomButton,
-  CustomInput,
-  SelectOption,
-} from "../../../../components";
+import { CustomButton, SelectOption } from "../../../../components";
 import AddIcon from "@mui/icons-material/Add";
 import { Pagination, PaginationItem } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -17,6 +13,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { CustomModal } from "../../../../modals";
 import UIcon from "@mdi/react";
 import { mdiAlertOutline, mdiThumbUpOutline } from "@mdi/js";
+import Form from "../../../../components/Surfaces/Forms";
 
 export enum SortBy {
   RECENT = "recent",
@@ -36,16 +33,6 @@ const PublicArticlePage: SFC = ({ ClassName }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [modIndex, setModIndex] = useState<number>(0);
 
-  const handleSubmitEmail = () => {
-    try {
-      setModIndex(2);
-    } catch (error: any) {
-      displayToast(
-        error.message || "Something went wrong, please try again.",
-        ToastType.error,
-      );
-    }
-  };
   return (
     <>
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
@@ -140,20 +127,10 @@ const PublicArticlePage: SFC = ({ ClassName }) => {
           </S.Span>
         </S.Divider>
         <S.Divider className="w-full">
-          <S.Divider className="w-full flex flex-col">
-            <CustomInput
-              name="Email"
-              placeholder="example@doh.gov.ph"
-              ClassName="w-full"
-            />
-          </S.Divider>
-          <S.Divider className="w-full flex justify-end items-center">
-            <CustomButton
-              text="Request Access"
-              type={ButtonType.button}
-              onClick={handleSubmitEmail}
-            />
-          </S.Divider>
+          <Form.Public.RequestAccess
+            OnClose={toggleDisplay}
+            RecordId="Article"
+          />
         </S.Divider>
       </CustomModal>
       <CustomModal

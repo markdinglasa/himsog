@@ -274,7 +274,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           ? colors.palette.neutral["100"]
                           : row["IsSuspended"] || row["IsCancelled"]
                             ? colors.palette.red["200"]
-                            : row["IsLocked"]
+                            : row["IsLocked"] || row["IsApproved"]
                               ? colors.palette.green["050"]
                               : "none",
                     }}
@@ -308,6 +308,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "IsLocked":
                           case "IsInventory":
                           case "IsRead":
+                          case "IsApproved":
                             return row[HeadCell.Id] ? (
                               <CheckBoxIcon className="text-green-500" />
                             ) : (

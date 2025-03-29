@@ -16,18 +16,27 @@ import { requestAccessValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 //import { useParams } from "react-router-dom";
 
-const RequestAccessForm: SFC<FormProps> = ({ ClassName, OnClose }) => {
+const RequestAccessForm: SFC<FormProps> = ({
+  ClassName,
+  OnClose,
+  RecordId,
+}) => {
   // const { Id } = useParams<{ Id: string }>();
   const { add } = API.Public.RequestAccess.Add();
+  // console.log("RecordId", RecordId);
   //const { update } = API.Setup.RequestAccess.Update();
   const InitialValues: RequestAccessTable = {
     Email: "",
     IsApproved: false,
     Token: "",
     Remarks: null,
+    EventId: RecordId === "Event" ? 1 : null,
+    ArticleId: RecordId === "Article" ? 1 : null,
   };
+
   const handleSubmit = async (values: RequestAccessTable): Promise<void> => {
     try {
+      // console.log("Values:", values);
       add(values);
       OnClose && OnClose();
     } catch (error: any) {

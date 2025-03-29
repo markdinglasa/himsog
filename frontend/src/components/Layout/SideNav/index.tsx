@@ -132,6 +132,19 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.ADMIN_SUBSCRIPTION}
               />
             </AccessControl>
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiInvoiceSendOutline}
+                isCollapse={Collapse}
+                label="Request Access"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_REQUEST_ACCESS);
+                  setActive(RouteChannel.ADMIN_REQUEST_ACCESS);
+                }}
+                IsActive={active === RouteChannel.ADMIN_REQUEST_ACCESS}
+              />
+            </AccessControl>
             <AccessControl UserRoles={[Roles.nutritionist]}>
               <Menu
                 icon={mdiFoodOutline}

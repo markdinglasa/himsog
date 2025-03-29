@@ -46,13 +46,13 @@ export const Events: SFC<DataDisplayProps> = ({
                 type={ButtonType.button}
                 onClick={toggleDisplay}
                 text={"New"}
-                leftIcon={<Icon.Add />}
+                leftIcon={<Icon.Add className="text-primary md:text-white" />}
               />
             </S.Actions>
           </S.Divider>
         </AccessControl>
-        <S.Divider className=" flex flex-row justify-between items-center w-full mb-[1rem]">
-          <S.Divider className="w-1/2 flex flex-col items-start justify-start ">
+        <S.Divider className=" flex md:flex-row flex-col md:justify-between justify-start md:items-center gap-[1rem] w-full mb-[1rem]">
+          <S.Divider className="w-full md:w-1/2 flex flex-col items-start justify-start ">
             <S.Span className="text-lg font-medium">
               Health & Nutrition Events
             </S.Span>
@@ -62,7 +62,7 @@ export const Events: SFC<DataDisplayProps> = ({
           </S.Divider>
           <S.Divider className="">
             <SelectOption
-              placeholder="Event Type"
+              placeholder="Filter Event"
               name="EventType"
               ClassName="bg-white"
               OnChange={(e: any) => {
@@ -72,7 +72,7 @@ export const Events: SFC<DataDisplayProps> = ({
                 { value: EventFilter.ALL, label: "All Events" },
                 { value: EventFilter.UPCOMING, label: "Upcoming Events" },
                 { value: EventFilter.PAST, label: "Past Events" },
-                { value: EventFilter.MY, label: "My Events" },
+                // { value: EventFilter.MY, label: "My Events" },
               ]}
             />
           </S.Divider>
@@ -122,7 +122,7 @@ export const Events: SFC<DataDisplayProps> = ({
         </AccessControl>
       </S.Content>
       <CustomModal
-        ClassName="w-[90vw] md:w-[500px]"
+        ClassName="w-[80vw] md:w-[500px]"
         close={toggleDisplay}
         title={"Request Access"}
         open={isDisplay}
@@ -137,7 +137,7 @@ export const Events: SFC<DataDisplayProps> = ({
           </S.Span>
         </S.Divider>
         <S.Divider className="w-full">
-          <Form.Public.RequestAccess OnClose={toggleDisplay} />
+          <Form.Public.RequestAccess OnClose={toggleDisplay} RecordId="Event" />
         </S.Divider>
       </CustomModal>
     </div>
