@@ -8,6 +8,7 @@ import {
   Roles,
   RouteChannel,
   SFC,
+  ToastType,
   UserTable,
 } from "../../types";
 import { memo, useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
-import { cn, renderPath } from "../../utils";
+import { cn, displayToast, renderPath } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Logo from "../../asset/svg/logo.svg";
 import GoogleLogo from "../../asset/images/google-logo.png";
@@ -66,6 +67,9 @@ const PageLogin: SFC = ({ ClassName }) => {
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message || Error.m00019);
     }
+  };
+  const googleSignIn = () => {
+    window.location.href = `${BASE_URL}/auth/google-login`;
   };
 
   return (
@@ -181,6 +185,7 @@ const PageLogin: SFC = ({ ClassName }) => {
                   color={ButtonColor.default}
                   type={ButtonType.submit}
                   morph={false}
+                  onClick={googleSignIn}
                 />
               </S.Divider>
               <S.Divider className="w-full flex flex-row items-center justify-center mt-3 py-3">

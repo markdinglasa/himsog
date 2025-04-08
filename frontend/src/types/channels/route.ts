@@ -10,7 +10,7 @@ export enum RouteChannel {
   CONTACT_US = "/contact-us",
   EVENT = "/event",
   EVENT_DETIALS = "/event/d/:Id",
-  EVENT_NEW = "/event/new?=:Id", // pass access right to params
+  EVENT_NEW = "/event/new/:token", // pass access right as a route parameter
   ARTICLE = "/article",
   ARTICLE_DETAILS = "/article/d/:Id",
   ARTICLE_NEW = "/article/new?=:Id", // pass access right to params

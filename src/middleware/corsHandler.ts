@@ -27,6 +27,7 @@ export const corsHandler: RequestHandler = (
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Auth-Provider",
   );
+  res.header("Referrer-Policy", "no-referrer-when-downgrade");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Methods",

@@ -25,6 +25,7 @@ export const NotificationAddController = async (
     const Fields = Object.keys(filteredData);
     const Types = Object.values(filteredData).map((val) => typeof val);
     const Values = Object.values(filteredData);
+
     // NOTIFY THROUGH EMAIL IF EMAIL IS NAA
     if (Data?.Email) {
       const sendemail = singleMailSender(

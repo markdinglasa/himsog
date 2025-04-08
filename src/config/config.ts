@@ -34,6 +34,7 @@ export const SESSION_SECRET: string = process.env.SESSION_SECRET || "myk-sx2";
 // GOOGLE API
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+export const GOOGLE_URL = process.env.GOOGLE_URL || "";
 
 // EMAIL
 export const DEFAULT_EMAIL = process.env.DEFAULT_EMAIL || "";

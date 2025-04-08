@@ -10,6 +10,7 @@ export interface FormProps {
   IsEdit?: boolean;
   IsDisplay?: boolean;
   IsDetails?: boolean;
+  IsPublic?: boolean;
   IsId?: boolean;
   OnClose?: () => void;
   OnRefetch?: () => void;

@@ -15,6 +15,8 @@ import {
   SFC,
   ToastType,
   FormProps,
+  RouteChannel,
+  APIChannel,
 } from "../../../../../types";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import { memo, useRef, useState } from "react";
@@ -24,11 +26,13 @@ import { displayToast } from "../../../../../utils";
 import { eventValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../../../hooks";
+import axios from "axios";
 
 const EventForm: SFC<FormProps> = ({
   ClassName,
+  IsPublic = false,
   IsDetails = false,
   IsDisplay = false,
   RecordId,
@@ -39,12 +43,16 @@ const EventForm: SFC<FormProps> = ({
   const { add } = API.Setup.Event.Add();
   const { update } = API.Setup.Event.Update();
   const { Id: ParamsId } = useParams<{ Id: string }>();
+  const { token: tk } = useParams<{ token: string }>();
+  const AccessToken = tk?.replace("token=", "");
   const Id: number = ParamsId ? Number(ParamsId) : Number(RecordId);
   const { data, isLoading } = API.Setup.Event.Get(Id);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { upload } = API.Utility.UploadImage();
   const { auth } = useAuth();
+  const navigate = useNavigate();
+
   // console.log("Event:", data);
   const InitialValues: EventTable = {
     Title: data?.Title || "",
@@ -65,16 +73,34 @@ const EventForm: SFC<FormProps> = ({
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 0)),
     UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 0)),
   };
+  // console.log(AccessToken);
   const handleSubmit = async (values: EventTable): Promise<void> => {
     try {
       const formData = new FormData();
+      let imagePath;
       if (imageFile) {
         formData.append("image", imageFile);
+        imagePath = await upload(formData);
       }
-      const imagePath = await upload(formData);
+
       values.Image = imagePath || null;
-      if (Id) update(Number(Id), values);
-      else add(values);
+
+      if (IsPublic) {
+        const response = await axios.post(`${APIChannel.EVENT}`, values, {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${AccessToken}` },
+        });
+        console.log("response:", response);
+        if (response?.data?.data) navigate(RouteChannel.EVENT);
+        else
+          displayToast(
+            "Something went wrong. please try again later",
+            ToastType.error,
+          );
+      } else {
+        if (Id) update(Number(Id), values);
+        else add(values);
+      }
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }
@@ -377,8 +403,8 @@ const EventForm: SFC<FormProps> = ({
                             />
                           </S.Divider>
                         </S.Divider>
-                        <AccessControl OtherCondition={data?.Image}>
-                          <S.Divider className="w-full overflow-hidden">
+                        <AccessControl OtherCondition={IsDisplay}>
+                          <S.Divider className="w-full overflow-hidden border-red">
                             <S.Divider className="w-full mb-[1rem]">
                               <S.Image
                                 src={data?.Image}

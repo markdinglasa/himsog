@@ -34,6 +34,7 @@ export interface UserTable extends Id, Logs {
   IsSuspended: boolean;
   Genrder: string;
   Religion: string;
+  GoogleId: string | null;
 }
 export type UserTables = UserTable[];
 export const UserInital: UserTable = {
@@ -49,4 +50,5 @@ export const UserInital: UserTable = {
   IsSuspended: false,
   Genrder: "",
   Religion: "",
+  GoogleId: null,
 };

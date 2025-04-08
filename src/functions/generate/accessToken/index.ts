@@ -8,8 +8,9 @@ export const accessToken = async (Id: string = ""): Promise<ModelResponse> => {
     if (!Id || typeof Id !== "string")
       return { data: null, message: Error.m012 };
     if (!SECRET_KEY) return { data: null, message: Error.m013 };
+    const EXPIRY = Id === "0" ? "1h" : TOKEN_EXPIRATION;
     const token = sign({ Id }, SECRET_KEY, {
-      expiresIn: TOKEN_EXPIRATION,
+      expiresIn: EXPIRY,
     });
     if (!token) return { data: null, message: Error.m003 };
     return { data: token, message: Success.m007 };

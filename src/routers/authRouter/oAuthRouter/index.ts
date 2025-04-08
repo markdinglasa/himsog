@@ -15,8 +15,8 @@ router.get(
 
 logging.log("----------------------------------------");
 logging.log("---------GOOGLE AUTH CONTROLLER---------");
-logging.log(RouteChannel.JWT_LOGOUT);
-logging.log(RouteChannel.JWT_LOGIN);
-logging.log(RouteChannel.JWT_REFRESH);
+logging.log(RouteChannel.GOOGLE_AUTH);
+logging.log(RouteChannel.GOOGLE_REDIRECT);
+logging.log(RouteChannel.GOOGLE_REFRESH);
 logging.log("----------------------------------------");
 export default router;
