@@ -14,5 +14,6 @@ export const articleValidator = () => {
     PostedBy: yup.string().required(),
     IsValidated: yup.boolean().required(),
     Image: yup.string().nullable().optional(),
+    Link: yup.string().nullable().optional(),
   });
 };
