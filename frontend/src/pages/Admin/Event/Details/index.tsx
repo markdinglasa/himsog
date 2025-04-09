@@ -30,8 +30,10 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
   ];
   const { Id } = useParams<{ Id: string }>();
   const { data, isLoading } = API.Setup.Event.Get(Number(Id));
+  const { update } = API.Setup.Event.Update();
   const [isApprove, toggleApprove] = useToggle(false);
   const [isDisapprove, toggleDisapprove] = useToggle(false);
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -76,6 +78,11 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
         open={isApprove}
         confirm={() => {
           // Toggle
+          data.IsValidated = true;
+          // console.log(data);
+          const { Id, ...filtered } = data;
+          update(Number(data.Id), filtered);
+          toggleApprove();
         }}
       />
       <CustomModal

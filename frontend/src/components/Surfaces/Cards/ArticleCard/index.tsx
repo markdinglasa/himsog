@@ -1,4 +1,4 @@
-import { RouteChannel, SFC } from "../../../../types";
+import { ArticleTable, RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import DefaultImg from "../../../../asset/images/default-image.jpg";
 import Icon from "../../../../constants/icon";
@@ -8,61 +8,54 @@ import { getCurrentDate } from "../../../../utils";
 import { useNavigate } from "react-router-dom";
 
 export interface ArticleCardProps {
-  Id: string;
-  Image: string | null;
-  Title: string;
-  Descritpion: string;
-  ScheduleDate: string;
+  Data: ArticleTable;
   //onClick: () => void;
   IsWidget?: boolean;
 }
 
 const ArticleCard: SFC<ArticleCardProps> = ({
   ClassName,
-  Id,
-  Image,
-  Title,
-  Descritpion,
-  ScheduleDate,
-  //onClick,
+  Data,
   IsWidget = false,
 }) => {
   const navigate = useNavigate();
   return (
     <S.Divider
-      key={Id}
+      key={Data.Id}
       onClick={() =>
         IsWidget &&
         navigate(
-          `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Id}`,
+          `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Data.Id}`,
         )
       }
       className={`${IsWidget ? "flex flex-row" : "border bg-slate-50"} w-full hover:shadow-md rounded-md  items-center justify-center  ${ClassName}`}
     >
       <S.Divider className="w-full ">
         <S.Image
-          src={Image ?? DefaultImg}
+          src={Data.Image ?? DefaultImg}
           alt="Article image"
           className="w-full h-[40%]"
         />
       </S.Divider>
       <S.Divider className="flex flex-col p-5">
         <S.Divider className="w-full overflow-hidden mb-2 flex flex-col">
-          <S.Span className="text-md font-medium">{Title}</S.Span>
+          <S.Span className="text-md font-medium">{Data.Title}</S.Span>
           <S.Divider className="flex items-center w-full">
-            <S.Span className="text-sm ">{getCurrentDate(ScheduleDate)}</S.Span>
+            <S.Span className="text-sm ">
+              {getCurrentDate(Data.DatePosted)}
+            </S.Span>
           </S.Divider>
         </S.Divider>
         <S.Divider className="w-full flex items-center justify-start  mb-2 min-h-12">
           <S.Span className="text-sm text-slate-800 text-justify">
-            {truncate(Descritpion, { length: 200 })}
+            {truncate(Data?.Description ?? "", { length: 200 })}
           </S.Span>
         </S.Divider>
         {!IsWidget && (
           <S.Divider
             onClick={() =>
               navigate(
-                `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Id}`,
+                `${RouteChannel.ARTICLE_DETAILS.slice(0, RouteChannel.ARTICLE_DETAILS.length - 3)}${Data.Id}`,
               )
             }
             className="w-fit flex items-center justify-start cursor-pointer hover:font-semibold font-medium duration-300 ease-in-out"

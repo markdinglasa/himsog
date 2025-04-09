@@ -100,11 +100,20 @@ export const RequestAccessViewPage: SFC = ({ ClassName }) => {
                 ArticleId: RequestAccess?.ArticleId ?? 0,
               };
               update(Number(RequestAccess?.Id ?? 0), Data);
+              toggleDisplay();
             }}
             text="Approve"
             type={ButtonType.button}
           />
         </S.Divider>
+      </CustomModal>
+      <CustomModal
+        close={toggleDisapprove}
+        title="Disapprove Request Access"
+        open={isDisapprove}
+        ClassName="w-[80vw] md:w-[40rem]"
+      >
+        Disapprove
       </CustomModal>
     </>
   );

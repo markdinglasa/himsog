@@ -9,9 +9,14 @@ import {
   ArticleGetAllInValidatedController,
   ArticleRemoveController,
   ArticleUpdateController,
+  ArticleGetWithQueryController,
 } from "../../controllers";
 
 const router = express.Router();
+router.get(
+  `${API_VERSION}${RouteChannel.ARTICLES}`,
+  ArticleGetWithQueryController,
+);
 router.get(
   `${API_VERSION}${RouteChannel.ARTICLE_VALDIATED}`,
   TokenHandler.verifyToken,
@@ -45,6 +50,7 @@ router.patch(
 
 logging.log("----------------------------------------");
 logging.log("--------ARTICLE CONTROLLER----------");
+logging.log(`GET ${RouteChannel.ARTICLES} [get-all-with-query]`);
 logging.log(`GET ${RouteChannel.ARTICLE_VALDIATED} [get-all-validated]`);
 logging.log(`GET ${RouteChannel.ARTICLE_INVALDIATED} [get-all-invalidated]`);
 logging.log(`POST ${RouteChannel.ARTICLE} [add]`);

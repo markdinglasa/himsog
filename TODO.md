@@ -20,9 +20,9 @@
 - [x] Admin, Remove Account
 - [x] Admin, Suspend Account
 
-- [ ] Client, Avail Subscription
+- [x] Client, Avail Subscription
 - [x] Client, View Subscriptions
-- [ ] Client, Cancel Subscription
+- [x] Client, Cancel Subscription
 - [x] Admin, Manage Subscriptions
 
 - [ ] Client, Manage Reminders
@@ -89,8 +89,8 @@
 
 - [x] Nutritionist, Profile Approval Notification
 - [x] Nutritionist, Receive system notification
-- [ ] Nutritionist, New Feedback Notification
+- [x] Nutritionist, New Feedback Notification
 
 - [x] Admin, Receive system notification
 
-- [4/6] Subtotal - Notification
+- [6/6] Subtotal - Notification

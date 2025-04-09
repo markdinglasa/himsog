@@ -11,7 +11,7 @@ export const EventUpdateController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Id: number = parseInt(req.params?.Id, 10),
+    const RecordId: number = parseInt(req.params?.Id, 10),
       Data: EventTable = req.body;
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
@@ -22,14 +22,26 @@ export const EventUpdateController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn here
-    if (!(await isFound(EventQuery.q002, ["Id"], [Number], [Id])).data)
+    if (!(await isFound(EventQuery.q002, ["Id"], [Number], [RecordId])).data)
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
     Data.ScheduleDate = new Date(Data.ScheduleDate);
-    Data.DateUpdated = new Date();
-    const Fields = Object.keys(Data);
-    const Types = Object.values(Data).map((val) => typeof val);
-    const Values = Object.values(Data);
-    if (!(await UpdateService.record(Id, DBTable.t009, Fields, Types, Values)))
+
+    const { Id, CreatedBy, DateCreated, ...Filtered } = Data;
+    Data.DateUpdated = new Date(Data?.DateUpdated?.toString() ?? "");
+
+    const Fields = Object.keys(Filtered);
+    const Types = Object.values(Filtered).map((val) => typeof val);
+    const Values = Object.values(Filtered);
+
+    if (
+      !(await UpdateService.record(
+        RecordId,
+        DBTable.t009,
+        Fields,
+        Types,
+        Values,
+      ))
+    )
       return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {

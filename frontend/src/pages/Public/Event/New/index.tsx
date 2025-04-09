@@ -17,15 +17,24 @@ const PublicEventNewPage: SFC = ({ ClassName }) => {
   useEffect(() => {
     // VALIDATE TOKEN
     const validate = async () => {
-      const response = await axios.post(
-        `${BASE_URL}/token-validator`,
-        { token: AccessToken },
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${AccessToken}` },
-        },
-      );
-      if (!response?.data?.data) navigate(RouteChannel.R403);
+      if (!AccessToken) {
+        navigate(RouteChannel.R403);
+        return;
+      }
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/token-validator`,
+          { token: AccessToken },
+          {
+            withCredentials: true,
+            headers: { Authorization: `Bearer ${AccessToken}` },
+          },
+        );
+        if (!response?.data?.data) navigate(RouteChannel.R403);
+      } catch (error) {
+        console.error("Token validation failed:", error);
+        navigate(RouteChannel.R403);
+      }
     };
     validate();
   }, [AccessToken]);

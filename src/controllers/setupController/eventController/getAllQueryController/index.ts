@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Error, Success } from "../../../../shared";
 import { GetService } from "../../../../services";
+import { EventTables } from "../../../../types";
 
 export const EventGetWithQueryController = async (
   req: Request,
@@ -42,8 +43,9 @@ export const EventGetWithQueryController = async (
     // console.log("Executing Query:", query);
     // console.log("Query Parameters:", queryParams);
 
-    const response = await GetService.byParams(query, queryParams);
-
+    const response: EventTables = await GetService.byParams(query, queryParams);
+    if (!response)
+      return res.status(404).json({ data: [], message: Error.m011 });
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
@@ -54,6 +56,7 @@ export const EventGetWithQueryController = async (
       .json({ data: [], message: error.message || Error.m001 });
   }
 };
+
 /*
 export const EventGetWithQueryController = async (
   req: Request,

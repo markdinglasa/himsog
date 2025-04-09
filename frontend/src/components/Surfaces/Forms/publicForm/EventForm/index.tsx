@@ -44,7 +44,7 @@ const EventForm: SFC<FormProps> = ({
   const { update } = API.Setup.Event.Update();
   const { Id: ParamsId } = useParams<{ Id: string }>();
   const { token: tk } = useParams<{ token: string }>();
-  const AccessToken = tk?.replace("token=", "");
+  const AccessToken = tk?.replace("token=", "") || "";
   const Id: number = ParamsId ? Number(ParamsId) : Number(RecordId);
   const { data, isLoading } = API.Setup.Event.Get(Id);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -70,8 +70,8 @@ const EventForm: SFC<FormProps> = ({
     RegistrationLink: data?.RegistrationLink || null,
     IsValidated: data?.Id ? null : data?.IsValidated || null,
     Remarks: data?.Remarks || null,
-    CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 0)),
-    UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 0)),
+    CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
+    UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
   };
   // console.log(AccessToken);
   const handleSubmit = async (values: EventTable): Promise<void> => {
@@ -88,11 +88,18 @@ const EventForm: SFC<FormProps> = ({
       if (IsPublic) {
         const response = await axios.post(`${APIChannel.EVENT}`, values, {
           withCredentials: true,
-          headers: { Authorization: `Bearer ${AccessToken}` },
+          headers: AccessToken
+            ? { Authorization: `Bearer ${AccessToken}` }
+            : {},
         });
         console.log("response:", response);
-        if (response?.data?.data) navigate(RouteChannel.EVENT);
-        else
+        if (response?.data?.data) {
+          displayToast(
+            "Event successfully submitted for validation",
+            ToastType.success,
+          );
+          navigate(RouteChannel.EVENT);
+        } else
           displayToast(
             "Something went wrong. please try again later",
             ToastType.error,
@@ -102,9 +109,14 @@ const EventForm: SFC<FormProps> = ({
         else add(values);
       }
     } catch (error: any) {
-      displayToast(error.message || Error.m00001, ToastType.error);
+      console.log("error:", error);
+      displayToast(
+        error?.response?.data?.message || Error.m00001,
+        ToastType.error,
+      );
     }
   };
+
   return (
     <S.Container className={ClassName}>
       <S.Content className="flex justify-center items-center w-full flex-col">
@@ -428,7 +440,7 @@ const EventForm: SFC<FormProps> = ({
                               onClick={() => {
                                 OnClose && OnClose();
                                 resetForm();
-                                SetIsEdit(true);
+                                if (!IsPublic) SetIsEdit(true);
                               }}
                             />
                             <CustomButton
