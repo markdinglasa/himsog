@@ -30,27 +30,33 @@ export const RequestAccessUpdateController = async (
     // Other Fn here
     if (!(await isFound(RequestAccessQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence+
-    const IsEvent = Data?.EventId ? true : false;
-    const Token: string = (await GenerateFn.accessToken("0")).data;
-    const HTMLEmail = GenerateEmail(
-      Data?.Email,
-      `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "article"}/new/token=${Token} this token is valid only for 1hour.`,
-    );
-    if (Data?.Email) {
-      const sendemail = singleMailSender(
+
+    if (Data?.IsApproved ?? false) {
+      const IsEvent = Data?.EventId ? true : false;
+      const Token: string = (await GenerateFn.accessToken("0")).data;
+      const HTMLEmail = GenerateEmail(
         Data?.Email,
-        `Request Access to ${IsEvent ? "Event" : "Article"}`,
-        HTMLEmail,
+        `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "article"}/new/token=${Token} this token is valid only for 1hour.`,
       );
-      if (sendemail.data === false)
-        return { data: false, message: sendemail.message || Error.m031 };
+      if (Data?.Email) {
+        const sendemail = singleMailSender(
+          Data?.Email,
+          `Request Access to ${IsEvent ? "Event" : "Article"}`,
+          HTMLEmail,
+        );
+        if (sendemail.data === false)
+          return { data: false, message: sendemail.message || Error.m031 };
+      }
     }
+
     Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
+
     if (!(await UpdateService.record(Id, DBTable.t025, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {
     logging.log("----------------------------------------");

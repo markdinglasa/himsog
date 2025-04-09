@@ -20,9 +20,10 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import API from "../../../../../hooks/api";
+import Icon from "../../../../../constants/icon";
+import Form from "../../../../../components/Surfaces/Forms";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../../modals";
-import Icon from "../../../../../constants/icon";
 import { useGlobal } from "../../../../../hooks";
 
 export const RequestAccessViewPage: SFC = ({ ClassName }) => {
@@ -113,7 +114,13 @@ export const RequestAccessViewPage: SFC = ({ ClassName }) => {
         open={isDisapprove}
         ClassName="w-[80vw] md:w-[40rem]"
       >
-        Disapprove
+        <S.Divider className="w-full">
+          <Form.Public.RequestAccess
+            Record={RequestAccess}
+            IsDisapprove={true}
+            OnClose={toggleDisapprove}
+          />
+        </S.Divider>
       </CustomModal>
     </>
   );

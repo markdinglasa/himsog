@@ -1,5 +1,9 @@
 import { Form, Formik } from "formik";
-import { CustomButton, CustomInput } from "../../../../../components";
+import {
+  AccessControl,
+  CustomButton,
+  CustomInput,
+} from "../../../../../components";
 import {
   ButtonType,
   FormProps,
@@ -20,13 +24,16 @@ const RequestAccessForm: SFC<FormProps> = ({
   ClassName,
   OnClose,
   RecordId,
+  Record,
+  IsDisapprove = false,
 }) => {
   // const { Id } = useParams<{ Id: string }>();
   const { add } = API.Public.RequestAccess.Add();
   // console.log("RecordId", RecordId);
-  //const { update } = API.Setup.RequestAccess.Update();
+  const { update } = API.Public.RequestAccess.Update();
+
   const InitialValues: RequestAccessTable = {
-    Email: "",
+    Email: Record?.Email || "",
     IsApproved: false,
     Token: "",
     Remarks: null,
@@ -37,7 +44,8 @@ const RequestAccessForm: SFC<FormProps> = ({
   const handleSubmit = async (values: RequestAccessTable): Promise<void> => {
     try {
       // console.log("Values:", values);
-      add(values);
+      if (IsDisapprove) update(Record?.Id, values);
+      else add(values);
       OnClose && OnClose();
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
@@ -68,18 +76,34 @@ const RequestAccessForm: SFC<FormProps> = ({
                     dirty,
                   }) => (
                     <Form>
-                      <CustomInput
-                        ClassName="w-full "
-                        errors={errors}
-                        type={InputType.email}
-                        label="Email"
-                        placeholder="example@doh.gov.ph"
-                        name="Email"
-                        touched={touched}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-
+                      <AccessControl OtherCondition={!IsDisapprove}>
+                        <CustomInput
+                          ClassName="w-full "
+                          errors={errors}
+                          type={InputType.email}
+                          label="Email"
+                          placeholder="example@doh.gov.ph"
+                          name="Email"
+                          touched={touched}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </AccessControl>
+                      <AccessControl OtherCondition={IsDisapprove}>
+                        <S.Divider className="w-full mb-2">
+                          <S.Label className="text-[#666666] font-medium ml-3">
+                            Remarks
+                          </S.Label>
+                          <textarea
+                            placeholder="Remarks"
+                            name="Remarks"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="w-full resize-none p-3 border border-[#C4C4C4] rounded-md"
+                            aria-setsize={10}
+                          />
+                        </S.Divider>
+                      </AccessControl>
                       <S.Divider className="h-full flex items-center justify-end">
                         <CustomButton
                           text="send"
