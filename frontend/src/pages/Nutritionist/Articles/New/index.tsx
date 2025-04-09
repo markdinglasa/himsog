@@ -10,6 +10,7 @@ import { memo, Suspense } from "react";
 import { cn } from "../../../../utils";
 import Icon from "../../../../constants/icon";
 // import API from "../../../../hooks/api";
+import Form from "../../../../components/Surfaces/Forms";
 
 export const NutritionistArticleNewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -39,7 +40,9 @@ export const NutritionistArticleNewPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent className="rounded-md border">
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <Form.Public.Article ClassName="w-full" />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

@@ -4,6 +4,7 @@ export interface ArticleTable extends Id, Logs {
   Description: string | null;
   DatePosted: string;
   PostedBy: string;
+  IsValidated: boolean;
   Image: string | null;
   Link: string | null;
 }
@@ -16,4 +17,5 @@ export const ArticleInitial: ArticleTable = {
   PostedBy: "Ash ketchup",
   Image: null,
   Link: null,
+  IsValidated: false,
 };

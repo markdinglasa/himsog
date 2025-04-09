@@ -98,7 +98,9 @@ export const EnhancedTable = <T extends Record<string, any>>({
     isLocked: boolean,
   ) => {
     if (IsModal) {
-      ToggleModal && ToggleModal();
+      if (data.IsApproved)
+        displayToast("Request is already approved", ToastType.error);
+      else ToggleModal && ToggleModal();
       setRecord({
         RecordId: IsRecord ? null : id,
         Records: [],

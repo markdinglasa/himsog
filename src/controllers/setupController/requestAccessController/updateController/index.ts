@@ -32,6 +32,7 @@ export const RequestAccessUpdateController = async (
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence+
 
     if (Data?.IsApproved ?? false) {
+      // SEND THE TOKEN-LINK OF ANY ARTICLE/EVENT
       const IsEvent = Data?.EventId ? true : false;
       const Token: string = (await GenerateFn.accessToken("0")).data;
       const HTMLEmail = GenerateEmail(
@@ -47,6 +48,19 @@ export const RequestAccessUpdateController = async (
         if (sendemail.data === false)
           return { data: false, message: sendemail.message || Error.m031 };
       }
+    } else {
+      // SEND THE DISAPPROVE REMARKS
+      const HTMLEmail = GenerateEmail(
+        Data?.Email,
+        Data?.Remarks ?? "Your request has been disapproved. ",
+      );
+      const sendemail = singleMailSender(
+        Data?.Email,
+        `Request Access was Disapproved`,
+        HTMLEmail,
+      );
+      if (sendemail.data === false)
+        return { data: false, message: sendemail.message || Error.m031 };
     }
 
     Data.DateUpdated = new Date();

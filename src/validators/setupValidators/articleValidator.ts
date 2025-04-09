@@ -9,6 +9,7 @@ export const articleValidator = Joi.object({
   PostedBy: Joi.string().required(),
   IsValidated: Joi.boolean().required(),
   Image: Joi.string().allow("").allow(null).optional(),
+  Link: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

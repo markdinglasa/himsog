@@ -234,7 +234,9 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === `${path}/appointment`}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
+            <AccessControl
+              UserRoles={[Roles.admin, Roles.nutritionist, Roles.client]}
+            >
               <Menu
                 icon={mdiNewspaperVariantOutline}
                 isCollapse={Collapse}

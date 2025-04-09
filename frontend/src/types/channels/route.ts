@@ -11,9 +11,9 @@ export enum RouteChannel {
   EVENT = "/event",
   EVENT_DETIALS = "/event/d/:Id",
   EVENT_NEW = "/event/new/:token", // pass access right as a route parameter
-  ARTICLE = "/article",
-  ARTICLE_DETAILS = "/article/d/:Id",
-  ARTICLE_NEW = "/article/new?=:Id", // pass access right to params
+  ARTICLE = "/health-article",
+  ARTICLE_DETAILS = "/health-article/d/:Id",
+  ARTICLE_NEW = "/health-article/new/:token", // pass access right to params
   FAQ = "/frequent-ask-questions",
   TERMS_AND_CONDITIONS = "/terms-and-conditions",
   PRIVACY_POLICY = "/privacy-policy",
@@ -31,6 +31,8 @@ export enum RouteChannel {
   ADMIN_TERMS_AND_CONDITION = "/a/terms-and-conditions",
   ADMIN_EVENT = "/a/event",
   ADMIN_EVENT_DETAILS = "/a/event/d/:Id",
+  ADMIN_ARTICLE = "/a/health-article",
+  ADMIN_ARTICLE_DETAILS = "/a/health-article/d/:Id",
   ADMIN_UNIT = "/a/unit",
   ADMIN_UNIT_NEW = "/a/unit/new",
   ADMIN_UNIT_DETAILS = "/a/unit/d/:Id",

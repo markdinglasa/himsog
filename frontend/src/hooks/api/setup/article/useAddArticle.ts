@@ -3,20 +3,23 @@ import {
   APIChannel,
   ArticleTable,
   QueryKey,
+  Roles,
   RouteChannel,
   ToastType,
 } from "../../../../types";
-import { displayToast } from "../../../../utils";
+import { displayToast, renderPath } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
-import { Success } from "../../../../shared";
+// import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../../useAuth";
 
 const useAddArticle = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+  const { auth } = useAuth();
+  const path = renderPath(auth.roles as Roles);
   const mutation = useMutation({
     mutationFn: async (data: ArticleTable) => {
       const response = await axios.post(`${APIChannel.ARTICLE}`, data);
@@ -26,8 +29,11 @@ const useAddArticle = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.ARTICLE],
       });
-      displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.ARTICLE);
+      displayToast(
+        "Health article is submitted for validation.",
+        ToastType.success,
+      );
+      navigate(`${path}${RouteChannel.ARTICLE}`);
     },
     onError: (error: any) => {
       displayToast(

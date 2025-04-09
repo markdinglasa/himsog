@@ -1,11 +1,17 @@
 import { useCallback } from "react";
-import { APIChannel, ToastType, RequestAccessTable } from "../../../../types";
+import {
+  APIChannel,
+  ToastType,
+  RequestAccessTable,
+  QueryKey,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const useAddRequestAccess = () => {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: RequestAccessTable) => {
       const response = await axios.post(`${APIChannel.REQUEST_ACCESS}`, data, {
@@ -15,6 +21,9 @@ const useAddRequestAccess = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.REQUEST_ACCESS],
+      });
       displayToast(Success.m000010, ToastType.success);
     },
     onError: (error: any) => {

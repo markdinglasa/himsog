@@ -139,7 +139,10 @@ export const Articles: SFC<DataDisplayProps> = ({
           </S.Span>
         </S.Divider>
         <S.Divider className="w-full">
-          <Form.Public.RequestAccess OnClose={toggleDisplay} RecordId="Event" />
+          <Form.Public.RequestAccess
+            OnClose={toggleDisplay}
+            RecordId="Article"
+          />
         </S.Divider>
       </CustomModal>
     </div>

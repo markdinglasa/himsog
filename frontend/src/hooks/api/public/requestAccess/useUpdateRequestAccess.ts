@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import {
   APIChannel,
+  QueryKey,
   RequestAccessInitial,
   RequestAccessTable,
   ToastType,
@@ -8,11 +9,11 @@ import {
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateRequestAccess = () => {
   const axios = useAxiosPrivate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async ({
       Id,
@@ -28,6 +29,9 @@ const useUpdateRequestAccess = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.REQUEST_ACCESS],
+      });
       displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {

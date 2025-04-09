@@ -103,6 +103,14 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Admin.Transaction.RequestAccess.View />}
               />
               <Route
+                path={RouteChannel.ADMIN_ARTICLE}
+                element={<Page.Admin.Setups.Article.View />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_ARTICLE_DETAILS}
+                element={<Page.Admin.Setups.Article.Details />}
+              />
+              <Route
                 path={RouteChannel.ADMIN_EVENT}
                 element={<Page.Admin.Event.View />}
               />

@@ -54,18 +54,19 @@ const ArticleForm: SFC<FormProps> = ({
   const { upload } = API.Utility.UploadImage();
   const { auth } = useAuth();
   const navigate = useNavigate();
-
+  const { data: user } = API.Setup.User.Get(Number(auth?.user ?? 0));
   // console.log("Event:", data);
   const InitialValues: ArticleTable = {
-    CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 0)),
-    UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 0)),
     Title: data?.Title || "",
     Description: data?.Description || null,
     DatePosted:
-      formatDateForInput(data?.DatePosted) || formatDateForInput(new Date()),
-    PostedBy: data?.PostedBy || "",
+      formatDateForInput(data?.DatePosted ?? new Date()) ||
+      formatDateForInput(new Date()),
+    PostedBy:
+      data?.PostedBy || `${user?.Firstname ?? "NA"} ${user?.Lastname ?? "NA"}`,
     Image: data?.Image || null,
     Link: data?.Link || null,
+    IsValidated: data?.IsValidated || false,
   };
   // console.log(AccessToken);
   const handleSubmit = async (values: ArticleTable): Promise<void> => {
@@ -76,17 +77,24 @@ const ArticleForm: SFC<FormProps> = ({
         formData.append("image", imageFile);
         imagePath = await upload(formData);
       }
-
       values.Image = imagePath || null;
 
       if (IsPublic) {
+        console.log("IsPublic:Article");
         const response = await axios.post(`${APIChannel.ARTICLE}`, values, {
           withCredentials: true,
-          headers: { Authorization: `Bearer ${AccessToken}` },
+          headers: AccessToken
+            ? { Authorization: `Bearer ${AccessToken}` }
+            : {},
         });
-        // console.log("response:", response);
-        if (response?.data?.data) navigate(RouteChannel.EVENT);
-        else
+        console.log("response:", response);
+        if (response?.data?.data) {
+          displayToast(
+            "Article successfully submitted for validation",
+            ToastType.success,
+          );
+          navigate(RouteChannel.ARTICLE);
+        } else
           displayToast(
             "Something went wrong. please try again later",
             ToastType.error,

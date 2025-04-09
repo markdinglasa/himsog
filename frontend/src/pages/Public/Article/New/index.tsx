@@ -4,6 +4,7 @@ import { useAuth } from "../../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { memo, useEffect } from "react";
 import { cn, renderPath } from "../../../../utils";
+import Form from "../../../../components/Surfaces/Forms";
 
 const PublicArticleNewPage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
@@ -18,7 +19,9 @@ const PublicArticleNewPage: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
-        <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10 border-red"></S.Content>
+        <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10 bg-white border p-[1rem] rounded-md ">
+          <Form.Public.Article IsPublic={true} ClassName="w-full" />
+        </S.Content>
       </S.Container>
     </>
   );

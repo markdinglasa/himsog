@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../utils";
 import Icon from "../../../../constants/icon";
+import { Articles } from "../../../../components/DataDisplay/Articles";
 // import API from "../../../../hooks/api";
 
 export const NutritionistArticleViewPage: SFC = ({ ClassName }) => {
@@ -35,7 +36,9 @@ export const NutritionistArticleViewPage: SFC = ({ ClassName }) => {
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent className="rounded-md border">
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <Articles IsPublic={false} />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

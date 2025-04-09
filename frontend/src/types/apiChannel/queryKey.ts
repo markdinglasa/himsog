@@ -10,6 +10,7 @@ export enum QueryKey {
   EVENT_DETAILS = "event-details",
   EVENT_INVALIDATED = "event-invalidated",
   ARTICLE = "ariticle",
+  ARTICLE_INVALIDATED = "article-invalidated",
   MEAL = "meal",
   MEAL_PLAN = "meal-plan",
   MEAL_PLAN_LINE = "meal-plan-line",
