@@ -4,9 +4,10 @@ export interface ArticleTable extends Id, Logs {
   Description: string | null;
   DatePosted: string;
   PostedBy: string;
-  IsValidated: boolean;
+  IsValidated: boolean | null;
   Image: string | null;
   Link: string | null;
+  Remarks: string | null;
 }
 export type ArticleTables = ArticleTable[];
 export const ArticleInitial: ArticleTable = {
@@ -17,5 +18,6 @@ export const ArticleInitial: ArticleTable = {
   PostedBy: "Ash ketchup",
   Image: null,
   Link: null,
-  IsValidated: false,
+  IsValidated: null,
+  Remarks: null,
 };

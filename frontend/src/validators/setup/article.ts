@@ -12,8 +12,9 @@ export const articleValidator = () => {
     Description: yup.string().nullable().optional(),
     DatePosted: yup.string().required(),
     PostedBy: yup.string().required(),
-    IsValidated: yup.boolean().required(),
+    IsValidated: yup.boolean().nullable().optional(),
     Image: yup.string().nullable().optional(),
     Link: yup.string().url().nullable().optional(),
+    Remarks: yup.string().url().nullable().optional(),
   });
 };

@@ -1,7 +1,6 @@
 import { Form, Formik } from "formik";
 import {
   AccessControl,
-  AutoComplete,
   CircleButton,
   CustomButton,
   CustomInput,
@@ -20,7 +19,7 @@ import {
 } from "../../../../../types";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import { memo, useRef, useState } from "react";
-import { Error } from "../../../../../shared";
+import { BASE_URL, Error } from "../../../../../shared";
 import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
 import { eventValidator } from "../../../../../validators/";
@@ -49,22 +48,17 @@ const EventForm: SFC<FormProps> = ({
   const { data, isLoading } = API.Setup.Event.Get(Id);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { upload } = API.Utility.UploadImage();
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const { upload } = API.Utility.UploadImage();
 
   // console.log("Event:", data);
   const InitialValues: EventTable = {
     Title: data?.Title || "",
-    Category: data?.Category || "",
-    Type: data?.Type || "",
     Image: data?.Image || null,
     Description: data?.Description || null,
     ScheduleDate: data?.ScheduleDate || "",
     Location: data?.Location || "",
-    ContactPerson: data?.ContactPerson || "",
-    ContactNumber: data?.ContactNumber || "",
-    ContactEmail: data?.ContactEmail || "",
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
@@ -80,9 +74,24 @@ const EventForm: SFC<FormProps> = ({
       let imagePath;
       if (imageFile) {
         formData.append("image", imageFile);
-        imagePath = await upload(formData);
+        if (!IsPublic) imagePath = await upload(formData);
+        else {
+          // PUBLIC UPLOAD
+          const response = await axios.post(
+            `${BASE_URL}/utility/upload-image`,
+            formData,
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${AccessToken}`,
+                "Content-Type": "multipart/form-data",
+              },
+            },
+          );
+          //console.log("API Response:", response?.data);
+          imagePath = response.data?.path || null;
+        }
       }
-
       values.Image = imagePath || null;
 
       if (IsPublic) {
@@ -92,7 +101,7 @@ const EventForm: SFC<FormProps> = ({
             ? { Authorization: `Bearer ${AccessToken}` }
             : {},
         });
-        console.log("response:", response);
+        // console.log("response:", response);
         if (response?.data?.data) {
           displayToast(
             "Event successfully submitted for validation",
@@ -109,7 +118,7 @@ const EventForm: SFC<FormProps> = ({
         else add(values);
       }
     } catch (error: any) {
-      console.log("error:", error);
+      // console.log("error:", error);
       displayToast(
         error?.response?.data?.message || Error.m00001,
         ToastType.error,
@@ -156,8 +165,6 @@ const EventForm: SFC<FormProps> = ({
                     handleBlur,
                     values,
                     resetForm,
-                    setFieldValue,
-                    setTouched,
                     isValid,
                   }) =>
                     !isLoading ? (
@@ -177,7 +184,7 @@ const EventForm: SFC<FormProps> = ({
                           />
                         </S.Divider>
 
-                        <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem] ">
+                        {/*<S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem] ">
                           <S.Divider className="w-full ">
                             <AutoComplete
                               Label="Event Category"
@@ -229,7 +236,7 @@ const EventForm: SFC<FormProps> = ({
                               IsEdit={IsEdit}
                             />
                           </S.Divider>
-                        </S.Divider>
+                        </S.Divider>*/}
                         <S.Divider className="w-full py-1 flex flex-col pb-3">
                           <span className="text-[12px] text-[#666666] ml-3">
                             Description (Optional)
@@ -244,7 +251,7 @@ const EventForm: SFC<FormProps> = ({
                             disabled={IsEdit}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full flex flex-row gap-[1rem]">
+                        {/*<S.Divider className="w-full flex flex-row gap-[1rem]">
                           <S.Divider className="w-full py-1 ">
                             <CustomInput
                               errors={errors}
@@ -287,7 +294,7 @@ const EventForm: SFC<FormProps> = ({
                             onBlur={handleBlur}
                             disabled={IsEdit}
                           />
-                        </S.Divider>
+                        </S.Divider>*/}
                         <S.Divider className="w-full flex md:flex-row flex-col md:gap-[1rem]">
                           <S.Divider className="w-full py-1 ">
                             <CustomInput

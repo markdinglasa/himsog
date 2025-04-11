@@ -1,8 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import { EventTable } from "../../../../types";
-import { EventQuery, DBTable, Error, Success } from "../../../../shared";
+import {
+  EventTable,
+  NotificationTable,
+  NotificationTables,
+} from "../../../../types";
+import {
+  EventQuery,
+  DBTable,
+  Error,
+  Success,
+  UserQuery,
+} from "../../../../shared";
 import { eventValidator } from "../../../../validators";
-import { UpdateService } from "../../../../services";
+import { AddService, GetService, UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const EventUpdateController = async (
@@ -13,6 +23,7 @@ export const EventUpdateController = async (
   try {
     const RecordId: number = parseInt(req.params?.Id, 10),
       Data: EventTable = req.body;
+
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = eventValidator.validate({ ...Data });
@@ -43,6 +54,42 @@ export const EventUpdateController = async (
       ))
     )
       return res.status(401).json({ data: false, message: Error.m002 });
+
+    if (Data?.IsValidated ?? false) {
+      // NOTIFY ALL ADVOCATES
+      const Advocates: NotificationTable[] = await GetService.byFields(
+        UserQuery.q007,
+        ["Role"],
+        [String],
+        ["client"],
+      ); // returns an array of NotificationTable objects
+
+      const NotifyData: NotificationTables = Advocates.map((record) => ({
+        UserId: record.Id ? Number(record.Id) : 0, // Convert to number and handle undefined
+        Description: "New Health Event",
+        Link: "/c/event",
+        IsRead: false,
+        DateCreated: new Date(),
+      }));
+      // console.log(NotifyData);
+      if (
+        !(await AddService.records(
+          DBTable.t008,
+          ["UserId", "Description", "Link", "IsRead", "DateCreated"],
+          NotifyData.map(
+            ({ UserId, Description, Link, IsRead, DateCreated }) => [
+              UserId,
+              Description,
+              Link,
+              IsRead,
+              DateCreated,
+            ],
+          ),
+        ))
+      )
+        return res.status(401).json({ data: false, message: Error.m003 });
+    }
+
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {
     logging.log("----------------------------------------");

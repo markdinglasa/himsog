@@ -2,7 +2,7 @@ import { ArticleTable, ButtonType, EventFilter, SFC } from "../../../types";
 import { cn } from "../../../utils";
 import * as S from "../../../styles/Styles";
 import { CustomButton, SelectOption } from "../../Inputs";
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
 import React from "react";
@@ -27,16 +27,21 @@ export const Articles: SFC<DataDisplayProps> = ({
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [filter, setFilter] = useState<EventFilter>(EventFilter.ALL);
   const [page, setPage] = useState<number>(1);
-  const { data: articles, isLoading } = API.Setup.Article.GetAllWithFilter(
-    filter,
-    page,
-  );
+  const {
+    data: articles,
+    isLoading,
+    refetch,
+  } = API.Setup.Article.GetAllWithFilter(filter, page);
+
+  useEffect(() => {
+    refetch();
+  }, [filter, page, refetch]);
 
   const count: number = useMemo(
     () => Math.ceil((articles?.length || 0) / 30),
     [articles],
   );
-
+  // console.log(filter);
   return (
     <div className={cn("w-full", ClassName)}>
       <S.Content className="h-full flex flex-col justify-center items-center w-full rounded-md">
@@ -67,9 +72,7 @@ export const Articles: SFC<DataDisplayProps> = ({
               placeholder="Filter Article"
               name="ArticleType"
               ClassName="bg-white"
-              OnChange={(e: any) => {
-                setFilter(e.target.value);
-              }}
+              OnChange={setFilter}
               options={[
                 { value: "all", label: "All Articles" },
                 { value: "week", label: "This Week" },
@@ -88,7 +91,7 @@ export const Articles: SFC<DataDisplayProps> = ({
                 {articles.map((record: ArticleTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>
-                      <Card.Article Data={record} />
+                      <Card.Article Data={record} IsLoading={isLoading} />
                     </React.Fragment>
                   );
                 })}

@@ -51,6 +51,7 @@ router.post(
   upload.single("image"),
   (req, res) => {
     try {
+      console.log(req.file);
       if (req.file) {
         res.json({
           message: "Image uploaded successfully",

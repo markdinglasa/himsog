@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import API from "../../../../../hooks/api";
+import Articles from "../../../../../components/DataDisplay/Articles";
 
 export const ArticleViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ export const ArticleViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
   ];
-  const { data: Articles, isLoading } = API.Setup.Article.GetAllWithFilter();
+  const { data: articles, isLoading } = API.Setup.Article.GetAllInvalidated();
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -36,8 +38,8 @@ export const ArticleViewPage: SFC = ({ ClassName }) => {
         <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
-              Title="Articles"
-              Rows={Articles ?? []}
+              Title="Invalidate Articles"
+              Rows={articles ?? []}
               HeadCells={ArticleHC as HeadCell<unknown>[]}
               IsLoading={isLoading}
               OnRecordDelete={() => {}}
@@ -47,6 +49,9 @@ export const ArticleViewPage: SFC = ({ ClassName }) => {
               ClassName="md:max-h-[calc(100vh-200px)]"
             />
           </Suspense>
+        </S.PageContent>
+        <S.PageContent className="border rounded-md">
+          <Articles />
         </S.PageContent>
       </S.Container>
     </>

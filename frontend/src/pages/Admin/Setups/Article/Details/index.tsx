@@ -15,11 +15,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
-import EventDetails from "../../../../../components/DataDisplay/EventDetails";
 import API from "../../../../../hooks/api";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../../modals";
 import Form from "../../../../../components/Surfaces/Forms";
+import ArticleDetails from "../../../../../components/DataDisplay/ArticleDetails";
 
 export const ArticleDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -35,6 +35,7 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
   ];
   const { Id } = useParams<{ Id: string }>();
   const { data, isLoading } = API.Setup.Article.Get(Number(Id));
+  // console.log(data);
   const { update } = API.Setup.Article.Update();
   const [isApprove, toggleApprove] = useToggle(false);
   const [isDisapprove, toggleDisapprove] = useToggle(false);
@@ -55,7 +56,7 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="w-full border rounded-md ">
           <Suspense fallback={<Skeleton />}>
-            <EventDetails Data={data} Loading={isLoading} />
+            <ArticleDetails Data={data} Loading={isLoading} />
           </Suspense>
           <S.Divider className="w-full flex flex-row items-center justify-end gap-[1rem]">
             <CustomButton
@@ -77,8 +78,8 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
         </S.PageContent>
       </S.Container>
       <ConfirmationDialog
-        title="Validate Event"
-        message="Are you sure you want to Validate this event?"
+        title="Validate Article"
+        message="Are you sure you want to Validate this Article?"
         close={toggleApprove}
         open={isApprove}
         confirm={() => {
@@ -92,11 +93,11 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
       />
       <CustomModal
         close={toggleDisapprove}
-        title={"Disapprove Event"}
+        title={"Disapprove Article"}
         open={isDisapprove}
         ClassName="w-[80vw] md:w-[40rem]"
       >
-        <Form.Setup.DisapproveEvent />
+        <Form.Setup.DisapproveArticle />
       </CustomModal>
     </>
   );

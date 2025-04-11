@@ -2,7 +2,7 @@ import { ButtonType, EventFilter, EventTable, SFC } from "../../../types";
 import { cn } from "../../../utils";
 import * as S from "../../../styles/Styles";
 import { CustomButton, SelectOption } from "../../Inputs";
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
 import React from "react";
@@ -26,16 +26,25 @@ export const Events: SFC<DataDisplayProps> = ({
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [filter, setFilter] = useState<EventFilter>(EventFilter.ALL);
   const [page, setPage] = useState<number>(1);
-  const { data: events, isLoading } = API.Setup.Event.GetAllWithFilter(
-    filter,
-    page,
-  );
+
+  const {
+    data: events,
+    isLoading,
+    refetch,
+  } = API.Setup.Event.GetAllWithFilter(filter, page);
+
+  // Trigger refetch when filter or page changes
+  useEffect(() => {
+    refetch();
+  }, [filter, page, refetch]);
+
   const count: number = useMemo(
     () => Math.ceil((events?.length || 0) / 30),
     [events],
   );
-  // console.log(page);
-  // console.log(events);
+
+  console.log(page);
+  console.log(filter);
   return (
     <div className={cn("w-full", ClassName)}>
       <S.Content className="h-full flex flex-col justify-center items-center w-full rounded-md">
@@ -65,9 +74,7 @@ export const Events: SFC<DataDisplayProps> = ({
               placeholder="Filter Event"
               name="EventType"
               ClassName="bg-white"
-              OnChange={(e: any) => {
-                setFilter(e.target.value);
-              }}
+              OnChange={setFilter}
               options={[
                 { value: EventFilter.ALL, label: "All Events" },
                 { value: EventFilter.UPCOMING, label: "Upcoming Events" },
@@ -86,7 +93,7 @@ export const Events: SFC<DataDisplayProps> = ({
                 {events.map((record: EventTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>
-                      <Card.Event Data={record} />
+                      <Card.Event Data={record} IsLoading={isLoading} />
                     </React.Fragment>
                   );
                 })}
@@ -122,7 +129,7 @@ export const Events: SFC<DataDisplayProps> = ({
         </AccessControl>
       </S.Content>
       <CustomModal
-        ClassName="w-[80vw] md:w-[500px]"
+        ClassName="w-[80vw] md:w-[500px] "
         close={toggleDisplay}
         title={"Request Access"}
         open={isDisplay}

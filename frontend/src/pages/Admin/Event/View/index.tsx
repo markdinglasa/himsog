@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../utils";
 import API from "../../../../hooks/api";
+import { Events } from "../../../../components/DataDisplay/Events";
 
 export const EventViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ export const EventViewPage: SFC = ({ ClassName }) => {
         <S.PageContent className="border rounded-md">
           <Suspense fallback={<Skeleton />}>
             <EnhancedTable
-              Title="Events"
+              Title="Invalidate Events"
               Rows={events ?? []}
               HeadCells={EventHC as HeadCell<unknown>[]}
               IsLoading={isLoading}
@@ -47,6 +48,9 @@ export const EventViewPage: SFC = ({ ClassName }) => {
               ClassName="md:max-h-[calc(100vh-200px)]"
             />
           </Suspense>
+        </S.PageContent>
+        <S.PageContent className="border rounded-md">
+          <Events />
         </S.PageContent>
       </S.Container>
     </>

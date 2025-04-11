@@ -59,19 +59,7 @@ const PublicAritcleDetailsPage: SFC = ({ ClassName }) => {
                     Upcoming articles
                   </S.Span>
                 </S.Divider>
-                <S.Divider className="">
-                  <Card.Article
-                    ClassName="h-[12rem] cursor-pointer mb-2"
-                    Id={"55"}
-                    Image={DefaultImage}
-                    Title={"Lorem ipsum negoro"}
-                    Descritpion={
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    }
-                    ScheduleDate={"2025-01-02"}
-                    IsWidget={true}
-                  />
-                </S.Divider>
+                <S.Divider className=""></S.Divider>
                 <S.Divider className="flex items-center justify-start w-full mt-4">
                   <S.Span
                     className="font-medium text-md cursor-pointer"

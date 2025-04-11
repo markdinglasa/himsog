@@ -12,6 +12,7 @@ import EventDetails from "../../../DataDisplay/EventDetails";
 export interface EventCardProps {
   Data: EventTable;
   //onClick: () => void;
+  IsLoading: boolean;
   IsWidget?: boolean;
 }
 
@@ -20,6 +21,7 @@ const EventCard: SFC<EventCardProps> = ({
   Data,
   //onClick,
   IsWidget = false,
+  IsLoading = true,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
@@ -85,9 +87,9 @@ const EventCard: SFC<EventCardProps> = ({
         close={toggleDisplay}
         title="Health & Nutrition Event Details"
         open={isDisplay}
-        ClassName="w-full md:w-[50rem] h-fit"
+        ClassName="w-full md:w-[50rem] h-[90vh] overflow-auto"
       >
-        <EventDetails Data={Data} />
+        <EventDetails Data={Data} Loading={IsLoading} />
       </CustomModal>
     </div>
   );

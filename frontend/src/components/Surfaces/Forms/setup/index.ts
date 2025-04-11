@@ -14,6 +14,8 @@ import Institute from "./InstituteForm";
 import Specialist from "./SpecialistForm";
 import PayType from "./PayTypeForm";
 import DisapproveEvent from "./DisapproveEventForm";
+import DisapproveArticle from "./DisapproveArticleForm";
+
 export default {
   Unit,
   Ingredient,
@@ -31,4 +33,5 @@ export default {
   Specialist,
   PayType,
   DisapproveEvent,
+  DisapproveArticle,
 };

@@ -1,8 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { EventTable } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import {
+  EventTable,
+  NotificationTable,
+  NotificationTables,
+} from "../../../../types";
+import { DBTable, Error, Success, UserQuery } from "../../../../shared";
 import { eventValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService } from "../../../../services";
 
 export const EventAddController = async (
   req: Request,
@@ -20,6 +24,7 @@ export const EventAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+
     Data.ScheduleDate = new Date(Data.ScheduleDate);
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);

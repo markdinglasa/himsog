@@ -3,6 +3,7 @@ import { Error, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { ArticleQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { ArticleTable } from "../../../../types";
 
 export const ArticleGetController = async (
   req: Request,
@@ -15,12 +16,9 @@ export const ArticleGetController = async (
       return res.status(401).json({ data: [], message: Error.m005 });
     if (!(await isFound(ArticleQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Article existence
-    const response = await GetService.byFields(
-      ArticleQuery.q003,
-      ["Id"],
-      [Number],
-      [Id],
-    );
+    const response: ArticleTable = (
+      await GetService.byFields(ArticleQuery.q003, ["Id"], [Number], [Id])
+    )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

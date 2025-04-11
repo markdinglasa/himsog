@@ -19,7 +19,7 @@ import {
 } from "../../../../../types";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import { memo, useRef, useState } from "react";
-import { Error } from "../../../../../shared";
+import { BASE_URL, Error } from "../../../../../shared";
 import * as S from "../../../../../styles";
 import { displayToast, formatDateForInput } from "../../../../../utils";
 import { articleValidator } from "../../../../../validators/";
@@ -63,10 +63,14 @@ const ArticleForm: SFC<FormProps> = ({
       formatDateForInput(data?.DatePosted ?? new Date()) ||
       formatDateForInput(new Date()),
     PostedBy:
-      data?.PostedBy || `${user?.Firstname ?? "NA"} ${user?.Lastname ?? "NA"}`,
+      data?.PostedBy ||
+      `${user?.Firstname ?? "Anonymous"} ${user?.Lastname ?? ""}`,
     Image: data?.Image || null,
     Link: data?.Link || null,
-    IsValidated: data?.IsValidated || false,
+    IsValidated: data?.IsValidated || null,
+    Remarks: null,
+    CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
+    UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
   };
   // console.log(AccessToken);
   const handleSubmit = async (values: ArticleTable): Promise<void> => {
@@ -75,19 +79,47 @@ const ArticleForm: SFC<FormProps> = ({
       let imagePath;
       if (imageFile) {
         formData.append("image", imageFile);
-        imagePath = await upload(formData);
+        if (!IsPublic) imagePath = await upload(formData);
+        else {
+          // PUBLIC UPLOAD
+          const response = await axios.post(
+            `${BASE_URL}/utility/upload-image`,
+            formData,
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${AccessToken}`,
+                "Content-Type": "multipart/form-data",
+              },
+            },
+          );
+          //console.log("API Response:", response?.data);
+          imagePath = response.data?.path || null;
+        }
       }
       values.Image = imagePath || null;
 
       if (IsPublic) {
-        console.log("IsPublic:Article");
+        // console.log("IsPublic:Article");
+        const validateToken = await axios.post(
+          `${BASE_URL}/token-validator`,
+          { token: AccessToken },
+          {
+            withCredentials: true,
+            headers: { Authorization: `Bearer ${AccessToken}` },
+          },
+        );
+        if (!validateToken?.data?.data)
+          displayToast("Token already expired", ToastType.error);
+        //console.log()
         const response = await axios.post(`${APIChannel.ARTICLE}`, values, {
           withCredentials: true,
           headers: AccessToken
             ? { Authorization: `Bearer ${AccessToken}` }
             : {},
         });
-        console.log("response:", response);
+
+        // console.log("response:", response);
         if (response?.data?.data) {
           displayToast(
             "Article successfully submitted for validation",
@@ -268,7 +300,7 @@ const ArticleForm: SFC<FormProps> = ({
                               onClick={() => {
                                 OnClose && OnClose();
                                 resetForm();
-                                SetIsEdit(true);
+                                if (!IsPublic) SetIsEdit(true);
                               }}
                             />
                             <CustomButton

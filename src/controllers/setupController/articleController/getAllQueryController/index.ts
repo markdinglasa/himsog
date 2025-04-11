@@ -40,7 +40,7 @@ export const ArticleGetWithQueryController = async (
       }
     }
 
-    query += ` LIMIT ${Math.max(1, RECORDS_PER_PAGE)} OFFSET ${Math.max(0, offset)}`;
+    query += ` ORDER BY DatePosted DESC LIMIT ${Math.max(1, RECORDS_PER_PAGE)} OFFSET ${Math.max(0, offset)}`;
     // console.log("Executing Query:", query);
     // console.log("Query Parameters:", queryParams);
 

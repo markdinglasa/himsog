@@ -3,5 +3,12 @@ import Update from "./useUpdateArticle";
 import Get from "./useGetArticle";
 import GetAll from "./useGetAllArticle";
 import GetAllWithFilter from "./useGetWithFilerArticle";
-
-export default { Add, Update, Get, GetAll, GetAllWithFilter };
+import GetAllInvalidated from "./useGetAllInvalidatedArticle";
+export default {
+  Add,
+  Update,
+  Get,
+  GetAll,
+  GetAllWithFilter,
+  GetAllInvalidated,
+};

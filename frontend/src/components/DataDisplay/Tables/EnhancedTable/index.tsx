@@ -93,7 +93,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
   const handleClick = (
     _event: MouseEvent<unknown>,
     id: any,
-    link: any,
+    //link: any,
     data: any,
     isLocked: boolean,
   ) => {
@@ -107,11 +107,11 @@ export const EnhancedTable = <T extends Record<string, any>>({
         Record: IsRecord ? data : undefined,
       });
     } else {
-      const reroute = link
+      /*const reroute = link
         ? link
         : DetailsRoute !== RouteChannel.NO_ACCESS_RIGHT
           ? `${DetailsRoute.slice(0, DetailsRoute.length - (IsSales ? 10 : 3))}${id}`
-          : RouteChannel.R403;
+          : RouteChannel.R403;*/
       // displays Cart Details if the sales is already tendered
       if (isLocked) {
         setRecord({
@@ -120,7 +120,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
           Record: data ?? undefined,
         });
       } else if (DetailsRoute !== RouteChannel.NO_ACCESS_RIGHT)
-        navigate(reroute); // reroute to shop if not yet tendered
+        navigate(DetailsRoute.replace(":Id", id)); // reroute to shop if not yet tendered
       else displayToast(Error.m00053, ToastType.error); // display no access right
     }
   };
@@ -289,7 +289,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                               String(row["RecNumber"]).length,
                             )
                           : row["Id"],
-                        row["Link"],
+                        //row["Link"],
                         row,
                         IsSales ? IsBoolean(row["IsLocked"]) : false,
                       );
@@ -322,6 +322,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "DateEnd":
                           case "TrnDate":
                           case "ScheduleDate":
+                          case "DatePosted":
                             return formatDateToMMDDYY(
                               row[HeadCell.Id].toString(),
                             );

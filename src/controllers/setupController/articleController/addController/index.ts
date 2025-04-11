@@ -11,15 +11,19 @@ export const ArticleAddController = async (
 ): Promise<any> => {
   try {
     const Data: ArticleTable = req.body;
+    //console.log(Data);
+
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = articleValidator.validate({ ...Data });
+    console.error(error);
     if (error)
       return res.status(401).json({
         data: false,
-        message: error.details[0]?.message || Error.m029,
+        message: error.details[0].message || Error.m029,
       });
     // Other Fn
+
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
@@ -29,7 +33,7 @@ export const ArticleAddController = async (
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("Event-Controller [Add]:", error.message);
+    logging.error("Article-Controller [Add]:", error.message);
     logging.log("----------------------------------------");
     return res
       .status(500)

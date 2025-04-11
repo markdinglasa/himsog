@@ -26,7 +26,7 @@ export const EventGetWithQueryController = async (
         case "past-events":
           query += " AND ScheduleDate < CURRENT_DATE";
           break;
-        case "upcoming-events":
+        case "up-coming-events":
           query += " AND ScheduleDate > CURRENT_DATE";
           break;
         case "my-events":
@@ -39,7 +39,7 @@ export const EventGetWithQueryController = async (
       }
     }
 
-    query += ` LIMIT ${Math.max(1, RECORDS_PER_PAGE)} OFFSET ${Math.max(0, offset)}`;
+    query += ` ORDER BY ScheduleDate DESC LIMIT ${Math.max(1, RECORDS_PER_PAGE)} OFFSET ${Math.max(0, offset)}`;
     // console.log("Executing Query:", query);
     // console.log("Query Parameters:", queryParams);
 

@@ -37,7 +37,7 @@ export const RequestAccessUpdateController = async (
       const Token: string = (await GenerateFn.accessToken("0")).data;
       const HTMLEmail = GenerateEmail(
         Data?.Email,
-        `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "article"}/new/token=${Token} this token is valid only for 1hour.`,
+        `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "health-article"}/new/token=${Token} this token is valid only for 1hour.`,
       );
       if (Data?.Email) {
         const sendemail = singleMailSender(
