@@ -4,7 +4,6 @@ import {
   DoughnutChart,
   IncrementCard,
   LineChart,
-  NoReplyEmail,
   PageBreadCrumbs,
 } from "../../../components";
 import Card from "../../../components/Surfaces/Cards";
@@ -139,7 +138,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             <DoughnutChart ClassName="border rounded-md" />
           </S.Divider>
         </S.Content>
-        <div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>
+        {/*<div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>*/}
       </S.Container>
     </>
   );

@@ -4,6 +4,8 @@ import Get from "./useGetEvent";
 import GetAll from "./useGetAllEvent";
 import GetAllInvalidated from "./useGetAllInvalidatedEvent";
 import GetAllWithFilter from "./useGetWithFilerEvent";
+import Remove from "./useRemoveEvent";
+
 export default {
   Add,
   Update,
@@ -11,4 +13,5 @@ export default {
   GetAll,
   GetAllInvalidated,
   GetAllWithFilter,
+  Remove,
 };
