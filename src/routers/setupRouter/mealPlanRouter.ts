@@ -6,11 +6,17 @@ import {
   MealPlanAddController,
   MealPlanGetAllController,
   MealPlanGetController,
+  MealPlanGetWithQueryController,
   MealPlanRemoveController,
   MealPlanUpdateController,
 } from "../../controllers";
 
 const router = express.Router();
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLANS}`,
+  TokenHandler.verifyToken,
+  MealPlanGetWithQueryController,
+);
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_PARENT}`,
   TokenHandler.verifyToken,
