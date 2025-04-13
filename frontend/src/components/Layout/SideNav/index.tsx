@@ -11,6 +11,7 @@ import {
   mdiNewspaperVariantOutline,
   mdiScale,
   mdiViewDashboardOutline,
+  mdiFoodTakeoutBoxOutline,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
@@ -147,18 +148,18 @@ export const SideNav: SFC<SideNavProps> = ({
             </AccessControl>
             <AccessControl UserRoles={[Roles.nutritionist]}>
               <Menu
-                icon={mdiFoodOutline}
+                icon={mdiFoodTakeoutBoxOutline}
                 isCollapse={Collapse}
-                label="Meal Plans"
+                label="Meals"
                 onClick={() => {
                   Toggle();
-                  navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN);
-                  setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN);
+                  navigate(RouteChannel.NUTRITIONIST_MEAL);
+                  setActive(RouteChannel.NUTRITIONIST_MEAL);
                 }}
-                IsActive={active === RouteChannel.NUTRITIONIST_MEAL_PLAN}
+                IsActive={active === RouteChannel.NUTRITIONIST_MEAL}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.client]}>
+            <AccessControl UserRoles={[Roles.client, Roles.nutritionist]}>
               <Menu
                 icon={mdiFoodOutline}
                 isCollapse={Collapse}
@@ -169,45 +170,60 @@ export const SideNav: SFC<SideNavProps> = ({
                   //navigate(RouteChannel.REPORTS);
                 }}
               >
-                <Menu
-                  icon={mdiFoodVariant}
-                  isCollapse={Collapse}
-                  label="Pre-set Meal Plan"
-                  onClick={() => {
-                    Toggle();
-                    navigate(RouteChannel.CLIENT_PRESET_MEAL_PLAN);
-                    setActive(RouteChannel.CLIENT_PRESET_MEAL_PLAN);
-                  }}
-                  IsActive={active === RouteChannel.CLIENT_PRESET_MEAL_PLAN}
-                />
-                <Menu
-                  icon={mdiInvoiceSendOutline}
-                  isCollapse={Collapse}
-                  label="Request Meal Plan"
-                  onClick={() => {
-                    Toggle();
-                    navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
-                    setActive(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
-                  }}
-                  IsActive={active === RouteChannel.CLIENT_REQUEST_MEAL_PLAN}
-                />
+                <AccessControl UserRoles={[Roles.nutritionist]}>
+                  <Menu
+                    icon={mdiFoodVariant}
+                    isCollapse={Collapse}
+                    label="Pre-set Meal Plan"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN);
+                      setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN);
+                    }}
+                    IsActive={active === RouteChannel.NUTRITIONIST_MEAL_PLAN}
+                  />
+                  <Menu
+                    icon={mdiInvoiceSendOutline}
+                    isCollapse={Collapse}
+                    label="Requests"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
+                      setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
+                    }}
+                    IsActive={
+                      active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
+                    }
+                  />
+                </AccessControl>
+                <AccessControl UserRoles={[Roles.client]}>
+                  <Menu
+                    icon={mdiFoodVariant}
+                    isCollapse={Collapse}
+                    label="Pre-set Meal Plan"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.CLIENT_PRESET_MEAL_PLAN);
+                      setActive(RouteChannel.CLIENT_PRESET_MEAL_PLAN);
+                    }}
+                    IsActive={active === RouteChannel.CLIENT_PRESET_MEAL_PLAN}
+                  />
+
+                  <Menu
+                    icon={mdiInvoiceSendOutline}
+                    isCollapse={Collapse}
+                    label="Request Meal Plan"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
+                      setActive(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
+                    }}
+                    IsActive={active === RouteChannel.CLIENT_REQUEST_MEAL_PLAN}
+                  />
+                </AccessControl>
               </Menu>
             </AccessControl>
-            <AccessControl UserRoles={[Roles.nutritionist]}>
-              <Menu
-                icon={mdiInvoiceSendOutline}
-                isCollapse={Collapse}
-                label="Requests"
-                onClick={() => {
-                  Toggle();
-                  navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
-                  setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
-                }}
-                IsActive={
-                  active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
-                }
-              />
-            </AccessControl>
+
             <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
               <Menu
                 icon={mdiCalendarTextOutline}
@@ -249,7 +265,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === `${path}/health-article`}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.nutritionist]}>
+            {/*<AccessControl UserRoles={[Roles.nutritionist]}>
               <Menu
                 icon={mdiBookOpenVariantOutline}
                 isCollapse={Collapse}
@@ -261,7 +277,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 }}
                 IsActive={active === RouteChannel.NUTRITIONIST_INGREDIENT}
               />
-            </AccessControl>
+            </AccessControl>*/}
           </S.MenuContent>
         </S.MenuContainer>
       </S.Container>

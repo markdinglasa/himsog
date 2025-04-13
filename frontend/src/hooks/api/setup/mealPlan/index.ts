@@ -3,4 +3,5 @@ import Update from "./useUpdateMealPlan";
 import Get from "./useGetMealPlan";
 import GetAll from "./useGetAllMealPlan";
 import Remove from "./useRemoveMealPlan";
-export default { Add, Update, Get, GetAll, Remove };
+import GetWithFilter from "./useGetWithFilterMealPlan";
+export default { Add, Update, Get, GetAll, Remove, GetWithFilter };

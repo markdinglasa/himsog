@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Error, Success, UserQuery } from "../../../../shared";
+import { Error, MealQuery, Success } from "../../../../shared";
 import { IngredientQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
 import { isFound } from "../../../../functions";
@@ -10,17 +10,17 @@ export const IngredientGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const UserId: number = parseInt(req.params?.Id, 10);
-    if (!UserId || UserId === 0 || UserId === undefined)
+    const MealId: number = parseInt(req.params?.Id, 10);
+    if (!MealId || MealId === 0 || MealId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
-    if (!(await isFound(UserQuery.q002, ["Id"], [Number], [UserId])).data)
+    if (!(await isFound(MealQuery.q002, ["Id"], [Number], [MealId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check User existence
 
     const response = await GetService.byFields(
       IngredientQuery.q001,
-      ["UserId"],
+      ["MealId"],
       [Number],
-      [UserId],
+      [MealId],
     );
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {

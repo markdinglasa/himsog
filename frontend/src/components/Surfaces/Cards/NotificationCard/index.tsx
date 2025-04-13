@@ -44,7 +44,7 @@ export const NotificationCard: SFC<NotificationCardProps> = ({
       }}
       key={Id}
       className={cn(
-        `w-full border rounded-md p-3 bg-slate-100/10 hover:bg-white duration-300 ease-in-out cursor-pointer ${IsRead ? "" : "font-medium"}`,
+        `w-full border rounded-md p-3 bg-slate-100/10 hover:bg-slate-100/60 duration-300 ease-in-out cursor-pointer ${IsRead ? "" : "font-medium"}`,
         ClassName,
       )}
     >

@@ -21,14 +21,15 @@ export const IngredientAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+
     // check duplicate
     if (
       (
         await isFound(
           IngredientQuery.q006,
-          ["UserId", "Name"],
+          ["MealId", "Name"],
           [Number, String],
-          [Data.UserId, Data.Name],
+          [Data.MealId, Data.Name],
         )
       ).data
     )

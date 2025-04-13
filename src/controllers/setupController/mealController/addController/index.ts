@@ -21,13 +21,24 @@ export const MealAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
-    if ((await isFound(MealQuery.q004, ["Name"], [String], [Data.Name])).data)
+    if (
+      (
+        await isFound(
+          MealQuery.q004,
+          ["UserId", "Name"],
+          [Number, String],
+          [Data.UserId, Data.Name],
+        )
+      ).data
+    )
       return res.status(401).json({ data: false, message: Error.m043 }); // check duplicate Name
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t005, Fields, Types, Values)))
+    if (
+      !(await AddService.recordReturnData(DBTable.t005, Fields, Types, Values))
+    )
       return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {

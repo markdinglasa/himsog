@@ -15,6 +15,7 @@ import Specialist from "./SpecialistForm";
 import PayType from "./PayTypeForm";
 import DisapproveEvent from "./DisapproveEventForm";
 import DisapproveArticle from "./DisapproveArticleForm";
+import Meal from "./MealForm";
 
 export default {
   Unit,
@@ -34,4 +35,5 @@ export default {
   PayType,
   DisapproveEvent,
   DisapproveArticle,
+  Meal,
 };

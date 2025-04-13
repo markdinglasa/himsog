@@ -3,6 +3,7 @@ import { Error, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { MealQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { MealTable } from "../../../../types";
 
 export const MealGetController = async (
   req: Request,
@@ -15,12 +16,9 @@ export const MealGetController = async (
       return res.status(401).json({ data: [], message: Error.m005 });
     if (!(await isFound(MealQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Meal existence
-    const response = await GetService.byFields(
-      MealQuery.q003,
-      ["Id"],
-      [Number],
-      [Id],
-    );
+    const response: MealTable = (
+      await GetService.byFields(MealQuery.q003, ["Id"], [Number], [Id])
+    )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

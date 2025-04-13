@@ -10,53 +10,44 @@ import {
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
-import {
-  AutoComplete,
-  CircleButton,
-  CustomButton,
-  CustomInput,
-} from "../../../../Inputs";
+import { AutoComplete, CustomButton, CustomInput } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
-import { memo, useState } from "react";
-import { useAuth } from "../../../../../hooks";
+import { memo } from "react";
 import { ingredientValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
-import { ingredientCategoryOptions } from "../../../../../shared";
 
 export const IngridientForm: SFC<FormProps> = ({
   ClassName,
-  Title = "NA",
-  IsDetails = true,
+  RecordId = 0,
+  OnClose,
 }) => {
-  const [IsEdit, SetIsEdit] = useState(IsDetails);
+  const IsEdit = false;
   const { Id } = useParams<{ Id: string }>();
-  const { auth } = useAuth();
   const { add } = API.Setup.Ingredient.Add();
   const { update } = API.Setup.Ingredient.Update();
-  const { data, isLoading } = API.Setup.Ingredient.Get(Number(Id));
+  const { data, isLoading } = API.Setup.Ingredient.Get(Number(RecordId));
   const { data: units } = API.Setup.Unit.GetAll();
 
   const InitialValues: IngredientTable = {
     Name: data?.Name || "",
-    Description: data?.Description || null,
+    Quantity: data?.Description || null,
     UnitId: data?.UnitId || 0,
-    Category: data?.Category || "",
-    CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
-    UpdatedBy: IsDetails ? auth?.user : null,
-    UserId: data?.UserId || (auth?.user ?? 0),
+    MealId: data?.MealId || Number(Id),
   };
 
   const handleSubmit = async (values: IngredientTable) => {
     try {
-      if (Id) update(Number(Id), values);
+      if (Number(RecordId) !== 0) update(Number(Id), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
+    } finally {
+      OnClose && OnClose();
     }
   };
 
@@ -64,18 +55,6 @@ export const IngridientForm: SFC<FormProps> = ({
     <>
       <S.Container className={cn("w-full", ClassName)}>
         <S.Content className="content">
-          <S.FormHeader className="flex flex-row items-center justify-between mb-4">
-            <S.Span className="text-lg text-slate-900">{Title}</S.Span>
-            <S.Divider>
-              <AccessControl OtherCondition={IsEdit}>
-                <CircleButton
-                  OnClick={() => SetIsEdit(false)}
-                  Icon={<Icon.Edit className="text-primary" />}
-                  Type={ButtonType.button}
-                />
-              </AccessControl>
-            </S.Divider>
-          </S.FormHeader>
           {!isLoading ? (
             <S.Divider>
               <Formik
@@ -113,21 +92,9 @@ export const IngridientForm: SFC<FormProps> = ({
                           type={InputType.text}
                         />
                       </S.Divider>
-                      <S.Divider className="w-full ">
-                        <CustomInput
-                          placeholder="e.g. Zingiber officinale"
-                          label="Description (optional)"
-                          name="Description"
-                          errors={errors}
-                          touched={touched}
-                          value={values.Description ?? ""}
-                          onChange={handleChange}
-                          disabled={IsEdit}
-                          type={InputType.text}
-                        />
-                      </S.Divider>
+
                       <S.Divider className="w-full flex md:flex-row flex-col gap-4 mb-2">
-                        <S.Divider className="w-full ">
+                        <S.Divider className="w-full -mt-2">
                           <AutoComplete
                             Placeholder="Select Unit"
                             Options={units ?? []}
@@ -145,34 +112,27 @@ export const IngridientForm: SFC<FormProps> = ({
                             }}
                           />
                         </S.Divider>
-                        <S.Divider className="w-full">
-                          <AutoComplete
-                            Placeholder="Select Category"
-                            Options={ingredientCategoryOptions}
-                            Name="Category"
-                            OptionName="label"
-                            Label="Category"
-                            Values={values.Category}
-                            Errors={errors}
-                            Touched={touched}
-                            IsEdit={IsEdit}
-                            OnBlur={handleBlur}
-                            OnChange={(_: any, value: any) => {
-                              setFieldValue("Category", value?.Id || "");
-                              setTouched({ Category: true });
-                            }}
+                        <S.Divider className="w-full ">
+                          <CustomInput
+                            placeholder="Quantity"
+                            label="Quantity"
+                            name="Quantity"
+                            errors={errors}
+                            touched={touched}
+                            value={values?.Quantity?.toString()}
+                            onChange={handleChange}
+                            disabled={IsEdit}
+                            type={InputType.number}
                           />
                         </S.Divider>
                       </S.Divider>
                     </S.Divider>
-
                     <AccessControl OtherCondition={!IsEdit}>
                       <S.Divider className="w-full flex justify-end items-center gap-4 mt-2 ">
                         <CustomButton
                           leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"
                           onClick={() => {
-                            if (IsDetails) SetIsEdit(true);
                             resetForm();
                           }}
                           color={ButtonColor.default}

@@ -1,8 +1,8 @@
-import { RouteChannel, SFC } from "../../../types";
+import { NotificationTable, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, Skeleton, NoRecord } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { memo, Suspense } from "react";
+import { memo } from "react";
 import API from "../../../hooks/api";
 import { useAuth } from "../../../hooks";
 import Card from "../../../components/Surfaces/Cards";
@@ -17,7 +17,7 @@ export const NotificationPage: SFC = ({ ClassName }) => {
     },
   ];
   const { auth } = useAuth();
-  const { data: notifications } = API.Utility.Notification.GetAll(
+  const { data: notifications, isLoading } = API.Utility.Notification.GetAll(
     Number(auth?.user ?? 0),
   );
 
@@ -31,29 +31,29 @@ export const NotificationPage: SFC = ({ ClassName }) => {
         <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)]">
           <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
             <S.Divider className="w-full text-left mb-2">
-              <S.Span className="text-lg font-medium"> Notifications</S.Span>
+              <S.Span className="text-lg font-medium">Notifications</S.Span>
             </S.Divider>
-            <Suspense fallback={<Skeleton />}>
-              {notifications && notifications.length > 0 ? (
-                notifications.map((record: any) => {
-                  return (
-                    <React.Fragment key={record?.Id}>
-                      <Card.Notification
-                        IsRead={record?.IsRead}
-                        Description={record?.Description}
-                        Id={record?.Id}
-                        Date={record?.DateCreated}
-                        Link={record?.Link}
-                      />
-                    </React.Fragment>
-                  );
-                })
+            <div className="w-full flex flex-col gap-2">
+              {isLoading ? (
+                <Skeleton />
+              ) : Array.isArray(notifications) && notifications.length > 0 ? (
+                notifications.map((record: NotificationTable) => (
+                  <React.Fragment key={record?.Id}>
+                    <Card.Notification
+                      IsRead={record?.IsRead}
+                      Description={record?.Description}
+                      Id={String(record?.Id) ?? ""}
+                      Date={String(record?.DateCreated)}
+                      Link={record?.Link}
+                    />
+                  </React.Fragment>
+                ))
               ) : (
                 <div className="w-full md:h-[20rem] flex items-center justify-center">
                   <NoRecord Message={"No Notifications"} />
                 </div>
               )}
-            </Suspense>
+            </div>
           </S.Divider>
         </S.Divider>
       </S.Container>

@@ -5,3 +5,4 @@ export * from "./subscription";
 export * from "./event";
 export * from "./subscriptionLine";
 export * from "./article";
+export * from "./meal";

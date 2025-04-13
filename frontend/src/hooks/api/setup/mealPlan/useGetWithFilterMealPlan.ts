@@ -4,24 +4,26 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllIngredient = (UserId: number = 0) => {
+const useGetWithFilterMealPlan = (Filter: string, Page: number = 1) => {
   const axios = useAxiosPrivate();
-  const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.INGREDIENT, UserId],
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: [QueryKey.MEAL_PLAN, Filter],
     queryFn: async () => {
+      ``;
       const response = await axios.get(
-        `${APIChannel.INGREDIENT_MEAL.replace(":Id", UserId.toString())}`,
+        `${APIChannel.MEAL_PLAN_FILTER.replace(":filter", Filter).replace(":page", Page.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!UserId, // Only fetch data if Id is provided
+    enabled: !!Filter && !!Page,
   });
   if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
   return {
     data,
     isLoading,
     error,
+    refetch,
   };
 };
-export default useGetAllIngredient;
+export default useGetWithFilterMealPlan;

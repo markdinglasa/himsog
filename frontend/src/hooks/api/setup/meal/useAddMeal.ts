@@ -14,15 +14,19 @@ import { useMutation } from "@tanstack/react-query";
 const useAddMeal = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-
+  let Id = 0;
   const mutation = useMutation({
     mutationFn: async (data: MealTable) => {
       const response = await axios.post(`${APIChannel.MEAL}`, data);
+      console.log(response.data);
+      if (response.data) Id = response.data.Id;
       return response.data;
     },
     onSuccess: () => {
       displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.NUTRITIONIST_MEAL);
+      navigate(
+        RouteChannel.NUTRITIONIST_MEAL_DETAILS.replace(":Id", Id.toString()),
+      );
     },
     onError: (error: any) => {
       displayToast(

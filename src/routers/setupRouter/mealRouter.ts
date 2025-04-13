@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL}`,
+  `${API_VERSION}${RouteChannel.MEAL_USER}`,
   TokenHandler.verifyToken,
   MealGetAllController,
 );
