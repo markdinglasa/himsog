@@ -5,6 +5,7 @@ export interface NutritionFactTable extends Id, Logs {
   Name: string;
   UnitId: number;
   Quantity: number;
+  Kilocalorie: number;
 }
 export type NutritionFactTables = NutritionFactTable[];
 export const NutritionFactInitial: NutritionFactTable = {
@@ -12,4 +13,5 @@ export const NutritionFactInitial: NutritionFactTable = {
   MealId: 0,
   UnitId: 0,
   Quantity: 0,
+  Kilocalorie: 0,
 };

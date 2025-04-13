@@ -5,13 +5,18 @@ import { API_VERSION } from "../../constants";
 import {
   UnitAddController,
   UnitGetAllController,
+  UnitGetAllGramController,
   UnitGetController,
   UnitRemoveController,
   UnitUpdateController,
 } from "../../controllers";
 
 const router = express.Router();
-
+router.get(
+  `${API_VERSION}${RouteChannel.UNIT_GRAM}`,
+  TokenHandler.verifyToken,
+  UnitGetAllGramController,
+);
 router.get(
   `${API_VERSION}${RouteChannel.UNIT}`,
   TokenHandler.verifyToken,

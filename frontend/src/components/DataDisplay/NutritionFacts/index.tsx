@@ -54,7 +54,9 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                     </span>
                     <span className="text-sm text-slate-600">
                       {parseFloat(record.Quantity.toString())}{" "}
-                      {record?.UnitName ?? "NA"}
+                      {record?.UnitName ?? "NA"} {" ⋅ "}
+                      {parseFloat(record?.Kilocalorie.toString() ?? "0")}{" "}
+                      {"kcal"}
                     </span>
                   </div>
                   <div>

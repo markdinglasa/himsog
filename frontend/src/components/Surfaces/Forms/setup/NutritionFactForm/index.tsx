@@ -32,13 +32,14 @@ export const NutritionFactForm: SFC<FormProps> = ({
   const { add } = API.Setup.NutritionFact.Add();
   const { update } = API.Setup.NutritionFact.Update();
   const { data, isLoading } = API.Setup.NutritionFact.Get(Number(RecordId));
-  const { data: units } = API.Setup.Unit.GetAll();
+  const { data: units } = API.Setup.Unit.GetAllGram();
 
   const InitialValues: NutritionFactTable = {
     Name: data?.Name || "",
     Quantity: data?.Quantity || 0,
     UnitId: data?.UnitId || 16,
     MealId: data?.MealId || Number(Id),
+    Kilocalorie: data?.Kilocalorie || 0,
   };
 
   const handleSubmit = async (values: NutritionFactTable) => {
@@ -121,6 +122,19 @@ export const NutritionFactForm: SFC<FormProps> = ({
                             errors={errors}
                             touched={touched}
                             value={values?.Quantity?.toString()}
+                            onChange={handleChange}
+                            disabled={IsEdit}
+                            type={InputType.number}
+                          />
+                        </S.Divider>
+                        <S.Divider className="w-full ">
+                          <CustomInput
+                            placeholder="Kilocalorie"
+                            label="Kcal"
+                            name="Kilocalorie"
+                            errors={errors}
+                            touched={touched}
+                            value={values?.Kilocalorie?.toString()}
                             onChange={handleChange}
                             disabled={IsEdit}
                             type={InputType.number}

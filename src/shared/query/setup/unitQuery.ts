@@ -5,7 +5,7 @@ export enum UnitQuery {
   q004 = "SELECT `Id` FROM `unit` WHERE `Name` = ?",
   q005 = "SELECT `Id` FROM `unit` WHERE `Id` <> ? AND `Name` = ?",
   q006 = "SELECT `Id` FROM `ingredient` WHERE `UnitId` = ?",
-  q007 = "",
+  q007 = "SELECT * FROM `unit` WHERE `Description` LIKE '%Gram%'",
   q008 = "",
   q009 = "",
   q010 = "",

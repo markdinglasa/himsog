@@ -8,9 +8,7 @@ export const PreMadePlanPanel: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("w-full ", ClassName)}>
-        <S.Content className="w-full">
-          <MealPlans />
-        </S.Content>
+        <S.Content className="w-full"></S.Content>
       </S.Container>
     </>
   );

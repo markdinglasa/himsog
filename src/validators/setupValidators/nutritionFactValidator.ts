@@ -5,6 +5,7 @@ export const nutritionFactValidator = Joi.object({
   Name: Joi.string().required(),
   UnitId: Joi.number().integer().positive().required(),
   Quantity: Joi.number().positive().required(),
+  Kilocalorie: Joi.number().positive().required(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });

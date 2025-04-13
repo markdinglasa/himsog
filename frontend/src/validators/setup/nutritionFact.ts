@@ -4,7 +4,8 @@ export const nutritionFactValidator = () => {
   return yup.object().shape({
     MealId: yup.number().integer().positive().required(),
     Name: yup.string().required(),
-    Quantity: yup.string().nullable().optional(),
+    Quantity: yup.number().positive().optional(),
+    Kilocalorie: yup.number().positive().optional(),
     UnitId: yup.number().integer().positive().required(),
   });
 };
