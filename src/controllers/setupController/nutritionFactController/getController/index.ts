@@ -3,6 +3,7 @@ import { Error, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { NutritionFactQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { NutritionFactTable } from "../../../../types";
 
 export const NutritionFactGetController = async (
   req: Request,
@@ -15,12 +16,9 @@ export const NutritionFactGetController = async (
       return res.status(401).json({ data: [], message: Error.m005 });
     if (!(await isFound(NutritionFactQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check NutritionFact existence
-    const response = await GetService.byFields(
-      NutritionFactQuery.q003,
-      ["Id"],
-      [Number],
-      [Id],
-    );
+    const response: NutritionFactTable = (
+      await GetService.byFields(NutritionFactQuery.q003, ["Id"], [Number], [Id])
+    )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

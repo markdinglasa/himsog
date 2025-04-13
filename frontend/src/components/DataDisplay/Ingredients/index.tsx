@@ -83,14 +83,14 @@ export const Ingredients: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
           setRecordId(0);
           toggleModal();
         }}
-        title={"New Ingredient"}
+        title={recordId ? "Ingredient Details" : "New Ingredient"}
         open={isModal}
         ClassName="w-[80vw] md:w-[40rem]"
       >
         <div>
           <Form.Setup.Ingredient
             RecordId={recordId.toString()}
-            IsDetails={false}
+            IsDetails={IsDetails}
             OnClose={toggleModal}
           />
         </div>

@@ -3,15 +3,17 @@ import {
   APIChannel,
   NutritionFactInitial,
   NutritionFactTable,
+  QueryKey,
   ToastType,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateNutritionFact = () => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -28,6 +30,7 @@ const useUpdateNutritionFact = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.NUTRITION_FACT] });
       displayToast(Success.m00004, ToastType.success);
     },
     onError: (error: any) => {

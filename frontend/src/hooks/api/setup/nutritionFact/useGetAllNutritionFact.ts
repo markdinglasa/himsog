@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetAllNutritionFact = (MealId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.NUTRITION_FACT],
+    queryKey: [QueryKey.NUTRITION_FACT, MealId],
     queryFn: async () => {
       const response = await axios.get(
         `${APIChannel.NUTRITION_FACT_PARENT.replace(":Id", MealId.toString())}`,

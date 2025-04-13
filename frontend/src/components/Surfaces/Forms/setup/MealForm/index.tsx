@@ -186,7 +186,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                               Recipe
                             </span>
                             <textarea
-                              className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "text-[#666666]" : "hover:border-[#202020]"}`}
+                              className={`w-full h-[10rem] overflow-auto p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "text-[#666666]" : "hover:border-[#202020]"}`}
                               placeholder="Recipe"
                               name="Recipe"
                               value={values?.Recipe ?? ""}

@@ -2,7 +2,7 @@ import {
   ButtonColor,
   ButtonType,
   FormProps,
-  IngredientTable,
+  NutritionFactTable,
   InputType,
   SFC,
   ToastType,
@@ -16,12 +16,12 @@ import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
 import { memo } from "react";
-import { ingredientValidator } from "../../../../../validators";
+import { nutritionFactValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
 
-export const IngridientForm: SFC<FormProps> = ({
+export const NutritionFactForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   RecordId = 0,
@@ -29,19 +29,19 @@ export const IngridientForm: SFC<FormProps> = ({
 }) => {
   const IsEdit = IsDetails;
   const { Id } = useParams<{ Id: string }>();
-  const { add } = API.Setup.Ingredient.Add();
-  const { update } = API.Setup.Ingredient.Update();
-  const { data, isLoading } = API.Setup.Ingredient.Get(Number(RecordId));
+  const { add } = API.Setup.NutritionFact.Add();
+  const { update } = API.Setup.NutritionFact.Update();
+  const { data, isLoading } = API.Setup.NutritionFact.Get(Number(RecordId));
   const { data: units } = API.Setup.Unit.GetAll();
 
-  const InitialValues: IngredientTable = {
+  const InitialValues: NutritionFactTable = {
     Name: data?.Name || "",
     Quantity: data?.Quantity || 0,
-    UnitId: data?.UnitId || 0,
+    UnitId: data?.UnitId || 16,
     MealId: data?.MealId || Number(Id),
   };
 
-  const handleSubmit = async (values: IngredientTable) => {
+  const handleSubmit = async (values: NutritionFactTable) => {
     try {
       if (Number(RecordId) !== 0) update(Number(RecordId), values);
       else add(values);
@@ -63,7 +63,7 @@ export const IngridientForm: SFC<FormProps> = ({
                 onSubmit={handleSubmit}
                 enableReinitialize={true}
                 validateOnMount={true}
-                validationSchema={ingredientValidator}
+                validationSchema={nutritionFactValidator}
               >
                 {({
                   errors,
@@ -82,7 +82,7 @@ export const IngridientForm: SFC<FormProps> = ({
                     <S.Divider className="w-full flex flex-col gap-1">
                       <S.Divider className="w-full mb-2">
                         <CustomInput
-                          placeholder="e.g. Ginger"
+                          placeholder="e.g. Carbs"
                           label="Name"
                           name="Name"
                           errors={errors}
@@ -163,4 +163,4 @@ export const IngridientForm: SFC<FormProps> = ({
   );
 };
 
-export default memo(IngridientForm);
+export default memo(NutritionFactForm);

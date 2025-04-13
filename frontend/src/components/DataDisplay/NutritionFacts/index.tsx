@@ -23,7 +23,7 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
       <div className={ClassName}>
         <div className="w-full flex items-center justify-between">
           <div>
-            <span className="text-md font-medium">nutrition facts</span>
+            <span className="text-md font-medium">Nutrition Facts</span>
           </div>
           <div>
             <CustomButton
@@ -46,14 +46,15 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                     setRecordId(Number(record?.Id) ?? 0);
                     toggleModal();
                   }}
-                  className="w-full h-22 items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                  className="w-full h-22 items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between cursor-pointer"
                 >
                   <div className="flex flex-col">
                     <span className="text-md font-medium">
                       {record?.Name ?? "NA"}
                     </span>
                     <span className="text-sm text-slate-600">
-                      {record.Quantity} {record?.UnitName ?? "NA"}
+                      {parseFloat(record.Quantity.toString())}{" "}
+                      {record?.UnitName ?? "NA"}
                     </span>
                   </div>
                   <div>
@@ -64,6 +65,7 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                         e.stopPropagation();
                         remove(Number(record.Id));
                       }}
+                      Disabled={IsDetails}
                     />
                   </div>
                 </div>
@@ -81,14 +83,14 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
           setRecordId(0);
           toggleModal();
         }}
-        title={"New Nutrition Facts"}
+        title={recordId ? "Nutrition Fact Details" : "New Nutrition Fact"}
         open={isModal}
         ClassName="w-[80vw] md:w-[40rem]"
       >
         <div>
-          <Form.Setup.Ingredient
+          <Form.Setup.NutritionFact
             RecordId={recordId.toString()}
-            IsDetails={false}
+            IsDetails={IsDetails}
             OnClose={toggleModal}
           />
         </div>

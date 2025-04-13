@@ -1,19 +1,18 @@
 import { useCallback } from "react";
 import {
   APIChannel,
-  RouteChannel,
   ToastType,
   NutritionFactTable,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddNutritionFact = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async (data: NutritionFactTable) => {
@@ -21,8 +20,8 @@ const useAddNutritionFact = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.NUTRITION_FACT] });
       displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.NUTRITIONIST_NUTRITION_FACT);
     },
     onError: (error: any) => {
       displayToast(
