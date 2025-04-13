@@ -26,6 +26,7 @@ import Icon from "../../../../../constants/icon";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import Ingredients from "../../../../DataDisplay/Ingredients";
 import { useAuth } from "../../../../../hooks";
+import NutritionFacts from "../../../../DataDisplay/NutritionFacts";
 
 const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
@@ -56,7 +57,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
         formData.append("image", imageFile);
         imagePath = await upload(formData);
       }
-      values.Image = imagePath || null;
+      values.Image = data?.Image ? data?.Image : imagePath || null;
       if (Id) update(Number(data.Id), values);
       else add(values);
     } catch (error: any) {
@@ -67,7 +68,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
   return (
     <S.Container className={cn("", ClassName)}>
       <S.Content className="flex justify-center flex-col items-center w-full ">
-        <S.FormHeader className="flex flex-row items-center justify-between">
+        <S.FormHeader className="flex flex-row items-center justify-between ">
           <S.Span className="text-lg font-medium">{Title}</S.Span>
           <S.Divider>
             <AccessControl OtherCondition={IsEdit && IsDetails}>
@@ -75,6 +76,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                 OnClick={() => SetIsEdit(false)}
                 Icon={<Icon.Edit className="text-primary" />}
                 Type={ButtonType.button}
+                Title="Edit"
               />
             </AccessControl>
           </S.Divider>
@@ -102,24 +104,82 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                   }) =>
                     !isLoading ? (
                       <Form>
-                        <S.Divider className="w-full py-1 ">
-                          <CustomInput
-                            disabled={IsEdit}
-                            errors={errors}
-                            type={InputType.text}
-                            label="e.g. Oatmeal with Banana and Honey"
-                            value={values?.Name}
-                            placeholder="Name"
-                            name="Name"
-                            touched={touched}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
+                        <S.Divider className="">
+                          <S.Divider className="w-full py-1 ">
+                            <CustomInput
+                              disabled={IsEdit}
+                              errors={errors}
+                              type={InputType.text}
+                              label="e.g. Oatmeal with Banana and Honey"
+                              value={values?.Name}
+                              placeholder="Name"
+                              name="Name"
+                              touched={touched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </S.Divider>
+                          <AccessControl OtherCondition={data?.Image}>
+                            <S.Divider className="w-[5rem] h-[5rem]">
+                              <S.Image src={data?.Image ?? ""} />
+                            </S.Divider>
+                          </AccessControl>
+                          <AccessControl OtherCondition={!IsEdit}>
+                            <S.Divider className="w-full mb-[1rem]  relative">
+                              <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                                <input
+                                  id="upload-image"
+                                  type="file"
+                                  accept="image/*"
+                                  name="Image"
+                                  disabled={IsEdit}
+                                  ref={fileInputRef}
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                      setImageFile(file);
+                                    }
+                                  }}
+                                  className="absolute inset-0 opacity-0 cursor-pointer"
+                                />
+                                <S.Span>
+                                  <FolderOpenIcon className="text-slate-600" />
+                                </S.Span>
+                                {!imageFile ? (
+                                  <>
+                                    <S.Span className="text-sm text-slate-600 text-center">
+                                      Drag & drop your image or click the button
+                                      to browse.
+                                    </S.Span>
+                                    <S.Span className="text-sm text-slate-600 mb-3">
+                                      JPG, PNG (max 3MB)
+                                    </S.Span>
+                                  </>
+                                ) : (
+                                  <S.Divider className="py-5">
+                                    <span>
+                                      {imageFile?.name || "No file selected"}
+                                    </span>
+                                  </S.Divider>
+                                )}
+                                <CustomButton
+                                  morph={false}
+                                  text="Upload photo"
+                                  disabled={IsEdit}
+                                  onClick={() => fileInputRef.current?.click()}
+                                  type={ButtonType.button}
+                                  color={ButtonColor.default}
+                                />
+                              </S.Divider>
+                            </S.Divider>
+                          </AccessControl>
                         </S.Divider>
+
                         <AccessControl OtherCondition={!!Id}>
                           {/* display only when Id exists */}
+
                           <S.Divider className="w-full">
-                            <Ingredients />
+                            <Ingredients IsDetails={IsEdit} />
                           </S.Divider>
                           <S.Divider className="w-full py-1 flex flex-col pb-3">
                             <span className="text-[12px] text-[#666666] ml-3">
@@ -135,9 +195,12 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                               disabled={IsEdit}
                             />
                           </S.Divider>
+                          <S.Divider className="w-full">
+                            <NutritionFacts IsDetails={IsEdit} />
+                          </S.Divider>
                           <S.Divider className="w-full py-1 flex flex-col pb-3">
                             <span className="text-[12px] text-[#666666] ml-3">
-                              Allergen
+                              Allergen (Optional)
                             </span>
                             <textarea
                               className={`w-full h-[10rem] p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "text-[#666666]" : "hover:border-[#202020]"}`}
@@ -150,51 +213,6 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                             />
                           </S.Divider>
                         </AccessControl>
-                        <S.Divider className="w-full mb-[1rem]  relative">
-                          <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
-                            <input
-                              id="upload-image"
-                              type="file"
-                              accept="image/*"
-                              name="Image"
-                              ref={fileInputRef}
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                  setImageFile(file);
-                                }
-                              }}
-                              className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
-                            <S.Span>
-                              <FolderOpenIcon className="text-slate-600" />
-                            </S.Span>
-                            {!imageFile ? (
-                              <>
-                                <S.Span className="text-sm text-slate-600 text-center">
-                                  Drag & drop your image or click the button to
-                                  browse.
-                                </S.Span>
-                                <S.Span className="text-sm text-slate-600 mb-3">
-                                  JPG, PNG (max 3MB)
-                                </S.Span>
-                              </>
-                            ) : (
-                              <S.Divider className="py-5">
-                                <span>
-                                  {imageFile?.name || "No file selected"}
-                                </span>
-                              </S.Divider>
-                            )}
-                            <CustomButton
-                              morph={false}
-                              text="Upload photo"
-                              onClick={() => fileInputRef.current?.click()}
-                              type={ButtonType.button}
-                              color={ButtonColor.default}
-                            />
-                          </S.Divider>
-                        </S.Divider>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end items-center gap-3">
                             <CustomButton

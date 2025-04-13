@@ -7,5 +7,5 @@ export enum NutritionFactChannel {
 
   NUTRITION_FACT = "/setup/nutrition-fact",
   NUTRITION_FACT_ID = "/setup/nutrition-fact/:Id",
-  NUTRITION_FACT_PARENT = "/setup/nutrition-fact/meal?=:Id",
+  NUTRITION_FACT_PARENT = "/setup/nutrition-fact/meal/:Id",
 }

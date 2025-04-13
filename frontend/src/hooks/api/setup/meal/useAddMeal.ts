@@ -8,7 +8,6 @@ import {
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
-import { Success } from "../../../../shared";
 import { useMutation } from "@tanstack/react-query";
 
 const useAddMeal = () => {
@@ -23,9 +22,12 @@ const useAddMeal = () => {
       return response.data;
     },
     onSuccess: () => {
-      displayToast(Success.m00002, ToastType.success);
+      // displayToast(Success.m00002, ToastType.success);
       navigate(
-        RouteChannel.NUTRITIONIST_MEAL_DETAILS.replace(":Id", Id.toString()),
+        RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
+          ":Id",
+          Id.toString(),
+        ),
       );
     },
     onError: (error: any) => {

@@ -34,7 +34,7 @@ export const Ingredients: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
             />
           </div>
         </div>
-        <div className="w-full mb-2 flex flex-wrap gap-2 py-[1rem]">
+        <div className="w-full mb-2 flex flex-wrap gap-2 pt-[1rem]">
           {isLoading ? (
             <Skeleton />
           ) : ingredients?.length ? (
@@ -46,14 +46,15 @@ export const Ingredients: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                     setRecordId(Number(record?.Id) ?? 0);
                     toggleModal();
                   }}
-                  className="w-full h-22 items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                  className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
                 >
                   <div className="flex flex-col">
                     <span className="text-md font-medium">
                       {record?.Name ?? "NA"}
                     </span>
                     <span className="text-sm text-slate-600">
-                      {record.Quantity} {record?.UnitName ?? "NA"}
+                      {parseFloat(record.Quantity.toString())}{" "}
+                      {record?.UnitName ?? "NA"}
                     </span>
                   </div>
                   <div>
@@ -64,6 +65,7 @@ export const Ingredients: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                         e.stopPropagation();
                         remove(Number(record.Id));
                       }}
+                      Disabled={IsDetails}
                     />
                   </div>
                 </div>

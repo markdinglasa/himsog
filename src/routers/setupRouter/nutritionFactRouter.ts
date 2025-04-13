@@ -12,27 +12,27 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.NUTRITION_FACT_GET}`,
+  `${API_VERSION}${RouteChannel.NUTRITION_FACT_PARENT}`,
   TokenHandler.verifyToken,
   NutritionFactGetAllController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.NUTRITION_FACT_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.NUTRITION_FACT_ID}`,
   TokenHandler.verifyToken,
   NutritionFactGetController,
 );
 router.post(
-  `${API_VERSION}${RouteChannel.NUTRITION_FACT_NEW}`,
+  `${API_VERSION}${RouteChannel.NUTRITION_FACT}`,
   TokenHandler.verifyToken,
   NutritionFactAddController,
 );
 router.delete(
-  `${API_VERSION}${RouteChannel.NUTRITION_FACT_REMOVE}`,
+  `${API_VERSION}${RouteChannel.NUTRITION_FACT_ID}`,
   TokenHandler.verifyToken,
   NutritionFactRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.NUTRITION_FACT_UPDATE}`,
+  `${API_VERSION}${RouteChannel.NUTRITION_FACT_ID}`,
   TokenHandler.verifyToken,
   NutritionFactUpdateController,
 );

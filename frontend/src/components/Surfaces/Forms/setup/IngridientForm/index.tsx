@@ -35,14 +35,14 @@ export const IngridientForm: SFC<FormProps> = ({
 
   const InitialValues: IngredientTable = {
     Name: data?.Name || "",
-    Quantity: data?.Description || null,
+    Quantity: data?.Quantity || 0,
     UnitId: data?.UnitId || 0,
     MealId: data?.MealId || Number(Id),
   };
 
   const handleSubmit = async (values: IngredientTable) => {
     try {
-      if (Number(RecordId) !== 0) update(Number(Id), values);
+      if (Number(RecordId) !== 0) update(Number(RecordId), values);
       else add(values);
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
@@ -128,12 +128,13 @@ export const IngridientForm: SFC<FormProps> = ({
                       </S.Divider>
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
-                      <S.Divider className="w-full flex justify-end items-center gap-4 mt-2 ">
+                      <S.Divider className="w-full flex justify-end items-center gap-4">
                         <CustomButton
                           leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"
                           onClick={() => {
                             resetForm();
+                            OnClose && OnClose();
                           }}
                           color={ButtonColor.default}
                           type={ButtonType.button}

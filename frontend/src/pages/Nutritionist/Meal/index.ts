@@ -1,5 +1,5 @@
 import View from "./View";
 import New from "./New";
 import Details from "./Details";
-
-export default { View, New, Details };
+import NewDetails from "./NewDetails";
+export default { View, New, Details, NewDetails };

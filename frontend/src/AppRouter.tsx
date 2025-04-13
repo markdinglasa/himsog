@@ -415,6 +415,10 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Nutritionist.Meal.New />}
               />
               <Route
+                path={RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS}
+                element={<Page.Nutritionist.Meal.NewDetails />}
+              />
+              <Route
                 path={RouteChannel.NUTRITIONIST_MEAL_DETAILS}
                 element={<Page.Nutritionist.Meal.Details />}
               />

@@ -3,6 +3,7 @@ import { Error, MealQuery, Success } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { NutritionFactQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { NutritionFactTables } from "../../../../types";
 
 export const NutritionFactGetAllController = async (
   req: Request,
@@ -15,7 +16,7 @@ export const NutritionFactGetAllController = async (
       return res.status(401).json({ data: [], message: Error.m005 });
     if (!(await isFound(MealQuery.q002, ["Id"], [Number], [MealId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check Meal existence
-    const response = await GetService.byFields(
+    const response: NutritionFactTables = await GetService.byFields(
       NutritionFactQuery.q001,
       ["MealId"],
       [Number],
