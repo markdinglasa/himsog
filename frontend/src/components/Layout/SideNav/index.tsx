@@ -200,7 +200,7 @@ export const SideNav: SFC<SideNavProps> = ({
                   <Menu
                     icon={mdiFoodVariant}
                     isCollapse={Collapse}
-                    label="Pre-set Meal Plan"
+                    label="Meal Plans"
                     onClick={() => {
                       Toggle();
                       navigate(RouteChannel.CLIENT_PRESET_MEAL_PLAN);

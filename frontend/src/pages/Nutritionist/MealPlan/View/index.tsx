@@ -38,7 +38,7 @@ export const MealPlanPageView: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Pre-Made Meal Plan" />
+          <PageBreadCrumbs Links={links} Active="Meal Plan" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Add className="md:text-white text-primary" />}

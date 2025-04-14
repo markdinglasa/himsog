@@ -67,7 +67,7 @@
 - [0/6] Subtotal - Message Management
 
 - Transactions = 1mod
-- [ ] Client, Access Ingredients
+- [x] Client, Access Ingredients
 - [ ] Client, Avail Custom Meal Plan
 - [x] Client, Pay Subscription
 

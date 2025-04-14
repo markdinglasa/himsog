@@ -11,7 +11,10 @@ import { CustomModal } from "../../../modals";
 import Form from "../../../components/Surfaces/Forms";
 import { Avatar } from "@mui/material";
 
-export const MealPlanMeals: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
+export const MealPlanMeals: SFC<SetupForm> = ({
+  ClassName,
+  IsDetails = false,
+}) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL-PLAN ID
   const { remove } = API.Setup.MealPlanLine.Remove();
   const { data: MealPlanMeals, isLoading } = API.Setup.MealPlanLine.GetAll(

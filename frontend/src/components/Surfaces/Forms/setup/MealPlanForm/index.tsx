@@ -232,7 +232,7 @@ const MealPlanForm: SFC<SetupForm> = ({
                         <AccessControl OtherCondition={!!Id}>
                           {/* display only when Id exists */}
                           <S.Divider className="w-full border-t pt-[1rem]">
-                            <MealPlanMeals />
+                            <MealPlanMeals IsDetails={IsEdit} />
                           </S.Divider>
                         </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>

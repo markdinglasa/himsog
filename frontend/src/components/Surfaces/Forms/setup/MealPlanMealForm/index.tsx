@@ -112,6 +112,7 @@ export const IngridientForm: SFC<FormProps> = ({
                             checked={values.IsBreakfast}
                             control={<Checkbox color="success" />}
                             onChange={handleChange}
+                            disabled={IsEdit}
                             label="Breakfast"
                           />
                           <FormControlLabel
@@ -119,6 +120,7 @@ export const IngridientForm: SFC<FormProps> = ({
                             checked={values.IsLunch}
                             control={<Checkbox color="success" />}
                             onChange={handleChange}
+                            disabled={IsEdit}
                             label="Lunch"
                           />
                           <FormControlLabel
@@ -126,6 +128,7 @@ export const IngridientForm: SFC<FormProps> = ({
                             checked={values.IsSnack}
                             control={<Checkbox color="success" />}
                             onChange={handleChange}
+                            disabled={IsEdit}
                             label="Snack"
                           />
                           <FormControlLabel
@@ -133,6 +136,7 @@ export const IngridientForm: SFC<FormProps> = ({
                             checked={values.IsDinner}
                             control={<Checkbox color="success" />}
                             onChange={handleChange}
+                            disabled={IsEdit}
                             label="Dinner"
                           />
                         </FormControl>
