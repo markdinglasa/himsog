@@ -12,27 +12,27 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_GET}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
   MealPlanGetController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_GET_ALL}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_PARENT}`,
   TokenHandler.verifyToken,
   MealPlanGetAllController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_NEW}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST}`,
   TokenHandler.verifyToken,
   MealPlanAddController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_REMOVE}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
   MealPlanRemoveController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_UPDATE}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
   MealPlanUpdateController,
 );

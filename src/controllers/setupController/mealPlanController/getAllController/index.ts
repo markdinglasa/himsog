@@ -3,6 +3,7 @@ import { Error, Success, UserQuery } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { MealPlanQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { MealPlanTables } from "../../../../types";
 
 export const MealPlanGetAllController = async (
   req: Request,
@@ -11,11 +12,12 @@ export const MealPlanGetAllController = async (
 ): Promise<any> => {
   try {
     const UserId: number = parseInt(req.params?.Id, 10);
-    if (!UserId || UserId === 0 || UserId === undefined)
+    if (!UserId || typeof UserId !== "number")
       return res.status(401).json({ data: [], message: Error.m005 });
-    if (!(await isFound(UserQuery.q002, ["Id"], [Number], [UserId])).data)
+
+    if (!(await isFound(UserQuery.q006, ["Id"], [Number], [UserId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check User existence
-    const response = await GetService.byFields(
+    const response: MealPlanTables = await GetService.byFields(
       MealPlanQuery.q001,
       ["UserId"],
       [Number],

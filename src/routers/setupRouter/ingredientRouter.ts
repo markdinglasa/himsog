@@ -39,7 +39,7 @@ router.patch(
 
 logging.log("----------------------------------------");
 logging.log("---------INGREDIENT CONTROLLER----------");
-logging.log(`GET ${RouteChannel.INGREDIENT_USER} [get-all]`);
+logging.log(`GET ${RouteChannel.INGREDIENT_MEAL} [get-all]`);
 logging.log(`POST ${RouteChannel.INGREDIENT} [add]`);
 logging.log(`GET ${RouteChannel.INGREDIENT_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.INGREDIENT_ID} [remove]`);

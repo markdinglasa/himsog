@@ -20,7 +20,7 @@ router.get(
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_PARENT}`,
   TokenHandler.verifyToken,
-  MealPlanGetController,
+  MealPlanGetAllController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.MEAL_PLAN}`,
@@ -30,7 +30,7 @@ router.post(
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_ID}`,
   TokenHandler.verifyToken,
-  MealPlanGetAllController,
+  MealPlanGetController,
 );
 
 router.delete(
