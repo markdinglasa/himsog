@@ -5,16 +5,18 @@ import {
   ToastType,
   MealPlanTable,
   MealPlanInitial,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateMealPlan = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async ({ Id, data }: { Id: number; data: MealPlanTable }) => {
@@ -25,8 +27,9 @@ const useUpdateMealPlan = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN] });
       displayToast(Success.m00004, ToastType.success);
-      navigate(RouteChannel.NUTRITIONIST_MEAL);
+      navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN);
     },
     onError: (error: any) => {
       displayToast(

@@ -23,12 +23,13 @@ const useAddMeal = () => {
     },
     onSuccess: () => {
       // displayToast(Success.m00002, ToastType.success);
-      navigate(
-        RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
-          ":Id",
-          Id.toString(),
-        ),
-      );
+      if (Id !== 0)
+        navigate(
+          RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
+            ":Id",
+            Id.toString(),
+          ),
+        );
     },
     onError: (error: any) => {
       displayToast(

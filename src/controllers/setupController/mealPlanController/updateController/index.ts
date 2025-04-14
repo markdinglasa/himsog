@@ -28,9 +28,9 @@ export const MealPlanUpdateController = async (
       (
         await isFound(
           MealPlanQuery.q005,
-          ["Id", "UserId"],
-          [Number, Number],
-          [Id, Data.UserId],
+          ["Id", "UserId", "Name"],
+          [Number, Number, String],
+          [Id, Data.UserId, Data.Name],
         )
       ).data
     )

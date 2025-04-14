@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetAllMealPlanLine = (MealPlanId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.MEAL_PLAN, MealPlanId],
+    queryKey: [QueryKey.MEAL_PLAN_LINE, MealPlanId],
     queryFn: async () => {
       const response = await axios.get(
         `${APIChannel.MEAL_PLAN_LINE_PARENT.replace(":Id", MealPlanId.toString())}`,

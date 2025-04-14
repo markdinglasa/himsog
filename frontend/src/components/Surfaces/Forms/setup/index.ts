@@ -17,6 +17,8 @@ import DisapproveEvent from "./DisapproveEventForm";
 import DisapproveArticle from "./DisapproveArticleForm";
 import Meal from "./MealForm";
 import NutritionFact from "./NutritionFactForm";
+import MealPlan from "./MealPlanForm";
+import MealPlanMeal from "./MealPlanMealForm";
 
 export default {
   Unit,
@@ -37,5 +39,7 @@ export default {
   DisapproveEvent,
   DisapproveArticle,
   Meal,
+  MealPlan,
   NutritionFact,
+  MealPlanMeal,
 };

@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Table,
   TableBody,
   TableCell,
@@ -47,6 +48,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import { NoRecord, TableHeader, TableToolbar } from "..";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import DefaultImage from "../../../../asset/images/default-image.jpg";
 
 export const EnhancedTable = <T extends Record<string, any>>({
   Rows,
@@ -299,6 +301,14 @@ export const EnhancedTable = <T extends Record<string, any>>({
                     {HeadCells.map((HeadCell) => {
                       const renderCellContent = () => {
                         switch (HeadCell.Id) {
+                          case "Image":
+                            return (
+                              <Avatar
+                                src={row[HeadCell.Id] || DefaultImage}
+                                alt="meal-image"
+                                variant="square"
+                              />
+                            );
                           case "IsAutoDiscount":
                           case "IsVATExempt":
                           case "IsPackage":
@@ -347,7 +357,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "CreditAmount":
                           case "DebitAmount":
                           case "NetPrice":
-                            return `P ${formatNumber(Number(row[HeadCell.Id] ?? 0))}`;
+                            return `${formatNumber(Number(row[HeadCell.Id] ?? 0))}`;
                           case "Description":
                           case "Address":
                             return row[HeadCell.Id]
@@ -386,7 +396,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                             width:
                               HeadCell.numeric ||
                               (HeadCell.Id as string) === "RecNumber" ||
-                              (HeadCell.Id as string) === "TrnDate"
+                              (HeadCell.Id as string) === "Image"
                                 ? "7%"
                                 : ((HeadCell.Id as string).slice(0, 2) ===
                                       "Is" &&

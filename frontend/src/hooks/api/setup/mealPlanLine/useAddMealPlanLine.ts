@@ -1,12 +1,18 @@
 import { useCallback } from "react";
-import { APIChannel, ToastType, MealPlanLineTable } from "../../../../types";
+import {
+  APIChannel,
+  ToastType,
+  MealPlanLineTable,
+  QueryKey,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddMealPlanLine = () => {
   const axios = useAxiosPrivate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async (data: MealPlanLineTable) => {
@@ -14,6 +20,7 @@ const useAddMealPlanLine = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN_LINE] });
       displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {

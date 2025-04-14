@@ -19,6 +19,9 @@ export const DieteryPreferences = [
   { Id: "raw food", Label: "Raw Food" },
   { Id: "whole30", Label: "Whole30" },
   { Id: "mediterranean", Label: "Mediterranean" },
+  { Id: "Ketogenic", Label: "Ketogenic" },
+  { Id: "Paleolithic", Label: "Paleolithic" },
+  { Id: "Balance", Label: "Balance" },
 ];
 
 export const Allergen = [

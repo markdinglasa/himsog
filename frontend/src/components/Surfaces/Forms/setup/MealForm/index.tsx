@@ -119,8 +119,13 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                               onBlur={handleBlur}
                             />
                           </S.Divider>
-                          <AccessControl OtherCondition={data?.Image}>
-                            <S.Divider className="w-[5rem] h-[5rem]">
+                          <AccessControl
+                            OtherCondition={
+                              typeof data?.Image === "string" &&
+                              data?.Image.length > 0 // should display if there is an image
+                            }
+                          >
+                            <S.Divider className="w-[5rem] h-[5rem] mb-2">
                               <S.Image src={data?.Image ?? ""} />
                             </S.Divider>
                           </AccessControl>
@@ -178,7 +183,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                         <AccessControl OtherCondition={!!Id}>
                           {/* display only when Id exists */}
 
-                          <S.Divider className="w-full">
+                          <S.Divider className="w-full border-t pt-[1rem]">
                             <Ingredients IsDetails={IsEdit} />
                           </S.Divider>
                           <S.Divider className="w-full py-1 flex flex-col pb-3">
@@ -195,7 +200,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                               disabled={IsEdit}
                             />
                           </S.Divider>
-                          <S.Divider className="w-full">
+                          <S.Divider className="w-full border-t pt-[1rem]">
                             <NutritionFacts IsDetails={IsEdit} />
                           </S.Divider>
                           <S.Divider className="w-full py-1 flex flex-col pb-3">

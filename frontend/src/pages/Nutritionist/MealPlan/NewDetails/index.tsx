@@ -12,7 +12,7 @@ import { cn } from "../../../../utils";
 import Form from "../../../../components/Surfaces/Forms";
 import Icon from "../../../../constants/icon";
 
-export const MealNewDetailsPage: SFC = ({ ClassName }) => {
+export const MealPlanNewDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
     {
@@ -25,11 +25,11 @@ export const MealNewDetailsPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="New Meal" />
+          <PageBreadCrumbs Links={links} Active="New Meal Plan" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Back className="md:text-white text-primary" />}
-              onClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL)}
+              onClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN)}
               text="Back"
               type={ButtonType.button}
             />
@@ -37,11 +37,11 @@ export const MealNewDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="rounded-md border">
           <Suspense fallback={<Skeleton />}>
-            <Form.Setup.Meal Title="New Meal" ClassName="w-full " />
+            <Form.Setup.MealPlan Title="New Meal Plan" />
           </Suspense>
         </S.PageContent>
       </S.Container>
     </>
   );
 };
-export default memo(MealNewDetailsPage);
+export default memo(MealPlanNewDetailsPage);

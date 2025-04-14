@@ -1,0 +1,318 @@
+import { ButtonType, MealPlanLineTable, SetupForm, SFC } from "../../../types";
+import API from "../../../hooks/api";
+import { Skeleton } from "../../Feedback";
+import { Fragment, memo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { NoRecord } from "../Tables";
+import { CircleButton, CustomButton } from "../../Inputs";
+import Icon from "../../../constants/icon";
+import { useToggle } from "react-use";
+import { CustomModal } from "../../../modals";
+import Form from "../../../components/Surfaces/Forms";
+import { Avatar } from "@mui/material";
+
+export const MealPlanMeals: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
+  const { Id } = useParams<{ Id: string }>(); // MEAL-PLAN ID
+  const { remove } = API.Setup.MealPlanLine.Remove();
+  const { data: MealPlanMeals, isLoading } = API.Setup.MealPlanLine.GetAll(
+    Number(Id),
+  );
+  const [isModal, toggleModal] = useToggle(false);
+  const [recordId, setRecordId] = useState<number>(0);
+
+  return (
+    <>
+      <div className={ClassName}>
+        <div className="w-full flex items-center justify-between">
+          <div>
+            <span className="text-md font-medium">Meals</span>
+          </div>
+          <div>
+            <CustomButton
+              text="New"
+              onClick={toggleModal}
+              leftIcon={<Icon.Add />}
+              disabled={IsDetails}
+            />
+          </div>
+        </div>
+        <div className="w-full mb-2 flex flex-wrap gap-2 pt-[1rem]">
+          <div className="w-full">
+            <div className="w-full rounded-md flex flex-col">
+              <span className="text-md font-medium">Breakfast</span>
+              <span className="text-sm text-slate-600">
+                Best to take on 6:00 AM - 7:00 AM
+              </span>
+            </div>
+            {isLoading ? (
+              <Skeleton />
+            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+              MealPlanMeals.filter(
+                (record: MealPlanLineTable) =>
+                  Boolean(record?.IsBreakfast) === true, // display all breakfast if IsBreakfast is true
+              ).map((record: MealPlanLineTable, index: number) => {
+                return (
+                  <Fragment key={index}>
+                    <div
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        setRecordId(record?.Id ? Number(record.Id) : 0);
+                        toggleModal();
+                      }}
+                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                    >
+                      <div className="flex flex-row items-center justify-start">
+                        <Avatar
+                          src={record?.MealImage || ""}
+                          alt={record?.MealName ?? "NA"}
+                          variant="square"
+                        />
+                        <div className="flex flex-col ml-3">
+                          <span className="text-md font-medium">
+                            {record?.MealName ?? "NA"}
+                          </span>
+                          <span className="text-sm text-slate-600">
+                            {parseFloat(
+                              record?.MealKilocalorie?.toString() ?? "0",
+                            )}{" "}
+                            kcal
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <CircleButton
+                          Icon={<Icon.Delete className="text-primary" />}
+                          Type={ButtonType.button}
+                          OnClick={(e: React.MouseEvent) => {
+                            e.stopPropagation();
+                            if (record?.Id) remove(Number(record.Id));
+                          }}
+                          Disabled={IsDetails}
+                        />
+                      </div>
+                    </div>
+                  </Fragment>
+                );
+              })
+            ) : (
+              <div className="w-full">
+                <NoRecord Message="No Breakfast Meals" />
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            <div className="w-full rounded-md flex flex-col">
+              <span className="text-md font-medium">Lunch</span>
+              <span className="text-sm text-slate-600">
+                Best to take on 12:00 NN - 01:00 PM
+              </span>
+            </div>
+            {isLoading ? (
+              <Skeleton />
+            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+              MealPlanMeals.filter(
+                (record: MealPlanLineTable) =>
+                  Boolean(record?.IsLunch) === true, // display all breakfast if IsBreakfast is true
+              ).map((record: MealPlanLineTable, index: number) => {
+                return (
+                  <Fragment key={index}>
+                    <div
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        setRecordId(record?.Id ? Number(record.Id) : 0);
+                        toggleModal();
+                      }}
+                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                    >
+                      <div className="flex flex-row items-center justify-start">
+                        <Avatar
+                          src={record?.MealImage || ""}
+                          alt={record?.MealName ?? "NA"}
+                          variant="square"
+                        />
+                        <div className="flex flex-col ml-3">
+                          <span className="text-md font-medium">
+                            {record?.MealName ?? "NA"}
+                          </span>
+                          <span className="text-sm text-slate-600">
+                            {parseFloat(
+                              record?.MealKilocalorie?.toString() ?? "0",
+                            )}{" "}
+                            kcal
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <CircleButton
+                          Icon={<Icon.Delete className="text-primary" />}
+                          Type={ButtonType.button}
+                          OnClick={(e: React.MouseEvent) => {
+                            e.stopPropagation();
+                            if (record?.Id) remove(Number(record.Id));
+                          }}
+                          Disabled={IsDetails}
+                        />
+                      </div>
+                    </div>
+                  </Fragment>
+                );
+              })
+            ) : (
+              <div className="w-full">
+                <NoRecord Message="No Lunch Meals" />
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            <div className="w-full rounded-md flex flex-col">
+              <span className="text-md font-medium">Snack</span>
+              <span className="text-sm text-slate-600">
+                Best to take on 2:00 PM - 3:00 PM
+              </span>
+            </div>
+            {isLoading ? (
+              <Skeleton />
+            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+              MealPlanMeals.filter(
+                (record: MealPlanLineTable) =>
+                  Boolean(record?.IsSnack) === true, // display all breakfast if IsBreakfast is true
+              ).map((record: MealPlanLineTable, index: number) => {
+                return (
+                  <Fragment key={index}>
+                    <div
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        setRecordId(record?.Id ? Number(record.Id) : 0);
+                        toggleModal();
+                      }}
+                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                    >
+                      <div className="flex flex-row items-center justify-start">
+                        <Avatar
+                          src={record?.MealImage || ""}
+                          alt={record?.MealName ?? "NA"}
+                          variant="square"
+                        />
+                        <div className="flex flex-col ml-3">
+                          <span className="text-md font-medium">
+                            {record?.MealName ?? "NA"}
+                          </span>
+                          <span className="text-sm text-slate-600">
+                            {parseFloat(
+                              record?.MealKilocalorie?.toString() ?? "0",
+                            )}{" "}
+                            kcal
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <CircleButton
+                          Icon={<Icon.Delete className="text-primary" />}
+                          Type={ButtonType.button}
+                          OnClick={(e: React.MouseEvent) => {
+                            e.stopPropagation();
+                            if (record?.Id) remove(Number(record.Id));
+                          }}
+                          Disabled={IsDetails}
+                        />
+                      </div>
+                    </div>
+                  </Fragment>
+                );
+              })
+            ) : (
+              <div className="w-full">
+                <NoRecord Message="No Snack" />
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            <div className="w-full rounded-md flex flex-col">
+              <span className="text-md font-medium">Dinner</span>
+              <span className="text-sm text-slate-600">
+                Best to take on 6:00 PM - 7:00 PM
+              </span>
+            </div>
+            {isLoading ? (
+              <Skeleton />
+            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+              MealPlanMeals.filter(
+                (record: MealPlanLineTable) =>
+                  Boolean(record?.IsDinner) === true, // display all breakfast if IsBreakfast is true
+              ).map((record: MealPlanLineTable, index: number) => {
+                return (
+                  <Fragment key={index}>
+                    <div
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        setRecordId(record?.Id ? Number(record.Id) : 0);
+                        toggleModal();
+                      }}
+                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                    >
+                      <div className="flex flex-row items-center justify-start">
+                        <Avatar
+                          src={record?.MealImage || ""}
+                          alt={record?.MealName ?? "NA"}
+                          variant="square"
+                        />
+                        <div className="flex flex-col ml-3">
+                          <span className="text-md font-medium">
+                            {record?.MealName ?? "NA"}
+                          </span>
+                          <span className="text-sm text-slate-600">
+                            {parseFloat(
+                              record?.MealKilocalorie?.toString() ?? "0",
+                            )}{" "}
+                            kcal
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <CircleButton
+                          Icon={<Icon.Delete className="text-primary" />}
+                          Type={ButtonType.button}
+                          OnClick={(e: React.MouseEvent) => {
+                            e.stopPropagation();
+                            if (record?.Id) remove(Number(record.Id));
+                          }}
+                          Disabled={IsDetails}
+                        />
+                      </div>
+                    </div>
+                  </Fragment>
+                );
+              })
+            ) : (
+              <div className="w-full">
+                <NoRecord Message="No Dinner Meals" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <CustomModal
+        close={() => {
+          setRecordId(0);
+          toggleModal();
+        }}
+        title={recordId ? "Meal Details" : "New Meal"}
+        open={isModal}
+        ClassName="w-[80vw] md:w-[40rem]"
+      >
+        <div>
+          <Form.Setup.MealPlanMeal
+            RecordId={recordId.toString()}
+            IsDetails={IsDetails}
+            OnClose={toggleModal}
+          />
+        </div>
+      </CustomModal>
+    </>
+  );
+};
+export default memo(MealPlanMeals);

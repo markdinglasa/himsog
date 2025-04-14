@@ -6,6 +6,8 @@ export interface MealPlanTable extends Id, Logs {
   Type: string;
   Description: string | null;
   Duration: number; // Number of days
+  Price: number;
+  Diet: string;
 }
 export type MealPlanTables = MealPlanTable[];
 export const MealPlanInitial: MealPlanTable = {
@@ -14,4 +16,6 @@ export const MealPlanInitial: MealPlanTable = {
   Type: "",
   Description: null,
   Duration: 0,
+  Price: 0,
+  Diet: "",
 };

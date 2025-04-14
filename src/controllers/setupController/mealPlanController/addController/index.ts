@@ -22,10 +22,16 @@ export const MealPlanAddController = async (
       });
     // Other Fn
     if (
-      (await isFound(MealPlanQuery.q004, ["UserId"], [Number], [Data.UserId]))
-        .data
+      (
+        await isFound(
+          MealPlanQuery.q004,
+          ["UserId", "Name"],
+          [Number, String],
+          [Data.UserId, Data.Name],
+        )
+      ).data
     )
-      return res.status(401).json({ data: true, message: Error.m016 });
+      return res.status(401).json({ data: true, message: Error.m016 }); // CHECK DUPLICATE
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

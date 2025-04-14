@@ -14,7 +14,7 @@ const router = express.Router();
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_LINE_PARENT}`,
   TokenHandler.verifyToken,
-  MealPlanLineGetController,
+  MealPlanLineGetAllController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_LINE}`,
@@ -29,7 +29,7 @@ router.delete(
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_LINE_ID}`,
   TokenHandler.verifyToken,
-  MealPlanLineGetAllController,
+  MealPlanLineGetController,
 );
 router.patch(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_LINE_ID}`,
