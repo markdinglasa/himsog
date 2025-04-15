@@ -3,13 +3,15 @@ import * as S from "../../../../styles/Styles";
 import { cn } from "../../../../utils";
 import { memo } from "react";
 import { FeedbackEmail } from "../../../DataDisplay";
-
+import Form from "../../Forms";
 export const MedicalRecordsPanel: SFC = ({ ClassName }) => {
   return (
     <>
       <S.Container className={cn("", ClassName)}>
         <S.Content className="w-full">
-          <S.Divider>medical records</S.Divider>
+          <S.Divider>
+            <Form.Setup.Medical ClassName="border-red" Title="Medical Info" />
+          </S.Divider>
           <S.Divider>
             <FeedbackEmail />
           </S.Divider>

@@ -22,6 +22,7 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
   OnBlur,
   IsTooltip = false,
   TooltipMessage = "",
+  IsRequired = false,
 }) => {
   const selectedValue = useMemo(
     () => Options.find((option) => option.Id === Values) || null,
@@ -32,7 +33,12 @@ export const AutoComplete: SFC<AutoCompleteProps> = ({
     <>
       <S.Container className={cn("mb-0 ", ClassName)}>
         <div className="flex flex-row w-full items-center">
-          {Label && <S.Label className="text-[#666666] ml-3">{Label}</S.Label>}
+          {Label && (
+            <S.Label className="text-[#666666] ml-3">
+              {Label}
+              {IsRequired && <span className="text-red-500">*</span>}
+            </S.Label>
+          )}
           {IsTooltip && (
             <Icon.Help
               className="ml-1 p-[1.5px] text-primary cursor-pointer "

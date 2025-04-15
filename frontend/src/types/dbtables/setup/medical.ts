@@ -1,16 +1,40 @@
 import { Id, Logs } from "../../utils";
 
+interface DiagnosedConditions {
+  IsDiabetesType1: boolean;
+  IsCardiovasularDisease: boolean;
+  IsGERD: boolean;
+  IsHyperlipidemia: boolean;
+  IsDiabetesType2: boolean;
+  IsChronicKidneyDisease: boolean;
+  IsThyroidDisorders: boolean;
+  IsGastrointestinalDisorder: boolean;
+  IsHypertension: boolean;
+  IsLiverDisorder: boolean;
+  IsPCOS: boolean;
+  IsOther: boolean;
+  OtherCondition: string | null;
+}
+interface FamilyMedicalHistory {
+  IsDiabetes: boolean;
+  IsCancer: boolean;
+  IsObesity: boolean;
+  IsKidneyDisease: boolean;
+  IsHeartDisease: boolean;
+  IsOther: boolean;
+  OtherCondition: string | null;
+}
 export interface MedicalTable extends Id, Logs {
   UserId: number;
-  DiagnosedCondition: JSON | null;
+  DiagnosedCondition: DiagnosedConditions | null;
   Medication: string | null;
-  FamilyMedicalHistory: JSON | null;
+  FamilyMedicalHistory: FamilyMedicalHistory | null;
   SurgicalHistory: string | null;
   NoSleep: number; // average number of sleep
   StressLevel: string;
   Smoke: string;
-  Alchohol: string;
-  Pregant: string;
+  Alcohol: string;
+  Pregnant: string;
   BowelMovement: string;
   LabResult: string | null;
   BloodSugar: number;
@@ -29,8 +53,8 @@ export const MedicalInitial: MedicalTable = {
   NoSleep: 0,
   StressLevel: "",
   Smoke: "",
-  Alchohol: "",
-  Pregant: "",
+  Alcohol: "",
+  Pregnant: "",
   BowelMovement: "",
   LabResult: null,
   BloodSugar: 0,

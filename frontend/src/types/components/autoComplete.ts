@@ -13,4 +13,5 @@ export interface AutoCompleteProps {
   OnBlur?: any;
   IsTooltip?: boolean;
   TooltipMessage?: string;
+  IsRequired?: boolean;
 }

@@ -10,7 +10,7 @@ import {
 } from "../../controllers";
 
 const router = express.Router();
-router.get(
+router.post(
   `${API_VERSION}${RouteChannel.MEDICAL}`,
   TokenHandler.verifyToken,
   MedicalAddController,

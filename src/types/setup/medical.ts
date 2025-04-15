@@ -9,8 +9,8 @@ export interface MedicalTable extends Id, Logs {
   NoSleep: number; // average number of sleep
   StressLevel: string;
   Smoke: string;
-  Alchohol: string;
-  Pregant: string;
+  Alcohol: string;
+  Pregnant: string;
   BowelMovement: string;
   LabResult: string | null;
   BloodSugar: number;
@@ -29,8 +29,8 @@ export const MedicalInitial: MedicalTable = {
   NoSleep: 0,
   StressLevel: "",
   Smoke: "",
-  Alchohol: "",
-  Pregant: "",
+  Alcohol: "",
+  Pregnant: "",
   BowelMovement: "",
   LabResult: null,
   BloodSugar: 0,
