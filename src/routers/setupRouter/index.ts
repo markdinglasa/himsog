@@ -21,6 +21,8 @@ import ProfessionSpecialist from "./professionSpecialistRouter";
 import PayType from "./payTypeRouter";
 import Event from "./eventRouter";
 import Article from "./articleRouter";
+import Medical from "./medicalRouter";
+
 import express from "express";
 
 const Router = express.Router();
@@ -47,5 +49,6 @@ Router.use(ProfessionSpecialist);
 Router.use(PayType);
 Router.use(Event);
 Router.use(Article);
+Router.use(Medical);
 
 export default Router;

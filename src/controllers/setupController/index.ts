@@ -21,3 +21,4 @@ export * from "./professionInstituteController";
 export * from "./professionSpecialistController";
 export * from "./payTypeController";
 export * from "./articleController";
+export * from "./medicalController";

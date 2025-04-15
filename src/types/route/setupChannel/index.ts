@@ -21,6 +21,7 @@ import { ProfessionSpecialistChannel } from "./professionSpecialist";
 import { PayTypeChannel } from "./payTypeChannel";
 import { ArticleChannel } from "./articleChannel";
 import { EventChannel } from "./eventChannel";
+import { MedicalChannel } from "./medicalChannel";
 
 export const SetupChannel = {
   ...EventChannel,
@@ -46,4 +47,5 @@ export const SetupChannel = {
   ...ProfessionInstituteChannel,
   ...ProfessionSpecialistChannel,
   ...PayTypeChannel,
+  ...MedicalChannel,
 } as const;
