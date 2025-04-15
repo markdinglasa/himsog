@@ -10,35 +10,37 @@ export const MealPlanGetWithQueryController = async (
 ): Promise<any> => {
   try {
     const RECORDS_PER_PAGE = 30;
-    const page = parseInt(req.query.page as string, 10) || 1; // Default to page 1
-    const filter = req.query.filter ? String(req.query.filter) : ""; // Ensure filter is a string
-
-    // Calculate OFFSET for pagination
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const filter = req.query.filter ? String(req.query.filter) : "all";
     const offset = (page - 1) * RECORDS_PER_PAGE;
 
+    const LEFT_JOIN_DATA = "LEFT JOIN `user` AS u ON u.`Id`= mp.`UserId` ";
     // Construct SQL Query with filters
-    let query = `SELECT * FROM \`meal_plan\` WHERE \`Name\` LIKE ?`;
-    let queryParams: any[] = [`%${filter}%`];
+    let query = `SELECT mp.*, u.ProfilePhoto AS UserImage, CONCAT(Firstname, ' ', IFNULL(NULLIF(Middlename, ''), ''), ' ', Lastname) AS UserFullname FROM \`meal_plan\` AS mp ${LEFT_JOIN_DATA} ${filter === "all" ? "" : "WHERE \`Name\` LIKE ? "} LIMIT ${RECORDS_PER_PAGE} OFFSET ${offset}`;
+    let queryParams = filter !== "all" ? [`%${filter}%`] : [];
 
-    query += ` ORDER BY \`DateCreated\` DESC LIMIT ? OFFSET ?`;
-    queryParams.push(Math.max(1, RECORDS_PER_PAGE), Math.max(0, offset));
-    // console.log("Executing Query:", query);
-    // console.log("Query Parameters:", queryParams);
+    console.log("Executing Query:", query);
+    console.log(
+      "Query Parameters (with types):",
+      queryParams.map((p) => `${p} (${typeof p})`),
+    );
 
     const response: MealPlanTables = await GetService.byParams(
       query,
       queryParams,
     );
-    if (!response)
+
+    if (!response || (Array.isArray(response) && response.length === 0)) {
       return res.status(404).json({ data: [], message: Error.m011 });
+    }
+
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
-    logging.log("----------------------------------------");
-    logging.error("MealPlan-Controller [GetAllWithQuery]:", error.message);
-    logging.log("----------------------------------------");
-    return res
-      .status(500)
-      .json({ data: [], message: error.message || Error.m001 });
+    logging.error("MealPlan-Controller [GetAllWithQuery]:", error);
+    return res.status(500).json({
+      data: [],
+      message: error.message || Error.m001,
+    });
   }
 };
 

@@ -1,7 +1,7 @@
-import { ButtonType, MealPlanTable, RouteChannel, SFC } from "../../../types";
+import { MealPlanTable, SFC } from "../../../types";
 import { cn } from "../../../utils";
 import * as S from "../../../styles/Styles";
-import { CustomButton, InputOption } from "../../Inputs";
+import { InputOption } from "../../Inputs";
 import { memo, useEffect, useMemo, useState } from "react";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
@@ -12,7 +12,6 @@ import { Pagination, PaginationItem } from "@mui/material";
 import Icon from "../../../constants/icon";
 import { colors } from "../../../styles/colors";
 import { AccessControl } from "..";
-import { useNavigate } from "react-router-dom";
 
 export const MealPlans: SFC = ({ ClassName }) => {
   const [filter, setFilter] = useState<string>("");
@@ -34,25 +33,14 @@ export const MealPlans: SFC = ({ ClassName }) => {
     [mealplans],
   );
 
-  const navigate = useNavigate();
   return (
     <div className={cn("w-full", ClassName)}>
       <S.Content className="h-full flex flex-col justify-center items-center w-full rounded-md">
-        <S.Divider className="w-full flex items-center justify-end mb-2">
-          <S.Actions>
-            <CustomButton
-              type={ButtonType.button}
-              onClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW)}
-              text="New"
-              leftIcon={<Icon.Add className="text-primary md:text-white" />}
-            />
-          </S.Actions>
-        </S.Divider>
         <S.Divider className=" flex md:flex-row flex-col md:justify-between justify-start md:items-center gap-[1rem] w-full mb-[1rem]">
           <S.Divider className="w-full md:w-1/2 flex flex-col items-start justify-start ">
-            <S.Span className="text-lg font-medium">Pre-Made Meal Plans</S.Span>
+            <S.Span className="text-lg font-medium">Meal Plans</S.Span>
             <S.Span className="text-sm text-slate-600">
-              Organize and manage your ready-to-go meal plans with ease.
+              Professionals made meal plans, for your healthy diet.
             </S.Span>
           </S.Divider>
           <S.Divider className="">

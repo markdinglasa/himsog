@@ -25,7 +25,9 @@ import Close from "@mui/icons-material/HighlightOff";
 import Add from "@mui/icons-material/AddCircleOutline";
 import Time from "@mui/icons-material/AccessTime";
 import Identity from "@mui/icons-material/PermIdentity";
+import Star from "@mui/icons-material/Star";
 export default {
+  Star,
   Time,
   ThumpUp,
   Add,

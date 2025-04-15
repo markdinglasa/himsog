@@ -86,11 +86,11 @@ export enum RouteChannel {
   CLIENT_INGREDIENT_DETAILS = "/c/ingredient/d/:Id",
   CLIENT_MESSENGER = "/c/messenger/:Id",
   CLIENT_MESSENGER_NEW = "/c/messenger/new",
-  CLIENT_PRESET_MEAL_PLAN = "/c/meal-planner/meal-plans",
-  CLIENT_PRESET_MEAL_PLAN_DETAILS = "/c/meal-planner/meal-plans/d/:Id",
-  CLIENT_REQUEST_MEAL_PLAN = "/c/meal-planner/request",
-  CLIENT_REQUEST_MEAL_PLAN_NEW = "/c/meal-planner/request/new",
-  CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/meal-planner/request/d/:id",
+  CLIENT_PRESET_MEAL_PLAN = "/c/meal-plan",
+  CLIENT_PRESET_MEAL_PLAN_DETAILS = "/c/meal-plan/d/:Id",
+  CLIENT_REQUEST_MEAL_PLAN = "/c/request",
+  CLIENT_REQUEST_MEAL_PLAN_NEW = "/c/request/new",
+  CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/request/d/:id",
 
   // NUTRITIONIST PAGES
   NUTRITIONIST_DASHBOARD = "/n",
