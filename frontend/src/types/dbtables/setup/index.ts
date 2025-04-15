@@ -20,3 +20,4 @@ export * from "./professionValidtion";
 export * from "./professionInstitute";
 export * from "./professionSpecialist";
 export * from "./payType";
+export * from "./medical";

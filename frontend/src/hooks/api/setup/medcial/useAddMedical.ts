@@ -1,35 +1,22 @@
 import { useCallback } from "react";
-import {
-  APIChannel,
-  RouteChannel,
-  ToastType,
-  MealTable,
-} from "../../../../types";
+import { APIChannel, ToastType, MedicalTable } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { Success } from "../../../../shared";
 
-const useAddMeal = () => {
+const useAddMedical = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
   let Id = 0;
   const mutation = useMutation({
-    mutationFn: async (data: MealTable) => {
-      const response = await axios.post(`${APIChannel.MEAL}`, data);
+    mutationFn: async (data: MedicalTable) => {
+      const response = await axios.post(`${APIChannel.MEDICAL}`, data);
       // console.log(response.data);
       if (response.data) Id = response.data.Id;
       return response.data;
     },
     onSuccess: () => {
-      // displayToast(Success.m00002, ToastType.success);
-      if (Id !== 0)
-        navigate(
-          RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
-            ":Id",
-            Id.toString(),
-          ),
-        );
+      displayToast(Success.m00002, ToastType.success);
     },
     onError: (error: any) => {
       displayToast(
@@ -40,7 +27,7 @@ const useAddMeal = () => {
   });
 
   const add = useCallback(
-    (data: MealTable) => {
+    (data: MedicalTable) => {
       if (!data) return;
       mutation.mutate(data);
     },
@@ -54,4 +41,4 @@ const useAddMeal = () => {
   };
 };
 
-export default useAddMeal;
+export default useAddMedical;

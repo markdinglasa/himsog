@@ -33,4 +33,5 @@ export enum QueryKey {
   UNIT = "unit",
   USER = "user",
   USER_LOGS = "user-logs",
+  MEDICAL = "medical",
 }

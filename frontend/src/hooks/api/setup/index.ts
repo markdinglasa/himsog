@@ -20,6 +20,7 @@ import ProfessionValidtion from "./professionValidation";
 import ProfessionInstitute from "./professionInstitute";
 import ProfessionSpecialist from "./professionSpecialist";
 import PayType from "./payType";
+import Medical from "./medcial";
 
 export default {
   Unit,
@@ -44,4 +45,5 @@ export default {
   ProfessionSpecialist,
   Recipe,
   RecipeLine,
+  Medical,
 };

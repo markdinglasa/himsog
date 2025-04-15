@@ -19,6 +19,7 @@ import Meal from "./MealForm";
 import NutritionFact from "./NutritionFactForm";
 import MealPlan from "./MealPlanForm";
 import MealPlanMeal from "./MealPlanMealForm";
+import Medical from "./MedicalForm";
 
 export default {
   Unit,
@@ -42,4 +43,5 @@ export default {
   MealPlan,
   NutritionFact,
   MealPlanMeal,
+  Medical,
 };
