@@ -223,20 +223,6 @@ export const SideNav: SFC<SideNavProps> = ({
                 </AccessControl>
               </Menu>
             </AccessControl>
-
-            <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
-              <Menu
-                icon={mdiCalendarTextOutline}
-                isCollapse={Collapse}
-                label="Events"
-                onClick={() => {
-                  Toggle();
-                  navigate(`${path}/event`);
-                  setActive(`${path}/event` as RouteChannel);
-                }}
-                IsActive={active === `${path}/event`}
-              />
-            </AccessControl>
             <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
               <Menu
                 icon={mdiCalendarOutline}
@@ -250,6 +236,20 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === `${path}/appointment`}
               />
             </AccessControl>
+            <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
+              <Menu
+                icon={mdiCalendarTextOutline}
+                isCollapse={Collapse}
+                label="Events"
+                onClick={() => {
+                  Toggle();
+                  navigate(`${path}/event`);
+                  setActive(`${path}/event` as RouteChannel);
+                }}
+                IsActive={active === `${path}/event`}
+              />
+            </AccessControl>
+
             <AccessControl
               UserRoles={[Roles.admin, Roles.nutritionist, Roles.client]}
             >

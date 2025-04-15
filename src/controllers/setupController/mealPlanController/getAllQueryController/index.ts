@@ -19,20 +19,16 @@ export const MealPlanGetWithQueryController = async (
     let query = `SELECT mp.*, u.ProfilePhoto AS UserImage, CONCAT(Firstname, ' ', IFNULL(NULLIF(Middlename, ''), ''), ' ', Lastname) AS UserFullname FROM \`meal_plan\` AS mp ${LEFT_JOIN_DATA} ${filter === "all" ? "" : "WHERE \`Name\` LIKE ? "} LIMIT ${RECORDS_PER_PAGE} OFFSET ${offset}`;
     let queryParams = filter !== "all" ? [`%${filter}%`] : [];
 
-    console.log("Executing Query:", query);
+    /*console.log("Executing Query:", query);
     console.log(
       "Query Parameters (with types):",
       queryParams.map((p) => `${p} (${typeof p})`),
-    );
+    );*/
 
     const response: MealPlanTables = await GetService.byParams(
       query,
       queryParams,
     );
-
-    if (!response || (Array.isArray(response) && response.length === 0)) {
-      return res.status(404).json({ data: [], message: Error.m011 });
-    }
 
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {

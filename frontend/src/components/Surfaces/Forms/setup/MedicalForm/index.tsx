@@ -34,18 +34,14 @@ import {
 } from "@mui/material";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 
-const MedicalForm: SFC<SetupForm> = ({
-  ClassName,
-  IsDetails = false,
-  Title,
-}) => {
-  const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
+const MedicalForm: SFC<SetupForm> = ({ ClassName, Title }) => {
   const { auth } = useAuth();
   const Id: number = parseInt(auth?.user ?? 0);
   const { add } = API.Setup.Medical.Add();
   const { update } = API.Setup.Medical.Update();
   const { data, isLoading } = API.Setup.Medical.Get(Id);
-
+  const Disabled: boolean = Number(data?.Id?.toString() ?? "0") > 0;
+  const [IsEdit, SetIsEdit] = useState<boolean>(!Disabled);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { upload } = API.Utility.UploadImage();
@@ -183,6 +179,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition?.IsDiabetesType1
                                     }
@@ -202,6 +199,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsCardiovasularDisease
@@ -221,6 +219,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsHyperlipidemia
@@ -240,6 +239,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={values.DiagnosedCondition?.IsGERD}
                                     onChange={(e) =>
                                       setFieldValue(
@@ -258,6 +258,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition?.IsDiabetesType2
                                     }
@@ -276,6 +277,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsChronicKidneyDisease
@@ -295,6 +297,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsThyroidDisorders
@@ -314,6 +317,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsGastrointestinalDisorder
@@ -335,6 +339,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition?.IsHypertension
                                     }
@@ -353,6 +358,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition
                                         ?.IsLiverDisorder ?? false
@@ -372,6 +378,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={values.DiagnosedCondition?.IsPCOS}
                                     onChange={(e) =>
                                       setFieldValue(
@@ -387,6 +394,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.DiagnosedCondition?.IsOther ??
                                       false
@@ -450,6 +458,7 @@ const MedicalForm: SFC<SetupForm> = ({
                           <textarea
                             placeholder="e.g. Metformin 500mg (2x/day), Vitamin D3 1000 IU"
                             name="Medication"
+                            disabled={IsEdit}
                             value={values?.Medication ?? ""}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -473,6 +482,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory?.IsDiabetes
                                     }
@@ -491,6 +501,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory?.IsCancer
                                     }
@@ -511,6 +522,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory?.IsObesity
                                     }
@@ -529,6 +541,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory
                                         ?.IsKidneyDisease
@@ -550,6 +563,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory
                                         ?.IsHeartDisease
@@ -569,6 +583,7 @@ const MedicalForm: SFC<SetupForm> = ({
                                 control={
                                   <Checkbox
                                     color="success"
+                                    disabled={IsEdit}
                                     checked={
                                       values.FamilyMedicalHistory?.IsOther
                                     }
@@ -626,6 +641,7 @@ const MedicalForm: SFC<SetupForm> = ({
                           <textarea
                             placeholder="e.g. Metformin 500mg (2x/day), Vitamin D3 1000 IU"
                             name="SurgicalHistory"
+                            disabled={IsEdit}
                             value={values?.SurgicalHistory ?? ""}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -669,17 +685,23 @@ const MedicalForm: SFC<SetupForm> = ({
                             >
                               <FormControlLabel
                                 value="Low"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="Low"
                               />
                               <FormControlLabel
                                 value="Moderate"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="Moderate"
                               />
                               <FormControlLabel
                                 value="High"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="High"
                               />
                             </RadioGroup>
@@ -763,17 +785,23 @@ const MedicalForm: SFC<SetupForm> = ({
                             >
                               <FormControlLabel
                                 value="Pregnant"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="Pregnant"
                               />
                               <FormControlLabel
                                 value="BreastFeeding"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="Breast Feeding"
                               />
                               <FormControlLabel
                                 value="NotApplicable"
-                                control={<Radio color="success" />}
+                                control={
+                                  <Radio color="success" disabled={IsEdit} />
+                                }
                                 label="Not Applicable"
                               />
                             </RadioGroup>
@@ -822,6 +850,7 @@ const MedicalForm: SFC<SetupForm> = ({
                           <textarea
                             placeholder="e.g. Metformin 500mg (2x/day), Vitamin D3 1000 IU"
                             name="MentalHealth"
+                            disabled={IsEdit}
                             value={values?.MentalHealth ?? ""}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -959,6 +988,7 @@ const MedicalForm: SFC<SetupForm> = ({
                               control={
                                 <Checkbox
                                   color="success"
+                                  disabled={IsEdit}
                                   checked={values.IsConsulted}
                                   onChange={(e) =>
                                     setFieldValue(

@@ -10,7 +10,7 @@ export const MedicalRecordsPanel: SFC = ({ ClassName }) => {
       <S.Container className={cn("", ClassName)}>
         <S.Content className="w-full">
           <S.Divider>
-            <Form.Setup.Medical ClassName="border-red" Title="Medical Info" />
+            <Form.Setup.Medical ClassName="" Title="Medical Info" />
           </S.Divider>
           <S.Divider>
             <FeedbackEmail />
