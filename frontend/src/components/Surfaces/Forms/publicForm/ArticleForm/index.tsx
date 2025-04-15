@@ -255,7 +255,7 @@ const ArticleForm: SFC<FormProps> = ({
                                   the button to browse.
                                 </S.Span>
                                 <S.Span className="text-sm text-slate-600 mb-3">
-                                  PDF, JPG, PNG (max 3MB)
+                                  JPG, PNG (max 3MB)
                                 </S.Span>
                               </>
                             ) : (
