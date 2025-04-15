@@ -47,4 +47,5 @@ export enum Error {
   m046 = "No user found.",
   m047 = "Password is incorrect",
   m048 = "User has an active subscription.",
+  m049 = "User already already medical record",
 }

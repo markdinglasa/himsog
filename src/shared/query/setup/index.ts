@@ -21,3 +21,4 @@ export * from "./professionInstituteQuery";
 export * from "./professionSpecialistQuery";
 export * from "./payTypeQuery";
 export * from "./articleQuery";
+export * from "./medicalQuery";

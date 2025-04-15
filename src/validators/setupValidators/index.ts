@@ -21,3 +21,4 @@ export * from "./professionValidationValidator";
 export * from "./professionInstituteValidator";
 export * from "./professionSpecialistValidator";
 export * from "./payTypeValidator";
+export * from "./medicalValidator";

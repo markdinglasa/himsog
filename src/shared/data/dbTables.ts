@@ -30,7 +30,7 @@ export enum DBTable {
   t028 = "specialist",
   t029 = "pay_type",
   t030 = "article",
-  t031 = "",
+  t031 = "medical",
   t032 = "",
   t033 = "",
   t034 = "",
