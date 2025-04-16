@@ -37,7 +37,10 @@ export const PaymentAddController = async (
     const Values = Object.values(Data);
 
     // validate user if he/she already have an active subscription
-    if (await isFound(PaymentQuery.q004, ["UserId"], [Number], [Data.UserId]))
+    if (
+      (await isFound(PaymentQuery.q004, ["UserId"], [Number], [Data.UserId]))
+        .data
+    )
       return res.status(401).json({ data: false, message: Error.m048 });
 
     const Verified: SubscriptionLineTable = {

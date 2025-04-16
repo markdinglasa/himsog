@@ -5,9 +5,11 @@ import { cn } from "../../../../utils";
 import { memo } from "react";
 import Icon from "../../../../constants/icon";
 import { useNavigate } from "react-router-dom";
+import MealPlanDetails from "../../../../components/DataDisplay/MealPlanDetails";
 
 export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -21,7 +23,9 @@ export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
             />
           </S.Actions>
         </S.PageTopBar>
-        <S.Content className="">Meal Plan Details</S.Content>
+        <S.PageContent className="rounded-md border">
+          <MealPlanDetails />
+        </S.PageContent>
       </S.Container>
     </>
   );

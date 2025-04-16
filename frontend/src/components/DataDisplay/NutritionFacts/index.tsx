@@ -1,4 +1,4 @@
-import { ButtonType, NutritionFactTable, SetupForm, SFC } from "../../../types";
+import { ButtonType, NutritionFactTable, FormProps, SFC } from "../../../types";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
 import { Fragment, memo, useState } from "react";
@@ -9,8 +9,13 @@ import Icon from "../../../constants/icon";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../modals";
 import Form from "../../../components/Surfaces/Forms";
+import { AccessControl } from "..";
 
-export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
+export const NutritionFacts: SFC<FormProps> = ({
+  ClassName,
+  IsDetails = false,
+  IsDisplay = false,
+}) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL ID
   const { remove } = API.Setup.NutritionFact.Remove();
   const { data: nutritionfacts, isLoading } = API.Setup.NutritionFact.GetAll(
@@ -26,12 +31,14 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
             <span className="text-md font-medium">Nutrition Facts</span>
           </div>
           <div>
-            <CustomButton
-              text="New"
-              onClick={toggleModal}
-              leftIcon={<Icon.Add />}
-              disabled={IsDetails}
-            />
+            <AccessControl OtherCondition={!IsDisplay}>
+              <CustomButton
+                text="New"
+                onClick={toggleModal}
+                leftIcon={<Icon.Add />}
+                disabled={IsDetails}
+              />
+            </AccessControl>
           </div>
         </div>
         <div className="w-full mb-2 flex flex-wrap gap-2 py-[1rem]">
@@ -60,15 +67,17 @@ export const NutritionFacts: SFC<SetupForm> = ({ ClassName, IsDetails }) => {
                     </span>
                   </div>
                   <div>
-                    <CircleButton
-                      Icon={<Icon.Delete className="text-primary" />}
-                      Type={ButtonType.button}
-                      OnClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        remove(Number(record.Id));
-                      }}
-                      Disabled={IsDetails}
-                    />
+                    <AccessControl OtherCondition={!IsDisplay}>
+                      <CircleButton
+                        Icon={<Icon.Delete className="text-primary" />}
+                        Type={ButtonType.button}
+                        OnClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          remove(Number(record.Id));
+                        }}
+                        Disabled={IsDetails}
+                      />
+                    </AccessControl>
                   </div>
                 </div>
               </Fragment>

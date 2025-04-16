@@ -1,4 +1,4 @@
-import { ButtonType, MealPlanLineTable, SetupForm, SFC } from "../../../types";
+import { ButtonType, FormProps, MealPlanLineTable, SFC } from "../../../types";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
 import { Fragment, memo, useState } from "react";
@@ -10,18 +10,23 @@ import { useToggle } from "react-use";
 import { CustomModal } from "../../../modals";
 import Form from "../../../components/Surfaces/Forms";
 import { Avatar } from "@mui/material";
+import { AccessControl } from "..";
+import { MealDetails } from "../MealDetails";
 
-export const MealPlanMeals: SFC<SetupForm> = ({
+export const MealPlanMeals: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
+  IsDisplay = false,
 }) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL-PLAN ID
   const { remove } = API.Setup.MealPlanLine.Remove();
   const { data: MealPlanMeals, isLoading } = API.Setup.MealPlanLine.GetAll(
     Number(Id),
   );
+
   const [isModal, toggleModal] = useToggle(false);
   const [recordId, setRecordId] = useState<number>(0);
+  const [mealPlanId, setMealPlanId] = useState<number>(0);
 
   return (
     <>
@@ -31,17 +36,20 @@ export const MealPlanMeals: SFC<SetupForm> = ({
             <span className="text-md font-medium">Meals</span>
           </div>
           <div>
-            <CustomButton
-              text="New"
-              onClick={toggleModal}
-              leftIcon={<Icon.Add />}
-              disabled={IsDetails}
-            />
+            <AccessControl OtherCondition={!IsDetails}>
+              <CustomButton
+                text="New"
+                onClick={toggleModal}
+                leftIcon={<Icon.Add />}
+                disabled={IsDetails}
+              />
+            </AccessControl>
           </div>
         </div>
+
         <div className="w-full mb-2 flex flex-wrap gap-2 pt-[1rem]">
-          <div className="w-full">
-            <div className="w-full rounded-md flex flex-col">
+          <div className="w-full border-b mb-2 pb-[1rem] ">
+            <div className="w-full rounded-md flex flex-col border p-2 mb-2">
               <span className="text-md font-medium">Breakfast</span>
               <span className="text-sm text-slate-600">
                 Best to take on 6:00 AM - 7:00 AM
@@ -60,6 +68,9 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       onClick={(e: React.MouseEvent) => {
                         e.stopPropagation();
                         setRecordId(record?.Id ? Number(record.Id) : 0);
+                        setMealPlanId(
+                          record?.MealId ? Number(record.MealId) : 0,
+                        );
                         toggleModal();
                       }}
                       className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
@@ -84,15 +95,17 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       </div>
 
                       <div>
-                        <CircleButton
-                          Icon={<Icon.Delete className="text-primary" />}
-                          Type={ButtonType.button}
-                          OnClick={(e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            if (record?.Id) remove(Number(record.Id));
-                          }}
-                          Disabled={IsDetails}
-                        />
+                        <AccessControl OtherCondition={!IsDetails}>
+                          <CircleButton
+                            Icon={<Icon.Delete className="text-primary" />}
+                            Type={ButtonType.button}
+                            OnClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              if (record?.Id) remove(Number(record.Id));
+                            }}
+                            Disabled={IsDetails}
+                          />
+                        </AccessControl>
                       </div>
                     </div>
                   </Fragment>
@@ -104,8 +117,8 @@ export const MealPlanMeals: SFC<SetupForm> = ({
               </div>
             )}
           </div>
-          <div className="w-full">
-            <div className="w-full rounded-md flex flex-col">
+          <div className="w-full border-b mb-[1rem] pb-[1rem] ">
+            <div className="w-full rounded-md flex flex-col border p-2 mb-2">
               <span className="text-md font-medium">Lunch</span>
               <span className="text-sm text-slate-600">
                 Best to take on 12:00 NN - 01:00 PM
@@ -124,6 +137,9 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       onClick={(e: React.MouseEvent) => {
                         e.stopPropagation();
                         setRecordId(record?.Id ? Number(record.Id) : 0);
+                        setMealPlanId(
+                          record?.MealId ? Number(record.MealId) : 0,
+                        );
                         toggleModal();
                       }}
                       className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
@@ -148,15 +164,17 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       </div>
 
                       <div>
-                        <CircleButton
-                          Icon={<Icon.Delete className="text-primary" />}
-                          Type={ButtonType.button}
-                          OnClick={(e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            if (record?.Id) remove(Number(record.Id));
-                          }}
-                          Disabled={IsDetails}
-                        />
+                        <AccessControl OtherCondition={!IsDetails}>
+                          <CircleButton
+                            Icon={<Icon.Delete className="text-primary" />}
+                            Type={ButtonType.button}
+                            OnClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              if (record?.Id) remove(Number(record.Id));
+                            }}
+                            Disabled={IsDetails}
+                          />
+                        </AccessControl>
                       </div>
                     </div>
                   </Fragment>
@@ -168,8 +186,8 @@ export const MealPlanMeals: SFC<SetupForm> = ({
               </div>
             )}
           </div>
-          <div className="w-full">
-            <div className="w-full rounded-md flex flex-col">
+          <div className="w-full border-b mb-[1rem] pb-[1rem]">
+            <div className="w-full rounded-md flex flex-col border p-2 mb-2">
               <span className="text-md font-medium">Snack</span>
               <span className="text-sm text-slate-600">
                 Best to take on 2:00 PM - 3:00 PM
@@ -188,6 +206,9 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       onClick={(e: React.MouseEvent) => {
                         e.stopPropagation();
                         setRecordId(record?.Id ? Number(record.Id) : 0);
+                        setMealPlanId(
+                          record?.MealId ? Number(record.MealId) : 0,
+                        );
                         toggleModal();
                       }}
                       className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
@@ -212,15 +233,17 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       </div>
 
                       <div>
-                        <CircleButton
-                          Icon={<Icon.Delete className="text-primary" />}
-                          Type={ButtonType.button}
-                          OnClick={(e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            if (record?.Id) remove(Number(record.Id));
-                          }}
-                          Disabled={IsDetails}
-                        />
+                        <AccessControl OtherCondition={!IsDetails}>
+                          <CircleButton
+                            Icon={<Icon.Delete className="text-primary" />}
+                            Type={ButtonType.button}
+                            OnClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              if (record?.Id) remove(Number(record.Id));
+                            }}
+                            Disabled={IsDetails}
+                          />
+                        </AccessControl>
                       </div>
                     </div>
                   </Fragment>
@@ -233,7 +256,7 @@ export const MealPlanMeals: SFC<SetupForm> = ({
             )}
           </div>
           <div className="w-full">
-            <div className="w-full rounded-md flex flex-col">
+            <div className="w-full rounded-md flex flex-col border p-2 mb-2">
               <span className="text-md font-medium">Dinner</span>
               <span className="text-sm text-slate-600">
                 Best to take on 6:00 PM - 7:00 PM
@@ -252,6 +275,9 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       onClick={(e: React.MouseEvent) => {
                         e.stopPropagation();
                         setRecordId(record?.Id ? Number(record.Id) : 0);
+                        setMealPlanId(
+                          record?.MealId ? Number(record.MealId) : 0,
+                        );
                         toggleModal();
                       }}
                       className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
@@ -276,15 +302,17 @@ export const MealPlanMeals: SFC<SetupForm> = ({
                       </div>
 
                       <div>
-                        <CircleButton
-                          Icon={<Icon.Delete className="text-primary" />}
-                          Type={ButtonType.button}
-                          OnClick={(e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            if (record?.Id) remove(Number(record.Id));
-                          }}
-                          Disabled={IsDetails}
-                        />
+                        <AccessControl OtherCondition={!IsDetails}>
+                          <CircleButton
+                            Icon={<Icon.Delete className="text-primary" />}
+                            Type={ButtonType.button}
+                            OnClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              if (record?.Id) remove(Number(record.Id));
+                            }}
+                            Disabled={IsDetails}
+                          />
+                        </AccessControl>
                       </div>
                     </div>
                   </Fragment>
@@ -301,18 +329,24 @@ export const MealPlanMeals: SFC<SetupForm> = ({
       <CustomModal
         close={() => {
           setRecordId(0);
+          setMealPlanId(0);
           toggleModal();
         }}
         title={recordId ? "Meal Details" : "New Meal"}
         open={isModal}
-        ClassName="w-[80vw] md:w-[40rem]"
+        ClassName="w-[80vw] md:w-[40rem] h-[40rem] overflow-auto"
       >
-        <div>
-          <Form.Setup.MealPlanMeal
-            RecordId={recordId.toString()}
-            IsDetails={IsDetails}
-            OnClose={toggleModal}
-          />
+        <div className="h-full">
+          <AccessControl OtherCondition={!IsDisplay}>
+            <Form.Setup.MealPlanMeal
+              RecordId={recordId.toString()}
+              IsDetails={IsDetails}
+              OnClose={toggleModal}
+            />
+          </AccessControl>
+          <AccessControl OtherCondition={IsDisplay}>
+            <MealDetails RecordId={mealPlanId.toString()} IsDisplay={true} />
+          </AccessControl>
         </div>
       </CustomModal>
     </>

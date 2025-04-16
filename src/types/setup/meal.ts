@@ -6,6 +6,7 @@ export interface MealTable extends Id, Logs {
   Recipe: string;
   Image: string | null;
   Allergen: string | null;
+  Kilocalorie?: number;
 }
 export type MealTables = MealTable[];
 export const MealInitial: MealTable = {

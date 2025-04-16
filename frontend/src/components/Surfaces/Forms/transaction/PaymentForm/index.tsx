@@ -57,7 +57,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
     Status: PaymentStatus.PAID,
     City: "",
     ZIPCode: 0,
-    Country: "",
+    Country: "Philippines",
     Holder: user?.Fullname || " NA",
     CVCNumber: 0,
     ExpiryMonth: "",
@@ -219,7 +219,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
-                            type={InputType.number}
+                            type={InputType.text}
                           />
                         </S.Divider>
                         <S.Divider className="w-full py-1">
@@ -231,7 +231,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
-                            type={InputType.number}
+                            type={InputType.text}
                           />
                         </S.Divider>
                       </S.Divider>
