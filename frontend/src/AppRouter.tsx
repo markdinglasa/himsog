@@ -311,10 +311,6 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Client.Subscription.View />}
               />
               <Route
-                path={RouteChannel.CLIENT_SUBSCRIPTION_NEW}
-                element={<Page.Client.Subscription.New />}
-              />
-              <Route
                 path={RouteChannel.CLIENT_SUBSCRIPTION_DETAILS}
                 element={<Page.Client.Subscription.Details />}
               />
@@ -453,10 +449,6 @@ export const AppRouter = createBrowserRouter(
               <Route
                 path={RouteChannel.NUTRITIONIST_SUBSCRIPTION}
                 element={<Page.Nutritionist.Subscription.View />}
-              />
-              <Route
-                path={RouteChannel.NUTRITIONIST_SUBSCRIPTION_NEW}
-                element={<Page.Nutritionist.Subscription.New />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_SUBSCRIPTION_DETAILS}

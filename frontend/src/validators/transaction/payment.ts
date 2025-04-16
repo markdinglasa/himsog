@@ -25,9 +25,11 @@ export const paymentValidator = () => {
     ExpiryMonth: yup
       .number()
       .required()
+      .min(1, "Month must be at least 1")
+      .max(12, "Month must not exceed 12")
       .test("len", "Must be exactly 2 digits", (val) =>
         val ? val.toString().length === 2 : false,
-      ), // min of 2 digits max of 3 digits
+      ), // min of 2 digits max of 3 digits . must not exceed 12 >
     ExpiryYear: yup
       .number()
       .required()

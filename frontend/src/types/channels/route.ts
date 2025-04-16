@@ -78,7 +78,7 @@ export enum RouteChannel {
   CLIENT_MEAL_PLAN_DETAILS = "/c/meal-plan/d/:Id",
   CLIENT_SUBSCRIPTION = "/c/susbcription",
   CLIENT_SUBSCRIPTION_NEW = "/c/susbcription/new",
-  CLIENT_SUBSCRIPTION_DETAILS = "/subscription/d/:Id",
+  CLIENT_SUBSCRIPTION_DETAILS = "/c/subscription/:Id",
   CLIENT_REMINDER = "/c/reminder",
   CLIENT_REMIINDER_NEW = "/c/reminder/new",
   CLIENT_REMIINDER_DETAILS = "/c/reminder/d/:Id",

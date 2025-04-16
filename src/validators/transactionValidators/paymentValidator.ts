@@ -6,7 +6,7 @@ export const paymentValidator = Joi.object({
   UserId: Joi.number().integer().positive().required(),
   SubscriptionId: Joi.number().integer().positive().required(),
   Currency: Joi.string().required(),
-  Amount: Joi.number().positive().required(),
+  Amount: Joi.number().required(),
   Method: Joi.string().required(),
   Token: Joi.string().required(),
   BillingAddress: Joi.string().allow("").allow(null).optional(),
