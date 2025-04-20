@@ -63,34 +63,34 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
           </div>
           <div className="w-full flex flex-row gap-[1rem] items-center justify-start">
             <div className="flex flex-col w-full">
-              <span className="text-md">Age</span>
-              <span className="text-md font-medium">
+              <span className="text-sm">Age</span>
+              <span className="text-sm font-medium">
                 {user?.Age ?? 0} years old
               </span>
             </div>
             <div className="flex flex-col w-full">
-              <span className="text-md">Gender</span>
-              <span className="text-md font-medium">
+              <span className="text-sm">Gender</span>
+              <span className="text-sm font-medium">
                 {user?.Gender ?? "NA"}
               </span>
             </div>
           </div>
           <div className="w-full flex flex-row gap-[1rem] items-center justify-start">
             <div className="flex flex-col w-full">
-              <span className="text-md">E-mail Address</span>
-              <span className="text-md font-medium">{user?.Email ?? "NA"}</span>
+              <span className="text-sm">E-mail Address</span>
+              <span className="text-sm font-medium">{user?.Email ?? "NA"}</span>
             </div>
             <div className="flex flex-col w-full">
-              <span className="text-md">Contact Number</span>
-              <span className="text-md font-medium">
+              <span className="text-sm">Contact Number</span>
+              <span className="text-sm font-medium">
                 {user?.ContactNumber ?? "NA"}
               </span>
             </div>
           </div>
           <div className="w-full flex flex-row gap-[1rem] items-center justify-start">
             <div className="flex flex-col w-full">
-              <span className="text-md">Date Joined</span>
-              <span className="text-md font-medium">
+              <span className="text-sm">Date Joined</span>
+              <span className="text-sm font-medium">
                 {formatDateToMMDDYY(user?.DateCreated ?? "NA")}
               </span>
             </div>

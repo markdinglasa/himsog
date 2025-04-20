@@ -8,15 +8,7 @@ export enum PaymentStatus {
   EXPIRED = "expired",
 }
 
-export interface PaymentTable extends Id, Logs {
-  TransactionDate: string;
-  TransactionId: string;
-  UserId: number;
-  SubscriptionId: number; // FK to SubscriptionTable
-  Currency: Currency; //  PHP as default
-  Amount: number;
-  Method: string;
-  Token: string;
+interface SubscriptionData {
   BillingAddress: string | null;
   City: string;
   ZIPCode: number;
@@ -28,6 +20,25 @@ export interface PaymentTable extends Id, Logs {
   CardNumber: string;
   Status: PaymentStatus;
 }
+interface MealPlanData {
+  Remark: string | null;
+  Image: string | null;
+  Status: boolean;
+}
+export interface PaymentTable extends Id, Logs {
+  TransactionDate: string;
+  TransactionId: string;
+  UserId: number;
+  SubscriptionId: number | null; // FK to SubscriptionTable
+  MealPlanId: number | null;
+  Currency: Currency; //  PHP as default
+  Amount: number;
+  Method: string;
+  IsSubscription: boolean;
+  IsMealPlan: boolean;
+  SubscriptionData: SubscriptionData | null;
+  MealPlanData: MealPlanData | null;
+}
 export type PaymentTables = PaymentTable[];
 export const PaymentInitial: PaymentTable = {
   TransactionDate: "",
@@ -37,15 +48,9 @@ export const PaymentInitial: PaymentTable = {
   Currency: Currency.PHP,
   Amount: 0,
   Method: "",
-  Token: "",
-  BillingAddress: null,
-  Status: PaymentStatus.DEFAULT,
-  City: "",
-  ZIPCode: 0,
-  Country: "",
-  Holder: "",
-  CVCNumber: 0,
-  ExpiryMonth: "",
-  ExpiryYear: "",
-  CardNumber: "",
+  IsSubscription: false,
+  IsMealPlan: false,
+  SubscriptionData: null,
+  MealPlanData: null,
+  MealPlanId: null,
 };

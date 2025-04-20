@@ -26,7 +26,7 @@ import Icon from "../../../../../constants/icon";
 import { Skeleton } from "../../../../Feedback";
 import { memo } from "react";
 import { useAuth } from "../../../../../hooks";
-import { paymentValidator } from "../../../../../validators";
+import { subscriptionPaymentValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useNavigate, useParams } from "react-router-dom";
@@ -52,21 +52,27 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
     Currency: Currency.PHP,
     Amount: parseFloat(subscription?.Price) || 0,
     Method: "Debit/Credit",
-    Token: new Date().toString(),
-    BillingAddress: null,
-    Status: PaymentStatus.PAID,
-    City: "",
-    ZIPCode: 0,
-    Country: "Philippines",
-    Holder: user?.Fullname || " NA",
-    CVCNumber: 0,
-    ExpiryMonth: "",
-    ExpiryYear: "",
-    CardNumber: "",
+    MealPlanId: null,
+    IsSubscription: true,
+    IsMealPlan: false,
+    SubscriptionData: {
+      BillingAddress: null,
+      Status: PaymentStatus.PAID,
+      City: "",
+      ZIPCode: 0,
+      Country: "Philippines",
+      Holder: user?.Fullname || " NA",
+      CVCNumber: 0,
+      ExpiryMonth: "",
+      ExpiryYear: "",
+      CardNumber: "",
+    },
+    MealPlanData: null,
   };
 
   const handleSubmit = async (values: PaymentTable) => {
     try {
+      console.log(values);
       // console.log("values:", values);
       add(values);
     } catch (error: any) {
@@ -89,7 +95,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                 onSubmit={handleSubmit}
                 enableReinitialize={true}
                 validateOnMount={true}
-                validationSchema={paymentValidator}
+                validationSchema={subscriptionPaymentValidator} // is not working as it should
               >
                 {({
                   errors,
@@ -101,7 +107,6 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                   resetForm,
                   handleBlur,
                   setFieldValue,
-                  setTouched,
                   values,
                 }) => (
                   <Form>
@@ -123,12 +128,11 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                         <CustomInput
                           placeholder="House No., Street, Building "
                           label="Billing Address"
-                          name="BillingAddress"
+                          name="SubscriptionData.BillingAddress"
                           errors={errors}
                           touched={touched}
-                          value={values?.BillingAddress ?? ""}
+                          value={values?.SubscriptionData?.BillingAddress ?? ""}
                           onChange={handleChange}
-                          //disabled={IsEdit}
                           type={InputType.text}
                         />
                       </S.Divider>
@@ -137,8 +141,8 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="City"
                             label="City"
-                            name="City"
-                            value={values?.City}
+                            name="SubscriptionData.City"
+                            value={values?.SubscriptionData?.City}
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
@@ -149,8 +153,8 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="ZIP Code"
                             label="ZIP Code"
-                            name="ZIPCode"
-                            value={values?.ZIPCode.toString()}
+                            name="SubscriptionData.ZIPCode"
+                            value={values?.SubscriptionData?.ZIPCode.toString()}
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
@@ -164,15 +168,18 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                         Placeholder="Country"
                         Options={countryOption}
                         OptionName="Label"
-                        Name="Country"
+                        Name="SubscriptionData.Country"
                         Label="Country"
-                        Values={values.Country}
+                        Values={values.SubscriptionData?.Country}
                         Errors={errors}
                         Touched={touched}
                         OnBlur={handleBlur}
                         OnChange={(_: any, value: any) => {
-                          setFieldValue("Country", value?.Id || 0);
-                          setTouched({ Country: true });
+                          setFieldValue(
+                            "SubscriptionData.Country",
+                            value?.Id || 0,
+                          );
+                          //setTouched({ "SubscriptionData.Country": true });
                         }}
                       />
                     </S.Divider>
@@ -187,9 +194,9 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="e.g. Juan Dela Cruz"
                             label="Card Holder Name"
-                            name="Holder"
+                            name="SubscriptionData.Holder"
                             errors={errors}
-                            value={values?.Holder}
+                            value={values?.SubscriptionData?.Holder}
                             touched={touched}
                             onChange={handleChange}
                             type={InputType.text}
@@ -199,12 +206,12 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="e.g. 123"
                             label="CVC Number"
-                            name="CVCNumber"
-                            value={values?.CVCNumber.toString()}
+                            name="SubscriptionData.CVCNumber"
+                            value={values?.SubscriptionData?.CVCNumber.toString()}
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
-                            type={InputType.number}
+                            type={InputType.text}
                           />
                         </S.Divider>
                       </S.Divider>
@@ -214,8 +221,8 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="e.g. 01"
                             label="Exp. Month"
-                            name="ExpiryMonth"
-                            value={values?.ExpiryMonth.toString()}
+                            name="SubscriptionData.ExpiryMonth"
+                            value={values?.SubscriptionData?.ExpiryMonth.toString()}
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
@@ -226,8 +233,8 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                           <CustomInput
                             placeholder="e.g. 25"
                             label="Exp. year"
-                            name="ExpiryYear"
-                            value={values?.ExpiryYear.toString()}
+                            name="SubscriptionData.ExpiryYear"
+                            value={values?.SubscriptionData?.ExpiryYear.toString()}
                             errors={errors}
                             touched={touched}
                             onChange={handleChange}
@@ -240,8 +247,8 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
                         <CustomInput
                           placeholder="e.g. 0000 0000 0000 0000"
                           label="Card Number"
-                          name="CardNumber"
-                          value={values?.CardNumber.toString()}
+                          name="SubscriptionData.CardNumber"
+                          value={values?.SubscriptionData?.CardNumber.toString()}
                           errors={errors}
                           touched={touched}
                           onChange={handleChange}
