@@ -1,6 +1,7 @@
 import {
   UserAddController,
   UserGetAllController,
+  UserGetByRoleController,
   UserGetController,
   UserRegisterController,
   UserRemoveController,
@@ -17,6 +18,11 @@ import { API_VERSION } from "../../constants";
 
 const router = express.Router();
 
+router.get(
+  `${API_VERSION}${RouteChannel.USERS}`,
+  TokenHandler.verifyToken,
+  UserGetByRoleController,
+);
 router.get(
   `${API_VERSION}${RouteChannel.USER}`,
   TokenHandler.verifyToken,

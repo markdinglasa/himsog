@@ -6,12 +6,14 @@ import { memo } from "react";
 import { MoreOption } from "../../DropDown";
 import { useToggle } from "../../../../hooks";
 import { CustomModal } from "../../../../modals";
+import { AccessControl } from "../../../DataDisplay";
 
 export const LicenseCard: SFC<ProfessionProps> = ({
   ClassName,
   Data,
   OnEdit,
   OnDelete,
+  IsDisplay = false,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   return (
@@ -48,18 +50,20 @@ export const LicenseCard: SFC<ProfessionProps> = ({
                   {formatDateToYYMMDD(Data?.DateExpired ?? "") ?? ""}
                 </span>
               </div>
-              <MoreOption
-                ClassName="relative text-primary"
-                DeleteOnClick={(e: any) => {
-                  e.stopPropagation();
-                  OnDelete();
-                }}
-                EditOnClick={(e: any) => {
-                  e.stopPropagation();
-                  OnEdit();
-                }}
-                IconColor={"text-primary"}
-              />
+              <AccessControl OtherCondition={!IsDisplay}>
+                <MoreOption
+                  ClassName="relative text-primary"
+                  DeleteOnClick={(e: any) => {
+                    e.stopPropagation();
+                    OnDelete();
+                  }}
+                  EditOnClick={(e: any) => {
+                    e.stopPropagation();
+                    OnEdit();
+                  }}
+                  IconColor={"text-primary"}
+                />
+              </AccessControl>
             </div>
           </div>
         </div>

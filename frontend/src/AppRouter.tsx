@@ -294,6 +294,20 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.CLIENT_PRESET_MEAL_PLAN_DETAILS}
                 element={<Page.Client.MealPlan.Details />}
               />
+
+              <Route
+                path={RouteChannel.CLIENT_REQUEST_MEAL_PLAN}
+                element={<Page.Client.MealPlanRequest.View />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_REQUEST_MEAL_PLAN_NEW}
+                element={<Page.Client.MealPlanRequest.New />}
+              />
+              <Route
+                path={RouteChannel.CLIENT_REQUEST_MEAL_PLAN_DETAILS}
+                element={<Page.Client.MealPlanRequest.Details />}
+              />
+
               <Route
                 path={RouteChannel.CLIENT_REMINDER}
                 element={<Page.Client.Reminder.View />}

@@ -12,7 +12,10 @@ import { useParams } from "react-router-dom";
 import { AccessControl, NoRecord } from "..";
 import Card from "../../Surfaces/Cards";
 
-export const Specialists: SFC<FormProps> = ({ IsEdit = true }) => {
+export const Specialists: SFC<FormProps> = ({
+  IsEdit = true,
+  IsDisplay = false,
+}) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.ProfessionSpecialist.Remove();
   const { Id: UserId } = useParams<{ Id: string }>();
@@ -36,7 +39,7 @@ export const Specialists: SFC<FormProps> = ({ IsEdit = true }) => {
             </div>
           </AccessControl>
         </div>
-        <AccessControl OtherCondition={IsEdit}>
+        <AccessControl OtherCondition={IsEdit && !IsDisplay}>
           <CustomButton
             leftIcon={<Icon.Add />}
             text={"New"}
@@ -63,6 +66,7 @@ export const Specialists: SFC<FormProps> = ({ IsEdit = true }) => {
                 }}
                 OnDelete={() => remove(Number(record.Id))}
                 Data={record}
+                IsDisplay={IsDisplay}
               />
             </div>
           ))

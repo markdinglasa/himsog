@@ -6,6 +6,8 @@ import UpdatePhoto from "./useUpdatePhoto";
 import UpdateEmail from "./useUpdateEmail";
 import UpdatePassword from "./useUpdatePassword";
 import SuspendUser from "./useSuspendUser";
+import GetAllByRole from "./useGetAllByRole";
+
 export default {
   Add,
   Update,
@@ -15,4 +17,5 @@ export default {
   UpdateEmail,
   UpdatePassword,
   SuspendUser,
+  GetAllByRole,
 };

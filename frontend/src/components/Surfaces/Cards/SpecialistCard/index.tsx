@@ -4,12 +4,14 @@ import { memo } from "react";
 import { MoreOption } from "../../DropDown";
 import Icon from "@mdi/react";
 import { mdiLinkVariant } from "@mdi/js";
+import { AccessControl } from "../../../DataDisplay";
 
 export const SpecialistCard: SFC<ProfessionProps> = ({
   ClassName,
   Data,
   OnEdit,
   OnDelete,
+  IsDisplay = false,
 }) => {
   return (
     <div
@@ -35,18 +37,20 @@ export const SpecialistCard: SFC<ProfessionProps> = ({
                 {parseFloat(Data?.Experience) ?? ""} years of experience
               </span>
             </div>
-            <MoreOption
-              ClassName="relative text-primary"
-              DeleteOnClick={(e: any) => {
-                e.stopPropagation();
-                OnDelete();
-              }}
-              EditOnClick={(e: any) => {
-                e.stopPropagation();
-                OnEdit();
-              }}
-              IconColor={"text-primary"}
-            />
+            <AccessControl OtherCondition={!IsDisplay}>
+              <MoreOption
+                ClassName="relative text-primary"
+                DeleteOnClick={(e: any) => {
+                  e.stopPropagation();
+                  OnDelete();
+                }}
+                EditOnClick={(e: any) => {
+                  e.stopPropagation();
+                  OnEdit();
+                }}
+                IconColor={"text-primary"}
+              />
+            </AccessControl>
           </div>
         </div>
       </div>

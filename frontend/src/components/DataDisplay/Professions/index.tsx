@@ -12,7 +12,10 @@ import { useParams } from "react-router-dom";
 import { AccessControl, NoRecord } from "..";
 import LicenseCard from "../../Surfaces/Cards/LicenseCard";
 
-export const Professions: SFC<FormProps> = ({ IsEdit = true }) => {
+export const Professions: SFC<FormProps> = ({
+  IsEdit = true,
+  IsDisplay = false,
+}) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.Profession.Remove();
   const { Id: UserId } = useParams<{ Id: string }>();
@@ -30,15 +33,16 @@ export const Professions: SFC<FormProps> = ({ IsEdit = true }) => {
             <div>
               <div>
                 <span className="text-sm text-slate-600">
-                  View and manage your professional licenses & certificates to
-                  keep receiving newsletters, himsog tips, and more.
+                  A professional license is a formal credential that certifies
+                  an individual’s qualifications to legally practice a regulated
+                  profession.
                 </span>
               </div>
             </div>
           </AccessControl>
         </div>
 
-        <AccessControl OtherCondition={IsEdit}>
+        <AccessControl OtherCondition={IsEdit && !IsDisplay}>
           <CustomButton
             leftIcon={<Icon.Add />}
             text={"New"}
@@ -65,6 +69,7 @@ export const Professions: SFC<FormProps> = ({ IsEdit = true }) => {
                 }}
                 OnDelete={() => remove(Number(record.Id))}
                 Data={record}
+                IsDisplay={IsDisplay}
               />
             </div>
           ))

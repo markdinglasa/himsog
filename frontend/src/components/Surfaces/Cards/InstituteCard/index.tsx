@@ -3,11 +3,13 @@ import { cn, formatDateToYYMMDD } from "../../../../utils";
 import { memo } from "react";
 import { MoreOption } from "../../DropDown";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { AccessControl } from "../../../DataDisplay";
 export const InstituteCard: SFC<ProfessionProps> = ({
   ClassName,
   Data,
   OnEdit,
   OnDelete,
+  IsDisplay = false,
 }) => {
   return (
     <div
@@ -40,18 +42,20 @@ export const InstituteCard: SFC<ProfessionProps> = ({
                   : (formatDateToYYMMDD(Data?.DateEnded ?? "") ?? "")}
               </span>
             </div>
-            <MoreOption
-              ClassName="relative text-primary"
-              DeleteOnClick={(e: any) => {
-                e.stopPropagation();
-                OnDelete();
-              }}
-              EditOnClick={(e: any) => {
-                e.stopPropagation();
-                OnEdit();
-              }}
-              IconColor={"text-primary"}
-            />
+            <AccessControl OtherCondition={!IsDisplay}>
+              <MoreOption
+                ClassName="relative text-primary"
+                DeleteOnClick={(e: any) => {
+                  e.stopPropagation();
+                  OnDelete();
+                }}
+                EditOnClick={(e: any) => {
+                  e.stopPropagation();
+                  OnEdit();
+                }}
+                IconColor={"text-primary"}
+              />
+            </AccessControl>
           </div>
         </div>
       </div>

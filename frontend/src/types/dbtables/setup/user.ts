@@ -31,6 +31,7 @@ export interface UserTable extends Id, Logs {
   Fullname?: string;
   Gender: string;
   Religion: string;
+  Rating?: number;
 }
 
 export type UserTables = UserTable[];

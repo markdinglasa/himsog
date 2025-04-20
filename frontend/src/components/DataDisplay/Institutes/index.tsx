@@ -12,7 +12,10 @@ import { useParams } from "react-router-dom";
 import { AccessControl, NoRecord } from "..";
 import Card from "../../Surfaces/Cards";
 
-export const Institutes: SFC<FormProps> = ({ IsEdit = true }) => {
+export const Institutes: SFC<FormProps> = ({
+  IsEdit = true,
+  IsDisplay = false,
+}) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.ProfessionInstitute.Remove();
   const { Id: UserId } = useParams<{ Id: string }>();
@@ -31,14 +34,13 @@ export const Institutes: SFC<FormProps> = ({ IsEdit = true }) => {
             <div>
               <div>
                 <span className="text-sm text-slate-600">
-                  View and manage your professional licenses & certificates to
-                  keep receiving newsletters, himsog tips, and more.
+                  Hospital, clinic, school or universities affiliated with.
                 </span>
               </div>
             </div>
           </AccessControl>
         </div>
-        <AccessControl OtherCondition={IsEdit}>
+        <AccessControl OtherCondition={IsEdit && !IsDisplay}>
           <CustomButton
             leftIcon={<Icon.Add />}
             text={"New"}
@@ -65,6 +67,7 @@ export const Institutes: SFC<FormProps> = ({ IsEdit = true }) => {
                 }}
                 OnDelete={() => remove(Number(record.Id))}
                 Data={record}
+                IsDisplay={IsDisplay}
               />
             </div>
           ))

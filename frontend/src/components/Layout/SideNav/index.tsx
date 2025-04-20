@@ -212,7 +212,7 @@ export const SideNav: SFC<SideNavProps> = ({
                   <Menu
                     icon={mdiInvoiceSendOutline}
                     isCollapse={Collapse}
-                    label="Request Meal Plan"
+                    label="Find & Request"
                     onClick={() => {
                       Toggle();
                       navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);

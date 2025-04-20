@@ -14,6 +14,7 @@ import PaymentMethod from "./PaymentMethodCard";
 import Participant from "./ParticipantCard";
 import Message from "./MessageCard";
 import MealPlan from "./MealPlanCard";
+import Professional from "./ProfessionalCard";
 
 const Card = {
   MealPlan,
@@ -29,6 +30,7 @@ const Card = {
   PaymentMethod,
   Participant,
   Message,
+  Professional,
 };
 
 export default Card;

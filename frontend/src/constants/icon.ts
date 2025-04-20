@@ -26,7 +26,11 @@ import Add from "@mui/icons-material/AddCircleOutline";
 import Time from "@mui/icons-material/AccessTime";
 import Identity from "@mui/icons-material/PermIdentity";
 import Star from "@mui/icons-material/Star";
+import Filter from "@mui/icons-material/FilterAlt";
+import Send from "@mui/icons-material/Send";
 export default {
+  Send,
+  Filter,
   Star,
   Time,
   ThumpUp,

@@ -13,7 +13,7 @@ export interface ButtonProps {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   onClick?(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
-  text: string;
+  text?: string;
   type?: ButtonType;
   morph?: boolean;
   child?: ReactNode;
@@ -102,7 +102,9 @@ export const CustomButton: SFC<ButtonProps> = ({
           }}
         >
           {child}
-          <span className={`font-sans ${CustomColor().text}`}>{text}</span>
+          {text && (
+            <span className={`font-sans ${CustomColor().text}`}>{text}</span>
+          )}
         </Button>
       </div>
       {morph && (

@@ -10,4 +10,5 @@ export interface ProfessionProps {
   OnEdit: () => void;
   OnDelete: () => void;
   Data: any;
+  IsDisplay?: boolean;
 }

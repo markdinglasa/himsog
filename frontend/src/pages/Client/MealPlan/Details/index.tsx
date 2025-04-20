@@ -9,12 +9,21 @@ import MealPlanDetails from "../../../../components/DataDisplay/MealPlanDetails"
 
 export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
-
+  const links = [
+    {
+      Text: "Dashboard",
+      OnClick: () => navigate(RouteChannel.CLIENT_DASHBOARD),
+    },
+    {
+      Text: "Meal Plans",
+      OnClick: () => navigate(RouteChannel.CLIENT_MEAL_PLAN),
+    },
+  ];
   return (
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={[]} Active="Dashboard" />
+          <PageBreadCrumbs Links={links} Active="Meal Plan Details" />
           <S.Actions>
             <CustomButton
               text="Back"
