@@ -6,6 +6,7 @@ import {
   MealPlanAddController,
   MealPlanGetAllController,
   MealPlanGetController,
+  MealPlanGetDetailsController,
   MealPlanGetWithQueryController,
   MealPlanRemoveController,
   MealPlanUpdateController,
@@ -16,6 +17,11 @@ router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLANS}`,
   TokenHandler.verifyToken,
   MealPlanGetWithQueryController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_DETAILS}`,
+  TokenHandler.verifyToken,
+  MealPlanGetDetailsController,
 );
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_PARENT}`,

@@ -291,6 +291,10 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Client.MealPlan.View />}
               />
               <Route
+                path={RouteChannel.CLIENT_PRESET_MEAL_PLAN_PAYMENT}
+                element={<Page.Client.MealPlan.Payment />}
+              />
+              <Route
                 path={RouteChannel.CLIENT_PRESET_MEAL_PLAN_DETAILS}
                 element={<Page.Client.MealPlan.Details />}
               />

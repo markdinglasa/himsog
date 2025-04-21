@@ -3,6 +3,7 @@ import { Error, Success, UserQuery } from "../../../../shared";
 import { isFound } from "../../../../functions";
 import { MealQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
+import { MealTables } from "../../../../types";
 
 export const MealGetAllController = async (
   req: Request,
@@ -15,7 +16,7 @@ export const MealGetAllController = async (
       return res.status(401).json({ data: [], message: Error.m005 });
     if (!(await isFound(UserQuery.q002, ["Id"], [Number], [UserId])).data)
       return res.status(401).json({ data: [], message: Error.m011 }); // check User existence
-    const response = await GetService.byFields(
+    const response: MealTables = await GetService.byFields(
       MealQuery.q001,
       ["CreatedBy"],
       [Number],

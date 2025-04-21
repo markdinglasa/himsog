@@ -148,7 +148,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
   };
 
   const filteredRows = useMemo(() => {
-    return Rows.filter((row: { [x: string]: { toString: () => string } }) =>
+    return Rows?.filter((row: { [x: string]: { toString: () => string } }) =>
       Object.keys(row).some((key) =>
         row[key]?.toString().toLowerCase().includes(searchQuery.toLowerCase()),
       ),
@@ -348,6 +348,7 @@ export const EnhancedTable = <T extends Record<string, any>>({
                           case "ComponentCount":
                           case "PackageCount":
                           case "TriggerQuantity":
+                          case "Kilocalorie":
                             return Number(row[HeadCell.Id] ?? 0).toFixed(2);
                           //float
                           case "Cost":

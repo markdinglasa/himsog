@@ -85,10 +85,12 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
             Title="Message"
             Icon={<Icon.Send className="text-primary" />}
             Type={ButtonType.button}
-            OnClick={() => {
+            OnClick={(e: any) => {
+              e.stopPropagation();
               // creates new contact if not yet connected else would redirect to messenger with Id
               // check contacts if contact exists if not then create new contact then redirect
               // if already exists in contacts then redirect to messenger with the Id
+              alert("message health professional");
             }}
           />
         </div>
@@ -104,6 +106,7 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
               type={ButtonType.button}
               onClick={(e) => {
                 e.stopPropagation();
+                alert("request meal plan");
               }}
               text="Request"
             />

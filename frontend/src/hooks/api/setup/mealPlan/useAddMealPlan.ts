@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import {
   APIChannel,
   RouteChannel,
@@ -15,19 +15,19 @@ const useAddMealPlan = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  let Id = 0;
+  const IdRef = useRef(0);
   const mutation = useMutation({
     mutationFn: async (data: MealPlanTable) => {
       const response = await axios.post(`${APIChannel.MEAL_PLAN}`, data);
-      if (response.data) Id = response.data.Id;
-      return response.data;
+      if (response.data.data) IdRef.current = response?.data?.data?.Id ?? 0;
+      return response.data.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN] });
       navigate(
         RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW_DETAILS.replace(
           ":Id",
-          Id.toString(),
+          String(IdRef.current),
         ),
       );
     },

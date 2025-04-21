@@ -28,7 +28,10 @@ import Identity from "@mui/icons-material/PermIdentity";
 import Star from "@mui/icons-material/Star";
 import Filter from "@mui/icons-material/FilterAlt";
 import Send from "@mui/icons-material/Send";
+import Key from "@mui/icons-material/Key";
+import Meal from "@mui/icons-material/Fastfood";
 export default {
+  Key,
   Send,
   Filter,
   Star,
@@ -42,6 +45,7 @@ export default {
   Calendar,
   ArrowOutward,
   Money,
+  Meal,
   Burger,
   People,
   Cart,

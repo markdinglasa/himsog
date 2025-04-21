@@ -75,7 +75,7 @@ export const PayTypes: SFC<FormProps> = ({ IsEdit = true }) => {
         close={toggleDisplay}
         title="New Payment Method"
         open={isDisplay}
-        ClassName="md:w-[800px] w-[80vw]"
+        ClassName="md:w-[800px] w-[80vw] h-[80vh] overflow-auto"
       >
         <Form.Setup.PayType RecordId={record} OnClose={() => toggleDisplay()} />
       </CustomModal>

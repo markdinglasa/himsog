@@ -15,11 +15,11 @@ import {
   SFC,
   ToastType,
 } from "../../../../../types";
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { Error } from "../../../../../shared";
 import { useAuth } from "../../../../../hooks";
 import * as S from "../../../../../styles";
-import { displayToast } from "../../../../../utils";
+import { cn, displayToast } from "../../../../../utils";
 import { payTypeValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
@@ -46,7 +46,9 @@ const PayTypeForm: SFC<FormProps> = ({
   const { add } = API.Setup.PayType.Add();
   const { update } = API.Setup.PayType.Update();
   const { data, isLoading } = API.Setup.PayType.Get(Number(RecordId));
-
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const { upload } = API.Utility.UploadImage();
   const InitialValues: PayTypeTable = {
     UserId: data?.UserId || (auth?.user ?? 0),
     Name: data?.Name || "",
@@ -58,6 +60,14 @@ const PayTypeForm: SFC<FormProps> = ({
   const handleSubmit = async (values: PayTypeTable): Promise<void> => {
     try {
       // console.log("values:", values);
+      const formData = new FormData();
+      let imagePath;
+      if (imageFile) {
+        formData.append("image", imageFile);
+        imagePath = await upload(formData);
+      }
+      values.Image = imagePath || null;
+
       if (data?.Id) update(Number(data.Id), values);
       else add(values);
       OnClose && OnClose();
@@ -67,7 +77,7 @@ const PayTypeForm: SFC<FormProps> = ({
   };
 
   return (
-    <S.Container className={ClassName}>
+    <S.Container className={cn("overflow-auto", ClassName)}>
       <S.Content className="flex justify-center items-center w-full flex-col ">
         <AccessControl OtherCondition={IsEdit && IsDetails}>
           <S.FormHeader className="flex flex-row items-center justify-between mb-3">
@@ -148,14 +158,14 @@ const PayTypeForm: SFC<FormProps> = ({
                                       <UIcon
                                         path={mdiWalletBifoldOutline}
                                         size={1}
-                                        className="text-green-400"
+                                        className="text-blue-400"
                                       />
                                       <span>GCash</span>
                                     </div>
                                   </>
                                 }
                               />
-                              <FormControlLabel
+                              {/*<FormControlLabel
                                 value="maya"
                                 control={
                                   <Radio
@@ -206,7 +216,7 @@ const PayTypeForm: SFC<FormProps> = ({
                                     </div>
                                   </>
                                 }
-                              />
+                              />*/}
                             </RadioGroup>
                           </FormControl>
                         </S.Divider>
@@ -238,25 +248,69 @@ const PayTypeForm: SFC<FormProps> = ({
                             onBlur={handleBlur}
                           />
                         </S.Divider>
+
                         <S.Divider className="w-full mb-[1rem]">
-                          <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                          <S.Divider className="w-full relative border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
+                            <label>
+                              <input
+                                id="upload-image"
+                                type="file"
+                                accept="image/*"
+                                name="Image"
+                                ref={fileInputRef}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    setImageFile(file);
+                                  }
+                                }}
+                                disabled={IsEdit}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                              />
+                            </label>
                             <S.Span>
                               <FolderOpenIcon className="text-slate-600" />
                             </S.Span>
-                            <S.Span className="text-sm text-slate-600 text-center">
-                              Drag & drop your supporting document or click the
-                              button to browse.
-                            </S.Span>
-                            <S.Span className="text-sm text-slate-600 mb-3">
-                              PDF, JPG, PNG (max 3MB)
-                            </S.Span>
+                            {!imageFile ? (
+                              <>
+                                <S.Span className="text-sm text-slate-600 text-center">
+                                  Drag & drop your supporting document or click
+                                  the button to browse.
+                                </S.Span>
+                                <S.Span className="text-sm text-slate-600 mb-3">
+                                  JPG, PNG (max 3MB)
+                                </S.Span>
+                              </>
+                            ) : (
+                              <S.Divider className="py-5">
+                                <span>
+                                  {imageFile?.name || "No file selected"}
+                                </span>
+                              </S.Divider>
+                            )}
                             <CustomButton
                               morph={false}
                               text="Upload Document"
+                              onClick={() => fileInputRef.current?.click()}
+                              type={ButtonType.button}
                               color={ButtonColor.default}
+                              disabled={IsEdit}
                             />
                           </S.Divider>
                         </S.Divider>
+                        <AccessControl
+                          OtherCondition={
+                            typeof data?.Image === "string" &&
+                            data?.Image.length > 0 // should display if there is an image
+                          }
+                        >
+                          <S.Divider className="max-w-[10rem] max-h-[10rem] mb-2">
+                            <S.Image
+                              src={data?.Image ?? ""}
+                              className="w-full h-full"
+                            />
+                          </S.Divider>
+                        </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end gap-3 items-center">
                             <CustomButton

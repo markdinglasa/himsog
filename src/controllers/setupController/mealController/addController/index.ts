@@ -13,11 +13,11 @@ export const MealAddController = async (
   try {
     const Data: MealTable = req.body;
     if (!Data || Data === null || Data === undefined)
-      return res.status(401).json({ data: false, message: Error.m014 });
+      return res.status(401).json({ data: [], message: Error.m014 });
     const { error } = mealValidator.validate({ ...Data });
     if (error)
       return res.status(401).json({
-        data: false,
+        data: [],
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
@@ -31,16 +31,21 @@ export const MealAddController = async (
         )
       ).data
     )
-      return res.status(401).json({ data: false, message: Error.m043 }); // check duplicate Name
+      return res.status(401).json({ data: [], message: Error.m043 }); // check duplicate Name
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (
-      !(await AddService.recordReturnData(DBTable.t005, Fields, Types, Values))
-    )
-      return res.status(401).json({ data: false, message: Error.m002 });
-    return res.status(200).json({ data: true, message: Success.m002 });
+    3;
+    const response = await AddService.recordReturnData(
+      DBTable.t005,
+      Fields,
+      Types,
+      Values,
+    );
+    if (!response)
+      return res.status(401).json({ data: [], message: Error.m002 });
+    return res.status(200).json({ data: response, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Meal-Controller [Add]:", error.message);

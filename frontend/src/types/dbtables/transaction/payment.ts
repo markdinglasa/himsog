@@ -21,6 +21,7 @@ interface SubscriptionData {
 }
 interface MealPlanData {
   Remark: string | null;
+  Notes: string | null;
   Image: string | null;
   Status: boolean;
 }

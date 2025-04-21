@@ -12,7 +12,7 @@ const useGetAllMeal = (UserId: number = 0) => {
       const response = await axios.get(
         `${APIChannel.MEAL_PARENT.replace(":Id", UserId.toString())}`,
       );
-      //console.log("Response:", response);
+      console.log("Response:", response);
       return response?.data?.data || [];
     },
     enabled: !!UserId,

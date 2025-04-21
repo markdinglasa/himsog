@@ -3,7 +3,7 @@ export enum PaymentQuery {
   q002 = "SELECT `Id` FROM `payment` WHERE `Id` = ?", // CHECK EXISTENCE
   q003 = "SELECT * FROM `payment` WHERE `Id` = ?", // GET
   q004 = "SELECT `Id` FROM `subscription_line` WHERE `UserId` = ? AND `IsCancelled` = false", // CHECK ACTIVE SUBSCRIPTION
-  q005 = "",
+  q005 = "SELECT `Id` FROM `payment` WHERE UserId = ? AND MealPlanId = ? AND JSON_EXTRACT(MealPlanData, '$.Status') = true", // CHECK DUPPLICATE ON CREATE
   q006 = "",
   q007 = "",
   q008 = "",

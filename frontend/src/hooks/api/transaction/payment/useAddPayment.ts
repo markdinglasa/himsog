@@ -12,7 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useAddPayment = (RouteChannel: RouteChannel) => {
+const useAddPayment = (
+  RouteChannel: RouteChannel,
+  Message: string = Success.m00002,
+) => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -26,7 +29,7 @@ const useAddPayment = (RouteChannel: RouteChannel) => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.PAYMENT],
       });
-      displayToast(Success.m00002, ToastType.success);
+      displayToast(Message, ToastType.success);
       navigate(RouteChannel);
     },
     onError: (error: any) => {

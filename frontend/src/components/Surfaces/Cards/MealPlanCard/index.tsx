@@ -14,13 +14,24 @@ const MealPlanCard: SFC<MealPlanCardProps> = ({ ClassName, Data }) => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const path = renderPath((auth?.roles ?? "") as Roles);
-
+  const bg = () => {
+    switch (Data?.Status ?? "Na") {
+      case "Done":
+        return "bg-green-100 hover:bg-green-100/60";
+      case "Pending":
+        return "bg-orange-100 hover:bg-orange-100/60";
+      case "NA":
+        return "bg-white hover:bg-slate-100/60";
+      default:
+        return "bg-white hover:bg-slate-100/60";
+    }
+  };
   return (
     <>
       <div
         onClick={() => navigate(`${path}/meal-plan/d/${Data?.Id ?? 0}`)}
         className={cn(
-          "w-full border rounded-md h-fit bg-white shadow-md cursor-pointer hover:bg-slate-100/60 duration-100 ease-in-out",
+          `w-full border rounded-md h-fit ${bg()} shadow-md cursor-pointer  duration-100 ease-in-out`,
           ClassName,
         )}
       >

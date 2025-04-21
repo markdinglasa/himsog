@@ -2,8 +2,8 @@ import {
   APIChannel,
   ButtonType,
   HeadCell,
-  MealHC,
-  MealTables,
+  MealPlanHC,
+  MealPlanTables,
   QueryKey,
   RouteChannel,
   SFC,
@@ -22,7 +22,7 @@ import Icon from "../../../../constants/icon";
 import { useAuth } from "../../../../hooks";
 import API from "../../../../hooks/api";
 
-export const MealPageView: SFC = ({ ClassName }) => {
+export const MealPlanPagePayments: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
     {
@@ -31,19 +31,18 @@ export const MealPageView: SFC = ({ ClassName }) => {
     },
   ];
   const { auth } = useAuth();
-  const { data: meals, isLoading } = API.Setup.Meal.GetAll(
+  const { data: MealPlans, isLoading } = API.Setup.MealPlan.GetAll(
     Number(auth?.user ?? 0),
   );
-  // console.log(meals);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Meal" />
+          <PageBreadCrumbs Links={links} Active="Meal Plan" />
           <S.Actions>
             <CustomButton
               leftIcon={<Icon.Add className="md:text-white text-primary" />}
-              onClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL_NEW)}
+              onClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW)}
               text="New"
               type={ButtonType.button}
             />
@@ -53,14 +52,14 @@ export const MealPageView: SFC = ({ ClassName }) => {
           <Suspense fallback={<Skeleton />}>
             <Suspense fallback={<Skeleton />}>
               <EnhancedTable
-                Title="Meals"
-                Rows={(meals as MealTables) || []}
-                HeadCells={MealHC as HeadCell<unknown>[]}
+                Title="Meal Plans"
+                Rows={(MealPlans as MealPlanTables) ?? []}
+                HeadCells={MealPlanHC as HeadCell<unknown>[]}
                 IsLoading={isLoading}
-                RemoveApiRoute={APIChannel.MEAL_ID}
-                DetailsRoute={RouteChannel.NUTRITIONIST_MEAL_DETAILS}
+                RemoveApiRoute={APIChannel.MEAL_PLAN_ID}
+                DetailsRoute={RouteChannel.NUTRITIONIST_MEAL_PLAN_DETAILS}
                 ClassName="md:max-h-[calc(100vh-200px)]"
-                QueryKey={QueryKey.MEAL}
+                QueryKey={QueryKey.MEAL_PLAN}
               />
             </Suspense>
           </Suspense>
@@ -69,4 +68,4 @@ export const MealPageView: SFC = ({ ClassName }) => {
     </>
   );
 };
-export default memo(MealPageView);
+export default memo(MealPlanPagePayments);

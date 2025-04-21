@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import {
   APIChannel,
   RouteChannel,
@@ -13,23 +13,23 @@ import { useMutation } from "@tanstack/react-query";
 const useAddMeal = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-  let Id = 0;
+  const IdRef = useRef(0);
   const mutation = useMutation({
     mutationFn: async (data: MealTable) => {
       const response = await axios.post(`${APIChannel.MEAL}`, data);
-      // console.log(response.data);
-      if (response.data) Id = response.data.Id;
-      return response.data;
+      //console.log(response.data);
+      if (response.data.data) IdRef.current = response?.data?.data?.Id ?? 0;
+      return response.data.data;
     },
     onSuccess: () => {
       // displayToast(Success.m00002, ToastType.success);
-      if (Id !== 0)
-        navigate(
-          RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
-            ":Id",
-            Id.toString(),
-          ),
-        );
+      // console.log("Id", IdRef.current);
+      navigate(
+        RouteChannel.NUTRITIONIST_MEAL_NEW_DETAILS.replace(
+          ":Id",
+          String(IdRef.current),
+        ),
+      );
     },
     onError: (error: any) => {
       displayToast(
