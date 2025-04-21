@@ -11,6 +11,7 @@ export interface FormProps {
   IsDisplay?: boolean;
   IsDetails?: boolean;
   IsDisapprove?: boolean;
+  IsMy?: boolean;
   IsPublic?: boolean;
   IsId?: boolean;
   OnClose?: () => void;

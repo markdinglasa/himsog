@@ -5,3 +5,4 @@ export * from "./removeController";
 export * from "./updateController";
 export * from "./getAllQueryController";
 export * from "./getDetailsController";
+export * from "./getAllMy";

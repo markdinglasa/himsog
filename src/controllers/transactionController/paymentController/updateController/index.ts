@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { PaymentTable } from "../../../../types";
+import { NotificationTable, PaymentTable } from "../../../../types";
 import { PaymentQuery, DBTable, Error, Success } from "../../../../shared";
 import { paymentValidator } from "../../../../validators";
-import { UpdateService } from "../../../../services";
+import { AddService, UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const PaymentUpdateController = async (
@@ -30,6 +30,44 @@ export const PaymentUpdateController = async (
     const Values = Object.values(Data);
     if (!(await UpdateService.record(Id, DBTable.t010, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+    //console.log("Status", Data);
+    if (Boolean(Data.IsMealPlan) && Boolean(Data?.MealPlanData?.Status)) {
+      // NOTIFY USER ON APPROVAL OF MEAL PLAN
+
+      const Notify: NotificationTable = {
+        UserId: Data.UserId,
+        Description: "Your meal plan has been approved.",
+        Link: `/c/meal-plan/d/${Data.MealPlanId}`,
+        IsRead: false,
+        DateCreated: new Date(),
+      };
+      await AddService.record(
+        DBTable.t008,
+        Object.keys(Notify),
+        Object.values(Notify).map((val) => typeof val),
+        Object.values(Notify),
+      );
+    }
+    if (
+      Boolean(Data.IsMealPlan) &&
+      Boolean(Data?.MealPlanData?.IsDisapproved)
+    ) {
+      // NOTIFY USER ON DISAPPROVAL OF MEAL PLAN
+      const Notify: NotificationTable = {
+        UserId: Data.UserId,
+        Description: "Your meal plan has been disapproved.",
+        Link: `/c/meal-plan/d/${Id}`,
+        IsRead: false,
+        DateCreated: new Date(),
+      };
+      await AddService.record(
+        DBTable.t008,
+        Object.keys(Notify),
+        Object.values(Notify).map((val) => typeof val),
+        Object.values(Notify),
+      );
+    }
+
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {
     logging.log("----------------------------------------");

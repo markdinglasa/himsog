@@ -93,7 +93,8 @@ export enum RouteChannel {
   CLIENT_REQUEST_MEAL_PLAN = "/c/request",
   CLIENT_REQUEST_MEAL_PLAN_NEW = "/c/request/new",
   CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/request/d/:id",
-
+  CLIENT_MY_MEAL_PLAN = "/c/u/meal-plan",
+  CLIENT_MY_MEAL_PLAN_DETAILS = "/c/u/meal-plan/d/:Id",
   // NUTRITIONIST PAGES
   NUTRITIONIST_DASHBOARD = "/n",
   NUTRITIONIST_PRIVACY_POLICY = "/n/privacy-policy",
@@ -112,8 +113,8 @@ export enum RouteChannel {
   NUTRITIONIST_MEAL_PLAN = "/n/meal-plan",
   NUTRITIONIST_MEAL_PLAN_NEW = "/n/meal-plan/new",
   NUTRITIONIST_MEAL_PLAN_NEW_DETAILS = "/n/meal-plan/new/:Id",
-  NUTRITIONIST_MEAL_PLAN_PAYMENT = "/n/meal-plan/p",
-  NUTRITIONIST_MEAL_PLAN_PAYMENT_DETAILS = "/n/meal-plan/p/:Id",
+  NUTRITIONIST_MEAL_PLAN_PAYMENT = "/n/meal-plan/payments",
+  NUTRITIONIST_MEAL_PLAN_PAYMENT_DETAILS = "/n/meal-plan/payments/:Id",
   NUTRITIONIST_MEAL_PLAN_REQUEST = "/n/meal-plan-request",
   NUTRITIONIST_MEAL_PLAN_REQUEST_NEW = "/n/meal-plan-request/new",
   NUTRITIONIST_MEAL_PLAN_REQUEST_DETAILS = "/n/meal-plan-request/d/:Id",

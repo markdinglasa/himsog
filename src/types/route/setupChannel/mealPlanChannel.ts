@@ -1,4 +1,5 @@
 export enum MealPlanChannel {
+  MY_MEAL_PLANS = "/setup/u/meal-plans",
   MEAL_PLANS = "/setup/meal-plans",
   MEAL_PLAN_DETAILS = "/setup/meal-plans/d",
   MEAL_PLAN = "/setup/meal-plan",

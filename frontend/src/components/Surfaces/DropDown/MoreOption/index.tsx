@@ -7,11 +7,15 @@ import { twMerge } from "tailwind-merge";
 import MoreVert from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 interface OptionProps {
   EditOnClick?: (e: any) => void;
   DeleteOnClick?: (e: any) => void;
   MarkAsRead?: (e: any) => void;
   UnsentMessage?: (e: any) => void;
+  Feedback?: (e: any) => void;
+  Activate?: (e: any) => void;
   IconColor?: string;
 }
 
@@ -21,6 +25,8 @@ export const MoreOption: SFC<OptionProps> = ({
   DeleteOnClick,
   MarkAsRead,
   UnsentMessage,
+  Feedback,
+  Activate,
   IconColor = "text-slate-100",
 }) => {
   const [activeDropdown, setActiveDropdown] = useState<null | string>(null);
@@ -105,6 +111,30 @@ export const MoreOption: SFC<OptionProps> = ({
             >
               <DeleteIcon className="text-primary" />{" "}
               <span className="ml-2">Delete</span>
+            </S.DropdownItem>
+          )}
+          {Feedback && (
+            <S.DropdownItem
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
+              onClick={(e) => {
+                Feedback(e);
+                setActiveDropdown(null);
+              }}
+            >
+              <StarRateIcon className="text-primary" />{" "}
+              <span className="ml-2">Rate</span>
+            </S.DropdownItem>
+          )}
+          {Activate && (
+            <S.DropdownItem
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
+              onClick={(e) => {
+                Activate(e);
+                setActiveDropdown(null);
+              }}
+            >
+              <CheckCircleOutlineIcon className="text-primary" />{" "}
+              <span className="ml-2">Activate</span>
             </S.DropdownItem>
           )}
         </S.Dropdown>

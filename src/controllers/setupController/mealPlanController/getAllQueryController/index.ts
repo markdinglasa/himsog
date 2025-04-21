@@ -17,7 +17,7 @@ export const MealPlanGetWithQueryController = async (
     const LEFT_JOIN_DATA =
       "LEFT JOIN `user` AS u ON u.`Id`= mp.`UserId` LEFT JOIN `payment` AS p ON p.`MealPlanId` = mp.`Id` ";
     // Construct SQL Query with filters
-    let query = `SELECT mp.*, u.ProfilePhoto AS UserImage, CONCAT(Firstname, ' ', IFNULL(NULLIF(Middlename, ''), ''), ' ', Lastname) AS UserFullname, CASE WHEN JSON_EXTRACT(p.MealPlanData, '$.Status') = true THEN 'Done' WHEN JSON_EXTRACT(p.\`MealPlanData\`, '$.Status') = false THEN 'Pending' ELSE 'NA' END AS Status FROM \`meal_plan\` AS mp ${LEFT_JOIN_DATA} ${filter === "all" ? "" : "WHERE \`Name\` LIKE ? "} LIMIT ${RECORDS_PER_PAGE} OFFSET ${offset}`;
+    let query = `SELECT mp.Id, mp.UserId, mp.Name, mp.Description, mp.Type, mp.Diet, mp.Duration, mp.Price,u.ProfilePhoto AS UserImage, CONCAT(Firstname, ' ', IFNULL(NULLIF(Middlename, ''), ''), ' ', Lastname) AS UserFullname, CASE WHEN JSON_EXTRACT(p.MealPlanData, '$.Status') = true THEN 'Approved' WHEN JSON_EXTRACT(p.\`MealPlanData\`, '$.Status') = false THEN 'Pending' ELSE 'NA' END AS Status, COUNT(CASE WHEN JSON_EXTRACT(p.MealPlanData, '$.Status') = true THEN 1 ELSE null END) AS Sold FROM \`meal_plan\` AS mp ${LEFT_JOIN_DATA} ${filter === "all" ? "" : "WHERE \`Name\` LIKE ? "} GROUP BY mp.Id, mp.UserId, mp.Name, mp.Description, mp.Type, mp.Diet, mp.Duration, mp.Price, u.ProfilePhoto, CONCAT(Firstname, ' ', IFNULL(NULLIF(Middlename, ''), ''), ' ', Lastname), CASE WHEN JSON_EXTRACT(p.MealPlanData, '$.Status') = true THEN 'Approved' WHEN JSON_EXTRACT(p.\`MealPlanData\`, '$.Status') = false THEN 'Pending' ELSE 'NA' END LIMIT ${RECORDS_PER_PAGE} OFFSET ${offset}`;
     let queryParams = filter !== "all" ? [`%${filter}%`] : [];
 
     /*console.log("Executing Query:", query);

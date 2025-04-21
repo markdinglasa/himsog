@@ -158,6 +158,7 @@ export const MealPlanPagePayments: SFC = ({ ClassName }) => {
                   },
                 };
                 update(record?.Record?.Id ?? 0, data);
+
                 toggleModal();
               }}
             />

@@ -100,7 +100,9 @@ export const EnhancedTable = <T extends Record<string, any>>({
     isLocked: boolean,
   ) => {
     if (IsModal) {
-      if (data.IsApproved)
+      if (data.Status === "Approved")
+        displayToast("Payment is already approved", ToastType.error);
+      else if (data.IsApproved)
         displayToast("Request is already approved", ToastType.error);
       else ToggleModal && ToggleModal();
       setRecord({
@@ -276,9 +278,13 @@ export const EnhancedTable = <T extends Record<string, any>>({
                       backgroundColor:
                         activeRowId === String(row["Id"])
                           ? colors.palette.neutral["100"]
-                          : row["IsSuspended"] || row["IsCancelled"]
+                          : row["IsSuspended"] ||
+                              row["IsCancelled"] ||
+                              row["IsDisapproved"]
                             ? colors.palette.red["200"]
-                            : row["IsLocked"] || row["IsApproved"]
+                            : row["IsLocked"] ||
+                                row["IsApproved"] ||
+                                row["Status"] === "Approved"
                               ? colors.palette.green["050"]
                               : "none",
                     }}

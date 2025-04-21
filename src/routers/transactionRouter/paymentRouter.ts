@@ -8,6 +8,7 @@ import {
   PaymentGetController,
   PaymentRemoveController,
   PaymentUpdateController,
+  PaymentGetAllMealPlanController,
 } from "../../controllers";
 
 const router = express.Router();
@@ -15,6 +16,11 @@ router.get(
   `${API_VERSION}${RouteChannel.PAYMENT}`,
   TokenHandler.verifyToken,
   PaymentGetAllController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.PAYMENT_MEAL_PLAN}`,
+  TokenHandler.verifyToken,
+  PaymentGetAllMealPlanController,
 );
 router.post(
   `${API_VERSION}${RouteChannel.PAYMENT}`,

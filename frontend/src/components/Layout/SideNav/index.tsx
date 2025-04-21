@@ -13,6 +13,7 @@ import {
   mdiViewDashboardOutline,
   mdiFoodTakeoutBoxOutline,
   mdiCreditCardOutline,
+  mdiPasta,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
@@ -211,6 +212,17 @@ export const SideNav: SFC<SideNavProps> = ({
                   />
                 </AccessControl>
                 <AccessControl UserRoles={[Roles.client]}>
+                  <Menu
+                    icon={mdiPasta}
+                    isCollapse={Collapse}
+                    label="My Meal Plans"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.CLIENT_MY_MEAL_PLAN);
+                      setActive(RouteChannel.CLIENT_MY_MEAL_PLAN);
+                    }}
+                    IsActive={active === RouteChannel.CLIENT_MY_MEAL_PLAN}
+                  />
                   <Menu
                     icon={mdiFoodVariant}
                     isCollapse={Collapse}

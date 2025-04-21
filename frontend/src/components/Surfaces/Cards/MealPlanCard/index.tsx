@@ -15,8 +15,8 @@ const MealPlanCard: SFC<MealPlanCardProps> = ({ ClassName, Data }) => {
   const { auth } = useAuth();
   const path = renderPath((auth?.roles ?? "") as Roles);
   const bg = () => {
-    switch (Data?.Status ?? "Na") {
-      case "Done":
+    switch (Data?.Status ?? "NA") {
+      case "Approved":
         return "bg-green-100 hover:bg-green-100/60";
       case "Pending":
         return "bg-orange-100 hover:bg-orange-100/60";

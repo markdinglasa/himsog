@@ -9,6 +9,7 @@ import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { AccessControl } from "..";
 import { useAuth } from "../../../hooks";
+import { MoreOption } from "../../Surfaces";
 // import { useAuth } from "../../../hooks";
 
 export const MealPlanDetails: SFC = ({ ClassName }) => {
@@ -41,6 +42,17 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
                   leftIcon={<Icon.Cart />}
                   text="Purchase"
                   morph={false}
+                />
+              </AccessControl>
+              <AccessControl OtherCondition={isPaid?.Status === "Approved"}>
+                <MoreOption
+                  IconColor="text-primary"
+                  Feedback={() => {
+                    alert("rate");
+                  }}
+                  Activate={() => {
+                    alert("activate");
+                  }}
                 />
               </AccessControl>
             </div>
@@ -90,11 +102,13 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
           </AccessControl>
           <AccessControl OtherCondition={true}>
             <div className="relative">
-              <div className="z-10 w-full h-full absolute"></div>
+              <AccessControl OtherCondition={isPaid?.Status !== "Approved"}>
+                <div className="z-10 w-full h-full absolute"></div>
+              </AccessControl>
               <MealPlanMeals
                 IsDetails={true}
                 IsDisplay={true}
-                ClassName={isPaid?.Status === "Done" ? "" : "blur-lg"}
+                ClassName={isPaid?.Status === "Approved" ? "" : "blur-lg"}
               />
             </div>
           </AccessControl>

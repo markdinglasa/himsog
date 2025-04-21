@@ -24,6 +24,7 @@ interface MealPlanData {
   Remark: string | null;
   Image: string | null;
   Status: boolean;
+  IsDisapproved: boolean;
 }
 export interface PaymentTable extends Id, Logs {
   TransactionDate: string;
@@ -38,6 +39,7 @@ export interface PaymentTable extends Id, Logs {
   IsMealPlan: boolean;
   SubscriptionData: SubscriptionData | null;
   MealPlanData: MealPlanData | null;
+  Status?: string;
 }
 export type PaymentTables = PaymentTable[];
 export const PaymentInitial: PaymentTable = {

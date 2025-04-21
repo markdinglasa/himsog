@@ -6,6 +6,7 @@ export enum PaymentChannel {
   PAYMENT_UPDATE = "/transaction/appointment/update/:Id",
 
   PAYMENT = "/transaction/payment",
+  PAYMENT_MEAL_PLAN = "/transaction/payment/mp/:Id",
   PAYMENT_ID = "/transaction/payment/:Id",
-  PAYMENT_USER = "/transaction/payment/u?=:Id",
+  PAYMENT_USER = "/transaction/payment/u/:Id",
 }
