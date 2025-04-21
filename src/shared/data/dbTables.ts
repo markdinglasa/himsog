@@ -31,7 +31,7 @@ export enum DBTable {
   t029 = "pay_type",
   t030 = "article",
   t031 = "medical",
-  t032 = "",
+  t032 = "meal_plan_rating",
   t033 = "",
   t034 = "",
   t035 = "",
