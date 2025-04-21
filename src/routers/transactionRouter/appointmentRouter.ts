@@ -16,7 +16,7 @@ router.get(
   TokenHandler.verifyToken,
   AppointmentGetAllController,
 );
-router.get(
+router.post(
   `${API_VERSION}${RouteChannel.APPOINTMENT}`,
   TokenHandler.verifyToken,
   AppointmentAddController,
@@ -26,12 +26,12 @@ router.get(
   TokenHandler.verifyToken,
   AppointmentGetController,
 );
-router.get(
+router.delete(
   `${API_VERSION}${RouteChannel.APPOINTMENT_ID}`,
   TokenHandler.verifyToken,
   AppointmentRemoveController,
 );
-router.get(
+router.patch(
   `${API_VERSION}${RouteChannel.APPOINTMENT_ID}`,
   TokenHandler.verifyToken,
   AppointmentUpdateController,

@@ -10,7 +10,10 @@ import Icon from "../../../constants/icon";
 import { AccessControl } from "..";
 import { useAuth } from "../../../hooks";
 import { MoreOption } from "../../Surfaces";
+import { CustomModal } from "../../../modals";
+import { useToggle } from "react-use";
 // import { useAuth } from "../../../hooks";
+import Form from "../../Surfaces/Forms";
 
 export const MealPlanDetails: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
@@ -20,7 +23,8 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
 
   const { data: isPaid, isLoading: paidLoading } =
     API.Setup.MealPlan.GetDetails(auth?.user ?? 0, Number(Id));
-  console.log(isPaid);
+  const [isModal, toggleModal] = useToggle(false);
+
   if (isLoading && paidLoading) return <Skeleton />;
   return (
     <>
@@ -47,9 +51,7 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
               <AccessControl OtherCondition={isPaid?.Status === "Approved"}>
                 <MoreOption
                   IconColor="text-primary"
-                  Feedback={() => {
-                    alert("rate");
-                  }}
+                  Feedback={toggleModal}
                   Activate={() => {
                     alert("activate");
                   }}
@@ -114,6 +116,16 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
           </AccessControl>
         </div>
       </div>
+      <CustomModal
+        close={toggleModal}
+        title={"Write a Review"}
+        open={isModal}
+        ClassName="md:w-[40rem] w-[80vw] max-h-[80vh] h-fit"
+      >
+        <div>
+          <Form.Transaction.MealPlanRating Title="" OnClose={toggleModal} />
+        </div>
+      </CustomModal>
     </>
   );
 };

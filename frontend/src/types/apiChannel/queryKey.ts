@@ -15,6 +15,7 @@ export enum QueryKey {
   MEAL_PLAN = "meal-plan",
   MY_MEAL_PLAN = "my-meal-plan",
   MEAL_PLAN_LINE = "meal-plan-line",
+  MEAL_PLAN_RATING = "meal-plan-rating",
   MEAL_PLAN_REQUEST = "meal-plan-request",
   NOTIFICATION = "notification",
   NOTIFICATION_IS_NOTIFY = "notification-is-notify",

@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const mealPlanRatingValidator = Joi.object({
-  UserId: Joi.number().integer().positive().required(),
+  MealPlanId: Joi.number().integer().positive().required(),
   Rate: Joi.number().integer().positive().required(),
   Remarks: Joi.string().allow("").allow(null).required(),
   CreatedBy: Joi.number().integer().positive().required(),
