@@ -4,7 +4,6 @@ import {
   Currency,
   FormProps,
   InputType,
-  PaymentStatus,
   PaymentTable,
   Roles,
   RouteChannel,
@@ -75,6 +74,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
       Image: "NA",
       Status: false,
       Notes: null,
+      IsDisapproved: false,
     },
   };
 

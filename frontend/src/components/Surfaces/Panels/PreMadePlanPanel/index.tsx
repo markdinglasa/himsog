@@ -2,7 +2,6 @@ import { SFC } from "../../../../types";
 import * as S from "../../../../styles/Styles";
 import { cn } from "../../../../utils";
 import { memo } from "react";
-import MealPlans from "../../../DataDisplay/MealPlans";
 
 export const PreMadePlanPanel: SFC = ({ ClassName }) => {
   return (

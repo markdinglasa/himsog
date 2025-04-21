@@ -12,6 +12,7 @@ import {
   mdiScale,
   mdiViewDashboardOutline,
   mdiFoodTakeoutBoxOutline,
+  mdiCreditCardOutline,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
@@ -193,6 +194,19 @@ export const SideNav: SFC<SideNavProps> = ({
                     }}
                     IsActive={
                       active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
+                    }
+                  />
+                  <Menu
+                    icon={mdiCreditCardOutline}
+                    isCollapse={Collapse}
+                    label="Payments"
+                    onClick={() => {
+                      Toggle();
+                      navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_PAYMENT);
+                      setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_PAYMENT);
+                    }}
+                    IsActive={
+                      active === RouteChannel.NUTRITIONIST_MEAL_PLAN_PAYMENT
                     }
                   />
                 </AccessControl>

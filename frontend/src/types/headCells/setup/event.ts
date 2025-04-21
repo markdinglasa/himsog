@@ -9,12 +9,6 @@ export const EventHC: HeadCell<EventTable>[] = [
     label: "Title",
   },
   {
-    Id: "Category",
-    numeric: false,
-    disablePadding: false,
-    label: "Category",
-  },
-  {
     Id: "ScheduleDate",
     numeric: false,
     disablePadding: false,

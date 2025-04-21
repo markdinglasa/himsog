@@ -4,7 +4,6 @@ import { useAuth } from "../../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { memo, useEffect } from "react";
 import { cn, getCurrentDate, renderPath } from "../../../../utils";
-import Card from "../../../../components/Surfaces/Cards";
 import DefaultImage from "../../../../asset/images/default-image.jpg";
 import { truncate } from "lodash";
 

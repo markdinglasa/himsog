@@ -19,6 +19,7 @@ export enum QueryKey {
   NOTIFICATION_IS_NOTIFY = "notification-is-notify",
   NUTRITION_FACT = "nutrition-fact",
   PAYMENT = "payment",
+  PAYMENT_MEAL_PLAN = "payment-meal-plan",
   PAY_TYPE = "pay-type",
   PROFESSION = "profession",
   PROFESSION_RATING = "profession-rating",

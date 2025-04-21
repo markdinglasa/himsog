@@ -9,13 +9,40 @@ export const paymentHC: HeadCell<PaymentTable>[] = [
     label: "Transaction Date",
   },
   {
-    Id: "UserId",
+    Id: "UserFullname",
     numeric: false,
     disablePadding: false,
-    label: "Client",
+    label: "User",
   },
   {
     Id: "Amount",
+    numeric: true,
+    disablePadding: false,
+    label: "Amount",
+  },
+  {
+    Id: "Status",
+    numeric: true,
+    disablePadding: false,
+    label: "Status",
+  },
+];
+
+export const paymentMealPlanHC: HeadCell<PaymentTable>[] = [
+  {
+    Id: "TransactionDate",
+    numeric: false,
+    disablePadding: false,
+    label: "Transaction Date",
+  },
+  {
+    Id: "UserFullname",
+    numeric: false,
+    disablePadding: false,
+    label: "User",
+  },
+  {
+    Id: "MealPlanPrice",
     numeric: true,
     disablePadding: false,
     label: "Amount",

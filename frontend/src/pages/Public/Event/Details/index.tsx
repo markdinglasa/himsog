@@ -19,12 +19,12 @@ const PublicEventDetailsPage: SFC = ({ ClassName }) => {
   }, [auth]);
 
   const { Id } = useParams<{ Id: string }>();
-  const { data } = API.Setup.Event.Get(Number(Id));
+  const { data, isLoading } = API.Setup.Event.Get(Number(Id));
   return (
     <>
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
         <Suspense fallback={<Skeleton />}>
-          <EventDetails Data={data} />
+          <EventDetails Data={data} Loading={isLoading} />
         </Suspense>
       </S.Container>
     </>

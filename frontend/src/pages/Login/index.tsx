@@ -8,7 +8,6 @@ import {
   Roles,
   RouteChannel,
   SFC,
-  ToastType,
   UserTable,
 } from "../../types";
 import { memo, useEffect, useState } from "react";
@@ -18,7 +17,7 @@ import { BASE_URL, Error, loginFormValues } from "../../shared";
 import { useAuth } from "../../hooks";
 import { loginValidator } from "../../validators";
 import * as S from "../../styles";
-import { cn, displayToast, renderPath } from "../../utils";
+import { cn, renderPath } from "../../utils";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Logo from "../../asset/svg/logo.svg";
 import GoogleLogo from "../../asset/images/google-logo.png";

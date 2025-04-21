@@ -2,7 +2,7 @@ import { NotificationTable, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs, Skeleton, NoRecord } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { memo, Suspense } from "react";
+import { memo } from "react";
 import API from "../../../hooks/api";
 import { useAuth } from "../../../hooks";
 import Card from "../../../components/Surfaces/Cards";

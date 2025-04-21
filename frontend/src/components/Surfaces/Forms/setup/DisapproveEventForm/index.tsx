@@ -36,15 +36,11 @@ export const DisapproveEventForm: SFC<FormProps> = ({
 
   const InitialValues: EventTable = {
     Title: data?.Title || "",
-    Category: data?.Category || "",
-    Type: data?.Type || "",
     Image: data?.Image || null,
     Description: data?.Description || null,
     ScheduleDate: data?.ScheduleDate || "",
     Location: data?.Location || "",
-    ContactPerson: data?.ContactPerson || "",
-    ContactNumber: data?.ContactNumber || "",
-    ContactEmail: data?.ContactEmail || "",
+
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { APIChannel, ToastType, MedicalTable } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
@@ -7,13 +7,13 @@ import { Success } from "../../../../shared";
 
 const useAddMedical = () => {
   const axios = useAxiosPrivate();
-  let Id = 0;
+  const IdRef = useRef(0);
   const mutation = useMutation({
     mutationFn: async (data: MedicalTable) => {
       const response = await axios.post(`${APIChannel.MEDICAL}`, data);
       // console.log(response.data);
-      if (response.data) Id = response.data.Id;
-      return response.data;
+      if (response.data.data) IdRef.current = response?.data?.data?.Id ?? 0;
+      return response.data.data;
     },
     onSuccess: () => {
       displayToast(Success.m00002, ToastType.success);

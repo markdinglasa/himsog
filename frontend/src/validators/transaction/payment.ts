@@ -17,6 +17,7 @@ export const paymentValidator = () => {
         Notes: yup.string().nullable().optional(),
         Image: yup.string().nullable().required(),
         Status: yup.boolean().optional(),
+        IsDisapproved: yup.boolean().optional(),
       })
       .nullable()
       .optional(),
