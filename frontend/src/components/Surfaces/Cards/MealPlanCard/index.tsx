@@ -3,7 +3,7 @@ import { MealPlanTable, Roles, SFC } from "../../../../types";
 import { cn, renderPath, truncate } from "../../../../utils";
 import { useAuth } from "../../../../hooks";
 import { memo } from "react";
-import { Avatar, Tooltip } from "@mui/material";
+import { Avatar, Rating, Tooltip } from "@mui/material";
 import Icon from "../../../../constants/icon";
 
 interface MealPlanCardProps {
@@ -26,6 +26,9 @@ const MealPlanCard: SFC<MealPlanCardProps> = ({ ClassName, Data }) => {
         return "bg-white hover:bg-slate-100/60";
     }
   };
+  function getLabelText(value: number) {
+    return `${value} Star${value !== 1 ? "s" : ""}`;
+  }
   return (
     <>
       <div
@@ -82,9 +85,19 @@ const MealPlanCard: SFC<MealPlanCardProps> = ({ ClassName, Data }) => {
                   </span>
                 </div>
                 <div className="flex items-center justify-end">
-                  <Icon.Star className="text-primary" fontSize="small" />
-                  <span className="text-sm  ml-1">
-                    {parseFloat(Data?.Rating?.toString() ?? "0")}/10
+                  <Rating
+                    name="hover-feedback"
+                    value={Data.Rating ?? 0}
+                    precision={0.5}
+                    getLabelText={getLabelText}
+                    defaultValue={Data.Rating ?? 0}
+                    emptyIcon={
+                      <Icon.Star style={{ opacity: 0.55 }} fontSize="inherit" />
+                    }
+                    readOnly
+                  />
+                  <span className="text-sm ml-1">
+                    {parseFloat(String(Data.Rating ?? 0))}/5
                   </span>
                 </div>
               </div>
