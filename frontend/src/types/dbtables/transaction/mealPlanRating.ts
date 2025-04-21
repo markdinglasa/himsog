@@ -4,6 +4,8 @@ export interface MealPlanRating extends Id, Logs {
   MealPlanId: number;
   Rate: number;
   Remarks: string | null;
+  UserPhoto?: string | null;
+  UserFullname?: string;
 }
 export type MealPlanRatings = MealPlanRating[];
 export const MealPlanRatingInitial: MealPlanRating = {

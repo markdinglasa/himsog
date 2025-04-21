@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { RouteChannel, SFC } from "../../../types";
+import { ButtonColor, RouteChannel, SFC } from "../../../types";
 import { cn, formatNumber } from "../../../utils";
 import API from "../../../hooks/api";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { AccessControl } from "..";
 import { useAuth } from "../../../hooks";
-import { MoreOption } from "../../Surfaces";
 import { CustomModal } from "../../../modals";
 import { useToggle } from "react-use";
 // import { useAuth } from "../../../hooks";
@@ -49,13 +48,33 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
                 />
               </AccessControl>
               <AccessControl OtherCondition={isPaid?.Status === "Approved"}>
-                <MoreOption
-                  IconColor="text-primary"
-                  Feedback={toggleModal}
-                  Activate={() => {
-                    alert("activate");
-                  }}
-                />
+                <div className="flex flex-row gap-[1rem]">
+                  <AccessControl OtherCondition={!(isPaid?.IsRated ?? false)}>
+                    <CustomButton
+                      onClick={toggleModal}
+                      leftIcon={<Icon.Star className="text-primary" />}
+                      text="Rate"
+                      morph={false}
+                      color={ButtonColor.default}
+                    />
+                  </AccessControl>
+                  <AccessControl OtherCondition={isPaid?.IsRated ?? false}>
+                    <CustomButton
+                      onClick={toggleModal}
+                      leftIcon={<Icon.Star className="text-primary" />}
+                      text="View Rating"
+                      morph={false}
+                      color={ButtonColor.default}
+                    />
+                  </AccessControl>
+                  <CustomButton
+                    onClick={() => {}}
+                    leftIcon={<Icon.CheckCircle />}
+                    text="Activate"
+                    morph={false}
+                    disabled={isPaid?.IsActive ?? false}
+                  />
+                </div>
               </AccessControl>
             </div>
             <div className="flex flex-row items-center ">
@@ -118,7 +137,7 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
       </div>
       <CustomModal
         close={toggleModal}
-        title={"Write a Review"}
+        title={"Write a rating"}
         open={isModal}
         ClassName="md:w-[40rem] w-[80vw] max-h-[80vh] h-fit"
       >

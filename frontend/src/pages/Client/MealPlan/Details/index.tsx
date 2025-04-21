@@ -6,6 +6,7 @@ import { memo } from "react";
 import Icon from "../../../../constants/icon";
 import { useNavigate } from "react-router-dom";
 import MealPlanDetails from "../../../../components/DataDisplay/MealPlanDetails";
+import MealPlanReviews from "../../../../components/DataDisplay/MealPlanReviews";
 
 export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -34,6 +35,9 @@ export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="rounded-md border">
           <MealPlanDetails />
+        </S.PageContent>
+        <S.PageContent className="rounded-md border">
+          <MealPlanReviews />
         </S.PageContent>
       </S.Container>
     </>

@@ -17,7 +17,7 @@ router.get(
   MealPlanRatingGetController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATING_PARENT}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATINGS}`,
   TokenHandler.verifyToken,
   MealPlanRatingGetAllController,
 );
@@ -40,7 +40,7 @@ router.patch(
 logging.log("----------------------------------------");
 logging.log("------MEAL PLAN RATING CONTROLLER------");
 logging.log(`POST ${RouteChannel.MEAL_PLAN_RATING} [add]`);
-logging.log(`GET ${RouteChannel.MEAL_PLAN_RATING_PARENT} [get-all]`);
+logging.log(`GET ${RouteChannel.MEAL_PLAN_RATINGS} [get-all]`);
 logging.log(`GET ${RouteChannel.MEAL_PLAN_RATING_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.MEAL_PLAN_RATING_ID} [remove]`);
 logging.log(`UPDATE ${RouteChannel.MEAL_PLAN_RATING_ID} [update]`);
