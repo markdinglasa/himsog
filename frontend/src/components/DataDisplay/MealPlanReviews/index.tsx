@@ -61,6 +61,12 @@ export const MealPlanReviews: SFC = ({ ClassName }) => {
     return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
   }
 
+  const hideName = (IsHidden: boolean, Name: string) => {
+    return IsHidden
+      ? `${Name.charAt(0)}${Name.slice(1).replace(/./g, "*")}`
+      : Name; // if ishidden change name to *'s except the first letter
+  };
+
   return (
     <>
       <div className={cn("w-full", ClassName)}>
@@ -99,7 +105,10 @@ export const MealPlanReviews: SFC = ({ ClassName }) => {
                           <div className="w-full ">
                             <div className="flex flex-col">
                               <span className="text-sm font-medium">
-                                {record?.UserFullname ?? "NA"}
+                                {hideName(
+                                  record?.IsHidden ?? false,
+                                  record?.UserFullname ?? "NA",
+                                )}
                               </span>
 
                               <span className="text-sm">

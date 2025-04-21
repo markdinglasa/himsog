@@ -1,8 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { MealPlanRating } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import {
+  DBTable,
+  Error,
+  MealPlanRatingQuery,
+  Success,
+} from "../../../../shared";
 import { mealPlanRatingValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
+import { isFound } from "../../../../functions";
 
 export const MealPlanRatingAddController = async (
   req: Request,
@@ -20,6 +26,18 @@ export const MealPlanRatingAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+
+    if (
+      (
+        await isFound(
+          MealPlanRatingQuery.q004,
+          ["CreatedBy", "MealPlanId"],
+          [Number, Number],
+          [Data.CreatedBy, Data.MealPlanId],
+        )
+      ).data
+    )
+      return res.status(401).json({ data: false, message: Error.m050 }); // check duplicate rating on the same meal plan
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

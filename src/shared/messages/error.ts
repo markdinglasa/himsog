@@ -48,4 +48,5 @@ export enum Error {
   m047 = "Password is incorrect",
   m048 = "User has an active subscription.",
   m049 = "User already already medical record",
+  m050 = "Meal plan is already rated",
 }

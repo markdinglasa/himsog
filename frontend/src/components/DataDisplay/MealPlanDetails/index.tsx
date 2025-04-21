@@ -137,12 +137,16 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
       </div>
       <CustomModal
         close={toggleModal}
-        title={"Write a rating"}
+        title={isPaid?.IsRated ? "Your Meal Plan Rating" : "Write a rating"}
         open={isModal}
         ClassName="md:w-[40rem] w-[80vw] max-h-[80vh] h-fit"
       >
         <div>
-          <Form.Transaction.MealPlanRating Title="" OnClose={toggleModal} />
+          <Form.Transaction.MealPlanRating
+            Title=""
+            OnClose={toggleModal}
+            IsDisplay={isPaid?.IsRated ?? false}
+          />
         </div>
       </CustomModal>
     </>

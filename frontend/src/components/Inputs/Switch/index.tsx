@@ -33,6 +33,7 @@ export const SwitchButton: SFC<SwitchButtonProps> = ({
             name={Name}
             onChange={OnChange}
             checked={Values}
+            color="success"
             sx={{
               "& .MuiSwitch-switchBase.Mui-checked": {
                 color: colors.primary,

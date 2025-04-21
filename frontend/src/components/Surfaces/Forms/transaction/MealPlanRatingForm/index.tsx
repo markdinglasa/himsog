@@ -8,7 +8,7 @@ import {
 } from "../../../../../types";
 import * as S from "../../../../../styles";
 import { Form, Formik } from "formik";
-import { CustomButton } from "../../../../Inputs";
+import { CustomButton, SwitchButton } from "../../../../Inputs";
 import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
@@ -20,22 +20,28 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../../../../../hooks";
 import { Box, Rating } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import { Skeleton } from "../../../../Feedback";
 
 export const MealPlanRatingForm: SFC<FormProps> = ({
   ClassName,
   Title,
   OnClose,
+  IsDisplay = false,
 }) => {
   const { Id } = useParams<{ Id: string }>();
   const { add } = API.Transaction.MealPlanRating.Add();
   const { auth } = useAuth();
-
+  const { data, isLoading } = API.Transaction.MealPlanRating.Get(
+    Number(Id),
+    auth?.user ?? 0,
+  );
   const InitialValues: MealPlanRating = {
-    CreatedBy: auth?.user ?? 0,
-    UpdatedBy: auth?.user ?? 0,
-    Remarks: null,
-    MealPlanId: Number(Id),
-    Rate: 0,
+    CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
+    UpdatedBy: data?.UpdatedBy || (auth?.user ?? 0),
+    Remarks: data?.Remarks || null,
+    MealPlanId: data?.MealPlanId || Number(Id),
+    Rate: data?.Rate || 0,
+    IsHidden: data?.IsHidden || false,
   };
 
   const handleSubmit = async (values: MealPlanRating) => {
@@ -94,70 +100,99 @@ export const MealPlanRatingForm: SFC<FormProps> = ({
                 handleBlur,
                 setFieldValue,
                 values,
-              }) => (
-                <Form>
-                  <S.Divider className="w-full flex flex-row ">
-                    <Rating
-                      name="hover-feedback"
-                      value={values.Rate}
-                      precision={0.5}
-                      getLabelText={getLabelText}
-                      defaultValue={values.Rate}
-                      onChange={(_event, newValue) => {
-                        setFieldValue("Rate", newValue);
-                      }}
-                      onChangeActive={(_event, newHover) => {
-                        setHover(newHover);
-                      }}
-                      emptyIcon={
-                        <StarIcon
-                          style={{ opacity: 0.55 }}
-                          fontSize="inherit"
+                errors,
+                touched,
+                setTouched,
+              }) =>
+                !isLoading ? (
+                  <Form>
+                    <S.Divider className="w-full flex flex-col justify-start items-start mb-2">
+                      <S.Divider>
+                        <SwitchButton
+                          Name="IsHidden"
+                          Label="Hide Name"
+                          Disabled={IsDisplay}
+                          OnChange={(_: any, value: any) => {
+                            setFieldValue("IsHidden", value || false);
+                            setTouched({ IsHidden: true });
+                          }}
+                          Values={values.IsHidden}
+                          Errors={errors}
+                          Touched={touched}
                         />
-                      }
-                    />
-                    {values.Rate !== null && (
-                      <Box sx={{ ml: 2 }}>
-                        {labels[hover !== -1 ? hover : values.Rate]}
-                      </Box>
-                    )}
-                  </S.Divider>
-                  <S.Divider className="w-full mb-2">
-                    <S.Label className="text-[#666666] font-medium ml-3">
-                      Remarks
-                    </S.Label>
-                    <textarea
-                      placeholder="Remarks"
-                      name="Remarks"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="w-full resize-none p-3 border border-[#C4C4C4] rounded-md"
-                      aria-setsize={10}
-                    />
-                  </S.Divider>
+                      </S.Divider>
 
-                  <S.Divider className="w-full flex justify-end items-center gap-4 ">
-                    <CustomButton
-                      leftIcon={<Icon.Cancel className="text-primary" />}
-                      text="Cancel"
-                      onClick={() => {
-                        resetForm();
-                        OnClose && OnClose();
-                      }}
-                      color={ButtonColor.default}
-                      type={ButtonType.button}
-                    />
-                    <CustomButton
-                      leftIcon={
-                        <SaveIcon className="text-primary md:text-white" />
-                      }
-                      disabled={!dirty || !isValid || isSubmitting}
-                      text="Save"
-                      type={ButtonType.submit}
-                    />
-                  </S.Divider>
-                </Form>
-              )}
+                      <S.Divider className="w-full flex flex-row ">
+                        <Rating
+                          name="hover-feedback"
+                          value={values.Rate}
+                          precision={0.5}
+                          getLabelText={getLabelText}
+                          defaultValue={values.Rate}
+                          onChange={(_event, newValue) => {
+                            setFieldValue("Rate", newValue);
+                          }}
+                          onChangeActive={(_event, newHover) => {
+                            setHover(newHover);
+                          }}
+                          emptyIcon={
+                            <StarIcon
+                              style={{ opacity: 0.55 }}
+                              fontSize="inherit"
+                            />
+                          }
+                          disabled={IsDisplay}
+                        />
+                        {values.Rate !== null && (
+                          <Box sx={{ ml: 2 }}>
+                            {labels[hover !== -1 ? hover : values.Rate]}
+                          </Box>
+                        )}
+                      </S.Divider>
+                    </S.Divider>
+                    <S.Divider className="w-full mb-2">
+                      <S.Label className="text-[#666666] font-medium ml-3">
+                        Remarks
+                      </S.Label>
+                      <textarea
+                        placeholder="Remarks"
+                        name="Remarks"
+                        value={values?.Remarks ?? ""}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="w-full resize-none p-3 border border-[#C4C4C4] rounded-md"
+                        aria-setsize={10}
+                        disabled={IsDisplay}
+                      />
+                    </S.Divider>
+
+                    <AccessControl OtherCondition={!IsDisplay}>
+                      <S.Divider className="w-full flex justify-end items-center gap-4 ">
+                        <CustomButton
+                          leftIcon={<Icon.Cancel className="text-primary" />}
+                          text="Cancel"
+                          onClick={() => {
+                            resetForm();
+                            OnClose && OnClose();
+                          }}
+                          color={ButtonColor.default}
+                          type={ButtonType.button}
+                        />
+                        <CustomButton
+                          leftIcon={
+                            <SaveIcon className="text-primary md:text-white" />
+                          }
+                          disabled={!dirty || !isValid || isSubmitting}
+                          text="Save"
+                          type={ButtonType.submit}
+                        />
+                      </S.Divider>
+                    </AccessControl>
+                  </Form>
+                ) : (
+                  <Skeleton />
+                )
+              }
             </Formik>
           </S.Divider>
         </S.Content>
