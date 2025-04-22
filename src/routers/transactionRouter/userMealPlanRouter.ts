@@ -3,6 +3,7 @@ import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
+  UserMealPlanActivateController,
   UserMealPlanAddController,
   UserMealPlanGetAllController,
   UserMealPlanGetController,
@@ -27,14 +28,19 @@ router.post(
   UserMealPlanAddController,
 );
 router.delete(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATING_ID}`,
+  `${API_VERSION}${RouteChannel.USER_MEAL_PLAN_ID}`,
   TokenHandler.verifyToken,
   UserMealPlanRemoveController,
 );
 router.patch(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATING_ID}`,
+  `${API_VERSION}${RouteChannel.USER_MEAL_PLAN_ID}`,
   TokenHandler.verifyToken,
   UserMealPlanUpdateController,
+);
+router.patch(
+  `${API_VERSION}${RouteChannel.USER_MEAL_PLANS}`,
+  TokenHandler.verifyToken,
+  UserMealPlanActivateController,
 );
 
 logging.log("----------------------------------------");

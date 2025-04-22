@@ -5,6 +5,7 @@ import {
   Error,
   MealPlanRatingQuery,
   Success,
+  UserMealPlanQuery,
 } from "../../../../shared";
 import { userMealPlanValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
@@ -30,7 +31,7 @@ export const UserMealPlanAddController = async (
     if (
       (
         await isFound(
-          MealPlanRatingQuery.q004,
+          UserMealPlanQuery.q004,
           ["UserId", "MealPlanId"],
           [Number, Number],
           [Data.UserId, Data.MealPlanId],

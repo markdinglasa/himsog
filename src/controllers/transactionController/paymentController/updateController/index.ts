@@ -32,8 +32,14 @@ export const PaymentUpdateController = async (
       return res.status(401).json({ data: false, message: Error.m002 });
     //console.log("Status", Data);
     if (Boolean(Data.IsMealPlan) && Boolean(Data?.MealPlanData?.Status)) {
+      // ADD TO USER MEAL PLAN FOR TRANSACTION RECORD
+      await AddService.record(
+        DBTable.t033,
+        ["UserId", "MealPlanId", "IsActive", "DateCreated"],
+        [Number, Number, Boolean, Date],
+        [Data.UserId, Data.MealPlanId, false, new Date()],
+      ); // add to user meal plan table
       // NOTIFY USER ON APPROVAL OF MEAL PLAN
-
       const Notify: NotificationTable = {
         UserId: Data.UserId,
         Description: "Your meal plan has been approved.",
