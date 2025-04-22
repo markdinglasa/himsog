@@ -100,9 +100,9 @@ export const EnhancedTable = <T extends Record<string, any>>({
     isLocked: boolean,
   ) => {
     if (IsModal) {
-      if (data.Status === "Approved")
+      /*if (data.Status === "Approved")
         displayToast("Payment is already approved", ToastType.error);
-      else if (data.IsApproved)
+      else */ if (data.IsApproved)
         displayToast("Request is already approved", ToastType.error);
       else ToggleModal && ToggleModal();
       setRecord({
@@ -275,18 +275,27 @@ export const EnhancedTable = <T extends Record<string, any>>({
                         backgroundColor: colors.palette.neutral["050"],
                       },
 
-                      backgroundColor:
-                        activeRowId === String(row["Id"])
-                          ? colors.palette.neutral["100"]
-                          : row["IsSuspended"] ||
-                              row["IsCancelled"] ||
-                              row["IsDisapproved"]
-                            ? colors.palette.red["200"]
-                            : row["IsLocked"] ||
-                                row["IsApproved"] ||
-                                row["Status"] === "Approved"
-                              ? colors.palette.green["050"]
-                              : "none",
+                      backgroundColor: (() => {
+                        if (activeRowId === String(row["Id"])) {
+                          return colors.palette.neutral["100"];
+                        } else if (
+                          row["IsSuspended"] ||
+                          row["IsCancelled"] ||
+                          row["IsDisapproved"] ||
+                          row["Status"] === "Disapproved"
+                        ) {
+                          return colors.palette.red["200"];
+                        } else if (row["Status"] === "Pending") {
+                          return colors.palette.orange["200"];
+                        } else if (
+                          row["IsLocked"] ||
+                          row["IsApproved"] ||
+                          row["Status"] === "Approved"
+                        ) {
+                          return colors.palette.green["050"];
+                        }
+                        return "none";
+                      })(),
                     }}
                     onClick={(event) => {
                       handleClick(
