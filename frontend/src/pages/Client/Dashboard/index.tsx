@@ -70,7 +70,7 @@ export const ClientDashboardPage: SFC = ({ ClassName }) => {
                   <S.Divider className="w-full">
                     <S.Divider className="w-full h-full flex items-center justify-center absolute top-0 left-0 ">
                       <S.Span className="text-md font-medium mt-5">
-                        {22}% completed
+                        {0}% completed
                       </S.Span>
                     </S.Divider>
                     <DoughnutChart ClassName="w-full " data={[]} />
