@@ -12,9 +12,14 @@ import {
   mdiInvoiceSendOutline,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
+import API from "../../../hooks/api";
+import { useAuth } from "../../../hooks";
 
 const NutritionistDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+  const { data } = API.Utility.Count.NutritionistCount(Number(auth?.user ?? 0));
+  console.log(data?.[0]?.Count ?? 0);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -64,19 +69,19 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
           <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[1rem]">
             <Card.Dashboard
               Icons={mdiFoodTakeoutBoxOutline}
-              Text={"0"}
+              Text={String(data?.[0]?.Count ?? 0)}
               Title="Meals"
               OnClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL)}
             />
             <Card.Dashboard
               Icons={mdiFoodVariant}
-              Text={"0"}
+              Text={String(data?.[1]?.Count ?? 0)}
               Title="Meal Plans"
               OnClick={() => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN)}
             />
             <Card.Dashboard
               Icons={mdiInvoiceSendOutline}
-              Text={"0"}
+              Text={String(data?.[2]?.Count ?? 0)}
               Title="Meal Plan - Requests"
               OnClick={() =>
                 navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST)
@@ -84,7 +89,7 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
             />
             <Card.Dashboard
               Icons={mdiCalendar}
-              Text={"0"}
+              Text={String(data?.[3]?.Count ?? 0)}
               Title="Appointments"
               OnClick={() => navigate(RouteChannel.NUTRITIONIST_APPOINTMENT)}
             />

@@ -37,4 +37,7 @@ export enum QueryKey {
   USER = "user",
   USER_LOGS = "user-logs",
   MEDICAL = "medical",
+  NUTRISTIONIST_COUNT = "nutritionist-count",
+  CLIENT_COUNT = "client-count",
+  ADMIN_COUNT = "admin-count",
 }

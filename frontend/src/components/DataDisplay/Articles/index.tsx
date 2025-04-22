@@ -87,7 +87,7 @@ export const Articles: SFC<DataDisplayProps> = ({
             <Skeleton />
           ) : articles && articles?.length > 0 ? (
             <>
-              <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full ">
+              <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[1rem] w-full ">
                 {articles.map((record: ArticleTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>

@@ -70,7 +70,7 @@ export const MealPlans: SFC<FormProps> = ({ ClassName, IsMy = false }) => {
             <Skeleton />
           ) : records && records?.length > 0 ? (
             <>
-              <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full ">
+              <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[1rem] w-full ">
                 {records.map((record: MealPlanTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>
