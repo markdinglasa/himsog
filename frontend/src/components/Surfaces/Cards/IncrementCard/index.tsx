@@ -1,7 +1,7 @@
 import { SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { twMerge } from "tailwind-merge";
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 
 interface IncrementCardProps {
   Icon: ReactNode;
@@ -34,7 +34,7 @@ export const IncrementCard: SFC<IncrementCardProps> = ({
             {Text}
           </S.Span>
           <S.Span className="text text-xl text-primary font-semibold flex justify-start text-left">
-            &#8369; {Amount}
+            {Amount}
           </S.Span>
         </S.Divider>
         <S.Divider className="icon flex w-1/12 overflow text-primary text-left items-center justify-end w-[100px] ">
@@ -57,3 +57,5 @@ export const IncrementCard: SFC<IncrementCardProps> = ({
     </S.Container>
   );
 };
+
+export default memo(IncrementCard);

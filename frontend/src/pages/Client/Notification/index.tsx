@@ -28,7 +28,7 @@ export const NotificationPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)]">
+        <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)] overflow-auto">
           <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
             <S.Divider className="w-full text-left mb-2">
               <S.Span className="text-lg font-medium">Notifications</S.Span>

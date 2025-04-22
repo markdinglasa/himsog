@@ -31,7 +31,13 @@ export const Menu: SFC<MenuProps> = ({
           $isParent={isParent}
           className={cn("rounded-md", ClassName)}
           onClick={() => {
-            isParent ? toggleDisplay() : onClick();
+            if (isParent) {
+              // Toggle the parent menu only if it's directly clicked
+              toggleDisplay(!isDisplay);
+            } else if (!isParent) {
+              // Trigger the onClick prop for navigation if it's a child menu
+              onClick();
+            }
           }}
         >
           {isParent ? (
@@ -49,7 +55,10 @@ export const Menu: SFC<MenuProps> = ({
                   </S.Text>
                 </S.MenuContent>
               </S.Menu>
-              <S.ChildContent $isDisplay={isDisplay} className="">
+              <S.ChildContent
+                $isDisplay={isDisplay}
+                onClick={(e) => e.stopPropagation()}
+              >
                 {children}
               </S.ChildContent>
             </>

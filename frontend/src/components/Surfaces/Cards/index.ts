@@ -15,7 +15,7 @@ import Participant from "./ParticipantCard";
 import Message from "./MessageCard";
 import MealPlan from "./MealPlanCard";
 import Professional from "./ProfessionalCard";
-
+import Increment from "./IncrementCard";
 const Card = {
   MealPlan,
   Event,
@@ -30,6 +30,7 @@ const Card = {
   PaymentMethod,
   Participant,
   Message,
+  Increment,
   Professional,
 };
 

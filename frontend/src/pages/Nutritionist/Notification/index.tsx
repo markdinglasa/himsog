@@ -7,6 +7,7 @@ import API from "../../../hooks/api";
 import { useAuth } from "../../../hooks";
 import Card from "../../../components/Surfaces/Cards";
 import React from "react";
+import { cn } from "../../../utils";
 
 export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -27,12 +28,12 @@ export const NutritionisstNotificationPage: SFC = ({ ClassName }) => {
   );
   return (
     <>
-      <S.Container className={ClassName}>
+      <S.Container className={cn("", ClassName)}>
         <S.PageTopBar className="h-[40px]">
           <PageBreadCrumbs Links={links} Active={"Notifications"} />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Divider className="flex flex-col items-center justify-start mb-2  h-[calc(100vh-182px)]">
+        <S.Divider className="flex flex-col items-center justify-start mb-[1rem]  h-[calc(100vh-182px)] overflow-auto">
           <S.Divider className="w-full md:w-[40rem] bg-white rounded-md p-3 border border">
             <S.Divider className="w-full text-left mb-2">
               <S.Span className="text-lg font-medium">Notifications</S.Span>
