@@ -5,3 +5,4 @@ export * from "./reminder";
 export * from "./messageValidator";
 export * from "./convoValidator";
 export * from "./mealPlanRatingValidator";
+export * from "./userMealPlanValidator";
