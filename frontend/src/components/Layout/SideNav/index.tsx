@@ -3,7 +3,6 @@ import { Menu } from "../../Navigation";
 import {
   mdiAccountOutline,
   mdiBookOpenVariantOutline,
-  mdiCalendarOutline,
   mdiCalendarTextOutline,
   mdiFoodOutline,
   mdiFoodVariant,
@@ -237,19 +236,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 </AccessControl>
               </Menu>
             </AccessControl>
-            <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
-              <Menu
-                icon={mdiCalendarOutline}
-                isCollapse={Collapse}
-                label="Appointments"
-                onClick={() => {
-                  Toggle();
-                  navigate(`${path}/appointment`);
-                  setActive(`${path}/appointment` as RouteChannel);
-                }}
-                IsActive={active === `${path}/appointment`}
-              />
-            </AccessControl>
+
             <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
               <Menu
                 icon={mdiCalendarTextOutline}

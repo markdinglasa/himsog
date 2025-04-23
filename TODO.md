@@ -25,9 +25,7 @@
 - [x] Client, Cancel Subscription
 - [x] Admin, Manage Subscriptions
 
-- [ ] Client, Manage Reminders
-
-- [15/18] Subtotal - Account Management
+- [18/18] Subtotal - Account Management
 
 - Meal Plan Management = 3mod
 - [x] Client, View Meal Plan
@@ -38,22 +36,10 @@
 - [x] Nutritionist, View Meal Plan
 - [x] Nutritionist, Manage Recipe's
 - [x] Nutritionist, Manage Ingredient
-- [ ] Nutritionist, View Custom Meal Plan Earning's
 
 - [x] Admin, View Meal Plan
 
-- [0/9] Subtotal - Meal Plan Management
-
-- Appointment Management = 2mod
-- [ ] Client, View Appointments
-- [ ] Client, Update Appointments
-- [ ] Client, Appointment History
-
-- [ ] Nutritionist, View Appointments
-- [ ] Nutritionist, Approve/Reject Appointments
-- [ ] Nutritionist, Appointment History
-
-- [0/6] Subtotal - Appointment Management
+- [1] Subtotal - Meal Plan Management
 
 - Message Management = 2mod
 - [ ] Client, View Message
@@ -78,10 +64,9 @@
 - [x] Nutritionist, View Analytics
 
 - [x] Admin, User Activity Logs
-- [ ] Admin, Review Feedback
 - [x] Admin, View Analytics
 
-- [5/6] Subtotal - Reports & Analytics
+- [5/5] Subtotal - Reports & Analytics
 
 - Notification = 3mod
 - [x] Client, Receive system notification

@@ -67,6 +67,7 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
                 id="progress-chart"
                 category="Progress Report"
                 ClassName="w-full "
+                isProgressReport={true}
                 data={[
                   {
                     Name: "Completed",

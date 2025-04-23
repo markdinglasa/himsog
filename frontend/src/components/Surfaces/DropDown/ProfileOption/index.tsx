@@ -6,8 +6,6 @@ import { useAuth, useSignOut } from "../../../../hooks";
 import { Avatar, Tooltip } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
-import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 
 import { colors } from "../../../../styles";
 import { renderPath } from "../../../../utils";
@@ -83,7 +81,7 @@ export const ProfileOption: SFC = () => {
             <SettingsOutlinedIcon className="text-primary" />
             <span className="ml-2">Settings</span>
           </S.DropdownItem>
-          <S.DropdownItem
+          {/*<S.DropdownItem
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={() => {
               setActiveDropdown(null);
@@ -102,7 +100,7 @@ export const ProfileOption: SFC = () => {
           >
             <BookOutlinedIcon className="text-primary" />
             <span className="ml-2">Terms & Conditions</span>
-          </S.DropdownItem>
+          </S.DropdownItem>*/}
           <S.DropdownItem
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 items-center justify-start flex"
             onClick={reSignOut}

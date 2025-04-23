@@ -18,11 +18,13 @@ import { AccessControl } from "..";
 
 interface DataDisplayProps {
   IsPublic?: boolean;
+  IsDisplay?: boolean;
 }
 
 export const Articles: SFC<DataDisplayProps> = ({
   ClassName,
   IsPublic = true,
+  IsDisplay = false,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
   const [filter, setFilter] = useState<EventFilter>(EventFilter.ALL);
@@ -48,12 +50,14 @@ export const Articles: SFC<DataDisplayProps> = ({
         <AccessControl OtherCondition={IsPublic}>
           <S.Divider className="w-full flex items-center justify-end mb-2">
             <S.Actions>
-              <CustomButton
-                type={ButtonType.button}
-                onClick={toggleDisplay}
-                text={"New"}
-                leftIcon={<Icon.Add className="text-primary md:text-white" />}
-              />
+              <AccessControl OtherCondition={IsDisplay}>
+                <CustomButton
+                  type={ButtonType.button}
+                  onClick={toggleDisplay}
+                  text={"New"}
+                  leftIcon={<Icon.Add className="text-primary md:text-white" />}
+                />
+              </AccessControl>
             </S.Actions>
           </S.Divider>
         </AccessControl>

@@ -227,7 +227,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
                         <div>
                           <CustomModal
                             close={toggleDisplay}
-                            title="Are you health professional? or a client?"
+                            title="Are you Health Professional? or a Advocate?"
                             open={isDisplay}
                             ClassName="md:w-[30rem] w-[80vw]"
                           >
@@ -252,7 +252,7 @@ const PublicSignUpPage: SFC = ({ ClassName }) => {
                               </S.Divider>
                               <S.Divider className="w-full">
                                 <CustomButton
-                                  text="Client"
+                                  text="Advocate"
                                   color={ButtonColor.primary}
                                   type={ButtonType.submit}
                                   morph={false}

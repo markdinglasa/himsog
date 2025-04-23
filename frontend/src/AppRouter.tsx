@@ -254,20 +254,12 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.Client.Event.View />}
               />
               <Route
-                path={RouteChannel.CLIENT_EVENT_NEW}
-                element={<Page.Client.Event.New />}
-              />
-              <Route
                 path={RouteChannel.CLIENT_EVENT_DETAILS}
                 element={<Page.Client.Event.Details />}
               />
               <Route
                 path={RouteChannel.CLIENT_ARTICLE}
                 element={<Page.Client.Article.View />}
-              />
-              <Route
-                path={RouteChannel.CLIENT_ARTICLE_NEW}
-                element={<Page.Client.Article.New />}
               />
               <Route
                 path={RouteChannel.CLIENT_ARTICLE_DETAILS}

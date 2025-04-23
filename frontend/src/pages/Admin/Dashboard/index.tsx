@@ -27,7 +27,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const { data: subscount } = API.Utility.Count.AdminSubscriptionCount();
   const { data: subsrevenue } =
     API.Utility.Count.AdminSusbcriptionMonthlyRevenue();
-  console.log(subsrevenue);
+  // console.log(subsrevenue);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -165,12 +165,12 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             />
           </S.Divider>
           <S.Divider className="w-full md:w-4/12 ">
-            <DoughnutChart
+            {/*<DoughnutChart
               title="Most Subscribe Subscription"
               ClassName="border rounded-md p-[1rem]"
               category="Subscription"
               data={subscount}
-            />
+            />*/}
           </S.Divider>
         </S.Content>
         {/*<div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>*/}
