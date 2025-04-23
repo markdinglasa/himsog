@@ -6,6 +6,7 @@ import Remove from "./useRemoveMealPlan";
 import GetWithFilter from "./useGetWithFilterMealPlan";
 import GetDetails from "./useGetDetailsMealPlan";
 import GetAllMy from "./useGetAllMyMealPlan";
+import GetAllByAdmin from "./useGetAllAdminMealPlan";
 
 export default {
   Add,
@@ -16,4 +17,5 @@ export default {
   GetWithFilter,
   GetDetails,
   GetAllMy,
+  GetAllByAdmin,
 };

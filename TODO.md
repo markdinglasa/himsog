@@ -40,7 +40,7 @@
 - [x] Nutritionist, Manage Ingredient
 - [ ] Nutritionist, View Custom Meal Plan Earning's
 
-- [ ] Admin, View Meal Plan
+- [x] Admin, View Meal Plan
 
 - [0/9] Subtotal - Meal Plan Management
 
@@ -68,20 +68,20 @@
 
 - Transactions = 1mod
 - [x] Client, Access Ingredients
-- [ ] Client, Avail Custom Meal Plan
+- [x] Client, Avail Custom Meal Plan
 - [x] Client, Pay Subscription
 
 - Reports & Analytics = 3mod
-- [ ] Client, View Analytics
-- [ ] Client, View Meal Plan Progress
+- [x] Client, View Analytics
+- [x] Client, View Meal Plan Progress
 
-- [ ] Nutritionist, View Analytics
+- [x] Nutritionist, View Analytics
 
-- [ ] Admin, User Activity Logs
+- [x] Admin, User Activity Logs
 - [ ] Admin, Review Feedback
 - [x] Admin, View Analytics
 
-- [0/6] Subtotal - Reports & Analytics
+- [5/6] Subtotal - Reports & Analytics
 
 - Notification = 3mod
 - [x] Client, Receive system notification

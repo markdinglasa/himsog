@@ -150,7 +150,14 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.ADMIN_USER_DETAILS}
                 element={<Page.Admin.Setups.User.Details />}
               />
-
+              <Route
+                path={RouteChannel.ADMIN_MEAL_PLAN}
+                element={<Page.Admin.MealPlan.View />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_MEAL_PLAN_DETAILS}
+                element={<Page.Admin.MealPlan.Details />}
+              />
               <Route
                 path={RouteChannel.ADMIN_UNIT}
                 element={<Page.Admin.Setups.Unit.View />}

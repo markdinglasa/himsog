@@ -6,3 +6,4 @@ export * from "./updateController";
 export * from "./getAllQueryController";
 export * from "./getDetailsController";
 export * from "./getAllMy";
+export * from "./getAllByAdmin";

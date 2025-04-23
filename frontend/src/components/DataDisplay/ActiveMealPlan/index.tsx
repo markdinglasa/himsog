@@ -7,12 +7,13 @@ import MealPlanDetails from "../MealPlanDetails";
 import API from "../../../hooks/api";
 import { Skeleton } from "../../Feedback";
 import { NoRecord } from "../Tables";
+import { AccessControl } from "..";
+import Icon from "../../../constants/icon";
 
 export const ActiveMealPlan: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
-  const { data: activeMealPlan } = API.Transaction.UserMealPlan.GetActiveByUser(
-    Number(auth?.user ?? 0),
-  );
+  const { data: activeMealPlan, refetch } =
+    API.Transaction.UserMealPlan.GetActiveByUser(Number(auth?.user ?? 0));
 
   if (!(activeMealPlan?.MealPlanId ?? 0))
     return (
@@ -26,20 +27,29 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
     const completed = activeMealPlan?.Completed ?? 0;
     const incomplete = activeMealPlan?.Duration ?? 0;
     return incomplete > 0
-      ? ((completed / incomplete) * 100).toFixed(2)
+      ? parseFloat(`${(completed / incomplete) * 100}`)
       : "0.00";
   };
-
-  //console.log(progressComplete);
+  const isCompleted: boolean =
+    Number(activeMealPlan?.Completed ?? 0) ===
+    Number(activeMealPlan?.Duration ?? 0);
   return (
     <>
       <div className={cn("w-full", ClassName)}>
         <div className="w-full flex flex-col md:flex-row gap-[1rem] ">
           <div className="w-full flex flex-col gap-[1rem] md:w-8/12 items-start justify-start rounded-md border bg-white p-[1rem]">
+            <AccessControl OtherCondition={isCompleted}>
+              <div className="w-full border h-12 rounded-md bg-green-100 flex items-center p-[1rem] gap-2">
+                <Icon.Celebration className="text-primary" />
+                <span>Congrats! your meal plan is now complete.</span>
+              </div>
+            </AccessControl>
             <Suspense fallback={<Skeleton />}>
               <MealPlanDetails
+                IsComplete={isCompleted}
                 IsDisplay={true}
                 RecordId={String(activeMealPlan?.MealPlanId ?? 0)}
+                OnRefetch={() => refetch()}
               />
             </Suspense>
           </div>

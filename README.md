@@ -30,7 +30,7 @@ A list of technologies used within the project:
 
 1. npm install
 2. setup .env
-3. npm run start <!-- server/backend side >
+3. npm run serve or npm run start <!-- server/backend side >
 
 - Frontend/Client
 

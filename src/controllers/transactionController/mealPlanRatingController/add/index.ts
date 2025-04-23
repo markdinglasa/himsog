@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { MealPlanRating } from "../../../../types";
+import { MealPlanRating, UserMealPlan } from "../../../../types";
 import {
   DBTable,
   Error,
   MealPlanRatingQuery,
   Success,
+  UserMealPlanQuery,
 } from "../../../../shared";
 import { mealPlanRatingValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService, UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const MealPlanRatingAddController = async (
@@ -44,6 +45,28 @@ export const MealPlanRatingAddController = async (
     const Values = Object.values(Data);
     if (!(await AddService.record(DBTable.t032, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+    const response: UserMealPlan = (
+      await GetService.byFields(
+        UserMealPlanQuery.q004,
+        ["UserId", "MealPlanId"],
+        [Number, Number],
+        [Data?.CreatedBy ?? 0, Data?.MealPlanId ?? 0],
+      )
+    )[0];
+
+    const DeactivateMealPlan: UserMealPlan = {
+      UserId: Data?.CreatedBy ?? 0,
+      MealPlanId: Data?.MealPlanId ?? 0,
+      IsActive: false,
+      DateActivated: null,
+    };
+    await UpdateService.record(
+      Number(response?.Id ?? 0),
+      DBTable.t033,
+      Object.keys(DeactivateMealPlan),
+      Object.values(DeactivateMealPlan).map((val) => typeof val),
+      Object.values(DeactivateMealPlan),
+    );
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

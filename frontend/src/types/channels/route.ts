@@ -42,6 +42,8 @@ export enum RouteChannel {
   ADMIN_SUBSCRIPTION = "/a/subscription",
   ADMIN_SUBSCRIPTION_NEW = "/a/subscription/new",
   ADMIN_SUBSCRIPTION_DETAILS = "/a/subscription/d/:Id",
+  ADMIN_MEAL_PLAN = "/a/mea-plans",
+  ADMIN_MEAL_PLAN_DETAILS = "/a/mea-plans/d/:Id",
   ADMIN_FEEDBACK = "/a/feedback",
   ADMIN_FEEDBACK_DETAILS = "/a/feedback/d/:id",
   ADMIN_MESSENGER = "/a/messenger/:Id",

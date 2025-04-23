@@ -18,6 +18,8 @@ export const MealPlanDetails: SFC<FormProps> = ({
   ClassName,
   IsDisplay = false,
   RecordId = 0,
+  IsComplete = false,
+  OnRefetch,
 }) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -56,11 +58,13 @@ export const MealPlanDetails: SFC<FormProps> = ({
                   morph={false}
                 />
               </AccessControl>
-              <AccessControl
-                OtherCondition={isPaid?.Status === "Approved" && !IsDisplay}
-              >
+              <AccessControl OtherCondition={isPaid?.Status === "Approved"}>
                 <div className="flex flex-row gap-[1rem]">
-                  <AccessControl OtherCondition={!(isPaid?.IsRated ?? false)}>
+                  <AccessControl
+                    OtherCondition={
+                      !Boolean(isPaid?.IsRated ?? false) && IsComplete
+                    }
+                  >
                     <CustomButton
                       onClick={toggleModal}
                       leftIcon={<Icon.Star className="text-primary" />}
@@ -69,7 +73,9 @@ export const MealPlanDetails: SFC<FormProps> = ({
                       color={ButtonColor.default}
                     />
                   </AccessControl>
-                  <AccessControl OtherCondition={isPaid?.IsRated ?? false}>
+                  <AccessControl
+                    OtherCondition={Boolean(isPaid?.IsRated ?? false)}
+                  >
                     <CustomButton
                       onClick={toggleModal}
                       leftIcon={<Icon.Star className="text-primary" />}
@@ -78,15 +84,17 @@ export const MealPlanDetails: SFC<FormProps> = ({
                       color={ButtonColor.default}
                     />
                   </AccessControl>
-                  <CustomButton
-                    onClick={() => {
-                      update(Number(auth?.user ?? 0), Number(Id), 1);
-                    }}
-                    leftIcon={<Icon.CheckCircle />}
-                    text="Activate"
-                    morph={false}
-                    disabled={Boolean(active?.IsActive ?? false)}
-                  />
+                  <AccessControl OtherCondition={!IsDisplay}>
+                    <CustomButton
+                      onClick={() => {
+                        update(Number(auth?.user ?? 0), Number(Id), 1);
+                      }}
+                      leftIcon={<Icon.CheckCircle />}
+                      text="Activate"
+                      morph={false}
+                      disabled={Boolean(active?.IsActive ?? false)}
+                    />
+                  </AccessControl>
                 </div>
               </AccessControl>
             </div>
@@ -160,6 +168,8 @@ export const MealPlanDetails: SFC<FormProps> = ({
             Title=""
             OnClose={toggleModal}
             IsDisplay={isPaid?.IsRated ?? false}
+            RecordId={String(RecordId)}
+            OnRefetch={OnRefetch}
           />
         </div>
       </CustomModal>

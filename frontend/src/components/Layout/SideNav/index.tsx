@@ -95,33 +95,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.ADMIN_USER}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.admin]}>
-              <Menu
-                icon={mdiCalendarTextOutline}
-                isCollapse={Collapse}
-                label="Events"
-                onClick={() => {
-                  Toggle();
-                  navigate(RouteChannel.ADMIN_EVENT);
-                  setActive(RouteChannel.ADMIN_EVENT);
-                }}
-                IsActive={active === RouteChannel.ADMIN_EVENT}
-              />
-            </AccessControl>
 
-            <AccessControl UserRoles={[Roles.admin]}>
-              <Menu
-                icon={mdiScale}
-                isCollapse={Collapse}
-                label="Units"
-                onClick={() => {
-                  Toggle();
-                  navigate(RouteChannel.ADMIN_UNIT);
-                  setActive(RouteChannel.ADMIN_UNIT);
-                }}
-                IsActive={active === RouteChannel.ADMIN_UNIT}
-              />
-            </AccessControl>
             <AccessControl UserRoles={[Roles.admin]}>
               <Menu
                 icon={mdiBookOpenVariantOutline}
@@ -133,6 +107,19 @@ export const SideNav: SFC<SideNavProps> = ({
                   setActive(RouteChannel.ADMIN_SUBSCRIPTION);
                 }}
                 IsActive={active === RouteChannel.ADMIN_SUBSCRIPTION}
+              />
+            </AccessControl>
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiFoodVariant}
+                isCollapse={Collapse}
+                label="Meal Plan"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_MEAL_PLAN);
+                  setActive(RouteChannel.ADMIN_MEAL_PLAN);
+                }}
+                IsActive={active === RouteChannel.ADMIN_MEAL_PLAN}
               />
             </AccessControl>
             <AccessControl UserRoles={[Roles.admin]}>
@@ -161,6 +148,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.NUTRITIONIST_MEAL}
               />
             </AccessControl>
+
             <AccessControl UserRoles={[Roles.client, Roles.nutritionist]}>
               <Menu
                 icon={mdiFoodOutline}
@@ -275,7 +263,19 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === `${path}/event`}
               />
             </AccessControl>
-
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiCalendarTextOutline}
+                isCollapse={Collapse}
+                label="Events"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_EVENT);
+                  setActive(RouteChannel.ADMIN_EVENT);
+                }}
+                IsActive={active === RouteChannel.ADMIN_EVENT}
+              />
+            </AccessControl>
             <AccessControl
               UserRoles={[Roles.admin, Roles.nutritionist, Roles.client]}
             >
@@ -289,6 +289,19 @@ export const SideNav: SFC<SideNavProps> = ({
                   setActive(`${path}/health-article` as RouteChannel);
                 }}
                 IsActive={active === `${path}/health-article`}
+              />
+            </AccessControl>
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiScale}
+                isCollapse={Collapse}
+                label="Units"
+                onClick={() => {
+                  Toggle();
+                  navigate(RouteChannel.ADMIN_UNIT);
+                  setActive(RouteChannel.ADMIN_UNIT);
+                }}
+                IsActive={active === RouteChannel.ADMIN_UNIT}
               />
             </AccessControl>
             {/*<AccessControl UserRoles={[Roles.nutritionist]}>

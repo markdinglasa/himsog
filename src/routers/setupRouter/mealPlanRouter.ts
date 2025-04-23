@@ -4,6 +4,7 @@ import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
   MealPlanAddController,
+  MealPlanGetAllByAdminController,
   MealPlanGetAllController,
   MealPlanGetAllMyController,
   MealPlanGetController,
@@ -14,6 +15,11 @@ import {
 } from "../../controllers";
 
 const router = express.Router();
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN}`,
+  TokenHandler.verifyToken,
+  MealPlanGetAllByAdminController,
+);
 router.get(
   `${API_VERSION}${RouteChannel.MY_MEAL_PLANS}`,
   TokenHandler.verifyToken,

@@ -8,12 +8,12 @@ export enum UserMealPlanQuery {
     SELECT 
       ump.*, 
       CASE 
-        WHEN DATEDIFF(ump.DateActivated,NOW()) >= mp.Duration THEN mp.Duration 
-        ELSE DATEDIFF(ump.DateActivated,NOW())
+        WHEN DATEDIFF(NOW(),ump.DateActivated) >= mp.Duration THEN mp.Duration 
+        ELSE DATEDIFF(NOW(),ump.DateActivated)
       END AS \`Completed\`,
       CASE 
         WHEN DATEDIFF(NOW(), ump.DateActivated) >= mp.Duration THEN 0 
-        ELSE mp.Duration- DATEDIFF(ump.DateActivated, NOW())
+        ELSE mp.Duration- DATEDIFF(NOW(),ump.DateActivated )
       END AS \`Incomplete\`,
       mp.Duration AS \`Duration\`
     FROM 

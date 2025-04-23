@@ -27,19 +27,22 @@ export const MealPlanRatingForm: SFC<FormProps> = ({
   Title,
   OnClose,
   IsDisplay = false,
+  RecordId,
+  OnRefetch,
 }) => {
   const { Id } = useParams<{ Id: string }>();
+  const MealPlanId: number = RecordId ? Number(RecordId) : Number(Id);
   const { add } = API.Transaction.MealPlanRating.Add();
   const { auth } = useAuth();
   const { data, isLoading } = API.Transaction.MealPlanRating.Get(
-    Number(Id),
+    MealPlanId,
     auth?.user ?? 0,
   );
   const InitialValues: MealPlanRating = {
     CreatedBy: data?.CreatedBy || (auth?.user ?? 0),
     UpdatedBy: data?.UpdatedBy || (auth?.user ?? 0),
     Remarks: data?.Remarks || null,
-    MealPlanId: data?.MealPlanId || Number(Id),
+    MealPlanId: data?.MealPlanId || MealPlanId,
     Rate: data?.Rate || 0,
     IsHidden: data?.IsHidden || false,
   };
@@ -47,6 +50,7 @@ export const MealPlanRatingForm: SFC<FormProps> = ({
   const handleSubmit = async (values: MealPlanRating) => {
     try {
       add(values);
+      OnRefetch && OnRefetch();
     } catch (error: any) {
       displayToast(error.message, ToastType.error);
     } finally {

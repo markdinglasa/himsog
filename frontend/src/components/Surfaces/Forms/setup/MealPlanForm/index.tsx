@@ -10,9 +10,9 @@ import {
 import {
   ButtonColor,
   ButtonType,
+  FormProps,
   InputType,
   MealPlanTable,
-  SetupForm,
   SFC,
   ToastType,
 } from "../../../../../types";
@@ -33,10 +33,11 @@ import {
 } from "@mui/material";
 import MealPlanMeals from "../../../../DataDisplay/MealPlanMeals";
 
-const MealPlanForm: SFC<SetupForm> = ({
+const MealPlanForm: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   Title,
+  IsDisplay = false,
 }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
 
@@ -71,7 +72,7 @@ const MealPlanForm: SFC<SetupForm> = ({
         <S.FormHeader className="flex flex-row items-center justify-between ">
           <S.Span className="text-lg font-medium">{Title}</S.Span>
           <S.Divider>
-            <AccessControl OtherCondition={IsEdit && IsDetails}>
+            <AccessControl OtherCondition={IsEdit && !IsDisplay}>
               <CircleButton
                 OnClick={() => SetIsEdit(false)}
                 Icon={<Icon.Edit className="text-primary" />}

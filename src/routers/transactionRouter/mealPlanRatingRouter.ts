@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATING_ID}`,
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_RATING_GET}`,
   TokenHandler.verifyToken,
   MealPlanRatingGetController,
 );

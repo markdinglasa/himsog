@@ -8,6 +8,8 @@ import TermsConditions from "./TermsConditions";
 import Messenger from "./Messenger";
 import Event from "./Event";
 import Transaction from "./Transactions";
+import MealPlan from "./MealPlan";
+
 //import * from "./Reports";
 //import * from "./Utilities";
 
@@ -22,6 +24,7 @@ const AdminPages = {
   Messenger,
   Event,
   Transaction,
+  MealPlan,
 };
 
 export default AdminPages;
