@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import * as echarts from "echarts";
-import { SFC } from "../../../../types";
+import { ChartProps, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { twMerge } from "tailwind-merge";
 
-export const LineChart: SFC = ({ ClassName }) => {
-  const generateRandomData = () => {
-    return Array.from({ length: 12 }, () => Math.floor(Math.random() * 1000));
-  };
-
-  const salesData = generateRandomData();
+export const LineChart: SFC<ChartProps> = ({
+  ClassName,
+  title = "NA",
+  data = [],
+  category = "NA",
+}) => {
   const months = [
     "January",
     "February",
@@ -25,13 +25,19 @@ export const LineChart: SFC = ({ ClassName }) => {
     "December",
   ];
 
+  const salesData = Array(12).fill(0);
+
+  data.forEach(({ Month, NameCount }) => {
+    salesData[Month - 1] = NameCount;
+  });
+
   useEffect(() => {
     const chartDom = document.getElementById("line-chart");
     const myChart = echarts.init(chartDom);
 
     const option = {
       title: {
-        text: "Monthly Revenue",
+        text: title,
       },
       tooltip: {
         trigger: "axis",
@@ -45,20 +51,18 @@ export const LineChart: SFC = ({ ClassName }) => {
       },
       series: [
         {
-          name: "Sales",
+          name: category,
           type: "line",
           data: salesData,
           smooth: true,
           itemStyle: {
-            color: "#5470c6",
+            color: `${S.colors.secondary}`,
           },
           lineStyle: {
             width: 2,
           },
         },
       ],
-      // Responsive settings
-      responsive: true,
       grid: {
         top: "10%",
         bottom: "10%",
@@ -69,7 +73,6 @@ export const LineChart: SFC = ({ ClassName }) => {
 
     myChart.setOption(option);
 
-    // Resize chart on window resize
     const handleResize = () => {
       myChart.resize();
     };
@@ -80,19 +83,17 @@ export const LineChart: SFC = ({ ClassName }) => {
       myChart.dispose();
       window.removeEventListener("resize", handleResize);
     };
-  }, [salesData]);
+  }, [salesData, title]);
 
   return (
-    <>
-      <S.Container
-        className={twMerge("bg-white p-2 h-[400px] rounded-sm", ClassName)}
-      >
-        <S.Content
-          id="line-chart"
-          style={{ width: "100%", height: "400px" }}
-          className="w-full"
-        ></S.Content>
-      </S.Container>
-    </>
+    <S.Container
+      className={twMerge("bg-white rounded-lg p-2 h-[400px]", ClassName)}
+    >
+      <S.Content
+        id="line-chart"
+        style={{ width: "100%", height: "400px" }}
+        className="w-full"
+      ></S.Content>
+    </S.Container>
   );
 };

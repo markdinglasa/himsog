@@ -11,6 +11,7 @@ export const DoughnutChart: SFC<ChartProps> = ({
   title,
   data = [],
   category = "NA",
+  isProgressReport = false,
 }) => {
   const datalist = data.map((field) => ({
     name: field.Name,
@@ -24,7 +25,7 @@ export const DoughnutChart: SFC<ChartProps> = ({
     const option = {
       title: {
         text: title,
-        left: "center",
+        left: "left",
       },
       tooltip: {
         trigger: "item",
@@ -46,15 +47,17 @@ export const DoughnutChart: SFC<ChartProps> = ({
               fontWeight: "bold",
             },
           },
-          data: datalist.map((item) => ({
-            ...item,
-            itemStyle: {
-              color:
-                (item?.name ?? "NA") === "Completed"
-                  ? colors.primary
-                  : colors.palette.neutral[200],
-            },
-          })),
+          data: isProgressReport
+            ? datalist.map((item) => ({
+                ...item,
+                itemStyle: {
+                  color:
+                    (item?.name ?? "NA") === "Completed"
+                      ? colors.primary
+                      : colors.palette.neutral[200],
+                },
+              }))
+            : datalist,
           itemStyle: {
             backgroundColor: "red",
           },

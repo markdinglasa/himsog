@@ -41,4 +41,6 @@ export enum QueryKey {
   NUTRISTIONIST_COUNT = "nutritionist-count",
   CLIENT_COUNT = "client-count",
   ADMIN_COUNT = "admin-count",
+  ADMIN_SUBSCRIPTION_COUNT = "admin-subscription-count",
+  ADMIN_SUBSCRIPTION_MONTHLY_REVENUE = "admin-subscription-monthly-revenue",
 }

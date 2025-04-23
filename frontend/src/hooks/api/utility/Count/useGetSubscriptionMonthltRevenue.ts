@@ -4,12 +4,14 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAdminCount = () => {
+const useGetAdminSusbcriptionMonthlyRevenue = () => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [QueryKey.ADMIN_COUNT], // Unique key for the query, including the Id
+    queryKey: [QueryKey.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE], // Unique key for the query, including the Id
     queryFn: async () => {
-      const response = await axios.get(`${APIChannel.ADMIN_COUNT}`);
+      const response = await axios.get(
+        `${APIChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE}`,
+      );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
@@ -22,4 +24,4 @@ const useGetAdminCount = () => {
     refetch,
   };
 };
-export default useGetAdminCount;
+export default useGetAdminSusbcriptionMonthlyRevenue;

@@ -11,16 +11,23 @@ import Icon from "../../../constants/icon";
 import {
   mdiAccountCreditCardOutline,
   mdiAccountOutline,
-  mdiCommentQuoteOutline,
+  mdiCalendarTextOutline,
+  mdiFoodVariant,
+  mdiInvoiceSendOutline,
   mdiScale,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import { cn, formatNumber } from "../../../utils";
-
+import API from "../../../hooks/api";
 import { memo } from "react";
 
 export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const { data: count } = API.Utility.Count.AdminCount();
+  const { data: subscount } = API.Utility.Count.AdminSubscriptionCount();
+  const { data: subsrevenue } =
+    API.Utility.Count.AdminSusbcriptionMonthlyRevenue();
+  console.log(subsrevenue);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -106,38 +113,63 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
           <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
             <Card.Dashboard
               Icons={mdiAccountOutline}
-              Text={"0"}
+              Text={String(count?.[0]?.Count ?? 0)}
               Title="User"
               OnClick={() => navigate(RouteChannel.ADMIN_USER)}
             />
             <Card.Dashboard
-              Icons={mdiScale}
-              Text={"0"}
-              Title="Unit"
-              OnClick={() => navigate(RouteChannel.ADMIN_UNIT)}
+              Icons={mdiFoodVariant}
+              Text={String(count?.[5]?.Count ?? 0)}
+              Title="Meal Plans"
+              OnClick={() => navigate(RouteChannel.ADMIN_MEAL_PLAN)}
             />
             <Card.Dashboard
               Icons={mdiAccountCreditCardOutline}
-              Text={"0"}
+              Text={String(count?.[2]?.Count ?? 0)}
               Title="Susbcription"
               OnClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
             />
             <Card.Dashboard
-              Icons={mdiCommentQuoteOutline}
-              Text={"0"}
-              Title="Feedback"
-              OnClick={() => navigate(RouteChannel.ADMIN_SUBSCRIPTION)}
+              Icons={mdiInvoiceSendOutline}
+              Text={String(count?.[3]?.Count)}
+              Title="Request Access"
+              OnClick={() => navigate(RouteChannel.ADMIN_REQUEST_ACCESS)}
+            />
+            <Card.Dashboard
+              Icons={mdiCalendarTextOutline}
+              Text={String(count?.[4]?.Count)}
+              Title="Events"
+              OnClick={() => navigate(RouteChannel.ADMIN_EVENT)}
+            />
+            <Card.Dashboard
+              Icons={mdiCalendarTextOutline}
+              Text={String(count?.[5]?.Count)}
+              Title="Health Articles"
+              OnClick={() => navigate(RouteChannel.ADMIN_ARTICLE)}
+            />
+            <Card.Dashboard
+              Icons={mdiScale}
+              Text={String(count?.[1]?.Count ?? 0)}
+              Title="Unit"
+              OnClick={() => navigate(RouteChannel.ADMIN_UNIT)}
             />
           </S.CardContainer>
         </S.Content>
         <S.Content className="mt-2 flex flex-col md:flex-row gap-2 mb-2">
-          <S.Divider className="w-full md:w-8/12 ">
-            <LineChart ClassName="border rounded-md" />
+          <S.Divider className="w-full md:w-8/12  ">
+            <LineChart
+              category="Subscription"
+              title="Monthly Revenue"
+              ClassName="border rounded-md p-[1rem]"
+              data={subsrevenue}
+            />
           </S.Divider>
           <S.Divider className="w-full md:w-4/12 ">
             <DoughnutChart
-              ClassName="border rounded-md"
-              data={[{ Name: "Tidert", NameCount: 3 }]}
+              title="Most Subscribe Subscription"
+              ClassName="border rounded-md p-[1rem]"
+              category="Subscription"
+              data={subscount}
             />
           </S.Divider>
         </S.Content>

@@ -4,6 +4,8 @@ import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
   AdminGetAllCount,
+  AdminGetSubscriptionCount,
+  AdminGetSubscriptionMonthlyRevenue,
   ClientGetAllCount,
   NutritionistGetAllCount,
 } from "../../controllers";
@@ -24,12 +26,27 @@ router.get(
   TokenHandler.verifyToken,
   AdminGetAllCount,
 );
-
+router.get(
+  `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_COUNT}`,
+  TokenHandler.verifyToken,
+  AdminGetSubscriptionCount,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE}`,
+  TokenHandler.verifyToken,
+  AdminGetSubscriptionMonthlyRevenue,
+);
 logging.log("----------------------------------------");
 logging.log("----------COUNT CONTROLLER-----------");
 logging.log(`GET ${RouteChannel.NUTRISTIONIST_COUNT} [get-all]`);
 logging.log(`GET ${RouteChannel.CLIENT_COUNT} [get-all]`);
 logging.log(`GET ${RouteChannel.ADMIN_COUNT} [get-all]`);
+logging.log(
+  `GET ${RouteChannel.ADMIN_SUBSCRIPTION_COUNT} [subscription-count]`,
+);
+logging.log(
+  `GET ${RouteChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE} [subscription-monthly-revenue]`,
+);
 logging.log("----------------------------------------");
 
 export default router;

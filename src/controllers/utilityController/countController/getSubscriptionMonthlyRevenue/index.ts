@@ -1,18 +1,21 @@
 import { NextFunction, Request, Response } from "express";
 import { GetService } from "../../../../services";
-import { FnQuery, Error, Success } from "../../../../shared";
+import { Error, Success, CountQuery } from "../../../../shared";
 
-export const AdminGetAllCount = async (
+export const AdminGetSubscriptionMonthlyRevenue = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const response = await GetService.byQuery(FnQuery.q004);
+    const response = await GetService.byQuery(CountQuery.q002);
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("AdminGetAllCount-Controller [GetAll]:", error.message);
+    logging.error(
+      "AdminGetAllCount-Controller [SubscriptionMonthlyRevenue]:",
+      error.message,
+    );
     logging.log("----------------------------------------");
     return res
       .status(500)

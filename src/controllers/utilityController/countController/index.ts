@@ -1,3 +1,5 @@
 export * from "./getNutritionistCount";
 export * from "./getAdminCount";
 export * from "./getClientCount";
+export * from "./getSubcriptionCount";
+export * from "./getSubscriptionMonthlyRevenue";
