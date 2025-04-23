@@ -135,7 +135,10 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             <LineChart ClassName="border rounded-md" />
           </S.Divider>
           <S.Divider className="w-full md:w-4/12 ">
-            <DoughnutChart ClassName="border rounded-md" data={[]} />
+            <DoughnutChart
+              ClassName="border rounded-md"
+              data={[{ Name: "Tidert", NameCount: 3 }]}
+            />
           </S.Divider>
         </S.Content>
         {/*<div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>*/}

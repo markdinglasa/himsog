@@ -30,14 +30,14 @@
 - [15/18] Subtotal - Account Management
 
 - Meal Plan Management = 3mod
-- [ ] Client, View Meal Plan
-- [ ] Client, View Meal History
+- [x] Client, View Meal Plan
+- [x] Client, View Meal History
 
-- [ ] Nutritionist, Create Meal Plan
-- [ ] Nutritionist, Meal Plan Listing
-- [ ] Nutritionist, View Meal Plan
-- [ ] Nutritionist, Manage Recipe's
-- [ ] Nutritionist, Manage Ingredient
+- [x] Nutritionist, Create Meal Plan
+- [x] Nutritionist, Meal Plan Listing
+- [x] Nutritionist, View Meal Plan
+- [x] Nutritionist, Manage Recipe's
+- [x] Nutritionist, Manage Ingredient
 - [ ] Nutritionist, View Custom Meal Plan Earning's
 
 - [ ] Admin, View Meal Plan

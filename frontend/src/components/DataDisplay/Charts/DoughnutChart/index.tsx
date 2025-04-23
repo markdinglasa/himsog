@@ -3,6 +3,7 @@ import * as echarts from "echarts";
 import { ChartProps, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { twMerge } from "tailwind-merge";
+import { colors } from "../../../../styles";
 
 export const DoughnutChart: SFC<ChartProps> = ({
   ClassName,
@@ -40,16 +41,22 @@ export const DoughnutChart: SFC<ChartProps> = ({
           },
           emphasis: {
             label: {
-              show: true,
+              show: false,
               fontSize: "20",
               fontWeight: "bold",
             },
           },
-          data: datalist,
+          data: datalist.map((item) => ({
+            ...item,
+            itemStyle: {
+              color:
+                (item?.name ?? "NA") === "Completed"
+                  ? colors.primary
+                  : colors.palette.neutral[200],
+            },
+          })),
           itemStyle: {
-            borderRadius: 10,
-            borderColor: "#fff",
-            borderWidth: 2,
+            backgroundColor: "red",
           },
           animationType: "scale",
           animationEasing: "elasticOut",
@@ -63,7 +70,7 @@ export const DoughnutChart: SFC<ChartProps> = ({
       myChart.dispose();
     };
   }, [datalist, title]);
-
+  console.log(datalist[0].name);
   return (
     <S.Container className={twMerge("bg-white rounded-lg p-2", ClassName)}>
       <S.Content

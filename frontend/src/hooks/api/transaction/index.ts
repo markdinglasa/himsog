@@ -3,6 +3,7 @@ import MealPlanRequest from "./mealPlanRequest";
 import RequestAccess from "./requestAccess";
 import Payment from "./payment";
 import MealPlanRating from "./mealPlanRating";
+import UserMealPlan from "./userMealPlan";
 
 export default {
   Appointment,
@@ -10,4 +11,5 @@ export default {
   RequestAccess,
   Payment,
   MealPlanRating,
+  UserMealPlan,
 };

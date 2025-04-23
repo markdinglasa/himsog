@@ -10,8 +10,11 @@ export const UserMealPlanActivateController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const user = req.query.user ? Number(req.query.user) : 0; // Ensure user is a number
-    const mealplan = req.query.mealplan ? Number(req.query.mealplan) : 0; // Ensure mealplan is a number
+    const user: number = req.query.user ? Number(req.query.user) : 0;
+    const mealplan: number = req.query.mealplan
+      ? Number(req.query.mealplan)
+      : 0; // Ensure mealplan is a number
+    const isActive: boolean = req.query?.active === "1";
 
     if (
       !user ||
@@ -41,7 +44,10 @@ export const UserMealPlanActivateController = async (
         [user, mealplan],
       )
     )[0];
-    response.IsActive = true; // Set IsActive to true
+    if (!response)
+      return res.status(401).json({ data: false, message: Error.m011 });
+    response.IsActive = isActive; // Set IsActive to true
+    if (response.IsActive) response.DateActivated = new Date(); // Set DateActivated to current date
     if (
       !(await UpdateService.record(
         Number(response?.Id ?? 0),

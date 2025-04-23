@@ -20,6 +20,7 @@ export const ClientMealPlanDetailsPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.CLIENT_MEAL_PLAN),
     },
   ];
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>

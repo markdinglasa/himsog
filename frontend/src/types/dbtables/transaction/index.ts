@@ -5,3 +5,4 @@ export * from "./requestAccess";
 export * from "./message";
 export * from "./convo";
 export * from "./mealPlanRating";
+export * from "./userMealPlan";

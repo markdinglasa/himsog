@@ -5,6 +5,7 @@ import { API_VERSION } from "../../constants";
 import {
   UserMealPlanActivateController,
   UserMealPlanAddController,
+  UserMealPlanGetActiveByUserController,
   UserMealPlanGetAllController,
   UserMealPlanGetController,
   UserMealPlanRemoveController,
@@ -13,7 +14,12 @@ import {
 
 const router = express.Router();
 router.get(
-  `${API_VERSION}${RouteChannel.USER_MEAL_PLAN_ID}`,
+  `${API_VERSION}${RouteChannel.USER_MEAL_PLAN_ACTIVE}`,
+  TokenHandler.verifyToken,
+  UserMealPlanGetActiveByUserController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.USER_MEAL_PLAN_GET}`,
   TokenHandler.verifyToken,
   UserMealPlanGetController,
 );

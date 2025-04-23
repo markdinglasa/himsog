@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { ButtonColor, RouteChannel, SFC } from "../../../types";
+import { ButtonColor, FormProps, RouteChannel, SFC } from "../../../types";
 import { cn, formatNumber } from "../../../utils";
 import API from "../../../hooks/api";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,17 +14,26 @@ import { useToggle } from "react-use";
 // import { useAuth } from "../../../hooks";
 import Form from "../../Surfaces/Forms";
 
-export const MealPlanDetails: SFC = ({ ClassName }) => {
+export const MealPlanDetails: SFC<FormProps> = ({
+  ClassName,
+  IsDisplay = false,
+  RecordId = 0,
+}) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const { Id } = useParams<{ Id: string }>();
-  const { data, isLoading } = API.Setup.MealPlan.Get(Number(Id));
-
+  const MealPlanId: number = IsDisplay ? Number(RecordId) : Number(Id);
+  const { data, isLoading } = API.Setup.MealPlan.Get(Number(MealPlanId));
   const { data: isPaid, isLoading: paidLoading } =
-    API.Setup.MealPlan.GetDetails(auth?.user ?? 0, Number(Id));
+    API.Setup.MealPlan.GetDetails(auth?.user ?? 0, Number(MealPlanId));
   const [isModal, toggleModal] = useToggle(false);
-
+  const { data: active } = API.Transaction.UserMealPlan.Get(
+    Number(MealPlanId),
+    auth?.user ?? 0,
+  );
+  const { update } = API.Transaction.UserMealPlan.Activate();
   if (isLoading && paidLoading) return <Skeleton />;
+
   return (
     <>
       <div className={cn("w-full", ClassName)}>
@@ -47,7 +56,9 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
                   morph={false}
                 />
               </AccessControl>
-              <AccessControl OtherCondition={isPaid?.Status === "Approved"}>
+              <AccessControl
+                OtherCondition={isPaid?.Status === "Approved" && !IsDisplay}
+              >
                 <div className="flex flex-row gap-[1rem]">
                   <AccessControl OtherCondition={!(isPaid?.IsRated ?? false)}>
                     <CustomButton
@@ -68,11 +79,13 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
                     />
                   </AccessControl>
                   <CustomButton
-                    onClick={() => {}}
+                    onClick={() => {
+                      update(Number(auth?.user ?? 0), Number(Id), 1);
+                    }}
                     leftIcon={<Icon.CheckCircle />}
                     text="Activate"
                     morph={false}
-                    disabled={isPaid?.IsActive ?? false}
+                    disabled={Boolean(active?.IsActive ?? false)}
                   />
                 </div>
               </AccessControl>
@@ -127,6 +140,7 @@ export const MealPlanDetails: SFC = ({ ClassName }) => {
                 <div className="z-10 w-full h-full absolute"></div>
               </AccessControl>
               <MealPlanMeals
+                RecordId={String(RecordId)}
                 IsDetails={true}
                 IsDisplay={true}
                 ClassName={isPaid?.Status === "Approved" ? "" : "blur-lg"}

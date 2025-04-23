@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { APIChannel, MealPlanRating, ToastType } from "../../../../types";
+import { APIChannel, ToastType, UserMealPlan } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
@@ -9,8 +9,8 @@ const useAddUserMealPlan = () => {
   const axios = useAxiosPrivate();
 
   const mutation = useMutation({
-    mutationFn: async (data: MealPlanRating) => {
-      const response = await axios.post(`${APIChannel.MEAL_PLAN_RATING}`, data);
+    mutationFn: async (data: UserMealPlan) => {
+      const response = await axios.post(`${APIChannel.USER_MEAL_PLAN}`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -25,7 +25,7 @@ const useAddUserMealPlan = () => {
   });
 
   const add = useCallback(
-    (data: MealPlanRating) => {
+    (data: UserMealPlan) => {
       if (!data) return;
       mutation.mutate(data);
     },

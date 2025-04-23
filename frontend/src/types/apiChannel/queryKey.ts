@@ -13,6 +13,7 @@ export enum QueryKey {
   ARTICLE_INVALIDATED = "article-invalidated",
   MEAL = "meal",
   MEAL_PLAN = "meal-plan",
+  USER_MEAL_PLAN = "user-meal-plan",
   MY_MEAL_PLAN = "my-meal-plan",
   MEAL_PLAN_LINE = "meal-plan-line",
   MEAL_PLAN_RATING = "meal-plan-rating",

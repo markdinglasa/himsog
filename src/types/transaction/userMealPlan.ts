@@ -6,10 +6,12 @@ export interface UserMealPlan extends Id, Logs {
   MealPlanId: number;
   MealPlanName?: string;
   IsActive: boolean;
+  DateActivated: string | null | Date;
 }
 export type UserMealPlans = UserMealPlan[];
 export const UserMealPlanInitial: UserMealPlan = {
   UserId: 0,
   MealPlanId: 0,
   IsActive: false,
+  DateActivated: null,
 };
