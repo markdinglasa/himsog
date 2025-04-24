@@ -10,7 +10,7 @@ export const registerValidator = Joi.object({
   ContactNumber: Joi.string().allow("").allow(null).optional(),
   CivilStatus: Joi.string().allow("").allow(null).optional(),
   Role: Joi.string()
-    .valid("superuser", "administrator", "client", "nutritionist")
+    .valid("superuser", "administrator", "advocate", "nutritionist")
     .required(),
   ProfilePhoto: Joi.string().allow("").allow(null).optional(),
   IsSuspended: Joi.boolean().required(),

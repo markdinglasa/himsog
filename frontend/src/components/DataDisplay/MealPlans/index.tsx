@@ -22,8 +22,8 @@ export const MealPlans: SFC<FormProps> = ({ ClassName, IsMy = false }) => {
     data: mealplans,
     isLoading,
     refetch,
-  } = API.Setup.MealPlan.GetWithFilter(filter, page);
-  console.log(mealplans);
+  } = API.Setup.MealPlan.GetWithFilter(Number(auth?.user ?? 0), filter, page);
+
   const {
     data: mymealplans,
     isLoading: myIsLoading,
