@@ -9,6 +9,7 @@ import Messenger from "./Messenger";
 import Event from "./Event";
 import Transaction from "./Transactions";
 import MealPlan from "./MealPlan";
+import Report from "./Reports";
 
 //import * from "./Reports";
 //import * from "./Utilities";
@@ -25,6 +26,7 @@ const AdminPages = {
   Event,
   Transaction,
   MealPlan,
+  Report,
 };
 
 export default AdminPages;

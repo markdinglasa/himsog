@@ -13,6 +13,7 @@ import {
   mdiFoodTakeoutBoxOutline,
   mdiCreditCardOutline,
   mdiPasta,
+  mdiChartLine,
 } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
@@ -304,6 +305,41 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.NUTRITIONIST_INGREDIENT}
               />
             </AccessControl>*/}
+            <AccessControl UserRoles={[Roles.admin]}>
+              <Menu
+                icon={mdiChartLine}
+                isCollapse={Collapse}
+                label="Reports"
+                isParent={true}
+                onClick={() => {
+                  Toggle();
+                  //navigate(RouteChannel.REPORTS);
+                }}
+              >
+                <Menu
+                  icon={mdiBookOpenVariantOutline}
+                  isCollapse={Collapse}
+                  label="Subscription Reports"
+                  onClick={() => {
+                    Toggle();
+                    navigate(RouteChannel.ADMIN_REPORT_SUBSCRIPTION);
+                    setActive(RouteChannel.ADMIN_REPORT_SUBSCRIPTION);
+                  }}
+                  IsActive={active === RouteChannel.ADMIN_REPORT_SUBSCRIPTION}
+                />
+                <Menu
+                  icon={mdiAccountOutline}
+                  isCollapse={Collapse}
+                  label="User Reports"
+                  onClick={() => {
+                    Toggle();
+                    navigate(RouteChannel.ADMIN_REPORT_USER);
+                    setActive(RouteChannel.ADMIN_REPORT_USER);
+                  }}
+                  IsActive={active === RouteChannel.ADMIN_REPORT_USER}
+                />
+              </Menu>
+            </AccessControl>
           </S.MenuContent>
         </S.MenuContainer>
       </S.Container>

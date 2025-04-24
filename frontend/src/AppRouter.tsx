@@ -187,8 +187,12 @@ export const AppRouter = createBrowserRouter(
                 element={<Page.UnderConstruction />}
               />
               <Route
-                path={RouteChannel.ADMIN_FEEDBACK_DETAILS}
-                element={<Page.UnderConstruction />}
+                path={RouteChannel.ADMIN_REPORT_SUBSCRIPTION}
+                element={<Page.Admin.Report.Subscription.View />}
+              />
+              <Route
+                path={RouteChannel.ADMIN_REPORT_USER}
+                element={<Page.Admin.Report.User.View />}
               />
             </Route>
           </Route>

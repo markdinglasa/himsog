@@ -50,6 +50,8 @@ export enum RouteChannel {
   ADMIN_MESSENGER_NEW = "/a/messenger/new",
   ADMIN_REQUEST_ACCESS = "/a/request-access",
   ADMIN_REQUEST_ACCESS_DETAILS = "/a/request-access/d/:Id",
+  ADMIN_REPORT_SUBSCRIPTION = "/a/report/subscription",
+  ADMIN_REPORT_USER = "/a/report/user",
   // CLIENT PAGES
   CLIENT_DASHBOARD = "/c",
   CLIENT_TERMS_AND_CONDITIONS = "/c/terms-and-conditions",

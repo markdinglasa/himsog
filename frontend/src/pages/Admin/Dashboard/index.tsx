@@ -66,8 +66,8 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={[]} Active="Dashboard" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Content className="">
-          <S.CardContainer className="flex md:flex-row flex-col gap-2 w-full mb-2">
+        <S.Content className="mb-[1rem]">
+          <S.CardContainer className="flex md:flex-row flex-col gap-[1rem] w-full mb-[1rem]">
             <IncrementCard
               Text={`Today's sales (${subsDailyRevenueWithPercentage?.DayName ?? "Monday"})`}
               Amount={formatNumber(
@@ -145,7 +145,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               PercentText={"Since last month"}
             />*/}
           </S.CardContainer>
-          <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+          <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[1rem]">
             <Card.Dashboard
               Icons={mdiAccountOutline}
               Text={String(count?.[0]?.Count ?? 0)}
@@ -190,7 +190,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             />
           </S.CardContainer>
         </S.Content>
-        <S.Content className="mt-2 flex flex-col md:flex-row gap-2 mb-2">
+        <S.Content className="mt-2 flex flex-col md:flex-row gap-[1rem] mb-[1rem]">
           <S.Divider className="w-full md:w-8/12  ">
             <LineChart
               category="Subscription"
