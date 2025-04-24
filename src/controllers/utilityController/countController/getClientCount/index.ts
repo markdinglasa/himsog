@@ -12,10 +12,10 @@ export const ClientGetAllCount = async (
     if (!UserId || UserId === 0 || UserId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
     const response = await GetService.byFields(
-      FnQuery.q003,
-      ["CreatedBy", "UserId", "NutritionistId", "NutritionistId"],
-      [Number, Number, Number, Number],
-      [UserId, UserId, UserId, UserId],
+      FnQuery.q005,
+      ["UserId"],
+      [Number],
+      [UserId],
     );
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {

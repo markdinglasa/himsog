@@ -20,7 +20,8 @@ export const MealPlanMeals: SFC<FormProps> = ({
   RecordId = 0,
 }) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL-PLAN ID
-  const MealPlanId: number = RecordId ? Number(RecordId) : Number(Id);
+  const MealPlanId: number =
+    Number(RecordId) !== 0 ? Number(RecordId) : Number(Id);
   const { remove } = API.Setup.MealPlanLine.Remove();
   const { data: MealPlanMeals, isLoading } = API.Setup.MealPlanLine.GetAll(
     Number(MealPlanId),
