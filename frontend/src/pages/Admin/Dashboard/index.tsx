@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { cn, formatNumber } from "../../../utils";
 import API from "../../../hooks/api";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -27,7 +27,38 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const { data: subscount } = API.Utility.Count.AdminSubscriptionCount();
   const { data: subsrevenue } =
     API.Utility.Count.AdminSusbcriptionMonthlyRevenue();
-  // console.log(subsrevenue);
+  const { data: subsRevenueWithPercentage } =
+    API.Utility.Count.AdminSubscriptionMonthlyRevenueWithPercentage();
+
+  const { data: subsDailyRevenueWithPercentage } =
+    API.Utility.Count.AdminSubscriptionDailyRevenueWithPercentage();
+  // console.log(subsDailyRevenueWithPercentage);
+
+  const percentageMonthRevenue = useMemo(() => {
+    return Math.round(
+      (((subsRevenueWithPercentage?.Revenue ?? 0) -
+        (subsRevenueWithPercentage?.PreviousMonthRevenue ?? 0)) /
+        (subsRevenueWithPercentage?.PreviousMonthRevenue ?? 1)) *
+        100,
+    );
+  }, [
+    subsRevenueWithPercentage?.Revenue,
+    subsRevenueWithPercentage?.PreviousMonthRevenue,
+  ]);
+
+  const percentageDayRevenue = useMemo(() => {
+    const previousDayRevenue =
+      subsDailyRevenueWithPercentage?.PreviousDayRevenue ?? 0;
+    const subtotal =
+      (subsDailyRevenueWithPercentage?.Revenue ?? 0) - previousDayRevenue;
+    return previousDayRevenue > 0
+      ? Math.round((subtotal / previousDayRevenue) * 100)
+      : 0;
+  }, [
+    subsDailyRevenueWithPercentage?.Revenue,
+    subsDailyRevenueWithPercentage?.PreviousDayRevenue,
+  ]);
+  console.log(subsDailyRevenueWithPercentage?.Revenue ?? 0);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -38,9 +69,11 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
         <S.Content className="">
           <S.CardContainer className="flex md:flex-row flex-col gap-2 w-full mb-2">
             <IncrementCard
-              Text="Today's sales"
-              Amount={formatNumber(5355)}
-              Percent={1}
+              Text={`Today's sales (${subsDailyRevenueWithPercentage?.DayName ?? "Monday"})`}
+              Amount={formatNumber(
+                Number(subsDailyRevenueWithPercentage?.Revenue ?? 0),
+              )}
+              Percent={percentageDayRevenue}
               Icon={
                 <Icon.Cart
                   className="text-white w-full h-full"
@@ -52,13 +85,16 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
                   }}
                 />
               }
-              IsNegative={false}
-              PercentText={"Since last week"}
+              IsNegative={(subsDailyRevenueWithPercentage?.Revenue ?? 0) < 1}
+              PercentText={"Since yesterday"}
             />
             <IncrementCard
-              Text="monthly's sales"
-              Amount={formatNumber(94355)}
-              Percent={1}
+              Text={`monthly's sales (${subsRevenueWithPercentage?.MonthName ?? "January"})`}
+              Amount={formatNumber(
+                Number(subsRevenueWithPercentage?.Revenue ?? 0),
+              )}
+              IsNegative={(subsRevenueWithPercentage?.Revenue ?? 0) < 1}
+              Percent={percentageMonthRevenue}
               Icon={
                 <Icon.Money
                   className="text-white w-full h-full"
@@ -70,10 +106,9 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
                   }}
                 />
               }
-              IsNegative={false}
               PercentText={"Since last month"}
             />
-            <IncrementCard
+            {/*<IncrementCard
               Text="most sold item"
               Amount={formatNumber(100)}
               Percent={1}
@@ -108,7 +143,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               }
               IsNegative={true}
               PercentText={"Since last month"}
-            />
+            />*/}
           </S.CardContainer>
           <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
             <Card.Dashboard

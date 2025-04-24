@@ -3,3 +3,5 @@ export * from "./getAdminCount";
 export * from "./getClientCount";
 export * from "./getSubcriptionCount";
 export * from "./getSubscriptionMonthlyRevenue";
+export * from "./getSubscMontlyRevenueWithPercentage";
+export * from "./getSubscriptionDailyRevenueWithPercentage";

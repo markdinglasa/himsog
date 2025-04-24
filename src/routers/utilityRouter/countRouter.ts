@@ -5,7 +5,9 @@ import { API_VERSION } from "../../constants";
 import {
   AdminGetAllCount,
   AdminGetSubscriptionCount,
+  AdminGetSubscriptionDailyRevenueWithPercentage,
   AdminGetSubscriptionMonthlyRevenue,
+  AdminGetSubscriptionMonthlyRevenueWithPercentage,
   ClientGetAllCount,
   NutritionistGetAllCount,
 } from "../../controllers";
@@ -35,6 +37,16 @@ router.get(
   `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE}`,
   TokenHandler.verifyToken,
   AdminGetSubscriptionMonthlyRevenue,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE}`,
+  TokenHandler.verifyToken,
+  AdminGetSubscriptionMonthlyRevenueWithPercentage,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_DAILY_REVENUE_WITH_PERCENTAGE}`,
+  TokenHandler.verifyToken,
+  AdminGetSubscriptionDailyRevenueWithPercentage,
 );
 logging.log("----------------------------------------");
 logging.log("----------COUNT CONTROLLER-----------");
