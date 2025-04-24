@@ -74,7 +74,7 @@ export const Professions: SFC<FormProps> = ({
             </div>
           ))
         ) : (
-          <div className="w-full text-center items-center">
+          <div className="w-full text-center items-center py-[1rem] mb-[1rem]">
             <NoRecord Message="No Profession License" />
           </div>
         )}

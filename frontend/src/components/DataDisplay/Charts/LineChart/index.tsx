@@ -27,8 +27,8 @@ export const LineChart: SFC<ChartProps> = ({
 
   const salesData = Array(12).fill(0);
 
-  data.forEach(({ Month, NameCount }) => {
-    salesData[Month - 1] = NameCount;
+  data.forEach(({ Name, NameCount }) => {
+    salesData[Name - 1] = NameCount;
   });
 
   useEffect(() => {
@@ -56,13 +56,14 @@ export const LineChart: SFC<ChartProps> = ({
           data: salesData,
           smooth: true,
           itemStyle: {
-            color: `${S.colors.secondary}`,
+            color: `${S.colors.primary}`,
           },
           lineStyle: {
             width: 2,
           },
         },
       ],
+
       grid: {
         top: "10%",
         bottom: "10%",

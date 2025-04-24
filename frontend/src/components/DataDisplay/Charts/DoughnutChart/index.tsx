@@ -73,7 +73,7 @@ export const DoughnutChart: SFC<ChartProps> = ({
       myChart.dispose();
     };
   }, [datalist, title]);
-  console.log(datalist[0].name);
+
   return (
     <S.Container className={twMerge("bg-white rounded-lg p-2", ClassName)}>
       <S.Content

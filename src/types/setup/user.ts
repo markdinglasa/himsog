@@ -10,7 +10,7 @@ export enum CivilStatus {
 }
 export enum UserRole {
   DEFAULT = "",
-  CLIENT = "client",
+  CLIENT = "advocate",
   NUTRITIONIST = "nutritionist",
   ADMINISTRATOR = "administrator",
   SUPERUSER = "superuser",

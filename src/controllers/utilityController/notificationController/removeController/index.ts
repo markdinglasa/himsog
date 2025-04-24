@@ -12,9 +12,9 @@ export const NotificationRemoveController = async (
   try {
     const Id: number = parseInt(req.params?.Id, 10); // NotificationId
     if (!Id || Id === 0 || Id === undefined)
-      return res.status(401).json({ data: [], message: Error.m005 });
+      return res.status(401).json({ data: false, message: Error.m005 });
     if (!(await isFound(NotificationQuery.q002, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // check Notification existence
+      return res.status(401).json({ data: false, message: Error.m011 }); // check Notification existence
     // Check Transaction
     if (!(await RemoveService.byId(Id, DBTable.t008)))
       return { data: false, message: Error.m002 };
@@ -25,6 +25,6 @@ export const NotificationRemoveController = async (
     logging.log("----------------------------------------");
     return res
       .status(500)
-      .json({ data: [], message: error.message || Error.m001 });
+      .json({ data: false, message: error.message || Error.m001 });
   }
 };

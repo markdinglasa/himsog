@@ -39,7 +39,7 @@ export const ConfigurationProfessionPage: SFC = () => {
                 morph={false}
                 onClick={() => navigate(RouteChannel.CLIENT_HEALTH_SETUP)}
               />
-              <div className="w-full flex justify-end flex-row items-center gap-2">
+              <div className="w-full flex justify-end flex-row items-center  gap-2">
                 <CustomButton
                   text="Skip"
                   ClassName=""
@@ -47,8 +47,6 @@ export const ConfigurationProfessionPage: SFC = () => {
                   onClick={() => navigate(RouteChannel.NUTRITIONIST_DASHBOARD)}
                   morph={false}
                 />
-              </div>
-              <div className="w-full flex justify-end flex-row items-center gap-2">
                 <CustomButton
                   text="Next"
                   ClassName=""

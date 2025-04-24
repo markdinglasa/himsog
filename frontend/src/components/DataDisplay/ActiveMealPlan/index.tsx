@@ -27,7 +27,7 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
     const completed = activeMealPlan?.Completed ?? 0;
     const incomplete = activeMealPlan?.Duration ?? 0;
     return incomplete > 0
-      ? parseFloat(`${(completed / incomplete) * 100}`)
+      ? parseFloat(`${((completed / incomplete) * 100).toFixed(2)}`)
       : "0.00";
   };
   const isCompleted: boolean =

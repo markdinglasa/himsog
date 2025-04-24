@@ -137,7 +137,7 @@ const ProfessionForm: SFC<FormProps> = ({
                             label="License Number"
                             value={values?.LicenseNumber.toString()}
                             placeholder="e.g. RND-199485"
-                            name="LicenseNumber"
+                            name="License Number"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -193,7 +193,7 @@ const ProfessionForm: SFC<FormProps> = ({
                             />
                           </S.Divider>
                         </S.Divider>
-                        <S.Divider className="w-full mb-[1rem]">
+                        <S.Divider className="w-full mb-[1rem] relative">
                           <S.Divider className="w-full border-dashed border-2 border-[#C4C4C4] min-h-[10rem] rounded-md flex flex-col items-center justify-center">
                             <input
                               id="upload-image"
@@ -238,29 +238,6 @@ const ProfessionForm: SFC<FormProps> = ({
                             />
                           </S.Divider>
                         </S.Divider>
-                        {/*<AccessControl OtherCondition={IsSetup}>
-                          <S.Divider className="w-full flex justify-between items-center">
-                            <CustomButton
-                              text="Back"
-                              ClassName=""
-                              type={ButtonType.button}
-                              color={ButtonColor.default}
-                              morph={false}
-                              onClick={() =>
-                                navigate(
-                                  RouteChannel.NUTRITIONIST_PROFILE_SETUP,
-                                )
-                              }
-                            />
-                            <CustomButton
-                              text="Next"
-                              ClassName=""
-                              disabled={!isValid || isSubmitting}
-                              type={ButtonType.submit}
-                              morph={false}
-                            />
-                          </S.Divider>
-                        </AccessControl>*/}
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end gap-3 items-center">
                             <CustomButton

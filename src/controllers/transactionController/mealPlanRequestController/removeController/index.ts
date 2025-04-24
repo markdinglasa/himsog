@@ -27,6 +27,6 @@ export const MealPlanRequestRemoveController = async (
     logging.log("----------------------------------------");
     return res
       .status(500)
-      .json({ data: [], message: error.message || Error.m001 });
+      .json({ data: false, message: error.message || Error.m001 });
   }
 };

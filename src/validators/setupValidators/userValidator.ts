@@ -24,7 +24,7 @@ export const userValidator = Joi.object({
     .required(),
   Religion: Joi.string().required(),
   Role: Joi.string()
-    .valid("superuser", "administrator", "client", "nutritionist")
+    .valid("superuser", "administrator", "advocate", "nutritionist")
     .required(),
   ProfilePhoto: Joi.string().allow("").allow(null).optional(),
   GoogleId: Joi.string().allow("").allow(null).optional(),

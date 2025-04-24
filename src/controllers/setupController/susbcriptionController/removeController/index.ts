@@ -12,9 +12,9 @@ export const SubscriptionRemoveController = async (
   try {
     const Id: number = parseInt(req.params?.Id, 10); // SubscriptionId
     if (!Id || Id === 0 || Id === undefined)
-      return res.status(401).json({ data: [], message: Error.m005 });
+      return res.status(401).json({ data: false, message: Error.m005 });
     if (!(await isFound(SubscriptionQuery.q002, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // check Subscription existence
+      return res.status(401).json({ data: false, message: Error.m011 }); // check Subscription existence
     // Check Transaction
     // cannot remove subscription if there were users subscribing on it
     if (
@@ -27,9 +27,9 @@ export const SubscriptionRemoveController = async (
         )
       ).data
     )
-      return res.status(401).json({ data: true, message: Error.m020 });
+      return res.status(401).json({ data: false, message: Error.m020 });
     if (!(await RemoveService.byId(Id, DBTable.t022)))
-      return { data: false, message: Error.m002 };
+      return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
@@ -37,6 +37,6 @@ export const SubscriptionRemoveController = async (
     logging.log("----------------------------------------");
     return res
       .status(500)
-      .json({ data: [], message: error.message || Error.m001 });
+      .json({ data: false, message: error.message || Error.m001 });
   }
 };

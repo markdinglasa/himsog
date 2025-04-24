@@ -12,12 +12,12 @@ export const NutritionFactRemoveController = async (
   try {
     const Id: number = parseInt(req.params?.Id, 10); // NutritionFactId
     if (!Id || Id === 0 || Id === undefined)
-      return res.status(401).json({ data: [], message: Error.m005 });
+      return res.status(401).json({ data: false, message: Error.m005 });
     if (!(await isFound(NutritionFactQuery.q002, ["Id"], [Number], [Id])).data)
-      return res.status(401).json({ data: [], message: Error.m011 }); // check NutritionFact existence
+      return res.status(401).json({ data: false, message: Error.m011 }); // check NutritionFact existence
     // Check Transaction
     if (!(await RemoveService.byId(Id, DBTable.t021)))
-      return { data: false, message: Error.m002 };
+      return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
@@ -25,6 +25,6 @@ export const NutritionFactRemoveController = async (
     logging.log("----------------------------------------");
     return res
       .status(500)
-      .json({ data: [], message: error.message || Error.m001 });
+      .json({ data: false, message: error.message || Error.m001 });
   }
 };

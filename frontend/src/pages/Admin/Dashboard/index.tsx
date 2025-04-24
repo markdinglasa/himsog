@@ -165,12 +165,12 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
             />
           </S.Divider>
           <S.Divider className="w-full md:w-4/12 ">
-            {/*<DoughnutChart
+            <DoughnutChart
               title="Most Subscribe Subscription"
               ClassName="border rounded-md p-[1rem]"
               category="Subscription"
-              data={subscount}
-            />*/}
+              data={subscount ?? [{ Name: "NA", NameCount: 0 }]}
+            />
           </S.Divider>
         </S.Content>
         {/*<div dangerouslySetInnerHTML={{ __html: NoReplyEmail }}></div>*/}

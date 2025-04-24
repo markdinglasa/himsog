@@ -40,12 +40,12 @@ export const PublicFooter: SFC = ({ ClassName }) => {
             >
               <S.Span className="text-sm hover:text-[#2cb578]">Home</S.Span>
             </S.Divider>
-            <S.Divider
+            {/*<S.Divider
               className="cursor-pointer"
               onClick={() => navigate(RouteChannel.ABOUT_US)}
             >
               <S.Span className="text-sm hover:text-[#2cb578]">About Us</S.Span>
-            </S.Divider>
+            </S.Divider>*/}
             <S.Divider
               className="cursor-pointer"
               onClick={() => navigate(RouteChannel.CONTACT_US)}
@@ -63,6 +63,7 @@ export const PublicFooter: SFC = ({ ClassName }) => {
               </S.Span>
             </S.Divider>
           </S.Divider>
+          {/*
           <S.Divider className="w-full flex flex-col md:w-3/12  ">
             <S.Divider>
               <S.Span className="text-2xl">Support</S.Span>
@@ -73,7 +74,7 @@ export const PublicFooter: SFC = ({ ClassName }) => {
             >
               <S.Span className="text-sm hover:text-[#2cb578] ">FAQs</S.Span>
             </S.Divider>
-            <S.Divider
+           <S.Divider
               className="cursor-pointer"
               onClick={() => navigate(RouteChannel.PRIVACY_POLICY)}
             >
@@ -89,7 +90,7 @@ export const PublicFooter: SFC = ({ ClassName }) => {
                 Terms of Service
               </S.Span>
             </S.Divider>
-          </S.Divider>
+          </S.Divider>*/}
         </S.Content>
       </S.Container>
     </>

@@ -19,8 +19,8 @@ export const UserRemoveController = async (
     // if ((await isFound(UserQuery.q004, ["Id"], [Number], [Id])).data)
     //  return { data: false, message: Error.m020 }; // check user trnsactions
     if (!(await RemoveService.byId(Id, DBTable.t016)))
-      return { data: false, message: Error.m002 };
-    return { data: true, message: Success.m003 };
+      return res.status(401).json({ data: false, message: Error.m002 });
+    return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("User-Controller [Remove]:", error.message);
