@@ -9,6 +9,7 @@ export interface MealPlanTable extends Id, Logs {
   Description: string | null;
   Duration: number; // Number of days
   Diet: string;
+  IsPublic: boolean;
   Rating?: number;
   Sold?: number;
   Status?: string;
@@ -22,4 +23,5 @@ export const MealPlanInitial: MealPlanTable = {
   Duration: 0,
   Price: 0,
   Diet: "",
+  IsPublic: false,
 };

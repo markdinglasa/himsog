@@ -12,9 +12,9 @@ import {
   ButtonType,
   MedicalTable,
   InputType,
-  SetupForm,
   SFC,
   ToastType,
+  FormProps,
 } from "../../../../../types";
 import { memo, useRef, useState } from "react";
 import { Error } from "../../../../../shared";
@@ -33,15 +33,22 @@ import {
   RadioGroup,
 } from "@mui/material";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import { useParams } from "react-router-dom";
 
-const MedicalForm: SFC<SetupForm> = ({ ClassName, Title }) => {
+const MedicalForm: SFC<FormProps> = ({
+  ClassName,
+  Title,
+  IsDisplay = false,
+}) => {
   const { auth } = useAuth();
-  const Id: number = parseInt(auth?.user ?? 0);
+  const { Id: ParamId } = useParams<{ Id: string }>();
+  const Id: number = IsDisplay ? Number(ParamId) : parseInt(auth?.user ?? 0);
   const { add } = API.Setup.Medical.Add();
   const { update } = API.Setup.Medical.Update();
   const { data, isLoading } = API.Setup.Medical.Get(Id);
   const Disabled: boolean = Number(data?.Id?.toString() ?? "0") > 0;
-  const [IsEdit, SetIsEdit] = useState<boolean>(!Disabled);
+
+  const [IsEdit, SetIsEdit] = useState<boolean>(!Disabled && IsDisplay);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { upload } = API.Utility.UploadImage();
@@ -122,7 +129,7 @@ const MedicalForm: SFC<SetupForm> = ({ ClassName, Title }) => {
         <S.FormHeader className="flex flex-row items-center justify-between">
           <S.Span className="text-lg font-medium">{Title}</S.Span>
           <S.Divider>
-            <AccessControl OtherCondition={IsEdit}>
+            <AccessControl OtherCondition={IsEdit && !IsDisplay}>
               <CircleButton
                 OnClick={() => SetIsEdit(false)}
                 Icon={<Icon.Edit className="text-primary" />}
@@ -131,12 +138,14 @@ const MedicalForm: SFC<SetupForm> = ({ ClassName, Title }) => {
             </AccessControl>
           </S.Divider>
         </S.FormHeader>
-        <S.Divider className="w-full text-left mb-3">
-          <S.Span className="text-sm text-slate-600">
-            Some info may be visible to other people using Himsog services.
-            <S.Span className="text-blue-600"> Learn more.</S.Span>
-          </S.Span>
-        </S.Divider>
+        <AccessControl OtherCondition={!IsDisplay}>
+          <S.Divider className="w-full text-left mb-3">
+            <S.Span className="text-sm text-slate-600">
+              Some info may be visible to other people using Himsog services.
+              <S.Span className="text-blue-600"> Learn more.</S.Span>
+            </S.Span>
+          </S.Divider>
+        </AccessControl>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">
@@ -971,45 +980,49 @@ const MedicalForm: SFC<SetupForm> = ({ ClassName, Title }) => {
                             </S.Divider>
                           </AccessControl>
                         </S.Divider>
-                        <S.Divider>
-                          <S.Divider className="py-3 flex flex-col">
-                            <S.Span className="text-md font-medium">
-                              Physician Consent
-                            </S.Span>
-                            <S.Span className="text-sm text-slate-600">
-                              By checking you are agreeing to our Terms &
-                              Conditions.{" "}
-                              <span className="text-blue-600">Learn more.</span>
-                            </S.Span>
+                        <AccessControl OtherCondition={!IsDisplay}>
+                          <S.Divider>
+                            <S.Divider className="py-3 flex flex-col">
+                              <S.Span className="text-md font-medium">
+                                Physician Consent
+                              </S.Span>
+                              <S.Span className="text-sm text-slate-600">
+                                By checking you are agreeing to our Terms &
+                                Conditions.{" "}
+                                <span className="text-blue-600">
+                                  Learn more.
+                                </span>
+                              </S.Span>
+                            </S.Divider>
+                            <FormGroup>
+                              <FormControlLabel
+                                name="IsConsulted"
+                                control={
+                                  <Checkbox
+                                    color="success"
+                                    disabled={IsEdit}
+                                    checked={values.IsConsulted}
+                                    onChange={(e) =>
+                                      setFieldValue(
+                                        "IsConsulted",
+                                        e.target.checked,
+                                      )
+                                    }
+                                  />
+                                }
+                                label={
+                                  <>
+                                    <span>
+                                      I have consulted my physician before
+                                      joining this program.
+                                      <span className="text-red-500">*</span>
+                                    </span>
+                                  </>
+                                }
+                              />
+                            </FormGroup>
                           </S.Divider>
-                          <FormGroup>
-                            <FormControlLabel
-                              name="IsConsulted"
-                              control={
-                                <Checkbox
-                                  color="success"
-                                  disabled={IsEdit}
-                                  checked={values.IsConsulted}
-                                  onChange={(e) =>
-                                    setFieldValue(
-                                      "IsConsulted",
-                                      e.target.checked,
-                                    )
-                                  }
-                                />
-                              }
-                              label={
-                                <>
-                                  <span>
-                                    I have consulted my physician before joining
-                                    this program.
-                                    <span className="text-red-500">*</span>
-                                  </span>
-                                </>
-                              }
-                            />
-                          </FormGroup>
-                        </S.Divider>
+                        </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end items-center gap-3">
                             <CustomButton

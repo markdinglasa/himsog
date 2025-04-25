@@ -11,6 +11,8 @@ import { formatDateToMMDDYY } from "../../../utils";
 import Professions from "../../../components/DataDisplay/Professions";
 import Institutes from "../../../components/DataDisplay/Institutes";
 import Specalists from "../../../components/DataDisplay/Specalists";
+import MdIcon from "@mdi/react";
+import { mdiInvoiceSendOutline } from "@mdi/js";
 
 export const ClientProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -53,8 +55,16 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
           </div>
 
           <div className="flex items-center justify-end gap-[1rem]  ">
-            <CustomButton text="Message" onClick={() => {}} />
-            <CustomButton text="Request" onClick={() => {}} />
+            <CustomButton
+              leftIcon={<Icon.Send />}
+              text="Message"
+              onClick={() => {}}
+            />
+            <CustomButton
+              leftIcon={<MdIcon path={mdiInvoiceSendOutline} size={1} />}
+              text="Request"
+              onClick={() => {}}
+            />
           </div>
         </div>
         <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">

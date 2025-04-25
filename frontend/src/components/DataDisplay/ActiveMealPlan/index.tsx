@@ -1,6 +1,6 @@
-import { memo, Suspense, useEffect } from "react";
-import { SFC, ToastType } from "../../../types";
-import { cn, displayToast } from "../../../utils";
+import { memo, Suspense } from "react";
+import { SFC } from "../../../types";
+import { cn } from "../../../utils";
 import { DoughnutChart } from "../Charts";
 import { useAuth } from "../../../hooks";
 import MealPlanDetails from "../MealPlanDetails";
@@ -14,10 +14,7 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const { data: activeMealPlan, refetch } =
     API.Transaction.UserMealPlan.GetActiveByUser(Number(auth?.user ?? 0));
-  const { data: mpDatails } = API.Setup.MealPlan.GetDetails(
-    auth?.user ?? 0,
-    Number(activeMealPlan?.MealPlanId ?? 0),
-  );
+  //const [isCompleted, setIsCompleted] = useState<boolean>(false)
   if (!(activeMealPlan?.MealPlanId ?? 0))
     return (
       <>
@@ -26,6 +23,7 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
         </div>
       </>
     );
+
   const progressComplete = () => {
     const completed = activeMealPlan?.Completed ?? 0;
     const incomplete = activeMealPlan?.Duration ?? 0;
@@ -33,34 +31,7 @@ export const ActiveMealPlan: SFC = ({ ClassName }) => {
       ? parseFloat(`${((completed / incomplete) * 100).toFixed(2)}`)
       : "0.00";
   };
-  const isCompleted: boolean =
-    Number(activeMealPlan?.Completed ?? 0) >
-    Number(activeMealPlan?.Duration ?? 0); // if Completed is greater than duration
-
-  useEffect(() => {
-    const DeactOnComplete = () => {
-      try {
-        const { update } = API.Transaction.UserMealPlan.Activate();
-        if (
-          Boolean(mpDatails?.IsRated ?? false) &&
-          Number(activeMealPlan?.Completed ?? 0) >
-            Number(activeMealPlan?.Duration ?? 0) &&
-          auth?.user &&
-          activeMealPlan?.MealPlanId
-        ) {
-          update(Number(auth.user), Number(activeMealPlan.MealPlanId), 0);
-        }
-      } catch (error: any) {
-        displayToast(error?.message, ToastType.error);
-      }
-    };
-    DeactOnComplete();
-  }, [
-    activeMealPlan?.Completed,
-    activeMealPlan?.Duration,
-    auth?.user,
-    activeMealPlan?.MealPlanId,
-  ]);
+  const isCompleted: boolean = Number(activeMealPlan?.Incomplete ?? 0) === 0;
 
   return (
     <>

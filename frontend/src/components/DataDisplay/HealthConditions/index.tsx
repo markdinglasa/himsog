@@ -6,6 +6,7 @@ import { Chip } from "@mui/material";
 import Icon from "../../../constants/icon";
 import { colors } from "../../../styles";
 import { memo } from "react";
+import { NoRecord } from "../Tables";
 
 interface HealthConditionProps {
   IsAllergen: boolean;
@@ -47,9 +48,15 @@ export const HealthConditions: SFC<HealthConditionProps> = ({
                 </div>
               ))
           ) : (
-            <div>
+            <div className="w-full">
               <span>
-                {IsAllergen ? "No Allergen" : "No Dietary Preference"}
+                {IsAllergen ? (
+                  <div className="w-full">
+                    <NoRecord Message={"No Allergies"} />
+                  </div>
+                ) : (
+                  <NoRecord Message={"No Dietery Preferences"} />
+                )}
               </span>
             </div>
           )}

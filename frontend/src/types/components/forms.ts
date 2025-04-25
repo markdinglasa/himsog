@@ -7,6 +7,7 @@ export interface NewForm {
 
 export interface FormProps {
   Title?: string;
+  IsSetup?: boolean;
   IsEdit?: boolean;
   IsDisplay?: boolean;
   IsDetails?: boolean;

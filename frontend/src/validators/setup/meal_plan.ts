@@ -8,5 +8,6 @@ export const mealPlanValidator = () => {
     Type: yup.string().required(),
     Price: yup.number().optional(),
     Duration: yup.number().positive().required(),
+    IsPublic: yup.boolean().required(),
   });
 };

@@ -6,6 +6,7 @@ import {
   CustomButton,
   CustomInput,
   Skeleton,
+  SwitchButton,
 } from "../../../../../components";
 import {
   ButtonColor,
@@ -38,13 +39,15 @@ const MealPlanForm: SFC<FormProps> = ({
   IsDetails = false,
   Title,
   IsDisplay = false,
+  RecordId,
 }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
 
   const { Id } = useParams<{ Id: string }>();
+  const MealPlanId = IsDisplay ? Number(RecordId) : Id;
   const { add } = API.Setup.MealPlan.Add();
   const { update } = API.Setup.MealPlan.Update();
-  const { data, isLoading } = API.Setup.MealPlan.Get(Number(Id));
+  const { data, isLoading } = API.Setup.MealPlan.Get(Number(MealPlanId));
   const { auth } = useAuth();
   // console.log(data);
   const InitialValues: MealPlanTable = {
@@ -55,6 +58,7 @@ const MealPlanForm: SFC<FormProps> = ({
     Description: data?.Description || null,
     Duration: data?.Duration || 0,
     Diet: data?.Diet || "",
+    IsPublic: data?.IsPublic || false,
   };
 
   const handleSubmit = async (values: MealPlanTable): Promise<void> => {
@@ -230,10 +234,27 @@ const MealPlanForm: SFC<FormProps> = ({
                             />
                           </S.Divider>
                         </S.Divider>
+                        <S.Divider>
+                          <SwitchButton
+                            Name="IsPublic"
+                            Label="Public?"
+                            Disabled={IsEdit}
+                            OnChange={(_: any, value: any) => {
+                              setFieldValue("IsPublic", value || false);
+                              setTouched({ IsPublic: true });
+                            }}
+                            Values={values.IsPublic}
+                            Errors={errors}
+                            Touched={touched}
+                          />
+                        </S.Divider>
                         <AccessControl OtherCondition={!!Id}>
                           {/* display only when Id exists */}
                           <S.Divider className="w-full border-t pt-[1rem]">
-                            <MealPlanMeals IsDetails={IsEdit} />
+                            <MealPlanMeals
+                              IsDetails={IsEdit}
+                              RecordId={String(MealPlanId)}
+                            />
                           </S.Divider>
                         </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>

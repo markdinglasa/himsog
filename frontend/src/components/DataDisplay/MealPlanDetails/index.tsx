@@ -62,7 +62,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                 <div className="flex flex-row gap-[1rem]">
                   <AccessControl
                     OtherCondition={
-                      !Boolean(isPaid?.IsRated ?? false) && IsComplete
+                      !Boolean(isPaid?.IsRated ?? false) && !IsComplete
                     }
                   >
                     <CustomButton
@@ -84,10 +84,29 @@ export const MealPlanDetails: SFC<FormProps> = ({
                       color={ButtonColor.default}
                     />
                   </AccessControl>
+                  <AccessControl OtherCondition={IsComplete}>
+                    <CustomButton
+                      onClick={() => {
+                        update({
+                          UserId: Number(auth?.user ?? 0),
+                          MealPlanId: Number(MealPlanId),
+                          IsActive: 0,
+                        });
+                      }}
+                      leftIcon={<Icon.Close />}
+                      text="Deactivate"
+                      morph={false}
+                      color={ButtonColor.red}
+                    />
+                  </AccessControl>
                   <AccessControl OtherCondition={!IsDisplay}>
                     <CustomButton
                       onClick={() => {
-                        update(Number(auth?.user ?? 0), Number(Id), 1);
+                        update({
+                          UserId: Number(auth?.user ?? 0),
+                          MealPlanId: Number(MealPlanId),
+                          IsActive: 1,
+                        });
                       }}
                       leftIcon={<Icon.CheckCircle />}
                       text="Activate"
@@ -129,7 +148,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                 navigate(
                   RouteChannel.CLIENT_MEAL_PLAN_PAYMENT.replace(
                     ":Id",
-                    String(Id),
+                    String(MealPlanId),
                   ),
                 )
               }
@@ -148,7 +167,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                 <div className="z-10 w-full h-full absolute"></div>
               </AccessControl>
               <MealPlanMeals
-                RecordId={String(RecordId)}
+                RecordId={String(MealPlanId)}
                 IsDetails={true}
                 IsDisplay={true}
                 ClassName={isPaid?.Status === "Approved" ? "" : "blur-lg"}
@@ -168,7 +187,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
             Title=""
             OnClose={toggleModal}
             IsDisplay={isPaid?.IsRated ?? false}
-            RecordId={String(RecordId)}
+            RecordId={String(MealPlanId)}
             OnRefetch={OnRefetch}
           />
         </div>

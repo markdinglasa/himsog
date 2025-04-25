@@ -1,19 +1,30 @@
 import { useCallback } from "react";
-import { APIChannel, MealPlanRating, ToastType } from "../../../../types";
+import {
+  APIChannel,
+  MealPlanRating,
+  QueryKey,
+  ToastType,
+} from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddMealPlanRating = () => {
   const axios = useAxiosPrivate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: MealPlanRating) => {
       const response = await axios.post(`${APIChannel.MEAL_PLAN_RATING}`, data);
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.MEAL_PLAN],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.MEAL_PLAN_RATING],
+      });
       displayToast(Success.m00000, ToastType.success);
     },
     onError: (error: any) => {

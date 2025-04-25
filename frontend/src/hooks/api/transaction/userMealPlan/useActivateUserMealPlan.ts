@@ -1,12 +1,12 @@
-import { useCallback } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { APIChannel, QueryKey, ToastType } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useActivateUserMealPlan = () => {
   const axios = useAxiosPrivate();
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: async ({
       UserId,
@@ -17,35 +17,37 @@ const useActivateUserMealPlan = () => {
       MealPlanId: number;
       IsActive: number;
     }) => {
-      const response = await axios.patch(
-        `${APIChannel.USER_MEAL_PLANS.replace(":user", UserId.toString()).replace(":mealplan", MealPlanId.toString()).replace(":active", IsActive.toString())}`,
-      );
+      if (!UserId || !MealPlanId) {
+        throw new Error("Missing required parameters");
+      }
+
+      const url = APIChannel.USER_MEAL_PLANS.replace(":user", UserId.toString())
+        .replace(":mealplan", MealPlanId.toString())
+        .replace(":active", IsActive.toString());
+
+      const response = await axios.patch(url);
       return response.data;
     },
     onSuccess: () => {
-      displayToast("Meal plan activated", ToastType.success);
+      displayToast(
+        `Meal plan ${mutation.variables?.IsActive ? "activated" : "deactivated"}`,
+        ToastType.success,
+      );
       queryClient.invalidateQueries({ queryKey: [QueryKey.USER_MEAL_PLAN] });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       displayToast(
-        error?.response?.data?.message || error.message,
+        error.message || "Failed to update meal plan status",
         ToastType.error,
       );
     },
   });
 
-  const update = useCallback(
-    (UserId: number = 0, MealPlanId: number = 0, IsActive: number = 0) => {
-      if (UserId === 0 && MealPlanId === 0) return;
-      mutation.mutate({ UserId, MealPlanId, IsActive });
-    },
-    [mutation],
-  );
-
   return {
     data: mutation.data,
-    isLoading: mutation.status === "pending",
-    update,
+    isLoading: mutation.isPending,
+    update: mutation.mutate,
+    reset: mutation.reset,
   };
 };
 

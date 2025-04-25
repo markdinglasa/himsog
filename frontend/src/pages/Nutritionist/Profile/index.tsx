@@ -8,6 +8,8 @@ import API from "../../../hooks/api";
 import Icon from "../../../constants/icon";
 import { Avatar } from "@mui/material";
 import { formatDateToMMDDYY } from "../../../utils";
+import Form from "../../../components/Surfaces/Forms";
+import HealthConditions from "../../../components/DataDisplay/HealthConditions";
 
 export const ProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export const ProfilePage: SFC = ({ ClassName }) => {
     },
     {
       Text: "Meal Plan - Requests ",
-      OnClick: () => navigate(RouteChannel.NUTRITIONIST_REQUEST),
+      OnClick: () => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST),
     },
   ];
   const { Id } = useParams<{ Id: string }>();
@@ -46,7 +48,11 @@ export const ProfilePage: SFC = ({ ClassName }) => {
           </div>
 
           <div className="flex items-center justify-end gap-[1rem]  ">
-            <CustomButton text="Message" onClick={() => {}} />
+            <CustomButton
+              text="Message"
+              leftIcon={<Icon.Send />}
+              onClick={() => {}}
+            />
           </div>
         </div>
         <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">
@@ -100,17 +106,45 @@ export const ProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               text="Back"
               leftIcon={<Icon.Back />}
-              onClick={() => navigate(RouteChannel.NUTRITIONIST_REQUEST)}
+              onClick={() =>
+                navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST)
+              }
             />
           </S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <div className="w-full  ">{userInfo()}</div>
-          <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">
-            <div>
-              <span className="text-lg font-medium">Medical Record</span>
-            </div>
-          </div>
+          <S.Divider className="w-full mb-[1rem]">{userInfo()}</S.Divider>
+          <S.Divider className="w-full mb-[1rem]">
+            <S.Divider className="w-full">
+              <Form.Setup.Health
+                IsSetup={false}
+                IsDetails={true}
+                IsDisplay={true}
+                Title="Health Info"
+              />
+            </S.Divider>
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem]">
+            <S.Divider className="">
+              <S.Span className="text-lg font-medium">
+                Dietery Preference
+              </S.Span>
+            </S.Divider>
+            <HealthConditions IsAllergen={false} />
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem]">
+            <S.Divider className="">
+              <S.Span className="text-lg font-medium">Allergies</S.Span>
+            </S.Divider>
+            <HealthConditions IsAllergen={true} />
+          </S.Divider>
+          <S.Divider className="w-full mb-[1rem]">
+            <Form.Setup.Medical
+              ClassName=""
+              Title="Medical Info"
+              IsDisplay={true}
+            />
+          </S.Divider>
         </S.PageContent>
       </S.Container>
     </>

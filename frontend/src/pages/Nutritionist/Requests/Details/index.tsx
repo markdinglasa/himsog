@@ -4,8 +4,6 @@ import { PageBreadCrumbs, Skeleton } from "../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
 import MealPlanRequestDetails from "../../../../components/DataDisplay/MealPlanRequestDetails";
-//import API from "../../../../hooks/api";
-//import { useAuth } from "../../../../hooks";
 
 export const NutritionistRequestDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
@@ -24,7 +22,7 @@ export const NutritionistRequestDetailsPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={ClassName}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Meal Plan - Requests" />
+          <PageBreadCrumbs Links={links} Active="Meal Plan - Request Details" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">

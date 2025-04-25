@@ -1,14 +1,27 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { AccessControl } from "..";
-import { FormProps, Roles, SFC } from "../../../types";
+import {
+  ButtonColor,
+  ButtonType,
+  FormProps,
+  MealPlanRequestTable,
+  MealPlanTable,
+  Roles,
+  RouteChannel,
+  SFC,
+} from "../../../types";
 import { cn, renderPath } from "../../../utils";
 import MealPlanDetails from "../MealPlanDetails";
 import API from "../../../hooks/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import { CustomButton } from "../../Inputs";
+import { AutoComplete, CircleButton, CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { useAuth } from "../../../hooks";
+import { CustomModal } from "../../../modals";
+import { useToggle } from "react-use";
+import { Skeleton } from "../../Feedback";
+import Form from "../../../components/Surfaces/Forms";
 
 export const MealPlanRequestDetails: SFC<FormProps> = ({
   ClassName,
@@ -19,6 +32,15 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
   const navigate = useNavigate();
   const { auth } = useAuth();
   const path = renderPath(auth?.roles as Roles);
+  const [isModal, toggleModal] = useToggle(false);
+  const [isRate, toggleRate] = useToggle(false);
+  const { update } = API.Transaction.MealPlanRequest.Update();
+  const [mealplanId, setMealPlanId] = useState<number>();
+  const [err, setErr] = useState<string | null>(null);
+  const { data: mealplans, isLoading } = API.Setup.MealPlan.GetAll(
+    Number(auth?.user ?? 0),
+  );
+
   return (
     <>
       <div className={cn("w-full flex flex-col", ClassName)}>
@@ -27,7 +49,7 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
             Meal Plan - Request Details
           </span>
         </div>
-        <div className="w-full p-[1rem] rounded-md my-[1rem] flex flex-row gap-[1rem] border">
+        <div className="w-full  rounded-md my-[1rem] flex flex-row gap-[1rem] ">
           <div>
             <Avatar
               src={
@@ -50,7 +72,29 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
                 {IsAdvocate ? "Advocate" : "Health Professional"}
               </span>
             </div>
-            <div>
+            <div className="flex flex-row items-center justify-end gap-[1rem]">
+              <AccessControl OtherCondition={data?.MealPlanId && !IsAdvocate}>
+                <AccessControl
+                  OtherCondition={Boolean(data?.IsReviewed ?? false)}
+                >
+                  <CustomButton
+                    leftIcon={<Icon.Star className="text-primary" />}
+                    text="Review"
+                    onClick={toggleRate}
+                    color={ButtonColor.default}
+                  />
+                </AccessControl>
+                <AccessControl
+                  OtherCondition={!Boolean(data?.IsReviewed ?? false)}
+                >
+                  <CustomButton
+                    leftIcon={<Icon.Star className="text-primary" />}
+                    text="View Review"
+                    onClick={toggleRate}
+                    color={ButtonColor.default}
+                  />
+                </AccessControl>
+              </AccessControl>
               <CustomButton
                 leftIcon={<Icon.People />}
                 text="View Profile"
@@ -76,17 +120,115 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
               <p className="bg-orange-100 rounded-md p-[1rem] h-14">Pending</p>
             </div>
           </AccessControl>
-          <AccessControl OtherCondition={!data?.MealPlanId && IsAdvocate}>
+          <AccessControl OtherCondition={IsAdvocate}>
             <div className="w-full flex items-center justify-between">
               <span className="text-lg font-medium">Meal Plan</span>
-              <CustomButton text="New" />
+              <CustomButton
+                text="New"
+                onClick={toggleModal}
+                leftIcon={<Icon.Add />}
+              />
             </div>
           </AccessControl>
+          <AccessControl OtherCondition={data?.MealPlanId && !IsAdvocate}>
+            <MealPlanDetails
+              RecordId={data?.MealPlanId.toString()}
+              IsDisplay={true}
+            />
+          </AccessControl>
           <AccessControl OtherCondition={data?.MealPlanId && IsAdvocate}>
-            <MealPlanDetails RecordId={data?.MealPlanId} />
+            <Form.Setup.MealPlan
+              RecordId={data?.MealPlanId.toString()}
+              IsDisplay={true}
+              IsDetails={true}
+            />
           </AccessControl>
         </div>
       </div>
+      <CustomModal
+        close={toggleModal}
+        title={"Meal Plan Selection"}
+        open={isModal}
+        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh] overflow-auto"
+      >
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          <>
+            <div className=" mb-[1rem]">
+              <div className="flex flex-row items-center gap-[1rem]">
+                <div className="w-full  mb-3">
+                  <AutoComplete
+                    IsRequired={true}
+                    Label="Select Meal Plan"
+                    Values={mealplanId}
+                    Options={mealplans}
+                    Name="MealPlanId"
+                    OptionName="Name"
+                    Placeholder="Meal Plan"
+                    OnChange={(_: any, value: MealPlanTable) => {
+                      setMealPlanId(Number(value?.Id || 0));
+                    }}
+                    Touched={{}}
+                  />
+                  {err && (
+                    <span className="text-[12px] font-medium text-red-400 ml-3">
+                      {err}
+                    </span>
+                  )}
+                </div>
+                <CircleButton
+                  Icon={<Icon.Add className="text-primary" />}
+                  Type={ButtonType.button}
+                  Title="New Meal Plan"
+                  OnClick={() =>
+                    navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW)
+                  }
+                />
+              </div>
+            </div>
+            <div className="w-full flex flex-row items-center justify-end gap-[1rem]">
+              <CustomButton
+                text="Cancel"
+                leftIcon={<Icon.Cancel className="text-primary" />}
+                type={ButtonType.button}
+                color={ButtonColor.default}
+                onClick={() => {
+                  setMealPlanId(0);
+                  toggleModal();
+                }}
+              />
+              <CustomButton
+                text="Save"
+                leftIcon={<Icon.Save />}
+                type={ButtonType.button}
+                onClick={() => {
+                  if (mealplanId) {
+                    const MealPlanRequest: MealPlanRequestTable = {
+                      AdvocateId: data?.AdvocateId || 0,
+                      NutritionistId: data?.NutritionistId || 0,
+                      Remarks: data?.Remarks || null,
+                      MealPlanId: mealplanId || 0,
+                      CreatedBy: data?.CreatedBy || 0,
+                      UpdatedBy: auth?.user || 0,
+                    };
+                    update(Number(Id), MealPlanRequest);
+                    toggleModal();
+                  } else setErr("Meal Plan is required");
+                }}
+              />
+            </div>
+          </>
+        )}
+      </CustomModal>
+      <CustomModal
+        close={toggleRate}
+        title={"Write a review"}
+        open={isRate}
+        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh] overflow-auto"
+      >
+        review
+      </CustomModal>
     </>
   );
 };

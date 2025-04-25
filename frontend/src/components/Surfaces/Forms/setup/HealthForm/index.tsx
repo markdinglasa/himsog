@@ -10,10 +10,10 @@ import {
 import {
   ButtonColor,
   ButtonType,
+  FormProps,
   HealthTable,
   InputType,
   RouteChannel,
-  SetupForm,
   SFC,
   ToastType,
 } from "../../../../../types";
@@ -24,18 +24,20 @@ import * as S from "../../../../../styles";
 import { cn, displayToast } from "../../../../../utils";
 import { healthValidator } from "../../../../../validators/";
 import API from "../../../../../hooks/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Icon from "../../../../../constants/icon";
 
-const HealthForm: SFC<SetupForm> = ({
+const HealthForm: SFC<FormProps> = ({
   ClassName,
   IsSetup = false,
   IsDetails = false,
+  IsDisplay = false,
   Title,
 }) => {
   const [IsEdit, SetIsEdit] = useState<boolean>(IsDetails);
   const { auth } = useAuth();
-  const Id = parseInt(auth?.user ?? 0);
+  const { Id: ProfileId } = useParams<{ Id: string }>();
+  const Id = IsDisplay ? Number(ProfileId) : parseInt(auth?.user ?? 0);
   const { add } = API.Setup.Health.Add(IsSetup);
   const { update } = API.Setup.Health.Update(IsSetup);
   const { data, isLoading } = API.Setup.Health.Get(Id);
@@ -64,7 +66,7 @@ const HealthForm: SFC<SetupForm> = ({
         <S.FormHeader className="flex flex-row items-center justify-between">
           <S.Span className="text-lg font-medium">{Title}</S.Span>
           <S.Divider>
-            <AccessControl OtherCondition={IsEdit && IsDetails}>
+            <AccessControl OtherCondition={IsEdit && IsDetails && !IsDisplay}>
               <CircleButton
                 OnClick={() => SetIsEdit(false)}
                 Icon={<Icon.Edit className="text-primary" />}
@@ -73,12 +75,14 @@ const HealthForm: SFC<SetupForm> = ({
             </AccessControl>
           </S.Divider>
         </S.FormHeader>
-        <S.Divider className="w-full text-left mb-3">
-          <S.Span className="text-sm text-slate-600">
-            Some info may be visible to other people using Himsog services.
-            <S.Span className="text-blue-600"> Learn more.</S.Span>
-          </S.Span>
-        </S.Divider>
+        <AccessControl OtherCondition={!IsDisplay}>
+          <S.Divider className="w-full text-left mb-3">
+            <S.Span className="text-sm text-slate-600">
+              Some info may be visible to other people using Himsog services.
+              <S.Span className="text-blue-600"> Learn more.</S.Span>
+            </S.Span>
+          </S.Divider>
+        </AccessControl>
         <S.Divider className="flex  w-full  justify-center items-center ">
           <S.Divider className=" w-full">
             <S.Divider className="w-full">

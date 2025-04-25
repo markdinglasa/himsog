@@ -8,6 +8,7 @@ export const mealPlanValidator = Joi.object({
   Duration: Joi.number().positive().required(),
   Price: Joi.number().optional(),
   Diet: Joi.string().required(),
+  IsPublic: Joi.boolean().required(),
   DateCreated: Joi.date().optional(),
   DateUpdated: Joi.date().allow(null).optional(),
 });
