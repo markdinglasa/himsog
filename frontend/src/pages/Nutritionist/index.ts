@@ -13,6 +13,7 @@ import TermsCondition from "./TermsCondition";
 import Ingredient from "./Ingredient";
 import Subscription from "./Subscription";
 import Meal from "./Meal";
+import Profile from "./Profile";
 
 const Nutritionist = {
   Dashboard,
@@ -30,6 +31,7 @@ const Nutritionist = {
   Ingredient,
   Subscription,
   Meal,
+  Profile,
 };
 
 export default Nutritionist;

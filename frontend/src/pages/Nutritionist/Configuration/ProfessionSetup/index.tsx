@@ -27,7 +27,7 @@ export const ConfigurationProfessionPage: SFC = () => {
                 Let's setup your profession profile.
               </span>
             </div>
-            <div>
+            <div className="mb-[1rem]">
               <Professions />
             </div>
             <div className="w-full flex justify-between items-center">
@@ -43,6 +43,7 @@ export const ConfigurationProfessionPage: SFC = () => {
                 <CustomButton
                   text="Skip"
                   ClassName=""
+                  color={ButtonColor.default}
                   type={ButtonType.button}
                   onClick={() => navigate(RouteChannel.NUTRITIONIST_DASHBOARD)}
                   morph={false}

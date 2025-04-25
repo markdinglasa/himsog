@@ -3,6 +3,7 @@ import * as S from "../../../../styles/Styles";
 import { PageBreadCrumbs, Skeleton } from "../../../../components";
 import { useNavigate } from "react-router-dom";
 import { memo, Suspense } from "react";
+import MealPlanRequestDetails from "../../../../components/DataDisplay/MealPlanRequestDetails";
 //import API from "../../../../hooks/api";
 //import { useAuth } from "../../../../hooks";
 
@@ -14,7 +15,7 @@ export const NutritionistRequestDetailsPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
     {
-      Text: "Meal Plan Requests",
+      Text: "Meal Plan - Requests",
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST),
     },
   ];
@@ -23,11 +24,13 @@ export const NutritionistRequestDetailsPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={ClassName}>
         <S.PageTopBar className="h-[40px]">
-          <PageBreadCrumbs Links={links} Active="Notifications" />
+          <PageBreadCrumbs Links={links} Active="Meal Plan - Requests" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.PageContent className="border rounded-md">
-          <Suspense fallback={<Skeleton />}></Suspense>
+          <Suspense fallback={<Skeleton />}>
+            <MealPlanRequestDetails IsAdvocate={true} />
+          </Suspense>
         </S.PageContent>
       </S.Container>
     </>

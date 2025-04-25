@@ -19,6 +19,7 @@ export interface FormProps {
   OnRefetch?: () => void;
   RecordId?: string;
   Record?: Record<string, any>;
+  IsAdvocate?: boolean;
 }
 
 export interface SetupForm {

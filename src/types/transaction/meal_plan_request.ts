@@ -1,22 +1,17 @@
 import { Id, Logs } from "../generic";
-import { AppoinmentStatus } from "./appointment";
 
 export interface MealPlanRequestTable extends Id, Logs {
-  UserId: number; // FK to UserTable
+  AdvocateId: number; // FK to UserTable
+  UserFullname?: string;
+  UserPhoto?: string | null;
   NutritionistId: number; // FK to UserTable
-  Duration: number; // Number of days
   Remarks: string | null;
-  IsCustom: boolean;
-  MealPlanRecipe: number | null;
-  Status: AppoinmentStatus;
+  MealPlanId: number | null;
 }
 export type MealPlanRequestTables = MealPlanRequestTable[];
 export const MealPlanRequestInitial: MealPlanRequestTable = {
-  UserId: 0,
+  AdvocateId: 0,
   NutritionistId: 0,
-  Duration: 0,
   Remarks: null,
-  Status: AppoinmentStatus.DEFAULT,
-  IsCustom: false,
-  MealPlanRecipe: null,
+  MealPlanId: null,
 };

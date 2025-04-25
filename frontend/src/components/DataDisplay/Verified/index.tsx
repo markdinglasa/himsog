@@ -7,7 +7,7 @@ export const Verified: SFC = ({ ClassName }) => {
   return (
     <div className={cn("", ClassName)}>
       <Tooltip title="Verified">
-        <VerifiedIcon className="text-primary" />
+        <VerifiedIcon className="text-primary" fontSize="small" />
       </Tooltip>
     </div>
   );

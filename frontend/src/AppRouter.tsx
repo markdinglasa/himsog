@@ -314,6 +314,7 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.CLIENT_REQUEST_MEAL_PLAN_NEW}
                 element={<Page.Client.MealPlanRequest.New />}
               />
+
               <Route
                 path={RouteChannel.CLIENT_REQUEST_MEAL_PLAN_DETAILS}
                 element={<Page.Client.MealPlanRequest.Details />}
@@ -366,6 +367,10 @@ export const AppRouter = createBrowserRouter(
               <Route
                 path={RouteChannel.NUTRITIONIST_DASHBOARD}
                 element={<Page.Nutritionist.Dashboard />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_PROFILE}
+                element={<Page.Nutritionist.Profile />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_TERMS_AND_CONDITIONS}
@@ -454,6 +459,10 @@ export const AppRouter = createBrowserRouter(
               <Route
                 path={RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW}
                 element={<Page.Nutritionist.MealPlan.New />}
+              />
+              <Route
+                path={RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW_DETAILS}
+                element={<Page.Nutritionist.MealPlan.NewDetails />}
               />
               <Route
                 path={RouteChannel.NUTRITIONIST_MEAL_PLAN_DETAILS}

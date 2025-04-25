@@ -23,13 +23,14 @@ const useAddMealPlan = () => {
       return response.data.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN] });
       navigate(
         RouteChannel.NUTRITIONIST_MEAL_PLAN_NEW_DETAILS.replace(
           ":Id",
           String(IdRef.current),
         ),
       );
+
+      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN] });
     },
     onError: (error: any) => {
       displayToast(

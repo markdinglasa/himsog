@@ -37,18 +37,16 @@ export const MealPlanPageView: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="rounded-md border">
           <Suspense fallback={<Skeleton />}>
-            <Suspense fallback={<Skeleton />}>
-              <EnhancedTable
-                Title="Meal Plans"
-                Rows={(MealPlans as MealPlanTables) ?? []}
-                HeadCells={MealPlanHC as HeadCell<unknown>[]}
-                IsLoading={isLoading}
-                RemoveApiRoute={APIChannel.MEAL_PLAN_ID}
-                DetailsRoute={RouteChannel.ADMIN_MEAL_PLAN_DETAILS}
-                ClassName="md:max-h-[calc(100vh-200px)]"
-                QueryKey={QueryKey.MEAL_PLAN}
-              />
-            </Suspense>
+            <EnhancedTable
+              Title="Meal Plans"
+              Rows={(MealPlans as MealPlanTables) ?? []}
+              HeadCells={MealPlanHC as HeadCell<unknown>[]}
+              IsLoading={isLoading}
+              RemoveApiRoute={APIChannel.MEAL_PLAN_ID}
+              DetailsRoute={RouteChannel.ADMIN_MEAL_PLAN_DETAILS}
+              ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.MEAL_PLAN}
+            />
           </Suspense>
         </S.PageContent>
       </S.Container>

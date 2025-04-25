@@ -1,6 +1,11 @@
 import {
+  APIChannel,
   ButtonColor,
   ButtonType,
+  HeadCell,
+  mealPlanRequestHC,
+  MealPlanRequestTables,
+  QueryKey,
   RouteChannel,
   SFC,
   UserRole,
@@ -11,13 +16,14 @@ import {
   AccessControl,
   CircleButton,
   CustomButton,
+  EnhancedTable,
   InputOption,
   NoRecord,
   PageBreadCrumbs,
   Skeleton,
 } from "../../../../components";
 import { cn } from "../../../../utils";
-import { Fragment, memo, useEffect, useMemo, useState } from "react";
+import { Fragment, memo, Suspense, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../../components/Surfaces/Cards";
 import API from "../../../../hooks/api";
@@ -32,6 +38,7 @@ import { colors } from "../../../../styles/colors";
 import Icon from "../../../../constants/icon";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../modals";
+import { useAuth } from "../../../../hooks";
 
 interface FilterExpertise {
   IsDiabetesManagement: boolean;
@@ -46,6 +53,8 @@ interface FilterExpertise {
 }
 export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const [isModal, toggleModal] = useToggle(false);
+  const { auth } = useAuth();
   const links = [
     {
       Text: "Dashboard",
@@ -72,7 +81,9 @@ export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
     useState<FilterExpertise>(intialFE);
   const [page, setPage] = useState<number>(1);
   const [expertise, setExpertise] = useState<string>("");
-
+  const { data: requests } = API.Transaction.MealPlanRequest.GetAllByAdvocate(
+    Number(auth?.user ?? 0),
+  );
   const { data, isLoading, refetch } = API.Setup.User.GetAllByRole(
     UserRole.NUTRITIONIST,
     expertise,
@@ -114,7 +125,7 @@ export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
       </>
     );
   };
-  const [isModal, toggleModal] = useToggle(false);
+
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -167,6 +178,20 @@ export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
               />
             </S.Divider>
           </AccessControl>
+        </S.PageContent>
+        <S.PageContent className="border rounded-md">
+          <Suspense fallback={<Skeleton />}>
+            <EnhancedTable
+              Title="Requests"
+              Rows={(requests as MealPlanRequestTables) ?? []}
+              HeadCells={mealPlanRequestHC as HeadCell<unknown>[]}
+              IsLoading={isLoading}
+              DetailsRoute={RouteChannel.CLIENT_REQUEST_MEAL_PLAN_DETAILS}
+              RemoveApiRoute={APIChannel.MEAL_PLAN_REQUEST_ID}
+              ClassName="md:max-h-[calc(100vh-200px)]"
+              QueryKey={QueryKey.MEAL_PLAN_REQUEST}
+            />
+          </Suspense>
         </S.PageContent>
       </S.Container>
       <CustomModal

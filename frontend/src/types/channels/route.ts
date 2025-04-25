@@ -96,7 +96,7 @@ export enum RouteChannel {
   CLIENT_PRESET_MEAL_PLAN_PAYMENT = "/c/meal-plan/p/:Id",
   CLIENT_REQUEST_MEAL_PLAN = "/c/request",
   CLIENT_REQUEST_MEAL_PLAN_NEW = "/c/request/new",
-  CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/request/d/:id",
+  CLIENT_REQUEST_MEAL_PLAN_DETAILS = "/c/request/d/:Id",
   CLIENT_MY_MEAL_PLAN = "/c/u/meal-plan",
   CLIENT_MY_MEAL_PLAN_DETAILS = "/c/u/meal-plan/d/:Id",
   // NUTRITIONIST PAGES
@@ -107,7 +107,7 @@ export enum RouteChannel {
   NUTRITIONIST_PROFILE_SETUP = "/n/setup-profile",
   NUTRITIONIST_PROFESSION_SETUP = "/n/setup-profession",
   NUTRITIONIST_CERTIFICATE_SETUP = "/n/setup-certificate",
-  NUTRITIONIST_PROFIFLE = "/n/profile/:Id",
+  NUTRITIONIST_PROFILE = "/n/profile/:Id",
   NUTRITIONIST_UTILITY = "/n/utility/",
   NUTRITIONIST_SETTINGS = "/n/settings",
   NUTRITIONIST_MEAL = "/n/meal",

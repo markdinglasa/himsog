@@ -31,14 +31,20 @@ export const MealPlanAddController = async (
         )
       ).data
     )
-      return res.status(401).json({ data: true, message: Error.m016 }); // CHECK DUPLICATE
+      return res.status(401).json({ data: false, message: Error.m016 }); // CHECK DUPLICATE
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t006, Fields, Types, Values)))
+    const response = await AddService.recordReturnData(
+      DBTable.t006,
+      Fields,
+      Types,
+      Values,
+    );
+    if (!response)
       return res.status(401).json({ data: false, message: Error.m002 });
-    return res.status(200).json({ data: true, message: Success.m002 });
+    return res.status(200).json({ data: response, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("MealPlan-Controller [Add]:", error.message);

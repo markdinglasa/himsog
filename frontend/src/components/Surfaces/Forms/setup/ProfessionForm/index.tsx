@@ -54,16 +54,18 @@ const ProfessionForm: SFC<FormProps> = ({
   const handleSubmit = async (values: ProfessionTable): Promise<void> => {
     try {
       const formData = new FormData();
+      let imagePath = "";
       if (imageFile) {
         formData.append("image", imageFile);
+        const uploadResponse = await axios.post(
+          `${BASE_URL}/utility/upload-image`,
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } },
+        );
+        imagePath = uploadResponse.data?.path || null;
       }
-      const uploadResponse = await axios.post(
-        `${BASE_URL}/utility/upload-image`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } },
-      );
-      const uploadedImagePath = uploadResponse.data?.path || null;
-      values.Document = uploadedImagePath;
+
+      values.Document = imagePath;
       if (data?.Id) update(Number(data.Id), values);
       else add(values);
       OnClose && OnClose();
@@ -137,7 +139,7 @@ const ProfessionForm: SFC<FormProps> = ({
                             label="License Number"
                             value={values?.LicenseNumber.toString()}
                             placeholder="e.g. RND-199485"
-                            name="License Number"
+                            name="LicenseNumber"
                             touched={touched}
                             onChange={handleChange}
                             onBlur={handleBlur}

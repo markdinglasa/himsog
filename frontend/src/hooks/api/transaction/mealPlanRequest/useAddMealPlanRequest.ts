@@ -2,19 +2,18 @@ import { useCallback } from "react";
 import {
   APIChannel,
   MealPlanRequestTable,
-  RouteChannel,
+  QueryKey,
   ToastType,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
+
 import { Success } from "../../../../shared";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddMealPlanRequest = () => {
   const axios = useAxiosPrivate();
-  const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: MealPlanRequestTable) => {
       const response = await axios.post(
@@ -24,8 +23,8 @@ const useAddMealPlanRequest = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL_PLAN_REQUEST] });
       displayToast(Success.m00002, ToastType.success);
-      navigate(RouteChannel.CLIENT_MEAL_PLAN);
     },
     onError: (error: any) => {
       displayToast(

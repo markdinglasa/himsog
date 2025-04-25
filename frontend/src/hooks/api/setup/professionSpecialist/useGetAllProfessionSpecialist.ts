@@ -8,7 +8,7 @@ const useGetAllProfessionSpecialist = (UserId: number = 0) => {
   const axios = useAxiosPrivate();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.PROFESSION_SPECIALIST],
+    queryKey: [QueryKey.PROFESSION_SPECIALIST, UserId],
     queryFn: async () => {
       const response = await axios.get(
         `${APIChannel.PROFESSION_SPECIALIST_PARENT.replace(":Id", UserId.toString())}`,

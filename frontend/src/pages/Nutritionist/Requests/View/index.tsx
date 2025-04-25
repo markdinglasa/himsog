@@ -26,9 +26,10 @@ export const NutritionistRequestViewPage: SFC = ({ ClassName }) => {
     },
   ];
   const { auth } = useAuth();
-  const { data: requests, isLoading } = API.Transaction.MealPlanRequest.GetAll(
-    Number(auth?.user ?? 0),
-  );
+  const { data: requests, isLoading } =
+    API.Transaction.MealPlanRequest.GetAllByNutritionist(
+      Number(auth?.user ?? 0),
+    );
   return (
     <>
       <S.Container className={ClassName}>

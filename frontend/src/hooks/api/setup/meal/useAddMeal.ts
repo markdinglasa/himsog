@@ -4,16 +4,18 @@ import {
   RouteChannel,
   ToastType,
   MealTable,
+  QueryKey,
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddMeal = () => {
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
   const IdRef = useRef(0);
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (data: MealTable) => {
       const response = await axios.post(`${APIChannel.MEAL}`, data);
@@ -30,6 +32,7 @@ const useAddMeal = () => {
           String(IdRef.current),
         ),
       );
+      queryClient.invalidateQueries({ queryKey: [QueryKey.MEAL] });
     },
     onError: (error: any) => {
       displayToast(

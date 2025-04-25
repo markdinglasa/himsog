@@ -4,26 +4,26 @@ import { MealPlanRequestTable } from "../../dbtables";
 export const mealPlanRequestHC: HeadCell<MealPlanRequestTable>[] = [
   {
     Id: "UserPhoto",
-    numeric: false,
+    numeric: true,
     disablePadding: false,
-    label: "Client",
+    label: "Photo",
   },
   {
-    Id: "UserName",
+    Id: "UserFullname",
     numeric: false,
     disablePadding: false,
     label: "Name",
   },
   {
-    Id: "IsCustom",
-    numeric: true,
+    Id: "MealPlanName",
+    numeric: false,
     disablePadding: false,
-    label: "Customized",
+    label: "Meal Plan",
   },
   {
-    Id: "Status",
+    Id: "DateCreated",
     numeric: true,
     disablePadding: false,
-    label: "Status",
+    label: "Date",
   },
 ];

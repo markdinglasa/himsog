@@ -30,7 +30,7 @@ export const ConfigurationCertificatePage: SFC = () => {
                 Let's setup your profession profile.
               </span>
             </div>
-            <div>
+            <div className="mb-[1rem]">
               <Certificates />
             </div>
             <div className="w-full flex justify-between items-center">

@@ -3,38 +3,50 @@ import { TokenHandler } from "../../middleware";
 import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
-  MealPlanAddController,
-  MealPlanGetAllController,
-  MealPlanGetController,
-  MealPlanRemoveController,
-  MealPlanUpdateController,
+  MealPlanRequestAddController,
+  MealPlanRequestGetAllByAdvocateController,
+  MealPlanRequestGetAllByNutritionistController,
+  MealPlanRequestGetAllController,
+  MealPlanRequestGetController,
+  MealPlanRequestRemoveController,
+  MealPlanRequestUpdateController,
 } from "../../controllers";
 
 const router = express.Router();
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
-  MealPlanGetController,
+  MealPlanRequestGetController,
 );
 router.get(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_PARENT}`,
   TokenHandler.verifyToken,
-  MealPlanGetAllController,
+  MealPlanRequestGetAllController,
 );
 router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ADVOCATE}`,
+  TokenHandler.verifyToken,
+  MealPlanRequestGetAllByAdvocateController,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_NUTRITIONIST}`,
+  TokenHandler.verifyToken,
+  MealPlanRequestGetAllByNutritionistController,
+);
+router.post(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST}`,
   TokenHandler.verifyToken,
-  MealPlanAddController,
+  MealPlanRequestAddController,
 );
-router.get(
+router.delete(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
-  MealPlanRemoveController,
+  MealPlanRequestRemoveController,
 );
-router.get(
+router.patch(
   `${API_VERSION}${RouteChannel.MEAL_PLAN_REQUEST_ID}`,
   TokenHandler.verifyToken,
-  MealPlanUpdateController,
+  MealPlanRequestUpdateController,
 );
 
 logging.log("----------------------------------------");

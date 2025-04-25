@@ -10,12 +10,14 @@ import { cn } from "../../../../utils";
 import API from "../../../../hooks/api";
 import { Skeleton } from "../../../Feedback";
 import { Fragment } from "react/jsx-runtime";
-import { NoRecord } from "../../../DataDisplay";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { CircleButton, CustomButton } from "../../../Inputs";
 import Icon from "../../../../constants/icon";
-
+import { Verified } from "../../../DataDisplay/Verified";
+import { useToggle } from "react-use";
+import { CustomModal } from "../../../../modals";
+import Form from "../../Forms";
 export interface ProfessionalCardProps {
   Data: UserTable;
 }
@@ -26,6 +28,7 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
   const { data: specialist, isLoading } = API.Setup.ProfessionSpecialist.GetAll(
     Number(Data?.Id ?? 0),
   );
+  const [isModal, toggleModal] = useToggle(false);
   const navigate = useNavigate();
   const expertise = () => {
     if (isLoading) return <Skeleton />;
@@ -46,8 +49,8 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
             </div>
           </>
         ) : (
-          <div className="w-full flex items-center justify-center h-[calc(100vh-18rem)]">
-            <NoRecord Message="No Expertise" />
+          <div className="w-full flex items-center justify-center">
+            <span> No Specialization </span>
           </div>
         )}
       </>
@@ -55,73 +58,91 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
   };
 
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        navigate(
-          RouteChannel.CLIENT_PROFIFLE.replace(":Id", String(Data?.Id ?? 0)),
-        );
-      }}
-      className={cn(
-        "border w-full rounded-md hover:shadow-md h-fit p-[1rem] cursor-pointer hover:shadow-md",
-        ClassName,
-      )}
-    >
-      <div className="flex items-center justify-start ">
-        <Avatar
-          src={Data?.ProfilePhoto ?? ""}
-          alt={Data?.Fullname ?? "NA"}
-          sx={{
-            width: "4rem",
-            height: "4rem",
-          }}
-        />
-        <div className="w-full  flex flex-col ml-3">
-          <span className="text-md font-medium">{Data?.Fullname ?? "NA"}</span>
-          <span className="text-sm text-slate-600">{Data?.Email ?? "NA"}</span>
-        </div>
-        <div>
-          <CircleButton
-            Title="Message"
-            Icon={<Icon.Send className="text-primary" />}
-            Type={ButtonType.button}
-            OnClick={(e: any) => {
-              e.stopPropagation();
-              // creates new contact if not yet connected else would redirect to messenger with Id
-              // check contacts if contact exists if not then create new contact then redirect
-              // if already exists in contacts then redirect to messenger with the Id
-              alert("message health professional");
+    <>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(
+            RouteChannel.CLIENT_PROFIFLE.replace(":Id", String(Data?.Id ?? 0)),
+          );
+        }}
+        className={cn(
+          "border w-full rounded-md hover:shadow-md h-fit p-[1rem] cursor-pointer hover:shadow-md",
+          ClassName,
+        )}
+      >
+        <div className="flex items-center justify-start ">
+          <Avatar
+            src={Data?.ProfilePhoto ?? ""}
+            alt={Data?.Fullname ?? "NA"}
+            sx={{
+              width: "4rem",
+              height: "4rem",
             }}
           />
-        </div>
-      </div>
-      <div className="w-full flex items-start justify-center py-2 h-fit ">
-        {expertise()}
-      </div>
-      {/* displays at the bottom of the card */}
-      <div className="w-full relative bottom-0">
-        <div className="flex items-center justify-between bottom-0">
-          <div className="flex items-center justify-start">
-            <CustomButton
-              type={ButtonType.button}
-              onClick={(e) => {
-                e.stopPropagation();
-                alert("request meal plan");
-              }}
-              text="Request"
-            />
+          <div className="w-full  flex flex-col ml-3">
+            <span className="text-md font-medium flex flex-row gap-2 items-center">
+              {Data?.Fullname ?? "NA"}
+              {(Data?.IsVerified ?? false) ? <Verified ClassName="" /> : null}
+            </span>
+            <span className="text-sm text-slate-600">
+              {Data?.Email ?? "NA"}
+            </span>
           </div>
           <div>
-            <div className="flex items-center justify-end">
-              <Icon.Star className="text-primary" fontSize="small" />
-              <span className="text-sm  ml-1">
-                {parseFloat(Data?.Rating?.toString() ?? "0")}/10
-              </span>
+            <CircleButton
+              Title="Message"
+              Icon={<Icon.Send className="text-primary" />}
+              Type={ButtonType.button}
+              OnClick={(e: any) => {
+                e.stopPropagation();
+                // creates new contact if not yet connected else would redirect to messenger with Id
+                // check contacts if contact exists if not then create new contact then redirect
+                // if already exists in contacts then redirect to messenger with the Id
+                alert("message health professional");
+              }}
+            />
+          </div>
+        </div>
+        <div className="w-full flex items-start justify-center py-2 h-fit ">
+          {expertise()}
+        </div>
+        {/* displays at the bottom of the card */}
+        <div className="w-full relative bottom-0">
+          <div className="flex items-center justify-between bottom-0">
+            <div className="flex items-center justify-start">
+              <CustomButton
+                type={ButtonType.button}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleModal();
+                }}
+                text="Request"
+              />
+            </div>
+            <div>
+              <div className="flex items-center justify-end">
+                <Icon.Star className="text-primary" fontSize="small" />
+                <span className="text-sm  ml-1">
+                  {parseFloat(Data?.Rating?.toString() ?? "0")}/10
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <CustomModal
+        close={toggleModal}
+        title={"Meal Plan Request"}
+        open={isModal}
+        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh]"
+      >
+        <Form.Transaction.MealPlanRequest
+          RecordId={String(Data?.Id ?? 0)}
+          OnClose={toggleModal}
+        />
+      </CustomModal>
+    </>
   );
 };
 

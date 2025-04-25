@@ -6,7 +6,7 @@ export const professionValidator = Joi.object({
     .pattern(/^[A-Za-z\s.,&]+$/)
     .required(),
   LicenseNumber: Joi.string()
-    .pattern(/^[0-9\s.-]+$/)
+    .pattern(/^[0-9A-Za-z\s.-]+$/)
     .required(),
   Issuer: Joi.string().required(),
   DateIssued: Joi.date().required(),

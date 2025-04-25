@@ -8,24 +8,17 @@ import API from "../../../hooks/api";
 import Icon from "../../../constants/icon";
 import { Avatar } from "@mui/material";
 import { formatDateToMMDDYY } from "../../../utils";
-import Professions from "../../../components/DataDisplay/Professions";
-import Institutes from "../../../components/DataDisplay/Institutes";
-import Specalists from "../../../components/DataDisplay/Specalists";
 
-export const ClientProfilePage: SFC = ({ ClassName }) => {
+export const ProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const links = [
     {
       Text: "Dashboard",
-      OnClick: () => navigate(RouteChannel.CLIENT_DASHBOARD),
+      OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
     {
-      Text: "Meal Plan",
-      OnClick: () => navigate(RouteChannel.CLIENT_MEAL_PLAN),
-    },
-    {
-      Text: "Find & Request",
-      OnClick: () => navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN),
+      Text: "Meal Plan - Requests ",
+      OnClick: () => navigate(RouteChannel.NUTRITIONIST_REQUEST),
     },
   ];
   const { Id } = useParams<{ Id: string }>();
@@ -48,13 +41,12 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
               <span className="text-lg font-medium">
                 {user?.Fullname ?? "NA"}
               </span>
-              <span className="text-sm">Health Professional</span>
+              <span className="text-sm">Advocate</span>
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-[1rem]  ">
             <CustomButton text="Message" onClick={() => {}} />
-            <CustomButton text="Request" onClick={() => {}} />
           </div>
         </div>
         <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">
@@ -108,7 +100,7 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               text="Back"
               leftIcon={<Icon.Back />}
-              onClick={() => navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN)}
+              onClick={() => navigate(RouteChannel.NUTRITIONIST_REQUEST)}
             />
           </S.Actions>
         </S.PageTopBar>
@@ -116,26 +108,12 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
           <div className="w-full  ">{userInfo()}</div>
           <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">
             <div>
-              <span className="text-lg font-medium">
-                Professional Credentials
-              </span>
-            </div>
-            <div>
-              <Professions IsDisplay={true} />
-            </div>
-            <div>
-              <Institutes IsDisplay={true} />
-            </div>
-            <div>
-              <Specalists IsDisplay={true} />
+              <span className="text-lg font-medium">Medical Record</span>
             </div>
           </div>
-        </S.PageContent>
-        <S.PageContent className="rounded-md border">
-          Health Prof Ratings
         </S.PageContent>
       </S.Container>
     </>
   );
 };
-export default memo(ClientProfilePage);
+export default memo(ProfilePage);

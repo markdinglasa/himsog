@@ -316,12 +316,12 @@ export const EnhancedTable = <T extends Record<string, any>>({
                     {HeadCells.map((HeadCell) => {
                       const renderCellContent = () => {
                         switch (HeadCell.Id) {
+                          case "UserPhoto":
                           case "Image":
                             return (
                               <Avatar
                                 src={row[HeadCell.Id] || DefaultImage}
                                 alt="meal-image"
-                                variant="square"
                               />
                             );
                           case "IsAutoDiscount":
