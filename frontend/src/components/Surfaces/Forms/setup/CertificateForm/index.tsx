@@ -34,11 +34,8 @@ const CertificateForm: SFC<FormProps> = ({
   const { add } = API.Setup.Certificate.Add();
   const { update } = API.Setup.Certificate.Update();
   const { data, isLoading } = API.Setup.Certificate.Get(Number(RecordId));
-  const { data: profession } = API.Setup.Profession.Get(
-    Number(auth?.user ?? 0),
-  );
   const InitialValues: CertificateTable = {
-    ProfessionId: data?.ProfessionId || (profession?.Id ?? 0),
+    UserId: data?.UserId || (auth?.user ?? 0),
     Name: "Certificate Name",
     IssuedTo: data?.IssuedTo || "",
     Issuer: data?.Issuer || "",
@@ -49,6 +46,7 @@ const CertificateForm: SFC<FormProps> = ({
   };
   const handleSubmit = async (values: CertificateTable): Promise<void> => {
     try {
+      console.log(values);
       values.ExpiryDate =
         values?.ExpiryDate && formatDateForInput(new Date(values?.ExpiryDate));
       if (Number(RecordId) !== 0) update(Number(RecordId), values);

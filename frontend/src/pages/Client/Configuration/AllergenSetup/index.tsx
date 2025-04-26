@@ -57,10 +57,10 @@ export const ConfigurationAllergenPage: SFC = () => {
                   onClick={() => navigate(RouteChannel.CLIENT_DASHBOARD)}
                 />
                 <CustomButton
-                  text="Next"
+                  text="Finish"
                   ClassName=""
                   type={ButtonType.button}
-                  onClick={() => navigate(RouteChannel.CLIENT_ALLERGEN_SETUP)}
+                  onClick={() => navigate(RouteChannel.CLIENT_DASHBOARD)}
                   morph={false}
                 />
               </div>

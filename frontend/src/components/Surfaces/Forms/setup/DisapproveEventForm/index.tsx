@@ -15,7 +15,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast, renderPath } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { memo } from "react";
-import { eventValidator } from "../../../../../validators";
+//import { eventValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
@@ -40,7 +40,6 @@ export const DisapproveEventForm: SFC<FormProps> = ({
     Description: data?.Description || null,
     ScheduleDate: data?.ScheduleDate || "",
     Location: data?.Location || "",
-
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
@@ -91,7 +90,7 @@ export const DisapproveEventForm: SFC<FormProps> = ({
               onSubmit={handleSubmit}
               enableReinitialize={true}
               validateOnMount={true}
-              validationSchema={eventValidator}
+              // validationSchema={eventValidator}
             >
               {({
                 isValid,

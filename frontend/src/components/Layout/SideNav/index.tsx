@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./Styles";
 import Logo from "../../../asset/svg/logo.svg";
 import Logo2 from "../../../asset/svg/logo2.svg";
-import { cn, renderPath } from "../../../utils";
+import { cn, renderPath, renderRole } from "../../../utils";
 import API from "../../../hooks/api";
 import { useAuth } from "../../../hooks";
 import { useState } from "react";
@@ -35,6 +35,7 @@ export const SideNav: SFC<SideNavProps> = ({
   const { data } = API.Setup.User.Get(Number(auth?.user ?? 0));
   const path = renderPath(auth?.roles as Roles);
   const [active, setActive] = useState<RouteChannel>(path as RouteChannel);
+
   return (
     <>
       <S.Container
@@ -57,8 +58,8 @@ export const SideNav: SFC<SideNavProps> = ({
               </span>
             </div>
             <div>
-              <span className="text-sm text-slate-600 uppercase">
-                {data?.Role ?? ""}
+              <span className="text-[12px] text-slate-600 uppercase">
+                {renderRole(auth?.roles as Roles)}
               </span>
             </div>
           </div>

@@ -31,7 +31,7 @@ const PublicArticlePage: SFC = ({ ClassName }) => {
             </S.Span>
           </S.Divider>*/}
           <S.Divider className="border-b flex justify-start items-start w-full mb-10">
-            <Articles />
+            <Articles IsPublic={true} IsDisplay={true} />
           </S.Divider>
         </S.Content>
       </S.Container>

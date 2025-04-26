@@ -78,9 +78,12 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
         open={isApprove}
         confirm={() => {
           // Toggle
-          data.IsValidated = true;
+          if (data) {
+            data.IsValidated = true;
+          }
           // console.log(data);
           const { Id, ...filtered } = data;
+          console.log(filtered);
           update(Number(data.Id), filtered);
           toggleApprove();
         }}

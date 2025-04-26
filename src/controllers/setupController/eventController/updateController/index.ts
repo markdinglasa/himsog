@@ -61,11 +61,11 @@ export const EventUpdateController = async (
         UserQuery.q007,
         ["Role"],
         [String],
-        ["client"],
+        ["advocate"],
       ); // returns an array of NotificationTable objects
 
       const NotifyData: NotificationTables = Advocates.map((record) => ({
-        UserId: record.Id ? Number(record.Id) : 0, // Convert to number and handle undefined
+        UserId: record.Id ? Number(record?.Id ?? 0) : 0, // Convert to number and handle undefined
         Description: "New Health Event",
         Link: "/c/event",
         IsRead: false,

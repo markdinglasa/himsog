@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const certificateValidator = () => {
   return yup.object().shape({
-    ProfessionId: yup.number().integer().positive().required(),
+    UserId: yup.number().integer().positive().required(),
     IssuedTo: yup
       .string()
       .matches(
@@ -21,7 +21,7 @@ export const certificateValidator = () => {
     CertificateType: yup.string().required(),
     CertificateNumber: yup
       .string()
-      .matches(/^[0-9]+$/, "IssuedTo should not contain special characters")
+
       .required(),
     AttachmentURL: yup.string().url().nullable().optional(),
   });

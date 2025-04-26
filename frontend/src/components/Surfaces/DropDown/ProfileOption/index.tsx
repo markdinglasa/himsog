@@ -8,7 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { colors } from "../../../../styles";
-import { renderPath } from "../../../../utils";
+import { renderPath, renderRole } from "../../../../utils";
 import API from "../../../../hooks/api";
 
 export const ProfileOption: SFC = () => {
@@ -65,8 +65,8 @@ export const ProfileOption: SFC = () => {
           >
             <div className="w-full flex flex-col items-center">
               <span className="font-bold pt-2">{Fullname ?? "NA"}</span>
-              <span className="text-slate-500 uppercase text-sm">
-                {user?.Role ?? "NA"}
+              <span className="text-slate-500 uppercase text-[12px]">
+                {renderRole(user?.Role ?? "NA")}
               </span>
             </div>
           </S.DropdownItem>

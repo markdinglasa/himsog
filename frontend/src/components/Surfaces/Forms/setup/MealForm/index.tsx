@@ -188,7 +188,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                           </S.Divider>
                           <S.Divider className="w-full py-1 flex flex-col pb-3">
                             <span className="text-[12px] text-[#666666] ml-3">
-                              Recipe
+                              Directions
                             </span>
                             <textarea
                               className={`w-full h-[10rem] overflow-auto p-3 outline-none bg-inherit resize-none rounded-md border border-[#C4C4C4] rounded-[4px] ${IsEdit ? "text-[#666666]" : "hover:border-[#202020]"}`}
@@ -203,7 +203,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                           <S.Divider className="w-full border-t pt-[1rem]">
                             <NutritionFacts IsDetails={IsEdit} />
                           </S.Divider>
-                          <S.Divider className="w-full py-1 flex flex-col pb-3">
+                          {/*<S.Divider className="w-full py-1 flex flex-col pb-3">
                             <span className="text-[12px] text-[#666666] ml-3">
                               Allergen (Optional)
                             </span>
@@ -216,7 +216,7 @@ const MealForm: SFC<SetupForm> = ({ ClassName, IsDetails = false, Title }) => {
                               onBlur={handleBlur}
                               disabled={IsEdit}
                             />
-                          </S.Divider>
+                          </S.Divider>*/}
                         </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>
                           <S.Divider className="w-full flex justify-end items-center gap-3">

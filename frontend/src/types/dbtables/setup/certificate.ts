@@ -8,7 +8,7 @@ export enum CertificateStatus {
 }
 
 export interface CertificateTable extends Id, Logs {
-  ProfessionId: number;
+  UserId: number;
   Name: string;
   IssuedTo: string;
   Issuer: string;
@@ -27,5 +27,5 @@ export const CertificateInitial: CertificateTable = {
   CertificateType: "",
   CertificateNumber: "",
   AttachmentURL: null,
-  ProfessionId: 0,
+  UserId: 0,
 };

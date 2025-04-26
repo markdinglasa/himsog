@@ -7,7 +7,6 @@ import {
 } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
-import { Success } from "../../../../shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useAddNotification = () => {
@@ -26,7 +25,7 @@ const useAddNotification = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.NOTIFICATION],
       });
-      displayToast(Success.m00002, ToastType.success);
+      //displayToast(Success.m00002, ToastType.success);
       //navigate(RouteChannel.ADMIN_REQUEST_ACCESS);
     },
     onError: (error: any) => {

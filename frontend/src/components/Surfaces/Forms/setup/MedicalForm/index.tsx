@@ -587,7 +587,7 @@ const MedicalForm: SFC<FormProps> = ({
                                     }
                                   />
                                 }
-                                label="Obesity"
+                                label="Heart Disease"
                               />
                               <FormControlLabel
                                 name="IsOther"
@@ -645,8 +645,8 @@ const MedicalForm: SFC<FormProps> = ({
                               Surgical History
                             </S.Span>
                             <S.Label className="text-[#666666] font-medium">
-                              Have you had any surgery/ies affecting digestion
-                              or weight ?
+                              Have you had any surgeries affecting digestion or
+                              weight ?
                             </S.Label>
                           </S.Divider>
                           <textarea

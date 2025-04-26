@@ -1,6 +1,6 @@
 import { ButtonColor, ButtonType, SFC, ToastType } from "../../../../types";
 import * as S from "../../../../styles";
-import { cn, displayToast } from "../../../../utils";
+import { cn, displayToast, renderRole } from "../../../../utils";
 import DefaultImage from "../../../../asset/images/default-image.jpg";
 import { memo, useEffect, useState, useRef } from "react";
 import { BASE_URL } from "../../../../shared";
@@ -78,7 +78,7 @@ export const ProfileCard: SFC = ({ ClassName }) => {
               ) : null}
             </S.Span>
             <S.Span className="text-zinc-800 uppercase text-sm ">
-              {data?.Role || "N/A"}
+              {renderRole(data?.Role || "NA")}
             </S.Span>
             <S.Span className="text-zinc-800 text-sm">
               {data?.Email || "N/A"}
