@@ -46,9 +46,11 @@ const MedicalForm: SFC<FormProps> = ({
   const { add } = API.Setup.Medical.Add();
   const { update } = API.Setup.Medical.Update();
   const { data, isLoading } = API.Setup.Medical.Get(Id);
-  const Disabled: boolean = Number(data?.Id?.toString() ?? "0") > 0;
+  const Disabled: boolean = IsDisplay
+    ? false
+    : Number(data?.Id?.toString() ?? "0") > 0;
 
-  const [IsEdit, SetIsEdit] = useState<boolean>(!Disabled && IsDisplay);
+  const [IsEdit, SetIsEdit] = useState<boolean>(!Disabled);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { upload } = API.Utility.UploadImage();

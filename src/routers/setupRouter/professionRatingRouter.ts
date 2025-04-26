@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.get(
-  `${API_VERSION}${RouteChannel.PROFESSION_RATING_PARENT}`,
+  `${API_VERSION}${RouteChannel.PROFESSION_RATING_GET}`,
   TokenHandler.verifyToken,
   ProfessionRatingGetController,
 );
@@ -23,7 +23,7 @@ router.post(
   ProfessionRatingAddController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.PROFESSION_RATING_ID}`,
+  `${API_VERSION}${RouteChannel.PROFESSION_RATINGS}`,
   TokenHandler.verifyToken,
   ProfessionRatingGetAllController,
 );

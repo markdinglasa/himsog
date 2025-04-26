@@ -19,7 +19,7 @@ export const UserGetByRoleController = async (
     const offset = (page - 1) * RECORDS_PER_PAGE;
     // sample experise data is Plant%20Based%20Diets%20Prenatal%20Nutrition%20Hearth%20Health%20Gut%20Health%20Pediatric%20Nutrition
     // Construct SQL Query with filters
-    let query = `SELECT u.Id, u.Email, CONCAT(u.Firstname, u.Lastname) AS Fullname, u.Role, u.ProfilePhoto, SUM(NULLIF(pr.Rating,0)) AS Rating, pv.IsValidated AS IsVerified
+    let query = `SELECT u.Id, u.Email, CONCAT(u.Firstname, u.Lastname) AS Fullname, u.Role, u.ProfilePhoto, CASE WHEN COUNT(pr.Rate) > 0 THEN SUM(pr.Rate)/COUNT(pr.Rate) ELSE 0 END AS Rating, pv.IsValidated AS IsVerified
                  FROM \`user\` AS u 
                  LEFT JOIN \`profession_rating\` AS pr ON pr.UserId = u.Id 
                  LEFT JOIN \`specialist\` AS s ON s.UserId = u.Id 

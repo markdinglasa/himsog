@@ -143,6 +143,7 @@ export const ProfilePage: SFC = ({ ClassName }) => {
               ClassName=""
               Title="Medical Info"
               IsDisplay={true}
+              IsDetails={true}
             />
           </S.Divider>
         </S.PageContent>

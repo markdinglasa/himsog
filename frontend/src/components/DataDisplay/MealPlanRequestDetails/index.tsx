@@ -33,7 +33,7 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
   const { auth } = useAuth();
   const path = renderPath(auth?.roles as Roles);
   const [isModal, toggleModal] = useToggle(false);
-  const [isRate, toggleRate] = useToggle(false);
+
   const { update } = API.Transaction.MealPlanRequest.Update();
   const [mealplanId, setMealPlanId] = useState<number>();
   const [err, setErr] = useState<string | null>(null);
@@ -73,28 +73,6 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
               </span>
             </div>
             <div className="flex flex-row items-center justify-end gap-[1rem]">
-              <AccessControl OtherCondition={data?.MealPlanId && !IsAdvocate}>
-                <AccessControl
-                  OtherCondition={Boolean(data?.IsReviewed ?? false)}
-                >
-                  <CustomButton
-                    leftIcon={<Icon.Star className="text-primary" />}
-                    text="Review"
-                    onClick={toggleRate}
-                    color={ButtonColor.default}
-                  />
-                </AccessControl>
-                <AccessControl
-                  OtherCondition={!Boolean(data?.IsReviewed ?? false)}
-                >
-                  <CustomButton
-                    leftIcon={<Icon.Star className="text-primary" />}
-                    text="View Review"
-                    onClick={toggleRate}
-                    color={ButtonColor.default}
-                  />
-                </AccessControl>
-              </AccessControl>
               <CustomButton
                 leftIcon={<Icon.People />}
                 text="View Profile"
@@ -132,13 +110,13 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
           </AccessControl>
           <AccessControl OtherCondition={data?.MealPlanId && !IsAdvocate}>
             <MealPlanDetails
-              RecordId={data?.MealPlanId.toString()}
+              RecordId={data?.MealPlanId?.toString()}
               IsDisplay={true}
             />
           </AccessControl>
           <AccessControl OtherCondition={data?.MealPlanId && IsAdvocate}>
             <Form.Setup.MealPlan
-              RecordId={data?.MealPlanId.toString()}
+              RecordId={data?.MealPlanId?.toString()}
               IsDisplay={true}
               IsDetails={true}
             />
@@ -220,14 +198,6 @@ export const MealPlanRequestDetails: SFC<FormProps> = ({
             </div>
           </>
         )}
-      </CustomModal>
-      <CustomModal
-        close={toggleRate}
-        title={"Write a review"}
-        open={isRate}
-        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh] overflow-auto"
-      >
-        review
       </CustomModal>
     </>
   );

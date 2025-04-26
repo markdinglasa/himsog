@@ -51,6 +51,7 @@ interface FilterExpertise {
   IsPediatricNutrition: boolean;
   IsWeightManagement: boolean;
 }
+
 export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const [isModal, toggleModal] = useToggle(false);

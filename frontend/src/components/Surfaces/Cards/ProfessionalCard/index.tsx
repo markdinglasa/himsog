@@ -99,7 +99,12 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
                 // creates new contact if not yet connected else would redirect to messenger with Id
                 // check contacts if contact exists if not then create new contact then redirect
                 // if already exists in contacts then redirect to messenger with the Id
-                alert("message health professional");
+                navigate(
+                  RouteChannel.CLIENT_MESSENGER.replace(
+                    ":Id",
+                    String(Data?.Id ?? 0),
+                  ),
+                );
               }}
             />
           </div>
@@ -109,7 +114,7 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
         </div>
         {/* displays at the bottom of the card */}
         <div className="w-full relative bottom-0">
-          <div className="flex items-center justify-between bottom-0">
+          <div className="flex items-end justify-between bottom-0">
             <div className="flex items-center justify-start">
               <CustomButton
                 type={ButtonType.button}
@@ -120,11 +125,11 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
                 text="Request"
               />
             </div>
-            <div>
-              <div className="flex items-center justify-end">
-                <Icon.Star className="text-primary" fontSize="small" />
+            <div className="">
+              <div className="flex items-end justify-end ">
+                <Icon.Star className="text-orange-300" fontSize="small" />
                 <span className="text-sm  ml-1">
-                  {parseFloat(Data?.Rating?.toString() ?? "0")}/10
+                  {parseFloat(Data?.Rating?.toString() ?? "0")}/5
                 </span>
               </div>
             </div>

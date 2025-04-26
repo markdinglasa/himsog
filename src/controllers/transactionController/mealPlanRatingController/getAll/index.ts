@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { Error, Success } from "../../../../shared";
-import { MealPlanRequestQuery } from "../../../../shared/";
 import { GetService } from "../../../../services";
 import { MealPlanRatings } from "../../../../types";
 

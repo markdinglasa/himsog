@@ -4,25 +4,28 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllProfessionRating = (ProfessionId: number = 0) => {
+const useGetAllProfessionRatingRating = (
+  NutritionistId: number = 0,
+  page: number = 1,
+) => {
   const axios = useAxiosPrivate();
-  const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.NUTRITION_FACT],
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: [QueryKey.PROFESSION_RATING, NutritionistId], // Unique key for the query, including the Id
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.PROFESSION_RATING_PARENT.replace(":Id", ProfessionId.toString())}`,
+        `${APIChannel.PROFESSION_RATINGS.replace(":nutritionist", NutritionistId.toString()).replace(":page", page.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!ProfessionId,
+    enabled: !!NutritionistId && !!page, // Only fetch data if Id is provided
   });
-  // console.log("DATA:", data);
-  if (error) displayToast(data?.message || Error.m00003, ToastType.error);
+  if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
   return {
     data,
     isLoading,
     error,
+    refetch,
   };
 };
-export default useGetAllProfessionRating;
+export default useGetAllProfessionRatingRating;

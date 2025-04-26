@@ -1,6 +1,11 @@
-import { RouteChannel, SFC } from "../../../types";
+import { ButtonColor, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
-import { CustomButton, PageBreadCrumbs, Skeleton } from "../../../components";
+import {
+  CustomButton,
+  PageBreadCrumbs,
+  Skeleton,
+  Verified,
+} from "../../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { memo } from "react";
 //import { useAuth } from "../../../hooks";
@@ -13,9 +18,16 @@ import Institutes from "../../../components/DataDisplay/Institutes";
 import Specalists from "../../../components/DataDisplay/Specalists";
 import MdIcon from "@mdi/react";
 import { mdiInvoiceSendOutline } from "@mdi/js";
+import { CustomModal } from "../../../modals";
+import { useAuth, useToggle } from "../../../hooks";
+import Form from "../../../components/Surfaces/Forms";
+import { ProfessionRatingReviews } from "../../../components/DataDisplay/ProfessionReviews";
 
 export const ClientProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const [isModal, toggleModal] = useToggle(false);
+  const [isRate, toggleRate] = useToggle(false);
+  const { auth } = useAuth();
   const links = [
     {
       Text: "Dashboard",
@@ -30,8 +42,14 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN),
     },
   ];
+
   const { Id } = useParams<{ Id: string }>();
-  const { data: user, isLoading } = API.Setup.User.Get(Number(Id));
+  const { data: user, isLoading, refetch } = API.Setup.User.Get(Number(Id));
+  const { data: rate } = API.Setup.ProfessionRating.Get(
+    Number(Id),
+    Number(auth?.user),
+  );
+
   const userInfo = () => {
     if (isLoading) return <Skeleton />;
     return (
@@ -47,23 +65,32 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
               }}
             />
             <div className="flex flex-col">
-              <span className="text-lg font-medium">
+              <span className="text-lg font-medium flex flex-row items-center gap-2">
                 {user?.Fullname ?? "NA"}
+                {(user?.IsValidated ?? false) ? (
+                  <Verified ClassName="" />
+                ) : null}
               </span>
               <span className="text-sm">Health Professional</span>
             </div>
           </div>
+          <div className="w-full flex items-center justify-end gap-[1rem]">
+            <CustomButton
+              leftIcon={<Icon.Star className="text-primary" />}
+              text={rate?.Id ? "View review" : "Rate"}
+              onClick={toggleRate}
+              color={ButtonColor.default}
+            />
 
-          <div className="flex items-center justify-end gap-[1rem]  ">
             <CustomButton
               leftIcon={<Icon.Send />}
               text="Message"
-              onClick={() => {}}
+              onClick={() => navigate(`/c/messenger/${Id}`)}
             />
             <CustomButton
               leftIcon={<MdIcon path={mdiInvoiceSendOutline} size={1} />}
               text="Request"
-              onClick={() => {}}
+              onClick={toggleModal}
             />
           </div>
         </div>
@@ -109,6 +136,7 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
       </>
     );
   };
+
   return (
     <>
       <S.Container className={ClassName}>
@@ -126,11 +154,6 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
           <div className="w-full  ">{userInfo()}</div>
           <div className="w-full  mt-[1rem] flex gap-[1rem] flex-col">
             <div>
-              <span className="text-lg font-medium">
-                Professional Credentials
-              </span>
-            </div>
-            <div>
               <Professions IsDisplay={true} />
             </div>
             <div>
@@ -142,9 +165,32 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
           </div>
         </S.PageContent>
         <S.PageContent className="rounded-md border">
-          Health Prof Ratings
+          <ProfessionRatingReviews />
         </S.PageContent>
       </S.Container>
+      <CustomModal
+        close={toggleModal}
+        title={"Meal Plan Request"}
+        open={isModal}
+        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh]"
+      >
+        <Form.Transaction.MealPlanRequest
+          RecordId={String(Id)}
+          OnClose={toggleModal}
+        />
+      </CustomModal>
+      <CustomModal
+        close={toggleRate}
+        title={"Write a review"}
+        open={isRate}
+        ClassName="md:w-[40rem] w-[80vw] h-fit max-h-[80vh] overflow-auto"
+      >
+        <Form.Transaction.ProfessionRating
+          OnClose={toggleRate}
+          OnRefetch={() => refetch}
+          IsDisplay={Number(rate?.Id ?? 0) > 0}
+        />
+      </CustomModal>
     </>
   );
 };

@@ -2,7 +2,8 @@ import Joi from "joi";
 
 export const professionRatingValidator = Joi.object({
   UserId: Joi.number().integer().positive().required(),
-  Rating: Joi.number().required(),
+  Rate: Joi.number().required(),
+  IsHidden: Joi.boolean().required(),
   Remarks: Joi.string().allow("").allow(null).optional(),
   CreatedBy: Joi.number().integer().positive().optional(),
   DateCreated: Joi.date().optional(),

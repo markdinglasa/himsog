@@ -1,6 +1,7 @@
 import {
   HeadCell,
   paymentHC,
+  PaymentTables,
   QueryKey,
   RouteChannel,
   SFC,
@@ -40,6 +41,9 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
   ];
   const { auth } = useAuth();
   const { data: validation } = API.Setup.ProfessionValidtion.GetByUser(
+    Number(auth?.user ?? 0),
+  );
+  const { data: Payments } = API.Transaction.Payment.GetAllMealPlanPayment(
     Number(auth?.user ?? 0),
   );
   return (
@@ -187,7 +191,7 @@ export const NutritionistSettings: SFC = ({ ClassName }) => {
               <Suspense fallback={<Skeleton />}>
                 <EnhancedTable
                   Title="Transaction History"
-                  Rows={[]}
+                  Rows={(Payments as PaymentTables) ?? []}
                   HeadCells={paymentHC as HeadCell<unknown>[]}
                   IsLoading={false}
                   ClassName="md:max-h-[calc(100vh-200px)]"
