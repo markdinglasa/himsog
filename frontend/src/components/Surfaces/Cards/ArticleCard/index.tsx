@@ -1,14 +1,18 @@
-import { ArticleTable, SFC } from "../../../../types";
+import { ArticleTable, Roles, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import DefaultImg from "../../../../asset/images/default-image.jpg";
 import Icon from "../../../../constants/icon";
 import { memo } from "react";
 import { truncate } from "lodash";
-import { getCurrentDate } from "../../../../utils";
+import { getCurrentDate, renderPath } from "../../../../utils";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../modals";
 import ArticleDetails from "../../../DataDisplay/ArticleDetails";
 import { AccessControl } from "../../../DataDisplay";
+import { useAuth } from "../../../../hooks";
+import { MoreOption } from "../../DropDown";
+import API from "../../../../hooks/api";
+import { useNavigate } from "react-router-dom";
 
 export interface ArticleCardProps {
   Data: ArticleTable;
@@ -26,7 +30,10 @@ const ArticleCard: SFC<ArticleCardProps> = ({
   IsPublic = false,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
-
+  const { auth } = useAuth();
+  const { remove } = API.Setup.Article.Remove();
+  const navigate = useNavigate();
+  const path = renderPath(auth?.roles as Roles);
   return (
     <>
       <S.Divider
@@ -34,18 +41,40 @@ const ArticleCard: SFC<ArticleCardProps> = ({
         onClick={toggleDisplay}
         className={`${IsWidget ? "flex flex-row" : "border bg-slate-50"} w-full cursor-pointer hover:shadow-md rounded-md h-fit items-center justify-center  ${ClassName}`}
       >
-        <AccessControl
-          OtherCondition={!!(Data?.Image && Data?.Image?.length > 0)}
-        >
-          <S.Divider className="w-full ">
-            <S.Image
-              src={Data.Image ?? DefaultImg}
-              alt="Article image"
-              className="w-full h-[40%]"
-            />
-          </S.Divider>
-        </AccessControl>
-
+        <S.Divider className="relative">
+          <AccessControl
+            OtherCondition={!!(Data?.Image && Data?.Image?.length > 0)}
+          >
+            <S.Divider className="w-full ">
+              <S.Image
+                src={Data.Image ?? DefaultImg}
+                alt="Article image"
+                className="w-full h-[40%]"
+              />
+            </S.Divider>
+          </AccessControl>
+          <AccessControl
+            OtherCondition={
+              Number(auth?.user) === Number(Data.CreatedBy) ||
+              auth?.roles === Roles.admin
+            }
+          >
+            <div className="absolute z-10 top-2 right-2">
+              <MoreOption
+                IconColor="text-primary"
+                DeleteOnClick={(e: any) => {
+                  e.stopPropagation();
+                  remove(Number(Data.Id));
+                }}
+                EditOnClick={(e: any) => {
+                  e.stopPropagation();
+                  Data?.Id &&
+                    navigate(`${path}/health-article/d/${Data.Id.toString()}`);
+                }}
+              />
+            </div>
+          </AccessControl>
+        </S.Divider>
         <S.Divider className="flex flex-col p-5">
           <S.Divider className="w-full overflow-hidden mb-2 flex flex-col">
             <S.Span className="text-md font-medium">{Data.Title}</S.Span>

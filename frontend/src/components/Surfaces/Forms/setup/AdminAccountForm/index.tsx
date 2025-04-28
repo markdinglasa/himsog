@@ -42,7 +42,7 @@ export const AdminAccountForm: SFC<FormProps> = ({
     IsSuspended: false,
     BirthDate: "2000-01-01",
     Gender: "male",
-    Religion: "",
+    Religion: "catholic",
   };
 
   const handleSubmit = async (values: UserTable) => {

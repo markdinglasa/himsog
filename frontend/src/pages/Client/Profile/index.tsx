@@ -83,12 +83,18 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
             />
 
             <CustomButton
-              leftIcon={<Icon.Send />}
+              leftIcon={<Icon.Send className="md:text-white text-primary" />}
               text="Message"
               onClick={() => navigate(`/c/messenger/${Id}`)}
             />
             <CustomButton
-              leftIcon={<MdIcon path={mdiInvoiceSendOutline} size={1} />}
+              leftIcon={
+                <MdIcon
+                  path={mdiInvoiceSendOutline}
+                  size={1}
+                  className="md:text-white text-primary"
+                />
+              }
               text="Request"
               onClick={toggleModal}
             />

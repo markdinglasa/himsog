@@ -4,6 +4,7 @@ import Get from "./useGetArticle";
 import GetAll from "./useGetAllArticle";
 import GetAllWithFilter from "./useGetWithFilerArticle";
 import GetAllInvalidated from "./useGetAllInvalidatedArticle";
+import Remove from "./useRemoveArticle";
 export default {
   Add,
   Update,
@@ -11,4 +12,5 @@ export default {
   GetAll,
   GetAllWithFilter,
   GetAllInvalidated,
+  Remove,
 };

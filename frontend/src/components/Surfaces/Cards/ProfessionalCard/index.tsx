@@ -18,6 +18,8 @@ import { Verified } from "../../../DataDisplay/Verified";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../modals";
 import Form from "../../Forms";
+import MdIcon from "@mdi/react";
+import { mdiInvoiceSendOutline } from "@mdi/js";
 export interface ProfessionalCardProps {
   Data: UserTable;
 }
@@ -67,19 +69,21 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
           );
         }}
         className={cn(
-          "border w-full rounded-md hover:shadow-md h-fit p-[1rem] cursor-pointer hover:shadow-md",
+          "border w-full min-w-[20rem] rounded-md hover:shadow-md h-fit p-[1rem] cursor-pointer hover:shadow-md",
           ClassName,
         )}
       >
-        <div className="flex items-center justify-start ">
-          <Avatar
-            src={Data?.ProfilePhoto ?? ""}
-            alt={Data?.Fullname ?? "NA"}
-            sx={{
-              width: "4rem",
-              height: "4rem",
-            }}
-          />
+        <div className="flex flex-row items-center justify-start ">
+          <div>
+            <Avatar
+              src={Data?.ProfilePhoto ?? ""}
+              alt={Data?.Fullname ?? "NA"}
+              sx={{
+                width: "4rem",
+                height: "4rem",
+              }}
+            />
+          </div>
           <div className="w-full  flex flex-col ml-3">
             <span className="text-md font-medium flex flex-row gap-2 items-center">
               {Data?.Fullname ?? "NA"}
@@ -123,6 +127,8 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
                   toggleModal();
                 }}
                 text="Request"
+                leftIcon={<MdIcon path={mdiInvoiceSendOutline} size={1} />}
+                morph={false}
               />
             </div>
             <div className="">

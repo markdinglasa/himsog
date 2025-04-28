@@ -1,9 +1,9 @@
-import { EventTable, RouteChannel, SFC } from "../../../../types";
+import { EventTable, Roles, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import Icon from "../../../../constants/icon";
 import { memo } from "react";
 import { truncate } from "lodash";
-import { getCurrentDate, getCurrentTime } from "../../../../utils";
+import { getCurrentDate, getCurrentTime, renderPath } from "../../../../utils";
 import { AccessControl } from "../../../DataDisplay";
 import { useToggle } from "react-use";
 import { CustomModal } from "../../../../modals";
@@ -32,6 +32,7 @@ const EventCard: SFC<EventCardProps> = ({
   const { remove } = API.Setup.Event.Remove();
   const [isDisplay, toggleDisplay] = useToggle(false);
   const { auth } = useAuth();
+  const path = renderPath(auth?.roles as Roles);
   return (
     <div>
       <S.Divider
@@ -52,7 +53,10 @@ const EventCard: SFC<EventCardProps> = ({
             </S.Divider>
           </AccessControl>
           <AccessControl
-            OtherCondition={Number(auth?.user) === Number(Data.CreatedBy)}
+            OtherCondition={
+              Number(auth?.user) === Number(Data.CreatedBy) ||
+              auth?.roles === Roles.admin
+            }
           >
             <div className="absolute z-10 top-2 right-2">
               <MoreOption
@@ -63,13 +67,7 @@ const EventCard: SFC<EventCardProps> = ({
                 }}
                 EditOnClick={(e: any) => {
                   e.stopPropagation();
-                  Data?.Id &&
-                    navigate(
-                      RouteChannel.NUTRITIONIST_EVENT_DETAILS.replace(
-                        ":Id",
-                        Data.Id.toString(),
-                      ),
-                    );
+                  Data?.Id && navigate(`${path}/event/d/${Data.Id.toString()}`);
                 }}
               />
             </div>

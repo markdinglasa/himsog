@@ -5,7 +5,7 @@ import {
   PageBreadCrumbs,
   Skeleton,
 } from "../../../../components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { memo, Suspense } from "react";
 import { cn } from "../../../../utils";
 // import API from "../../../../hooks/api";
@@ -19,8 +19,12 @@ export const MealPlanDetailsPage: SFC = ({ ClassName }) => {
       Text: "Dashboard",
       OnClick: () => navigate(RouteChannel.ADMIN_DASHBOARD),
     },
+    {
+      Text: "Meal Plans",
+      OnClick: () => navigate(RouteChannel.ADMIN_MEAL_PLAN),
+    },
   ];
-
+  const { Id } = useParams<{ Id: string }>();
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -41,6 +45,7 @@ export const MealPlanDetailsPage: SFC = ({ ClassName }) => {
               Title="Meal Plan Details"
               IsDetails={true}
               IsDisplay={true}
+              RecordId={Id}
             />
           </Suspense>
         </S.PageContent>

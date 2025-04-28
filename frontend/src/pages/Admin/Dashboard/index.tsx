@@ -58,7 +58,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
     subsDailyRevenueWithPercentage?.Revenue,
     subsDailyRevenueWithPercentage?.PreviousDayRevenue,
   ]);
-  console.log(subsDailyRevenueWithPercentage?.Revenue ?? 0);
+  // console.log(subsDailyRevenueWithPercentage?.Revenue ?? 0);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -85,7 +85,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
                   }}
                 />
               }
-              IsNegative={(subsDailyRevenueWithPercentage?.Revenue ?? 0) < 1}
+              IsNegative={(subsDailyRevenueWithPercentage?.Revenue ?? 0) < 0}
               PercentText={"Since yesterday"}
             />
             <IncrementCard
@@ -93,7 +93,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               Amount={formatNumber(
                 Number(subsRevenueWithPercentage?.Revenue ?? 0),
               )}
-              IsNegative={(subsRevenueWithPercentage?.Revenue ?? 0) < 1}
+              IsNegative={(subsRevenueWithPercentage?.Revenue ?? 1) < 1}
               Percent={percentageMonthRevenue}
               Icon={
                 <Icon.Money
