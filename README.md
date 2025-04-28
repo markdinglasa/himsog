@@ -35,7 +35,7 @@ A list of technologies used within the project:
 - Frontend/Client
 
 1. npm install
-2. npm run dev <!-- client/frontend side >
+2. npm run dev or npm run network <!-- dev for development, start for production, network for local network connection >
 3. open a brower
 
 ## DEFAULT USERS

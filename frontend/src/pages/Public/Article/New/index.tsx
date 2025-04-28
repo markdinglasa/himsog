@@ -1,7 +1,7 @@
 import { Roles, RouteChannel, SFC } from "../../../../types";
 import * as S from "../../../../styles";
 import { useAuth } from "../../../../hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { memo, useEffect } from "react";
 import { cn, renderPath } from "../../../../utils";
 import Form from "../../../../components/Surfaces/Forms";
@@ -11,9 +11,13 @@ import axios from "axios";
 const PublicArticleNewPage: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { token: tk } = useParams<{ token: string }>(); // get the query in
-  const AccessToken = tk?.replace("token=", "");
-  // console.log(AccessToken);
+  const location = useLocation();
+  // Extract the query part after the last slash
+  const queryString = location.pathname.split("/").pop() || ""; // "id=49&token=eyJhbGci..."
+  // Parse the parameters
+  const params = new URLSearchParams(queryString);
+  const RequestAccessId = params.get("id");
+  const AccessToken = params.get("token");
 
   useEffect(() => {
     // VALIDATE TOKEN
@@ -51,7 +55,12 @@ const PublicArticleNewPage: SFC = ({ ClassName }) => {
     <>
       <S.Container className={cn("flex justify-center mb-10", ClassName)}>
         <S.Content className="h-full flex flex-col justify-center items-center w-full md:w-11/12 mt-10 bg-white border p-[1rem] rounded-md ">
-          <Form.Public.Article IsPublic={true} ClassName="w-full" />
+          <Form.Public.Article
+            IsPublic={true}
+            ClassName="w-full"
+            AccessToken={String(AccessToken)}
+            RequestAccessId={Number(RequestAccessId)}
+          />
         </S.Content>
       </S.Container>
     </>

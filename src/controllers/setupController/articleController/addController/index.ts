@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ArticleTable } from "../../../../types";
 import { DBTable, Error, Success } from "../../../../shared";
 import { articleValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, UpdateService } from "../../../../services";
 
 export const ArticleAddController = async (
   req: Request,
@@ -16,7 +16,7 @@ export const ArticleAddController = async (
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
     const { error } = articleValidator.validate({ ...Data });
-    console.error(error);
+    // console.error(error);
     if (error)
       return res.status(401).json({
         data: false,
@@ -25,11 +25,29 @@ export const ArticleAddController = async (
     // Other Fn
 
     Data.DateCreated = new Date();
-    const Fields = Object.keys(Data);
-    const Types = Object.values(Data).map((val) => typeof val);
-    const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t030, Fields, Types, Values)))
+    const { RequestAccessId, ...filtered } = Data;
+    const Fields = Object.keys(filtered);
+    const Types = Object.values(filtered).map((val) => typeof val);
+    const Values = Object.values(filtered);
+    const response = await AddService.recordReturnData(
+      DBTable.t030,
+      Fields,
+      Types,
+      Values,
+    );
+
+    if (!response)
       return res.status(401).json({ data: false, message: Error.m002 });
+    if (Number(Data?.RequestAccessId) > 0) {
+      await UpdateService.record(
+        Data?.RequestAccessId,
+        DBTable.t025,
+        ["ArticleId"],
+        [Number],
+        [response?.Id ?? 0],
+      );
+    } // UPDATE REQUEST ACCESS
+
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

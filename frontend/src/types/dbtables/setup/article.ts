@@ -8,6 +8,7 @@ export interface ArticleTable extends Id, Logs {
   Image: string | null;
   Link: string | null;
   Remarks: string | null;
+  RequestAccessId?: number;
 }
 export type ArticleTables = ArticleTable[];
 export const ArticleInitial: ArticleTable = {

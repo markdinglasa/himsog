@@ -22,7 +22,10 @@ import { memo, useRef, useState } from "react";
 import { BASE_URL, Error } from "../../../../../shared";
 import * as S from "../../../../../styles";
 import { displayToast } from "../../../../../utils";
-import { eventValidator } from "../../../../../validators/";
+import {
+  eventValidator,
+  eventValidatorOnEdit,
+} from "../../../../../validators/";
 import API from "../../../../../hooks/api";
 import Icon from "../../../../../constants/icon";
 import { useNavigate, useParams } from "react-router-dom";
@@ -62,7 +65,7 @@ const EventForm: SFC<FormProps> = ({
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
-    IsValidated: data?.Id ? null : data?.IsValidated || null,
+    IsValidated: Boolean(data?.IsValidated) || null,
     Remarks: data?.Remarks || null,
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
     UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
@@ -155,7 +158,9 @@ const EventForm: SFC<FormProps> = ({
                   onSubmit={handleSubmit}
                   enableReinitialize={true}
                   validateOnMount={true}
-                  validationSchema={eventValidator}
+                  validationSchema={
+                    data?.Id ? eventValidatorOnEdit : eventValidator
+                  }
                 >
                   {({
                     errors,

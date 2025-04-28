@@ -86,7 +86,9 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
           // Toggle
           data.IsValidated = true;
           // console.log(data);
+          data.IsNotify = true;
           const { Id, ...filtered } = data;
+
           update(Number(data.Id), filtered);
           toggleApprove();
         }}

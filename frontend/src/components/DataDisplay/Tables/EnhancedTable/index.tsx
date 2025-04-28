@@ -104,12 +104,14 @@ export const EnhancedTable = <T extends Record<string, any>>({
         displayToast("Payment is already approved", ToastType.error);
       else */ if (data.IsApproved)
         displayToast("Request is already approved", ToastType.error);
-      else ToggleModal && ToggleModal();
-      setRecord({
-        RecordId: IsRecord ? null : id,
-        Records: [],
-        Record: IsRecord ? data : undefined,
-      });
+      else {
+        ToggleModal && ToggleModal();
+        setRecord({
+          RecordId: IsRecord ? null : id,
+          Records: [],
+          Record: IsRecord ? data : undefined,
+        });
+      }
     } else {
       /*const reroute = link
         ? link

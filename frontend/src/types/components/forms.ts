@@ -21,6 +21,8 @@ export interface FormProps {
   RecordId?: string;
   Record?: Record<string, any>;
   IsAdvocate?: boolean;
+  AccessToken?: string;
+  RequestAccessId?: number;
 }
 
 export interface SetupForm {

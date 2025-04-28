@@ -16,5 +16,6 @@ export const articleValidator = () => {
     Image: yup.string().nullable().optional(),
     Link: yup.string().url().nullable().optional(),
     Remarks: yup.string().url().nullable().optional(),
+    RequestAccessId: yup.number().nullable().optional(),
   });
 };

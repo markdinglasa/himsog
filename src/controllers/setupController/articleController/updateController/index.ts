@@ -8,12 +8,13 @@ import {
   ArticleQuery,
   DBTable,
   Error,
+  GenerateEmail,
   Success,
   UserQuery,
 } from "../../../../shared";
 import { articleValidator } from "../../../../validators";
 import { AddService, GetService, UpdateService } from "../../../../services";
-import { isFound } from "../../../../functions";
+import { isFound, singleMailSender } from "../../../../functions";
 
 export const ArticleUpdateController = async (
   req: Request,
@@ -37,7 +38,7 @@ export const ArticleUpdateController = async (
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence
 
     Data.DatePosted = new Date(Data.DatePosted);
-    Data.DateCreated = new Date(Data?.DateCreated ?? "");
+    Data.DateCreated = new Date(Data?.DateCreated ?? new Date());
     Data.DateUpdated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
@@ -51,7 +52,7 @@ export const ArticleUpdateController = async (
         UserQuery.q007,
         ["Role"],
         [String],
-        ["client"],
+        ["advocate"],
       ); // returns an array of NotificationTable objects
 
       const NotifyData: NotificationTables = Advocates.map((record) => ({
@@ -79,6 +80,24 @@ export const ArticleUpdateController = async (
       )
         return res.status(401).json({ data: false, message: Error.m003 });
       //
+    } else {
+      const RequestAccess = (
+        await GetService.byFields(
+          "SELECT `Email` FROM `request_access` WHERE `ArticleId` = ?",
+          ["ArticleId"],
+          [Number],
+          [Id],
+        )
+      )[0];
+      const disapproveMessage = GenerateEmail(
+        RequestAccess?.Email,
+        `The Health Article you submitted was disapproved. ${Data?.Remarks ?? ""}`,
+      );
+      singleMailSender(
+        RequestAccess?.Email,
+        "Himsog Health Article - Disapproval",
+        disapproveMessage,
+      );
     }
 
     return res.status(200).json({ data: true, message: Success.m004 });

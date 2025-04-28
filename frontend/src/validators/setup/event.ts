@@ -9,8 +9,6 @@ export const eventValidator = () => {
         "Title should not contain special characters",
       )
       .required(),
-    //Type: yup.string().required(),
-    //Category: yup.string().required(),
     Description: yup.string().nullable().optional(),
     Location: yup.string().required(),
     ScheduleDate: yup
@@ -42,6 +40,29 @@ export const eventValidator = () => {
           return endTime >= startTime;
         },
       ), // should not be lesser than the time start
+    Image: yup.string().nullable().optional(),
+    RegistrationLink: yup.string().nullable().optional(),
+    Remarks: yup.string().nullable().optional(),
+    IsValidated: yup.boolean().nullable().optional(),
+    CreatedBy: yup.number().integer().required(),
+    UpdatedBy: yup.number().nullable().optional(),
+  });
+};
+
+export const eventValidatorOnEdit = () => {
+  return yup.object().shape({
+    Title: yup
+      .string()
+      .matches(
+        /^[0-9A-Za-z\s.&)(-,]+$/,
+        "Title should not contain special characters",
+      )
+      .required(),
+    Description: yup.string().nullable().optional(),
+    Location: yup.string().required(),
+    ScheduleDate: yup.date().required(), // should not before the current date
+    TimeStart: yup.string().required(),
+    TimeEnd: yup.string().required(),
     Image: yup.string().nullable().optional(),
     RegistrationLink: yup.string().nullable().optional(),
     Remarks: yup.string().nullable().optional(),

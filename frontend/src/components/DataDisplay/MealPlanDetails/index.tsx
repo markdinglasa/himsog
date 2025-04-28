@@ -62,7 +62,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                 <div className="flex flex-row gap-[1rem]">
                   <AccessControl
                     OtherCondition={
-                      !Boolean(isPaid?.IsRated ?? false) && !IsComplete
+                      !Boolean(isPaid?.IsRated ?? false) && IsComplete
                     }
                   >
                     <CustomButton

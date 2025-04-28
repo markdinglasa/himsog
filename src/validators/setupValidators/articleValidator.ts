@@ -11,6 +11,7 @@ export const articleValidator = Joi.object({
   Image: Joi.string().allow("").allow(null).optional(),
   Link: Joi.string().allow("").allow(null).optional(),
   Remarks: Joi.string().allow("").allow(null).optional(),
+  RequestAccessId: Joi.number().allow(null).optional(),
   CreatedBy: Joi.number().integer().positive().optional(),
   DateCreated: Joi.date().optional(),
   UpdatedBy: Joi.number().integer().positive().optional(),

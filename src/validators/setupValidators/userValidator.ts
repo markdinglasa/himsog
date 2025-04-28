@@ -22,7 +22,7 @@ export const userValidator = Joi.object({
   CivilStatus: Joi.string()
     .valid("single", "married", "divorced", "widowed", "legally-separated")
     .required(),
-  Religion: Joi.string().required(),
+  Religion: Joi.string().allow("").required(),
   Role: Joi.string()
     .valid("superuser", "administrator", "advocate", "nutritionist")
     .required(),

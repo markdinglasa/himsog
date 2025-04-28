@@ -15,7 +15,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import { cn, displayToast, renderPath } from "../../../../../utils";
 import Icon from "../../../../../constants/icon";
 import { memo } from "react";
-import { articleValidator } from "../../../../../validators";
 import { AccessControl } from "../../../../DataDisplay";
 import API from "../../../../../hooks/api";
 import { useParams } from "react-router-dom";
@@ -88,7 +87,7 @@ export const DisapproveArticleForm: SFC<FormProps> = ({
               onSubmit={handleSubmit}
               enableReinitialize={true}
               validateOnMount={true}
-              validationSchema={articleValidator}
+              //validationSchema={articleValidator}
             >
               {({
                 isValid,

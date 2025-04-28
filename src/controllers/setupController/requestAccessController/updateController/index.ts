@@ -30,18 +30,19 @@ export const RequestAccessUpdateController = async (
     // Other Fn here
     if (!(await isFound(RequestAccessQuery.q002, ["Id"], [Number], [Id])).data)
       return res.status(401).json({ data: false, message: Error.m011 }); // check existence+
-
+    // console.log("RequestAccess Data:", Data);
     if (Data?.IsApproved ?? false) {
       // SEND THE TOKEN-LINK OF ANY ARTICLE/EVENT
       const IsEvent = Data?.EventId ? true : false;
       const Token: string = (await GenerateFn.accessToken("0")).data;
       const HTMLEmail = GenerateEmail(
         Data?.Email,
-        `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "health-article"}/new/token=${Token} this token is valid only for 1hour.`,
+        `Kindly click the link to create a http://localhost:5173/${IsEvent ? "event" : "health-article"}/new/id=${Id}&token=${Token} this token is valid only for 1hour.`,
       );
       if (Data?.Email) {
+        // console.log("Email sent to:", Data?.Email);
         const sendemail = singleMailSender(
-          Data?.Email,
+          String(Data?.Email),
           `Request Access to ${IsEvent ? "Event" : "Article"}`,
           HTMLEmail,
         );

@@ -83,8 +83,10 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
           }
           // console.log(data);
           const { Id, ...filtered } = data;
+          filtered.IsNotify = true;
           console.log(filtered);
           update(Number(data.Id), filtered);
+
           toggleApprove();
         }}
       />

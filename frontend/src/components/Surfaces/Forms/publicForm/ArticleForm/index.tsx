@@ -36,16 +36,14 @@ const ArticleForm: SFC<FormProps> = ({
   IsDisplay = false,
   RecordId,
   Title,
+  AccessToken,
+  RequestAccessId,
   OnClose,
 }) => {
   const [IsEdit, SetIsEdit] = useState(IsDetails);
-
   const { add } = API.Setup.Article.Add();
   const { update } = API.Setup.Article.Update();
-
   const { Id: ParamsId } = useParams<{ Id: string }>();
-  const { token: tk } = useParams<{ token: string }>();
-  const AccessToken = tk?.replace("token=", "");
   const Id: number = ParamsId ? Number(ParamsId) : Number(RecordId);
   const { data, isLoading } = API.Setup.Article.Get(Id);
 
@@ -69,6 +67,7 @@ const ArticleForm: SFC<FormProps> = ({
     Link: data?.Link || null,
     IsValidated: data?.IsValidated || null,
     Remarks: null,
+    RequestAccessId: Number(RequestAccessId ?? 0),
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
     UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
   };
