@@ -7,7 +7,7 @@ import {
   Success,
 } from "../../../../shared";
 import { mealPlanRequestValidator } from "../../../../validators";
-import { UpdateService } from "../../../../services";
+import { AddService, UpdateService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const MealPlanRequestUpdateController = async (
@@ -37,6 +37,21 @@ export const MealPlanRequestUpdateController = async (
     const Values = Object.values(Data);
     if (!(await UpdateService.record(Id, DBTable.t007, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+    if (Data?.MealPlanId) {
+      // notify nutritionist
+      await AddService.record(
+        DBTable.t008,
+        ["UserId", "Description", "Link", "IsRead", "DateCreated"],
+        [Number, String, String, Boolean, Date],
+        [
+          Data?.AdvocateId ?? 0,
+          "Your meal-plan request has been granted",
+          `/c/request/d/${Id}`,
+          false,
+          new Date(),
+        ],
+      );
+    }
     return res.status(200).json({ data: true, message: Success.m004 });
   } catch (error: any) {
     logging.log("----------------------------------------");

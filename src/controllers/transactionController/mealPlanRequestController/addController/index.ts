@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { MealPlanRequestTable } from "../../../../types";
+import { MealPlanRequestTable, NotificationTable } from "../../../../types";
 import { DBTable, Error, Success } from "../../../../shared";
 import { mealPlanRequestValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
@@ -26,6 +26,19 @@ export const MealPlanRequestAddController = async (
     const Values = Object.values(Data);
     if (!(await AddService.record(DBTable.t007, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+    // notify nutritionist
+    await AddService.record(
+      DBTable.t008,
+      ["UserId", "Description", "Link", "IsRead", "DateCreated"],
+      [Number, String, String, Boolean, Date],
+      [
+        Data?.NutritionistId ?? 0,
+        "New meal plan request",
+        "/n/meal-plan-request",
+        false,
+        new Date(),
+      ],
+    );
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
