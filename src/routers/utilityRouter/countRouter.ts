@@ -10,6 +10,8 @@ import {
   AdminGetSubscriptionMonthlyRevenueWithPercentage,
   ClientGetAllCount,
   NutritionistGetAllCount,
+  NutritionistGetMealPlanDailyRevenueWithPercentage,
+  NutritionistGetMealPlanMonthlyRevenueWithPercentage,
 } from "../../controllers";
 
 const router = express.Router();
@@ -17,6 +19,16 @@ router.get(
   `${API_VERSION}${RouteChannel.NUTRISTIONIST_COUNT}`,
   TokenHandler.verifyToken,
   NutritionistGetAllCount,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NUTRISTIONIST_MEAL_PLAN_MONTHLY_REVENUE}`,
+  TokenHandler.verifyToken,
+  NutritionistGetMealPlanMonthlyRevenueWithPercentage,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.NUTRISTIONIST_MEAL_PLAN_DAILY_REVENUE}`,
+  TokenHandler.verifyToken,
+  NutritionistGetMealPlanDailyRevenueWithPercentage,
 );
 router.get(
   `${API_VERSION}${RouteChannel.CLIENT_COUNT}`,

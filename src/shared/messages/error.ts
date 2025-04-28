@@ -49,4 +49,5 @@ export enum Error {
   m048 = "User has an active subscription.",
   m049 = "User already already medical record",
   m050 = "Meal plan is already rated",
+  m051 = "You have reach your limit",
 }

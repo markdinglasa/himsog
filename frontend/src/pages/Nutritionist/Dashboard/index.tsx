@@ -2,11 +2,11 @@ import { RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import { PageBreadCrumbs } from "../../../components";
 import { cn, formatNumber } from "../../../utils";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import Card from "../../../components/Surfaces/Cards";
 import Icon from "../../../constants/icon";
 import {
-  mdiCalendar,
+  mdiCreditCardOutline,
   mdiFoodTakeoutBoxOutline,
   mdiFoodVariant,
   mdiInvoiceSendOutline,
@@ -19,7 +19,32 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const { data } = API.Utility.Count.NutritionistCount(Number(auth?.user ?? 0));
-  console.log(data?.[0]?.Count ?? 0);
+  const { data: mrevenue } = API.Utility.Count.MealPlanMonthlyRevenue(
+    Number(auth?.user ?? 0),
+  );
+  const { data: drevenue } = API.Utility.Count.MealPlanDailyRevenue(
+    Number(auth?.user ?? 0),
+  );
+  const percentageMonthRevenue = useMemo(() => {
+    if ((mrevenue?.PreviousMonthRevenue ?? 0) === 0) {
+      return 0; // Avoid division by zero
+    }
+    return Math.round(
+      (((mrevenue?.Revenue ?? 0) - (mrevenue?.PreviousMonthRevenue ?? 0)) /
+        (mrevenue?.PreviousMonthRevenue ?? 1)) *
+        100,
+    );
+  }, [mrevenue?.Revenue, mrevenue?.PreviousMonthRevenue]);
+  const percentageDayRevenue = useMemo(() => {
+    if ((drevenue?.PreviousMonthRevenue ?? 0) === 0) {
+      return 0; // Avoid division by zero
+    }
+    return Math.round(
+      (((drevenue?.Revenue ?? 0) - (drevenue?.PreviousMonthRevenue ?? 0)) /
+        (drevenue?.PreviousMonthRevenue ?? 1)) *
+        100,
+    );
+  }, [drevenue?.Revenue, drevenue?.PreviousMonthRevenue]);
   return (
     <>
       <S.Container className={cn("", ClassName)}>
@@ -31,8 +56,8 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
           <S.CardContainer className="flex md:flex-row flex-col gap-[1rem] w-full">
             <Card.Increment
               Text="Today's sales"
-              Amount={formatNumber(5355)}
-              Percent={1}
+              Amount={formatNumber(Number(drevenue?.Revenue ?? 0))}
+              Percent={percentageDayRevenue}
               Icon={
                 <Icon.Cart
                   className="text-white w-full h-full"
@@ -44,13 +69,13 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
                   }}
                 />
               }
-              IsNegative={false}
-              PercentText={"Since last week"}
+              IsNegative={(mrevenue?.Revenue ?? 1) < 1}
+              PercentText={"Since yesterday"}
             />
             <Card.Increment
               Text="monthly's sales"
-              Amount={formatNumber(94355)}
-              Percent={1}
+              Amount={formatNumber(Number(mrevenue?.Revenue ?? 0))}
+              Percent={percentageMonthRevenue}
               Icon={
                 <Icon.Money
                   className="text-white w-full h-full"
@@ -62,7 +87,7 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
                   }}
                 />
               }
-              IsNegative={false}
+              IsNegative={Number(mrevenue?.Revenue ?? 1) < 1}
               PercentText={"Since last month"}
             />
           </S.CardContainer>
@@ -88,10 +113,12 @@ const NutritionistDashboardPage: SFC = ({ ClassName }) => {
               }
             />
             <Card.Dashboard
-              Icons={mdiCalendar}
+              Icons={mdiCreditCardOutline}
               Text={String(data?.[3]?.Count ?? 0)}
-              Title="Appointments"
-              OnClick={() => navigate(RouteChannel.NUTRITIONIST_APPOINTMENT)}
+              Title="Payments"
+              OnClick={() =>
+                navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_PAYMENT)
+              }
             />
           </S.CardContainer>
         </S.Content>

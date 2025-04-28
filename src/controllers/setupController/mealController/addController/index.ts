@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { MealTable } from "../../../../types";
 import { DBTable, Error, MealQuery, Success } from "../../../../shared";
 import { mealValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const MealAddController = async (
@@ -32,6 +32,17 @@ export const MealAddController = async (
       ).data
     )
       return res.status(401).json({ data: [], message: Error.m043 }); // check duplicate Name
+
+    if (
+      Boolean(
+        (
+          await GetService.byQuery(
+            `SELECT CASE WHEN EXISTS (SELECT 1 FROM subscription_line sl JOIN subscription s ON s.Id = sl.SubscriptionId WHERE sl.UserId = ${Data?.CreatedBy ?? 0} AND s.Name = 'Premium' AND sl.DateStart <= CURRENT_DATE() AND (sl.DateEnd IS NULL OR sl.DateEnd >= CURRENT_DATE()) AND sl.IsCancelled = 0) THEN false ELSE ( SELECT COUNT(m.Id) >= 10  FROM meal m WHERE m.CreatedBy = ${Data?.CreatedBy ?? 0} ) END AS Limits`,
+          )
+        )[0].Limits,
+      )
+    )
+      return res.status(401).json({ data: [], message: Error.m051 }); // check subscription if active & premium
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

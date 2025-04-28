@@ -56,6 +56,20 @@ export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
   const [isModal, toggleModal] = useToggle(false);
   const { auth } = useAuth();
+  // VALIDATE SUBSCRIPTIONS
+  const { data: subs } = API.Setup.SubscriptionLine.GetByUser(
+    Number(auth?.user),
+  );
+  useEffect(() => {
+    const checkIsPremium = () => {
+      const IsPremium: boolean =
+        String(subs?.Status ?? "NA") === "Active" &&
+        String(subs?.SubscriptionName ?? "NA") === "Premium";
+      if (!IsPremium) navigate(RouteChannel.R403);
+    };
+    checkIsPremium();
+  }, [subs?.Status, subs?.SubscriptionName]);
+
   const links = [
     {
       Text: "Dashboard",

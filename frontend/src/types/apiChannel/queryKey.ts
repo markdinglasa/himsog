@@ -46,4 +46,6 @@ export enum QueryKey {
   ADMIN_SUBSCRIPTION_MONTHLY_REVENUE = "admin-subscription-monthly-revenue",
   ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE = "admin-subscription-monthly-revenue-with-percentage",
   ADMIN_SUBSCRIPTION_DAILY_REVENUE_WITH_PERCENTAGE = "admin-subscription-daily-revenue-with-percentage",
+  NUTRISTIONIST_MEAL_PLAN_MONTHLY_REVENUE = "meal-plan-monthly-revenue",
+  NUTRISTIONIST_MEAL_PLAN_DAILY_REVENUE = "meal-plan-daily-revenue",
 }

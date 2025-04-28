@@ -35,7 +35,12 @@ export const SideNav: SFC<SideNavProps> = ({
   const { data } = API.Setup.User.Get(Number(auth?.user ?? 0));
   const path = renderPath(auth?.roles as Roles);
   const [active, setActive] = useState<RouteChannel>(path as RouteChannel);
-
+  const { data: subs } = API.Setup.SubscriptionLine.GetByUser(
+    Number(auth?.user),
+  );
+  const IsPremium: boolean =
+    String(subs?.Status ?? "NA") === "Active" &&
+    String(subs?.SubscriptionName ?? "NA") === "Premium";
   return (
     <>
       <S.Container
@@ -123,7 +128,7 @@ export const SideNav: SFC<SideNavProps> = ({
                 IsActive={active === RouteChannel.ADMIN_MEAL_PLAN}
               />
             </AccessControl>
-            <AccessControl UserRoles={[Roles.admin]}>
+            <AccessControl OtherCondition={IsPremium} UserRoles={[Roles.admin]}>
               <Menu
                 icon={mdiInvoiceSendOutline}
                 isCollapse={Collapse}
@@ -173,19 +178,22 @@ export const SideNav: SFC<SideNavProps> = ({
                     }}
                     IsActive={active === RouteChannel.NUTRITIONIST_MEAL_PLAN}
                   />
-                  <Menu
-                    icon={mdiInvoiceSendOutline}
-                    isCollapse={Collapse}
-                    label="Requests"
-                    onClick={() => {
-                      Toggle();
-                      navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
-                      setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
-                    }}
-                    IsActive={
-                      active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
-                    }
-                  />
+                  <AccessControl OtherCondition={IsPremium}>
+                    <Menu
+                      icon={mdiInvoiceSendOutline}
+                      isCollapse={Collapse}
+                      label="Requests"
+                      onClick={() => {
+                        Toggle();
+                        navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
+                        setActive(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST);
+                      }}
+                      IsActive={
+                        active === RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST
+                      }
+                    />
+                  </AccessControl>
+
                   <Menu
                     icon={mdiCreditCardOutline}
                     isCollapse={Collapse}

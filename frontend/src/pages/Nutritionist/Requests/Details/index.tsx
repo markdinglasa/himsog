@@ -6,11 +6,29 @@ import {
   Skeleton,
 } from "../../../../components";
 import { useNavigate } from "react-router-dom";
-import { memo, Suspense } from "react";
+import { memo, Suspense, useEffect } from "react";
 import MealPlanRequestDetails from "../../../../components/DataDisplay/MealPlanRequestDetails";
 import Icon from "../../../../constants/icon";
+import { useAuth } from "../../../../hooks";
+import API from "../../../../hooks/api";
+
 export const NutritionistRequestDetailsPage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+
+  const { data: subs } = API.Setup.SubscriptionLine.GetByUser(
+    Number(auth?.user),
+  );
+  useEffect(() => {
+    const checkIsPremium = () => {
+      const IsPremium: boolean =
+        String(subs?.Status ?? "NA") === "Active" &&
+        String(subs?.SubscriptionName ?? "NA") === "Premium";
+      if (!IsPremium) navigate(RouteChannel.R403);
+    };
+    checkIsPremium();
+  }, [subs?.Status, subs?.SubscriptionName]);
+
   const links = [
     {
       Text: "Dashboard",

@@ -5,3 +5,5 @@ export * from "./getSubcriptionCount";
 export * from "./getSubscriptionMonthlyRevenue";
 export * from "./getSubscMontlyRevenueWithPercentage";
 export * from "./getSubscriptionDailyRevenueWithPercentage";
+export * from "./getMealPlanMontlyRevenue";
+export * from "./getMealPlanDailyRevenue";

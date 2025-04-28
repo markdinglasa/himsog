@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { MealPlanTable } from "../../../../types";
 import { DBTable, Error, MealPlanQuery, Success } from "../../../../shared";
 import { mealPlanValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService } from "../../../../services";
 import { isFound } from "../../../../functions";
 
 export const MealPlanAddController = async (
@@ -32,6 +32,20 @@ export const MealPlanAddController = async (
       ).data
     )
       return res.status(401).json({ data: false, message: Error.m016 }); // CHECK DUPLICATE
+
+    if (
+      Boolean(
+        (
+          await GetService.byFields(
+            MealPlanQuery.q007,
+            ["UserId", "UserId"],
+            [Number, Number],
+            [Data.UserId, Data.UserId],
+          )
+        )[0].Limit,
+      )
+    )
+      return res.status(401).json({ data: [], message: Error.m051 }); // check subscription if active & premium
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

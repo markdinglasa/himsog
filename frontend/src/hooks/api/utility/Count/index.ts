@@ -1,4 +1,7 @@
 import NutritionistCount from "./useGetNutritionistCount";
+import MealPlanMonthlyRevenue from "./useGetMealPlanMonthlyRevenue";
+import MealPlanDailyRevenue from "./useGetMealPlanDailyRevenue";
+
 import ClientCount from "./useGetClientCount";
 import AdminCount from "./useGetAdminCount";
 import AdminSubscriptionCount from "./useGetSubscriptionCount";
@@ -14,4 +17,6 @@ export default {
   AdminSusbcriptionMonthlyRevenue,
   AdminSubscriptionMonthlyRevenueWithPercentage,
   AdminSubscriptionDailyRevenueWithPercentage,
+  MealPlanMonthlyRevenue,
+  MealPlanDailyRevenue,
 };

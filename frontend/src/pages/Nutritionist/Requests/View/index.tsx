@@ -14,10 +14,25 @@ import {
   Skeleton,
 } from "../../../../components";
 import { useNavigate } from "react-router-dom";
-import { memo, Suspense } from "react";
+import { memo, Suspense, useEffect } from "react";
 import API from "../../../../hooks/api";
 import { useAuth } from "../../../../hooks";
 export const NutritionistRequestViewPage: SFC = ({ ClassName }) => {
+  const { auth } = useAuth();
+
+  const { data: subs } = API.Setup.SubscriptionLine.GetByUser(
+    Number(auth?.user),
+  );
+  useEffect(() => {
+    const checkIsPremium = () => {
+      const IsPremium: boolean =
+        String(subs?.Status ?? "NA") === "Active" &&
+        String(subs?.SubscriptionName ?? "NA") === "Premium";
+      if (!IsPremium) navigate(RouteChannel.R403);
+    };
+    checkIsPremium();
+  }, [subs?.Status, subs?.SubscriptionName]);
+
   const navigate = useNavigate();
   const links = [
     {
@@ -25,7 +40,7 @@ export const NutritionistRequestViewPage: SFC = ({ ClassName }) => {
       OnClick: () => navigate(RouteChannel.NUTRITIONIST_DASHBOARD),
     },
   ];
-  const { auth } = useAuth();
+
   const { data: requests, isLoading } =
     API.Transaction.MealPlanRequest.GetAllByNutritionist(
       Number(auth?.user ?? 0),
