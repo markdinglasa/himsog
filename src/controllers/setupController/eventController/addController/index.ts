@@ -6,7 +6,7 @@ import {
 } from "../../../../types";
 import { DBTable, Error, Success, UserQuery } from "../../../../shared";
 import { eventValidator } from "../../../../validators";
-import { AddService, GetService } from "../../../../services";
+import { AddService, GetService, UpdateService } from "../../../../services";
 
 export const EventAddController = async (
   req: Request,
@@ -27,11 +27,27 @@ export const EventAddController = async (
 
     Data.ScheduleDate = new Date(Data.ScheduleDate);
     Data.DateCreated = new Date();
-    const Fields = Object.keys(Data);
-    const Types = Object.values(Data).map((val) => typeof val);
-    const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t009, Fields, Types, Values)))
+    const { RequestAccessId, ...filtered } = Data;
+    const Fields = Object.keys(filtered);
+    const Types = Object.values(filtered).map((val) => typeof val);
+    const Values = Object.values(filtered);
+    const response = await AddService.recordReturnData(
+      DBTable.t009,
+      Fields,
+      Types,
+      Values,
+    );
+    if (!response)
       return res.status(401).json({ data: false, message: Error.m002 });
+    if (Number(Data?.RequestAccessId) > 0) {
+      await UpdateService.record(
+        Data?.RequestAccessId,
+        DBTable.t025,
+        ["EventId"],
+        [Number],
+        [response?.Id ?? 0],
+      );
+    } // UPDATE REQUEST ACCESS
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

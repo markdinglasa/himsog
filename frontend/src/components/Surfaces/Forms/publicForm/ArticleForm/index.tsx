@@ -67,7 +67,7 @@ const ArticleForm: SFC<FormProps> = ({
     Link: data?.Link || null,
     IsValidated: data?.IsValidated || null,
     Remarks: null,
-    RequestAccessId: Number(RequestAccessId ?? 0),
+    RequestAccessId: RequestAccessId,
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
     UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
   };

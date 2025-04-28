@@ -38,6 +38,8 @@ const EventForm: SFC<FormProps> = ({
   IsDetails = false,
   IsDisplay = false,
   RecordId,
+  AccessToken,
+  RequestAccessId,
   Title,
   OnClose,
 }) => {
@@ -45,8 +47,7 @@ const EventForm: SFC<FormProps> = ({
   const { add } = API.Setup.Event.Add();
   const { update } = API.Setup.Event.Update();
   const { Id: ParamsId } = useParams<{ Id: string }>();
-  const { token: tk } = useParams<{ token: string }>();
-  const AccessToken = tk?.replace("token=", "") || "";
+
   const Id: number = ParamsId ? Number(ParamsId) : Number(RecordId);
   const { data, isLoading } = API.Setup.Event.Get(Id);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +68,7 @@ const EventForm: SFC<FormProps> = ({
     RegistrationLink: data?.RegistrationLink || null,
     IsValidated: Boolean(data?.IsValidated) || null,
     Remarks: data?.Remarks || null,
+    RequestAccessId: RequestAccessId,
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),
     UpdatedBy: Number(data?.UpdatedBy || (auth?.user ?? 1)),
   };

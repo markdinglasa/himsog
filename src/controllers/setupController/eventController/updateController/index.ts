@@ -10,10 +10,11 @@ import {
   Error,
   Success,
   UserQuery,
+  GenerateEmail,
 } from "../../../../shared";
 import { eventValidator } from "../../../../validators";
 import { AddService, GetService, UpdateService } from "../../../../services";
-import { isFound } from "../../../../functions";
+import { isFound, singleMailSender } from "../../../../functions";
 
 export const EventUpdateController = async (
   req: Request,
@@ -55,7 +56,7 @@ export const EventUpdateController = async (
     )
       return res.status(401).json({ data: false, message: Error.m002 });
 
-    if (Data?.IsValidated ?? false) {
+    if (Boolean(Data?.IsValidated ?? false)) {
       // NOTIFY ALL ADVOCATES
       const Advocates: NotificationTable[] = await GetService.byFields(
         UserQuery.q007,
@@ -88,6 +89,40 @@ export const EventUpdateController = async (
         ))
       )
         return res.status(401).json({ data: false, message: Error.m003 });
+    } else {
+      if (Number(Data?.CreatedBy) > 1) {
+        await AddService.record(
+          DBTable.t008,
+          ["UserId", "Description", "Link", "IsRead", "DateCreated"],
+          [Number, String, String, Boolean, Date],
+          [
+            Data?.CreatedBy,
+            "Health Event Disapproval",
+            `/n/event/d/${RecordId}`,
+            false,
+            new Date(),
+          ],
+        );
+      }
+      const RequestAccess = (
+        await GetService.byFields(
+          "SELECT `Email` FROM `request_access` WHERE `EventId` = ?",
+          ["EventId"],
+          [Number],
+          [RecordId],
+        )
+      )[0];
+      if (RequestAccess) {
+        const disapproveMessage = GenerateEmail(
+          RequestAccess?.Email,
+          `The Health Event you submitted was disapproved. ${Data?.Remarks ?? ""}`,
+        );
+        singleMailSender(
+          RequestAccess?.Email,
+          "Himsog Health Event - Disapproval",
+          disapproveMessage,
+        );
+      }
     }
 
     return res.status(200).json({ data: true, message: Success.m004 });

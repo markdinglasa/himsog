@@ -16,6 +16,7 @@ export interface EventTable extends Id, Logs {
   RegistrationLink: string;
   IsValidated: boolean | null;
   Remarks: string | null;
+  RequestAccessId?: number;
 }
 export type EventTables = EventTable[];
 export const EventInitial: EventTable = {

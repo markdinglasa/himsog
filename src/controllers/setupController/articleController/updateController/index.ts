@@ -81,6 +81,21 @@ export const ArticleUpdateController = async (
         return res.status(401).json({ data: false, message: Error.m003 });
       //
     } else {
+      if (Number(Data?.CreatedBy) > 1) {
+        await AddService.record(
+          DBTable.t008,
+          ["UserId", "Description", "Link", "IsRead", "DateCreated"],
+          [Number, String, String, Boolean, Date],
+          [
+            Data?.CreatedBy,
+            "Health Article Disapproval",
+            `/n/health-article/d/${Id}`,
+            false,
+            new Date(),
+          ],
+        );
+      }
+
       const RequestAccess = (
         await GetService.byFields(
           "SELECT `Email` FROM `request_access` WHERE `ArticleId` = ?",
@@ -89,15 +104,17 @@ export const ArticleUpdateController = async (
           [Id],
         )
       )[0];
-      const disapproveMessage = GenerateEmail(
-        RequestAccess?.Email,
-        `The Health Article you submitted was disapproved. ${Data?.Remarks ?? ""}`,
-      );
-      singleMailSender(
-        RequestAccess?.Email,
-        "Himsog Health Article - Disapproval",
-        disapproveMessage,
-      );
+      if (RequestAccess) {
+        const disapproveMessage = GenerateEmail(
+          RequestAccess?.Email,
+          `The Health Article you submitted was disapproved. ${Data?.Remarks ?? ""}`,
+        );
+        singleMailSender(
+          RequestAccess?.Email,
+          "Himsog Health Article - Disapproval",
+          disapproveMessage,
+        );
+      }
     }
 
     return res.status(200).json({ data: true, message: Success.m004 });
