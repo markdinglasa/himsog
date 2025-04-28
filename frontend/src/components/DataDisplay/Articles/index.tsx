@@ -95,7 +95,11 @@ export const Articles: SFC<DataDisplayProps> = ({
                 {articles.map((record: ArticleTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>
-                      <Card.Article Data={record} IsLoading={isLoading} />
+                      <Card.Article
+                        Data={record}
+                        IsLoading={isLoading}
+                        IsPublic={IsPublic}
+                      />
                     </React.Fragment>
                   );
                 })}

@@ -65,7 +65,7 @@ const ArticleForm: SFC<FormProps> = ({
       `${user?.Firstname ?? "Anonymous"} ${user?.Lastname ?? ""}`,
     Image: data?.Image || null,
     Link: data?.Link || null,
-    IsValidated: data?.IsValidated || null,
+    IsValidated: !IsPublic ? null : Boolean(data?.IsValidated) || null,
     Remarks: null,
     RequestAccessId: RequestAccessId,
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),

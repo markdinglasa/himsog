@@ -56,7 +56,7 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="w-full border rounded-md ">
           <Suspense fallback={<Skeleton />}>
-            <ArticleDetails Data={data} Loading={isLoading} />
+            <ArticleDetails Data={data} Loading={isLoading} IsPublic={false} />
           </Suspense>
           <S.Divider className="w-full flex flex-row items-center justify-end gap-[1rem]">
             <CustomButton
@@ -85,8 +85,7 @@ export const ArticleDetailsPage: SFC = ({ ClassName }) => {
         confirm={() => {
           // Toggle
           data.IsValidated = true;
-          // console.log(data);
-          data.IsNotify = true;
+
           const { Id, ...filtered } = data;
 
           update(Number(data.Id), filtered);

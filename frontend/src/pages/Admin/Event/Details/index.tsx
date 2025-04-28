@@ -50,7 +50,7 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.PageContent className="w-full border rounded-md ">
           <Suspense fallback={<Skeleton />}>
-            <EventDetails Data={data} Loading={isLoading} />
+            <EventDetails Data={data} Loading={isLoading} IsPublic={false} />
           </Suspense>
           <S.Divider className="w-full flex flex-row items-center justify-end gap-[1rem]">
             <CustomButton
@@ -83,8 +83,7 @@ export const EventDetailsPage: SFC = ({ ClassName }) => {
           }
           // console.log(data);
           const { Id, ...filtered } = data;
-          filtered.IsNotify = true;
-          console.log(filtered);
+
           update(Number(data.Id), filtered);
 
           toggleApprove();

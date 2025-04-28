@@ -95,7 +95,11 @@ export const Events: SFC<DataDisplayProps> = ({
                 {events.map((record: EventTable) => {
                   return (
                     <React.Fragment key={record?.Id?.toString()}>
-                      <Card.Event Data={record} IsLoading={isLoading} />
+                      <Card.Event
+                        Data={record}
+                        IsLoading={isLoading}
+                        IsPublic={IsPublic}
+                      />
                     </React.Fragment>
                   );
                 })}

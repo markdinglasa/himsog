@@ -66,7 +66,7 @@ const EventForm: SFC<FormProps> = ({
     TimeStart: data?.TimeStart || "",
     TimeEnd: data?.TimeEnd || "",
     RegistrationLink: data?.RegistrationLink || null,
-    IsValidated: Boolean(data?.IsValidated) || null,
+    IsValidated: !IsPublic ? null : Boolean(data?.IsValidated) || null,
     Remarks: data?.Remarks || null,
     RequestAccessId: RequestAccessId,
     CreatedBy: Number(data?.CreatedBy || (auth?.user ?? 1)),

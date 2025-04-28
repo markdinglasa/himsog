@@ -15,6 +15,7 @@ export interface ArticleCardProps {
   //onClick: () => void;
   IsWidget?: boolean;
   IsLoading: boolean;
+  IsPublic?: boolean;
 }
 
 const ArticleCard: SFC<ArticleCardProps> = ({
@@ -22,6 +23,7 @@ const ArticleCard: SFC<ArticleCardProps> = ({
   Data,
   IsWidget = false,
   IsLoading = true,
+  IsPublic = false,
 }) => {
   const [isDisplay, toggleDisplay] = useToggle(false);
 
@@ -84,7 +86,7 @@ const ArticleCard: SFC<ArticleCardProps> = ({
         open={isDisplay}
         ClassName="w-full md:w-[50rem] h-[90vh] overflow-auto"
       >
-        <ArticleDetails Data={Data} Loading={IsLoading} />
+        <ArticleDetails Data={Data} Loading={IsLoading} IsPublic={IsPublic} />
       </CustomModal>
     </>
   );

@@ -17,6 +17,7 @@ export interface EventCardProps {
   //onClick: () => void;
   IsLoading: boolean;
   IsWidget?: boolean;
+  IsPublic?: boolean;
 }
 
 const EventCard: SFC<EventCardProps> = ({
@@ -25,6 +26,7 @@ const EventCard: SFC<EventCardProps> = ({
   //onClick,
   IsWidget = false,
   IsLoading = true,
+  IsPublic = false,
 }) => {
   const navigate = useNavigate();
   const { remove } = API.Setup.Event.Remove();
@@ -118,7 +120,7 @@ const EventCard: SFC<EventCardProps> = ({
         open={isDisplay}
         ClassName="w-full md:w-[50rem] h-[90vh] overflow-auto"
       >
-        <EventDetails Data={Data} Loading={IsLoading} />
+        <EventDetails Data={Data} Loading={IsLoading} IsPublic={IsPublic} />
       </CustomModal>
     </div>
   );

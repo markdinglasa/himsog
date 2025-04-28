@@ -9,17 +9,21 @@ import { Skeleton } from "../../Feedback";
 interface EventDetailsProps {
   Data: EventTable;
   Loading: boolean;
+  IsPublic: boolean;
 }
 export const EventDetails: SFC<EventDetailsProps> = ({
   ClassName,
   Data = EventInitial,
   Loading = false,
+  IsPublic = false,
 }) => {
   if (Loading) return <Skeleton />;
   return (
     <S.Container className={cn("w-full", ClassName)}>
       <S.Divider className="w-full">
-        <AccessControl OtherCondition={(Data?.Remarks ?? "").length > 0}>
+        <AccessControl
+          OtherCondition={(Data?.Remarks ?? "").length > 0 && !IsPublic}
+        >
           <S.Divider className="w-full overflow-hidden bg-blue-100 border-blue-400 p-[1rem] rounded-md border mb-[1rem] flex flex-col">
             <S.Span className="text-md font-medium">Remarks</S.Span>
             <S.Span className="text-sm ">{Data?.Remarks}</S.Span>
