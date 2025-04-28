@@ -9,3 +9,4 @@ export * from "./updatePasswordController";
 export * from "./updateEmailController";
 export * from "./suspendController";
 export * from "./getAllByRole";
+export * from "./getUserTransaction";

@@ -258,7 +258,7 @@ const MealPlanForm: SFC<FormProps> = ({
                           </S.Divider>
                         </AccessControl>
                         <AccessControl OtherCondition={!IsEdit}>
-                          <S.Divider className="w-full flex justify-end items-center gap-3">
+                          <S.Divider className="w-full flex justify-end items-center gap-3 mt-[1rem]">
                             <CustomButton
                               leftIcon={
                                 <Icon.Cancel className="text-primary" />

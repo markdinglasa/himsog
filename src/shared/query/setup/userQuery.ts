@@ -5,5 +5,5 @@ export enum UserQuery {
   q004 = "SELECT `UserId` FROM `user_log` WHERE `UserId` = ?",
   q006 = "SELECT `Id` FROM `user` WHERE `Id` = ?",
   q007 = "SELECT `Id` FROM `user` WHERE `Role` = ?",
-  q008 = "",
+  q008 = "SELECT p.`Id` FROM `payment` AS p LEFT JOIN `meal_plan` AS mp ON mp.`Id`=p.`MealPlanId` WHERE p.`UserId` = ? AND mp.`UserId`= ? AND p.`IsMealPlan` = true",
 }

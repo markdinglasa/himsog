@@ -45,6 +45,13 @@ export const IngridientForm: SFC<FormProps> = ({
     IsLunch: Boolean(data?.IsLunch) || false,
     IsSnack: Boolean(data?.IsSnack) || false,
     IsDinner: Boolean(data?.IsDinner) || false,
+    IsMonday: Boolean(data?.IsMonday) || false,
+    IsTuesday: Boolean(data?.IsTuesday) || false,
+    IsWednesday: Boolean(data?.IsWednesday) || false,
+    IsThursday: Boolean(data?.IsThursday) || false,
+    IsFriday: Boolean(data?.IsFriday) || false,
+    IsSaturday: Boolean(data?.IsSaturday) || false,
+    IsSunday: Boolean(data?.IsSunday) || false,
   };
 
   const handleSubmit = async (values: MealPlanLineTable) => {
@@ -119,45 +126,112 @@ export const IngridientForm: SFC<FormProps> = ({
                       <S.Divider className="w-full ">
                         <FormControl>
                           <S.Divider>
-                            <S.Span>Meal Schedule</S.Span>
+                            <S.Span>Meals Schedule</S.Span>
                           </S.Divider>
-                          <FormControlLabel
-                            name="IsBreakfast"
-                            checked={values.IsBreakfast}
-                            control={<Checkbox color="success" />}
-                            onChange={handleChange}
-                            disabled={IsEdit}
-                            label="Breakfast"
-                          />
-                          <FormControlLabel
-                            name="IsLunch"
-                            checked={values.IsLunch}
-                            control={<Checkbox color="success" />}
-                            onChange={handleChange}
-                            disabled={IsEdit}
-                            label="Lunch"
-                          />
-                          <FormControlLabel
-                            name="IsSnack"
-                            checked={values.IsSnack}
-                            control={<Checkbox color="success" />}
-                            onChange={handleChange}
-                            disabled={IsEdit}
-                            label="Snack"
-                          />
-                          <FormControlLabel
-                            name="IsDinner"
-                            checked={values.IsDinner}
-                            control={<Checkbox color="success" />}
-                            onChange={handleChange}
-                            disabled={IsEdit}
-                            label="Dinner"
-                          />
+                          <S.Divider className="flex flex-row">
+                            <FormControlLabel
+                              name="IsBreakfast"
+                              checked={values.IsBreakfast}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Breakfast"
+                            />
+                            <FormControlLabel
+                              name="IsLunch"
+                              checked={values.IsLunch}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Lunch"
+                            />
+                            <FormControlLabel
+                              name="IsSnack"
+                              checked={values.IsSnack}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Snack"
+                            />
+                            <FormControlLabel
+                              name="IsDinner"
+                              checked={values.IsDinner}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Dinner"
+                            />
+                          </S.Divider>
+                        </FormControl>
+                      </S.Divider>
+                      <S.Divider className="w-full ">
+                        <FormControl>
+                          <S.Divider>
+                            <S.Span>Week Schedule</S.Span>
+                          </S.Divider>
+                          <S.Divider className="flex flex-row">
+                            <FormControlLabel
+                              name="IsMonday"
+                              checked={values.IsMonday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Mon"
+                            />
+                            <FormControlLabel
+                              name="IsTuesday"
+                              checked={values.IsTuesday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Tue"
+                            />
+                            <FormControlLabel
+                              name="IsWednesday"
+                              checked={values.IsWednesday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Wed"
+                            />
+                            <FormControlLabel
+                              name="IsThursday"
+                              checked={values.IsThursday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Thu"
+                            />
+                            <FormControlLabel
+                              name="IsFriday"
+                              checked={values.IsFriday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Fri"
+                            />
+                            <FormControlLabel
+                              name="IsSaturday"
+                              checked={values.IsSaturday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Sat"
+                            />
+                            <FormControlLabel
+                              name="IsSunday"
+                              checked={values.IsSunday}
+                              control={<Checkbox color="success" />}
+                              onChange={handleChange}
+                              disabled={IsEdit}
+                              label="Sun"
+                            />
+                          </S.Divider>
                         </FormControl>
                       </S.Divider>
                     </S.Divider>
                     <AccessControl OtherCondition={!IsEdit}>
-                      <S.Divider className="w-full flex justify-end items-center gap-4">
+                      <S.Divider className="w-full flex justify-end items-center gap-4 mt-[1rem]">
                         <CustomButton
                           leftIcon={<Icon.Cancel className="text-primary" />}
                           text="Cancel"

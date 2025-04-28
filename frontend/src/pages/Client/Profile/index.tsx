@@ -1,6 +1,7 @@
 import { ButtonColor, RouteChannel, SFC } from "../../../types";
 import * as S from "../../../styles/Styles";
 import {
+  AccessControl,
   CustomButton,
   PageBreadCrumbs,
   Skeleton,
@@ -43,9 +44,13 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
     },
   ];
 
-  const { Id } = useParams<{ Id: string }>();
+  const { Id } = useParams<{ Id: string }>(); // NutritionistId
   const { data: user, isLoading, refetch } = API.Setup.User.Get(Number(Id));
   const { data: rate } = API.Setup.ProfessionRating.Get(
+    Number(Id),
+    Number(auth?.user),
+  );
+  const { data: transaction } = API.Setup.User.hasTransaction(
     Number(Id),
     Number(auth?.user),
   );
@@ -75,13 +80,14 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
             </div>
           </div>
           <div className="w-full flex items-center justify-end gap-[1rem]">
-            <CustomButton
-              leftIcon={<Icon.Star className="text-primary" />}
-              text={rate?.Id ? "View review" : "Rate"}
-              onClick={toggleRate}
-              color={ButtonColor.default}
-            />
-
+            <AccessControl OtherCondition={transaction?.Id ?? false}>
+              <CustomButton
+                leftIcon={<Icon.Star className="text-primary" />}
+                text={rate?.Id ? "View review" : "Rate"}
+                onClick={toggleRate}
+                color={ButtonColor.default}
+              />
+            </AccessControl>
             <CustomButton
               leftIcon={<Icon.Send className="md:text-white text-primary" />}
               text="Message"

@@ -9,6 +9,13 @@ export interface MealPlanLineTable extends Id, Logs {
   MealName?: string;
   MealKilocalorie?: number;
   MealImage?: string | null;
+  IsMonday: boolean;
+  IsTuesday: boolean;
+  IsWednesday: boolean;
+  IsThursday: boolean;
+  IsFriday: boolean;
+  IsSaturday: boolean;
+  IsSunday: boolean;
 }
 export type MealPlanLineTables = MealPlanLineTable[];
 export const MealPlanLineInitial: MealPlanLineTable = {
@@ -18,4 +25,11 @@ export const MealPlanLineInitial: MealPlanLineTable = {
   IsLunch: false,
   IsSnack: false,
   IsDinner: false,
+  IsMonday: false,
+  IsTuesday: false,
+  IsWednesday: false,
+  IsThursday: false,
+  IsFriday: false,
+  IsSaturday: false,
+  IsSunday: false,
 };

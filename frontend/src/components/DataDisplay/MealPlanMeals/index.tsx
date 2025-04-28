@@ -337,7 +337,7 @@ export const MealPlanMeals: SFC<FormProps> = ({
         }}
         title={recordId ? "Meal Details" : "New Meal"}
         open={isModal}
-        ClassName="w-[80vw] md:w-[40rem] h-[40rem] overflow-auto"
+        ClassName="w-[80vw] md:w-[40rem] max-h-[80vh] h-fit overflow-auto"
       >
         <div className="h-full">
           <AccessControl OtherCondition={!IsDisplay}>

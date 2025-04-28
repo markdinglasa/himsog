@@ -8,5 +8,12 @@ export const mealPlanLineValidator = () => {
     IsLunch: yup.boolean().required(),
     IsSnack: yup.boolean().required(),
     IsDinner: yup.boolean().required(),
+    IsMonday: yup.boolean().required(),
+    IsTuesday: yup.boolean().required(),
+    IsWednesday: yup.boolean().required(),
+    IsThursday: yup.boolean().required(),
+    IsFriday: yup.boolean().required(),
+    IsSaturday: yup.boolean().required(),
+    IsSunday: yup.boolean().required(),
   });
 };

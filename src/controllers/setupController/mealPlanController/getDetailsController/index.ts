@@ -18,9 +18,9 @@ export const MealPlanGetDetailsController = async (
     const response: MealPlanTable = (
       await GetService.byFields(
         MealPlanQuery.q006,
-        ["UserId", "MealPlanId"],
-        [Number, Number],
-        [UserId, MealPlanId],
+        ["CreatedBy", "UserId", "MealPlanId"],
+        [Number, Number, Number],
+        [UserId, UserId, MealPlanId],
       )
     )[0];
     if (!response)

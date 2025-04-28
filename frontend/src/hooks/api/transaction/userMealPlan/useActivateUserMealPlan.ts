@@ -35,9 +35,9 @@ const useActivateUserMealPlan = () => {
       );
       queryClient.invalidateQueries({ queryKey: [QueryKey.USER_MEAL_PLAN] });
     },
-    onError: (error: Error) => {
+    onError: (error: any) => {
       displayToast(
-        error.message || "Failed to update meal plan status",
+        error?.response?.data?.message || "Failed to update meal plan status",
         ToastType.error,
       );
     },

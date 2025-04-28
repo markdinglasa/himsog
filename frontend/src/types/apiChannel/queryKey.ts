@@ -25,6 +25,7 @@ export enum QueryKey {
   PAYMENT_MEAL_PLAN = "payment-meal-plan",
   PAY_TYPE = "pay-type",
   PROFESSION = "profession",
+
   PROFESSION_RATING = "profession-rating",
   PROFESSION_VALIDATION = "profession-validation",
   PROFESSION_INSTITUTE = "profession-institute",

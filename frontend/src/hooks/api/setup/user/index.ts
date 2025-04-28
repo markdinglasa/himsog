@@ -7,7 +7,7 @@ import UpdateEmail from "./useUpdateEmail";
 import UpdatePassword from "./useUpdatePassword";
 import SuspendUser from "./useSuspendUser";
 import GetAllByRole from "./useGetAllByRole";
-
+import hasTransaction from "./useHasTransaction";
 export default {
   Add,
   Update,
@@ -18,4 +18,5 @@ export default {
   UpdatePassword,
   SuspendUser,
   GetAllByRole,
+  hasTransaction,
 };

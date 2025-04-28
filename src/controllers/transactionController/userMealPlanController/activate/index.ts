@@ -23,6 +23,7 @@ export const UserMealPlanActivateController = async (
       typeof mealplan !== "number"
     )
       return res.status(401).json({ data: false, message: Error.m005 });
+
     if (
       (
         await isFound(
@@ -36,6 +37,7 @@ export const UserMealPlanActivateController = async (
       return res
         .status(401)
         .json({ data: false, message: "User has an active meal plan" });
+
     const response: UserMealPlan = (
       await GetService.byFields(
         UserMealPlanQuery.q004,
