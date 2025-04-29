@@ -58,67 +58,69 @@ export const MealPlanMeals: SFC<FormProps> = ({
                 Best to take on 6:00 AM - 7:00 AM
               </span>
             </div>
-            {isLoading ? (
-              <Skeleton />
-            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
-              MealPlanMeals.filter(
-                (record: MealPlanLineTable) =>
-                  Boolean(record?.IsBreakfast) === true, // display all breakfast if IsBreakfast is true
-              ).map((record: MealPlanLineTable, index: number) => {
-                return (
-                  <Fragment key={index}>
-                    <div
-                      onClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        setRecordId(record?.Id ? Number(record.Id) : 0);
-                        setMealPlanId(
-                          record?.MealId ? Number(record.MealId) : 0,
-                        );
-                        toggleModal();
-                      }}
-                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
-                    >
-                      <div className="flex flex-row items-center justify-start">
-                        <Avatar
-                          src={record?.MealImage || ""}
-                          alt={record?.MealName ?? "NA"}
-                          variant="square"
-                        />
-                        <div className="flex flex-col ml-3">
-                          <span className="text-md font-medium">
-                            {record?.MealName ?? "NA"}
-                          </span>
-                          <span className="text-sm text-slate-600">
-                            {parseFloat(
-                              record?.MealKilocalorie?.toString() ?? "0",
-                            )}{" "}
-                            kcal
-                          </span>
+            <div className="flex items-start justify-center flex-col gap-2 ">
+              {isLoading ? (
+                <Skeleton />
+              ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+                MealPlanMeals.filter(
+                  (record: MealPlanLineTable) =>
+                    Boolean(record?.IsBreakfast) === true, // display all breakfast if IsBreakfast is true
+                ).map((record: MealPlanLineTable, index: number) => {
+                  return (
+                    <Fragment key={index}>
+                      <div
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setRecordId(record?.Id ? Number(record.Id) : 0);
+                          setMealPlanId(
+                            record?.MealId ? Number(record.MealId) : 0,
+                          );
+                          toggleModal();
+                        }}
+                        className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                      >
+                        <div className="flex flex-row items-center justify-start">
+                          <Avatar
+                            src={record?.MealImage || ""}
+                            alt={record?.MealName ?? "NA"}
+                            variant="square"
+                          />
+                          <div className="flex flex-col ml-3">
+                            <span className="text-md font-medium">
+                              {record?.MealName ?? "NA"}
+                            </span>
+                            <span className="text-sm text-slate-600">
+                              {parseFloat(
+                                record?.MealKilocalorie?.toString() ?? "0",
+                              )}{" "}
+                              kcal
+                            </span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <AccessControl OtherCondition={!IsDetails}>
+                            <CircleButton
+                              Icon={<Icon.Delete className="text-primary" />}
+                              Type={ButtonType.button}
+                              OnClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                if (record?.Id) remove(Number(record.Id));
+                              }}
+                              Disabled={IsDetails}
+                            />
+                          </AccessControl>
                         </div>
                       </div>
-
-                      <div>
-                        <AccessControl OtherCondition={!IsDetails}>
-                          <CircleButton
-                            Icon={<Icon.Delete className="text-primary" />}
-                            Type={ButtonType.button}
-                            OnClick={(e: React.MouseEvent) => {
-                              e.stopPropagation();
-                              if (record?.Id) remove(Number(record.Id));
-                            }}
-                            Disabled={IsDetails}
-                          />
-                        </AccessControl>
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })
-            ) : (
-              <div className="w-full">
-                <NoRecord Message="No Breakfast Meals" />
-              </div>
-            )}
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <div className="w-full">
+                  <NoRecord Message="No Breakfast Meals" />
+                </div>
+              )}
+            </div>
           </div>
           <div className="w-full border-b mb-[1rem] pb-[1rem] ">
             <div className="w-full rounded-md flex flex-col border p-2 mb-2">
@@ -127,67 +129,69 @@ export const MealPlanMeals: SFC<FormProps> = ({
                 Best to take on 12:00 NN - 01:00 PM
               </span>
             </div>
-            {isLoading ? (
-              <Skeleton />
-            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
-              MealPlanMeals.filter(
-                (record: MealPlanLineTable) =>
-                  Boolean(record?.IsLunch) === true, // display all breakfast if IsBreakfast is true
-              ).map((record: MealPlanLineTable, index: number) => {
-                return (
-                  <Fragment key={index}>
-                    <div
-                      onClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        setRecordId(record?.Id ? Number(record.Id) : 0);
-                        setMealPlanId(
-                          record?.MealId ? Number(record.MealId) : 0,
-                        );
-                        toggleModal();
-                      }}
-                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
-                    >
-                      <div className="flex flex-row items-center justify-start">
-                        <Avatar
-                          src={record?.MealImage || ""}
-                          alt={record?.MealName ?? "NA"}
-                          variant="square"
-                        />
-                        <div className="flex flex-col ml-3">
-                          <span className="text-md font-medium">
-                            {record?.MealName ?? "NA"}
-                          </span>
-                          <span className="text-sm text-slate-600">
-                            {parseFloat(
-                              record?.MealKilocalorie?.toString() ?? "0",
-                            )}{" "}
-                            kcal
-                          </span>
+            <div className="flex items-start justify-center flex-col gap-2 ">
+              {isLoading ? (
+                <Skeleton />
+              ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+                MealPlanMeals.filter(
+                  (record: MealPlanLineTable) =>
+                    Boolean(record?.IsLunch) === true, // display all breakfast if IsBreakfast is true
+                ).map((record: MealPlanLineTable, index: number) => {
+                  return (
+                    <Fragment key={index}>
+                      <div
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setRecordId(record?.Id ? Number(record.Id) : 0);
+                          setMealPlanId(
+                            record?.MealId ? Number(record.MealId) : 0,
+                          );
+                          toggleModal();
+                        }}
+                        className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                      >
+                        <div className="flex flex-row items-center justify-start">
+                          <Avatar
+                            src={record?.MealImage || ""}
+                            alt={record?.MealName ?? "NA"}
+                            variant="square"
+                          />
+                          <div className="flex flex-col ml-3">
+                            <span className="text-md font-medium">
+                              {record?.MealName ?? "NA"}
+                            </span>
+                            <span className="text-sm text-slate-600">
+                              {parseFloat(
+                                record?.MealKilocalorie?.toString() ?? "0",
+                              )}{" "}
+                              kcal
+                            </span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <AccessControl OtherCondition={!IsDetails}>
+                            <CircleButton
+                              Icon={<Icon.Delete className="text-primary" />}
+                              Type={ButtonType.button}
+                              OnClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                if (record?.Id) remove(Number(record.Id));
+                              }}
+                              Disabled={IsDetails}
+                            />
+                          </AccessControl>
                         </div>
                       </div>
-
-                      <div>
-                        <AccessControl OtherCondition={!IsDetails}>
-                          <CircleButton
-                            Icon={<Icon.Delete className="text-primary" />}
-                            Type={ButtonType.button}
-                            OnClick={(e: React.MouseEvent) => {
-                              e.stopPropagation();
-                              if (record?.Id) remove(Number(record.Id));
-                            }}
-                            Disabled={IsDetails}
-                          />
-                        </AccessControl>
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })
-            ) : (
-              <div className="w-full">
-                <NoRecord Message="No Lunch Meals" />
-              </div>
-            )}
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <div className="w-full">
+                  <NoRecord Message="No Lunch Meals" />
+                </div>
+              )}
+            </div>
           </div>
           <div className="w-full border-b mb-[1rem] pb-[1rem]">
             <div className="w-full rounded-md flex flex-col border p-2 mb-2">
@@ -196,67 +200,69 @@ export const MealPlanMeals: SFC<FormProps> = ({
                 Best to take on 2:00 PM - 3:00 PM
               </span>
             </div>
-            {isLoading ? (
-              <Skeleton />
-            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
-              MealPlanMeals.filter(
-                (record: MealPlanLineTable) =>
-                  Boolean(record?.IsSnack) === true, // display all breakfast if IsBreakfast is true
-              ).map((record: MealPlanLineTable, index: number) => {
-                return (
-                  <Fragment key={index}>
-                    <div
-                      onClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        setRecordId(record?.Id ? Number(record.Id) : 0);
-                        setMealPlanId(
-                          record?.MealId ? Number(record.MealId) : 0,
-                        );
-                        toggleModal();
-                      }}
-                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
-                    >
-                      <div className="flex flex-row items-center justify-start">
-                        <Avatar
-                          src={record?.MealImage || ""}
-                          alt={record?.MealName ?? "NA"}
-                          variant="square"
-                        />
-                        <div className="flex flex-col ml-3">
-                          <span className="text-md font-medium">
-                            {record?.MealName ?? "NA"}
-                          </span>
-                          <span className="text-sm text-slate-600">
-                            {parseFloat(
-                              record?.MealKilocalorie?.toString() ?? "0",
-                            )}{" "}
-                            kcal
-                          </span>
+            <div className="flex items-start justify-center flex-col gap-2 ">
+              {isLoading ? (
+                <Skeleton />
+              ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+                MealPlanMeals.filter(
+                  (record: MealPlanLineTable) =>
+                    Boolean(record?.IsSnack) === true, // display all breakfast if IsBreakfast is true
+                ).map((record: MealPlanLineTable, index: number) => {
+                  return (
+                    <Fragment key={index}>
+                      <div
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setRecordId(record?.Id ? Number(record.Id) : 0);
+                          setMealPlanId(
+                            record?.MealId ? Number(record.MealId) : 0,
+                          );
+                          toggleModal();
+                        }}
+                        className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                      >
+                        <div className="flex flex-row items-center justify-start">
+                          <Avatar
+                            src={record?.MealImage || ""}
+                            alt={record?.MealName ?? "NA"}
+                            variant="square"
+                          />
+                          <div className="flex flex-col ml-3">
+                            <span className="text-md font-medium">
+                              {record?.MealName ?? "NA"}
+                            </span>
+                            <span className="text-sm text-slate-600">
+                              {parseFloat(
+                                record?.MealKilocalorie?.toString() ?? "0",
+                              )}{" "}
+                              kcal
+                            </span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <AccessControl OtherCondition={!IsDetails}>
+                            <CircleButton
+                              Icon={<Icon.Delete className="text-primary" />}
+                              Type={ButtonType.button}
+                              OnClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                if (record?.Id) remove(Number(record.Id));
+                              }}
+                              Disabled={IsDetails}
+                            />
+                          </AccessControl>
                         </div>
                       </div>
-
-                      <div>
-                        <AccessControl OtherCondition={!IsDetails}>
-                          <CircleButton
-                            Icon={<Icon.Delete className="text-primary" />}
-                            Type={ButtonType.button}
-                            OnClick={(e: React.MouseEvent) => {
-                              e.stopPropagation();
-                              if (record?.Id) remove(Number(record.Id));
-                            }}
-                            Disabled={IsDetails}
-                          />
-                        </AccessControl>
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })
-            ) : (
-              <div className="w-full">
-                <NoRecord Message="No Snack" />
-              </div>
-            )}
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <div className="w-full">
+                  <NoRecord Message="No Snack" />
+                </div>
+              )}
+            </div>
           </div>
           <div className="w-full">
             <div className="w-full rounded-md flex flex-col border p-2 mb-2">
@@ -265,67 +271,69 @@ export const MealPlanMeals: SFC<FormProps> = ({
                 Best to take on 6:00 PM - 7:00 PM
               </span>
             </div>
-            {isLoading ? (
-              <Skeleton />
-            ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
-              MealPlanMeals.filter(
-                (record: MealPlanLineTable) =>
-                  Boolean(record?.IsDinner) === true, // display all breakfast if IsBreakfast is true
-              ).map((record: MealPlanLineTable, index: number) => {
-                return (
-                  <Fragment key={index}>
-                    <div
-                      onClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        setRecordId(record?.Id ? Number(record.Id) : 0);
-                        setMealPlanId(
-                          record?.MealId ? Number(record.MealId) : 0,
-                        );
-                        toggleModal();
-                      }}
-                      className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
-                    >
-                      <div className="flex flex-row items-center justify-start">
-                        <Avatar
-                          src={record?.MealImage || ""}
-                          alt={record?.MealName ?? "NA"}
-                          variant="square"
-                        />
-                        <div className="flex flex-col ml-3">
-                          <span className="text-md font-medium">
-                            {record?.MealName ?? "NA"}
-                          </span>
-                          <span className="text-sm text-slate-600">
-                            {parseFloat(
-                              record?.MealKilocalorie?.toString() ?? "0",
-                            )}{" "}
-                            kcal
-                          </span>
+            <div className="flex items-start justify-center flex-col gap-2 ">
+              {isLoading ? (
+                <Skeleton />
+              ) : MealPlanMeals && MealPlanMeals.length > 0 ? (
+                MealPlanMeals.filter(
+                  (record: MealPlanLineTable) =>
+                    Boolean(record?.IsDinner) === true, // display all breakfast if IsBreakfast is true
+                ).map((record: MealPlanLineTable, index: number) => {
+                  return (
+                    <Fragment key={index}>
+                      <div
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setRecordId(record?.Id ? Number(record.Id) : 0);
+                          setMealPlanId(
+                            record?.MealId ? Number(record.MealId) : 0,
+                          );
+                          toggleModal();
+                        }}
+                        className="w-full h-22 cursor-pointer items-center flex border bg-white p-2 hover:bg-slate-100/60 rounded-md justify-between"
+                      >
+                        <div className="flex flex-row items-center justify-start">
+                          <Avatar
+                            src={record?.MealImage || ""}
+                            alt={record?.MealName ?? "NA"}
+                            variant="square"
+                          />
+                          <div className="flex flex-col ml-3">
+                            <span className="text-md font-medium">
+                              {record?.MealName ?? "NA"}
+                            </span>
+                            <span className="text-sm text-slate-600">
+                              {parseFloat(
+                                record?.MealKilocalorie?.toString() ?? "0",
+                              )}{" "}
+                              kcal
+                            </span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <AccessControl OtherCondition={!IsDetails}>
+                            <CircleButton
+                              Icon={<Icon.Delete className="text-primary" />}
+                              Type={ButtonType.button}
+                              OnClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                if (record?.Id) remove(Number(record.Id));
+                              }}
+                              Disabled={IsDetails}
+                            />
+                          </AccessControl>
                         </div>
                       </div>
-
-                      <div>
-                        <AccessControl OtherCondition={!IsDetails}>
-                          <CircleButton
-                            Icon={<Icon.Delete className="text-primary" />}
-                            Type={ButtonType.button}
-                            OnClick={(e: React.MouseEvent) => {
-                              e.stopPropagation();
-                              if (record?.Id) remove(Number(record.Id));
-                            }}
-                            Disabled={IsDetails}
-                          />
-                        </AccessControl>
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })
-            ) : (
-              <div className="w-full">
-                <NoRecord Message="No Dinner Meals" />
-              </div>
-            )}
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <div className="w-full">
+                  <NoRecord Message="No Dinner Meals" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

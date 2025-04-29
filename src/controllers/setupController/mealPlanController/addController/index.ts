@@ -32,7 +32,6 @@ export const MealPlanAddController = async (
       ).data
     )
       return res.status(401).json({ data: false, message: Error.m016 }); // CHECK DUPLICATE
-
     if (
       Boolean(
         (

@@ -29,14 +29,14 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
           </S.Divider>
           <S.Divider className="w-full flex items-center py-3 mt-5">
             <Icon.Check className="" />
-            <S.Span className="text-md ml-2 w-full">Browse meal plan</S.Span>
+            <S.Span className="text-md ml-2 w-full">Limited meal plan</S.Span>
           </S.Divider>
-          <S.Divider className="w-full flex items-center py-3">
+          {/*<S.Divider className="w-full flex items-center py-3">
             <Icon.Check className="" />
             <S.Span className="text-md ml-2 w-full">
               Limited meal plan requests
             </S.Span>
-          </S.Divider>
+          </S.Divider>*/}
           <S.Divider className="w-full flex items-center py-3">
             <Icon.Check className="" />
             <S.Span className="text-md ml-2 w-full">
@@ -72,7 +72,7 @@ export const StaticSubscription: SFC<StatisSubscriptionProps> = ({
           <S.Divider className="w-full flex items-center py-3 mt-5">
             <Icon.Check className="" />
             <S.Span className="text-md ml-2 w-full">
-              Access & Browse meal plan
+              Unlimited meal plans
             </S.Span>
           </S.Divider>
           <S.Divider className="w-full flex items-center py-3">

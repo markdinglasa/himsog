@@ -49,6 +49,19 @@ export const PaymentAddController = async (
       )
         return res.status(401).json({ data: false, message: Error.m016 });
 
+      if (
+        Boolean(
+          (
+            await GetService.byFields(
+              PaymentQuery.q008,
+              ["UserId", "UserId"],
+              [Number, Number],
+              [Data.UserId, Data.UserId],
+            )
+          )[0].Limit,
+        )
+      )
+        return res.status(401).json({ data: [], message: Error.m051 }); // check subscription if active & premium
       // NOTIFY VENDOR ON THE NEW PURCHASE
       const MealPlan: MealPlanTable = (
         await GetService.byId(Data?.MealPlanId ?? 0, DBTable.t006)

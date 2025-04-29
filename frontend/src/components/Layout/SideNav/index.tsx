@@ -232,17 +232,21 @@ export const SideNav: SFC<SideNavProps> = ({
                     IsActive={active === RouteChannel.CLIENT_PRESET_MEAL_PLAN}
                   />
 
-                  <Menu
-                    icon={mdiInvoiceSendOutline}
-                    isCollapse={Collapse}
-                    label="Find & Request"
-                    onClick={() => {
-                      Toggle();
-                      navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
-                      setActive(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
-                    }}
-                    IsActive={active === RouteChannel.CLIENT_REQUEST_MEAL_PLAN}
-                  />
+                  <AccessControl OtherCondition={IsPremium}>
+                    <Menu
+                      icon={mdiInvoiceSendOutline}
+                      isCollapse={Collapse}
+                      label="Find & Request"
+                      onClick={() => {
+                        Toggle();
+                        navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
+                        setActive(RouteChannel.CLIENT_REQUEST_MEAL_PLAN);
+                      }}
+                      IsActive={
+                        active === RouteChannel.CLIENT_REQUEST_MEAL_PLAN
+                      }
+                    />
+                  </AccessControl>
                 </AccessControl>
               </Menu>
             </AccessControl>
