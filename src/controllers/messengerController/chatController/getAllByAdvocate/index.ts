@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Error, Success } from "../../../../shared";
-import { ChatQuery } from "../../../../shared/";
+import { ChatQuery } from "../../../../shared";
 import { GetService } from "../../../../services";
 import { Chats } from "../../../../types";
 
