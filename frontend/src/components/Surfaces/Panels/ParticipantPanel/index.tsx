@@ -4,6 +4,7 @@ import { cn } from "../../../../utils";
 import { CustomInput } from "../../../Inputs";
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../Cards";
+import API from "../../../../hooks/api";
 
 export const ParticipantPanel: SFC = ({ ClassName }) => {
   return (

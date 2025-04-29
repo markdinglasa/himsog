@@ -11,6 +11,11 @@ export enum QueryKey {
   EVENT_INVALIDATED = "event-invalidated",
   ARTICLE = "ariticle",
   ARTICLE_INVALIDATED = "article-invalidated",
+  ATTACHMENT = "messenger-attachment",
+  CHAT = "messenger-chat",
+  MESSAGE = "messenger-message",
+  CONVO = "messenger-convo",
+
   MEAL = "meal",
   MEAL_PLAN = "meal-plan",
   USER_MEAL_PLAN = "user-meal-plan",
