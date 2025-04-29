@@ -650,7 +650,6 @@ const MedicalForm: SFC<FormProps> = ({
                             </S.Label>
                           </S.Divider>
                           <textarea
-                            placeholder="e.g. Metformin 500mg (2x/day), Vitamin D3 1000 IU"
                             name="SurgicalHistory"
                             disabled={IsEdit}
                             value={values?.SurgicalHistory ?? ""}
@@ -859,7 +858,6 @@ const MedicalForm: SFC<FormProps> = ({
                             </S.Label>
                           </S.Divider>
                           <textarea
-                            placeholder="e.g. Metformin 500mg (2x/day), Vitamin D3 1000 IU"
                             name="MentalHealth"
                             disabled={IsEdit}
                             value={values?.MentalHealth ?? ""}

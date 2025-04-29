@@ -18,7 +18,7 @@ export const MealHC: HeadCell<MealTable>[] = [
     Id: "Kilocalorie",
     numeric: true,
     disablePadding: false,
-    label: "Kcal",
+    label: "Calories",
   },
   {
     Id: "Id",

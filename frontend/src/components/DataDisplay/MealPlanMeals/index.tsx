@@ -306,7 +306,7 @@ export const MealPlanMeals: SFC<FormProps> = ({
                               {parseFloat(
                                 record?.MealKilocalorie?.toString() ?? "0",
                               )}{" "}
-                              kcal
+                              cal
                             </span>
                           </div>
                         </div>

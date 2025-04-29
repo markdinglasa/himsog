@@ -63,7 +63,7 @@ export const NutritionFacts: SFC<FormProps> = ({
                       {parseFloat(record.Quantity.toString())}{" "}
                       {record?.UnitName ?? "NA"} {" ⋅ "}
                       {parseFloat(record?.Kilocalorie.toString() ?? "0")}{" "}
-                      {"kcal"}
+                      {"cal"}
                     </span>
                   </div>
                   <div>

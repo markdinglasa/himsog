@@ -47,7 +47,9 @@ const EventCard: SFC<EventCardProps> = ({
                 src={Data?.Image ?? ""}
                 alt="event image"
                 className={
-                  IsWidget ? "h-full w-full overflow-hidden" : "w-full h-[40%]"
+                  IsWidget
+                    ? "h-full w-full overflow-hidden"
+                    : "w-full h-[20rem]"
                 }
               />
             </S.Divider>

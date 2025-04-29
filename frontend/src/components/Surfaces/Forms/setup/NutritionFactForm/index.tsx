@@ -129,8 +129,8 @@ export const NutritionFactForm: SFC<FormProps> = ({
                         </S.Divider>
                         <S.Divider className="w-full ">
                           <CustomInput
-                            placeholder="Kilocalorie"
-                            label="Kcal"
+                            placeholder="Calorie"
+                            label="Cal"
                             name="Kilocalorie"
                             errors={errors}
                             touched={touched}

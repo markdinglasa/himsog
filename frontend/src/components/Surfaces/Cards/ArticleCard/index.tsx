@@ -49,7 +49,7 @@ const ArticleCard: SFC<ArticleCardProps> = ({
               <S.Image
                 src={Data.Image ?? DefaultImg}
                 alt="Article image"
-                className="w-full h-[40%]"
+                className="w-full h-[20rem]"
               />
             </S.Divider>
           </AccessControl>
