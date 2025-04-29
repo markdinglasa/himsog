@@ -1,5 +1,5 @@
 export enum ChatQuery {
-  q001 = "SELECT * FROM `chat`", // GET ALL
+  q001 = "SELECT * FROM `chat` WHERE `AdvocateId` = ?", // GET ALL
   q002 = "SELECT `Id` FROM `chat` WHERE `Id` = ?", // CHECK EXISTENCE
   q003 = "SELECT * FROM `chat` WHERE `Id` = ? ", // GET
   q004 = "",
