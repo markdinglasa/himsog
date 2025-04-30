@@ -7,17 +7,23 @@ import Icon from "../../../constants/icon";
 import { colors } from "../../../styles";
 import { memo } from "react";
 import { NoRecord } from "../Tables";
+import { useParams } from "react-router-dom";
+import { AccessControl } from "..";
 
 interface HealthConditionProps {
   IsAllergen: boolean;
+  IsDisplay?: boolean;
 }
 export const HealthConditions: SFC<HealthConditionProps> = ({
   ClassName,
   IsAllergen = false,
+  IsDisplay = false,
 }) => {
   const { auth } = useAuth();
+  const { Id } = useParams<{ Id: string }>();
   const { remove } = API.Setup.HealthCondition.Remove();
-  const { data: health } = API.Setup.Health.Get(auth?.user ?? 0);
+  const UserId: number = IsDisplay ? Number(Id) : Number(auth?.user ?? 0);
+  const { data: health } = API.Setup.Health.Get(UserId);
   const { data: dietary, isLoading } = API.Setup.HealthCondition.GetAll(
     health?.Id ?? 0,
   );
@@ -41,7 +47,9 @@ export const HealthConditions: SFC<HealthConditionProps> = ({
                     label={record?.Description ?? ""}
                     onDelete={() => remove(Number(record?.Id ?? 0))}
                     deleteIcon={
-                      <Icon.Delete style={{ color: colors.primary }} />
+                      <AccessControl OtherCondition={!IsDisplay}>
+                        <Icon.Delete style={{ color: colors.primary }} />
+                      </AccessControl>
                     }
                     variant="outlined"
                   />

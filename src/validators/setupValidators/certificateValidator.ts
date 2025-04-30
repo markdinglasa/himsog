@@ -14,7 +14,7 @@ export const certificateValidator = Joi.object({
   ExpiryDate: Joi.date().required(),
   CertificateType: Joi.string().required(),
   CertificateNumber: Joi.string()
-    .pattern(/^[0-9-z\s.,]+$/)
+    .pattern(/^[0-9A-Za-z\s.,]+$/)
     .required(),
   AttachmentURL: Joi.string().allow("").allow(null).optional(),
   DateCreated: Joi.date().optional(),

@@ -130,13 +130,13 @@ export const ProfilePage: SFC = ({ ClassName }) => {
                 Dietery Preference
               </S.Span>
             </S.Divider>
-            <HealthConditions IsAllergen={false} />
+            <HealthConditions IsAllergen={false} IsDisplay={true} />
           </S.Divider>
           <S.Divider className="w-full mb-[1rem]">
             <S.Divider className="">
               <S.Span className="text-lg font-medium">Allergies</S.Span>
             </S.Divider>
-            <HealthConditions IsAllergen={true} />
+            <HealthConditions IsAllergen={true} IsDisplay={true} />
           </S.Divider>
           <S.Divider className="w-full mb-[1rem]">
             <Form.Setup.Medical
