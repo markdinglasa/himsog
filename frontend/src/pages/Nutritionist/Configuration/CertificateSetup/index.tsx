@@ -40,14 +40,16 @@ export const ConfigurationCertificatePage: SFC = () => {
                 type={ButtonType.button}
                 color={ButtonColor.default}
                 morph={false}
-                onClick={() => navigate(RouteChannel.CLIENT_HEALTH_SETUP)}
+                onClick={() =>
+                  navigate(RouteChannel.NUTRITIONIST_PROFESSION_SETUP)
+                }
               />
               <div className="w-full flex justify-end flex-row items-center gap-2">
                 <CustomButton
-                  text="Skip"
+                  text="Next"
                   ClassName=""
                   type={ButtonType.button}
-                  onClick={() => navigate(RouteChannel.NUTRITIONIST_DASHBOARD)}
+                  onClick={() => navigate(RouteChannel.NUTRITIONIST_ON_HOLD)}
                   morph={false}
                 />
               </div>

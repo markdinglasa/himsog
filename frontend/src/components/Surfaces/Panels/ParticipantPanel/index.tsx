@@ -1,12 +1,25 @@
-import { memo } from "react";
-import { SFC } from "../../../../types";
+import { memo, useState } from "react";
+import { FormProps, SFC, UserRole } from "../../../../types";
 import { cn } from "../../../../utils";
-import { CustomInput } from "../../../Inputs";
+
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../Cards";
+import { Autocomplete, Avatar, TextField } from "@mui/material";
 import API from "../../../../hooks/api";
 
-export const ParticipantPanel: SFC = ({ ClassName }) => {
+export const ParticipantPanel: SFC<FormProps> = ({
+  ClassName,
+  IsAdvocate = false,
+}) => {
+  const { data: nutritionists } = API.Setup.User.GetAllByRole(
+    UserRole.NUTRITIONIST,
+    "",
+    "all",
+    1,
+  );
+
+  const [userId, setUserId] = useState<number>();
+  console.log("userId:", userId);
   return (
     <div
       className={cn(
@@ -14,15 +27,49 @@ export const ParticipantPanel: SFC = ({ ClassName }) => {
         ClassName,
       )}
     >
-      <div className="header ">
+      <div className="header mb-2">
         <span className="w-full text-lg font-medium">Chat with advocates</span>
       </div>
       <div className="mb-2">
-        <CustomInput
-          name="Search"
-          leftIcon={<SearchIcon className="mr-2 text-slate-500/80" />}
-          placeholder="Search Advocate"
-          ClassName="rounded-md"
+        <Autocomplete
+          id="free-solo-demo"
+          freeSolo
+          size="small"
+          options={(nutritionists || []).map((option: any) => ({
+            Id: option.Id,
+            Fullname: option.Fullname,
+            ProfilePhoto: option.ProfilePhoto,
+          }))}
+          getOptionLabel={(option: any) => option["Fullname"]}
+          renderOption={(props, option: any) => (
+            <li {...props} key={option.Id}>
+              <div className="flex flex-row gap-2 items-center">
+                <Avatar src={option.ProfilePhoto ?? ""} />
+                <span>{option.Fullname}</span>
+              </div>
+            </li>
+          )}
+          onChange={(_: any, value: any) => {
+            setUserId(value?.Id);
+          }}
+          renderInput={(params) => (
+            <TextField
+              color="success"
+              {...params}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <>
+                    <SearchIcon className="mr-2 text-slate-500/80 rounded-full ml-2 " />
+                    {params.InputProps.startAdornment}
+                  </>
+                ),
+              }}
+              placeholder={
+                IsAdvocate ? "Search Health Professionals" : "Search Advocates"
+              }
+            />
+          )}
         />
       </div>
       <div className="flex flex-col gap-2 items-start justify-start h-full overflow-auto">

@@ -14,9 +14,11 @@ import Ingredient from "./Ingredient";
 import Subscription from "./Subscription";
 import Meal from "./Meal";
 import Profile from "./Profile";
+import Hold from "./Hold";
 
 const Nutritionist = {
   Dashboard,
+  Hold,
   Configuration,
   Settings,
   Notification,

@@ -8,7 +8,6 @@ import { useToggle } from "react-use";
 import { CustomModal } from "../../../modals";
 import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
-import { useParams } from "react-router-dom";
 import { AccessControl, NoRecord } from "..";
 import LicenseCard from "../../Surfaces/Cards/LicenseCard";
 
@@ -18,10 +17,11 @@ export const Professions: SFC<FormProps> = ({
 }) => {
   const { auth } = useAuth();
   const { remove } = API.Setup.Profession.Remove();
-  const { Id: UserId } = useParams<{ Id: string }>();
-  const Id: number = UserId ? parseInt(UserId) : parseInt(auth?.user ?? 0);
   const [record, setRecord] = useState<string>("");
-  const { data: professions, isLoading } = API.Setup.Profession.GetAll(Id);
+  const { data: professions, isLoading } = API.Setup.Profession.GetAll(
+    Number(auth?.user ?? 0),
+  );
+  // console.log("professions", professions);
   const [isDisplay, toggleDisplay] = useToggle(false);
 
   return (

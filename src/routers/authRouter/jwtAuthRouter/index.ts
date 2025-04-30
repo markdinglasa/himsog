@@ -5,11 +5,7 @@ import { RouteChannel } from "../../../types/route/routeChannel";
 import { API_VERSION } from "../../../constants";
 
 const router = express.Router();
-router.get(
-  `${API_VERSION}${RouteChannel.JWT_LOGOUT}`,
-  TokenHandler.verifyToken,
-  Logout,
-);
+router.get(`${API_VERSION}${RouteChannel.JWT_LOGOUT}`, Logout);
 router.post(`${API_VERSION}${RouteChannel.JWT_LOGIN}`, JWTAuth);
 router.get(
   `${API_VERSION}${RouteChannel.JWT_REFRESH}`,

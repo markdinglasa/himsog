@@ -37,7 +37,9 @@ export const ConfigurationProfessionPage: SFC = () => {
                 type={ButtonType.button}
                 color={ButtonColor.default}
                 morph={false}
-                onClick={() => navigate(RouteChannel.CLIENT_HEALTH_SETUP)}
+                onClick={() =>
+                  navigate(RouteChannel.NUTRITIONIST_PROFILE_SETUP)
+                }
               />
               <div className="w-full flex justify-end flex-row items-center  gap-2">
                 <CustomButton

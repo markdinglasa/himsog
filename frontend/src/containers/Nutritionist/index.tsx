@@ -1,14 +1,15 @@
-import { Outlet } from "react-router-dom";
-import { Roles, SFC } from "../../types";
+import { Outlet, useNavigate } from "react-router-dom";
+import { Roles, RouteChannel, SFC } from "../../types";
 import { PageFooter, Header, SideNav } from "../../components";
 import { useAuth, useSignOut, useToggle } from "../../hooks";
 import * as S from "./Styles";
 import { useEffect } from "react";
+import API from "../../hooks/api";
 
 export const NutritionistLayout: SFC = ({ ClassName }) => {
   const { auth } = useAuth();
   const { reSignOut } = useSignOut();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const checkRole = async () => {
       if (auth.roles !== Roles.nutritionist && auth.roles !== Roles.superuser) {
@@ -26,6 +27,16 @@ export const NutritionistLayout: SFC = ({ ClassName }) => {
 
   const [isSidebarOpen, toggle] = useToggle(false);
   const [isCollapse, Collapse] = useToggle(false);
+
+  // VALIDATE IF THE NUTRITIONIST'S ACCOUNTS IS VERIFIED
+  const { data } = API.Setup.ProfessionValidtion.GetByUser(Number(auth?.user));
+  useEffect(() => {
+    const checkVerified = () => {
+      if (!Boolean(data?.IsValidated ?? false))
+        navigate(RouteChannel.NUTRITIONIST_ON_HOLD);
+    };
+    checkVerified();
+  }, [data?.IsValidated]);
 
   return (
     <>

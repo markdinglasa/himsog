@@ -363,6 +363,10 @@ export const AppRouter = createBrowserRouter(
               path={RouteChannel.NUTRITIONIST_CERTIFICATE_SETUP}
               element={<Page.Nutritionist.Configuration.CertificateSetup />}
             />
+            <Route
+              path={RouteChannel.NUTRITIONIST_ON_HOLD}
+              element={<Page.Nutritionist.Hold />}
+            />
             <Route element={<NutritionistLayout />}>
               <Route
                 path={RouteChannel.NUTRITIONIST_DASHBOARD}

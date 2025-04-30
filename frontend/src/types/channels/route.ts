@@ -100,6 +100,7 @@ export enum RouteChannel {
   CLIENT_MY_MEAL_PLAN = "/c/u/meal-plan",
   CLIENT_MY_MEAL_PLAN_DETAILS = "/c/u/meal-plan/d/:Id",
   // NUTRITIONIST PAGES
+  NUTRITIONIST_ON_HOLD = "/n/hold",
   NUTRITIONIST_DASHBOARD = "/n",
   NUTRITIONIST_PRIVACY_POLICY = "/n/privacy-policy",
   NUTRITIONIST_TERMS_AND_CONDITIONS = "/n/terms-and-conditions",

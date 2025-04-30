@@ -13,12 +13,14 @@ export const ProfessionGetAllController = async (
     const UserId: number = parseInt(req.params?.Id, 10);
     if (!UserId || UserId === 0 || UserId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
+
     const response: ProfessionTables = await GetService.byFields(
       ProfessionQuery.q001,
       ["UserId"],
       [Number],
       [UserId],
     );
+
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");
