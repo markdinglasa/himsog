@@ -44,9 +44,9 @@ export const medicalValidator = () => {
     BowelMovement: yup.string().required(),
     LabResult: yup.string().nullable().optional(),
     MentalHealth: yup.string().nullable().optional(),
-    BloodSugar: yup.number().integer().required(),
-    Cholesterol: yup.number().integer().required(),
-    Creatinine: yup.number().integer().required(),
+    BloodSugar: yup.number().required(),
+    Cholesterol: yup.number().required(),
+    Creatinine: yup.number().required(),
     IsConsulted: yup.boolean().required(),
   });
 };

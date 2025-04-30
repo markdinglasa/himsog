@@ -170,6 +170,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                 RecordId={String(MealPlanId)}
                 IsDetails={true}
                 IsDisplay={true}
+                IsActive={active?.IsActive ?? 0}
                 ClassName={isPaid?.Status === "Approved" ? "" : "blur-lg"}
               />
             </div>

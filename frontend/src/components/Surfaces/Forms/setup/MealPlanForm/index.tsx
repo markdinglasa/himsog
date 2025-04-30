@@ -254,6 +254,7 @@ const MealPlanForm: SFC<FormProps> = ({
                             <MealPlanMeals
                               IsDetails={IsEdit}
                               RecordId={String(MealPlanId)}
+                              IsActive={0}
                             />
                           </S.Divider>
                         </AccessControl>

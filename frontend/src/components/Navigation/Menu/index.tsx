@@ -46,7 +46,7 @@ export const Menu: SFC<MenuProps> = ({
                 <S.MenuContent $isDisplay={isDisplay}>
                   <S.Icon path={icon} size="30px" className="text-primary" />
                   <S.Text>
-                    <S.Label>{label}</S.Label>
+                    <S.Label className="text-slate-900">{label}</S.Label>
                     {!isDisplay ? (
                       <S.Icon path={mdiChevronRight} size="30px" />
                     ) : (

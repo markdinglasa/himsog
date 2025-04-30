@@ -182,7 +182,7 @@ const HealthForm: SFC<FormProps> = ({
                                 Id: "very_high_activity",
                                 label: "Very High Activity",
                               },
-                              { Id: "muscle_gain", label: "Muscle Gain" },
+                              /*{ Id: "muscle_gain", label: "Muscle Gain" },
                               { Id: "weight_loss", label: "Weight Loss" },
                               { Id: "maintenance", label: "Maintenance" },
                               {
@@ -192,7 +192,7 @@ const HealthForm: SFC<FormProps> = ({
                               {
                                 Id: "strength_training",
                                 label: "Strength Training",
-                              },
+                              },*/
                             ]}
                             Name="ActivityLevel"
                             OptionName="label"

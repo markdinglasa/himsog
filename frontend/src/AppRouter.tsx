@@ -94,10 +94,10 @@ export const AppRouter = createBrowserRouter(
                 path={RouteChannel.ADMIN_TERMS_AND_CONDITION}
                 element={<Page.Admin.TermsConditions />}
               />
-              <Route
+              {/*<Route
                 path={RouteChannel.ADMIN_MESSENGER}
                 element={<Page.Admin.Messenger />}
-              />
+              />*/}
               <Route
                 path={RouteChannel.ADMIN_REQUEST_ACCESS}
                 element={<Page.Admin.Transaction.RequestAccess.View />}
@@ -129,14 +129,6 @@ export const AppRouter = createBrowserRouter(
               <Route
                 path={RouteChannel.ADMIN_NOTIFICATIONS}
                 element={<Page.Admin.Notification />}
-              />
-              <Route
-                path={RouteChannel.ADMIN_MESSENGER}
-                element={<Page.UnderConstruction />}
-              />
-              <Route
-                path={RouteChannel.ADMIN_MESSENGER_NEW}
-                element={<Page.UnderConstruction />}
               />
               <Route
                 path={RouteChannel.ADMIN_USER}

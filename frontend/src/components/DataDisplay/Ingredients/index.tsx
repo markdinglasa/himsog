@@ -15,12 +15,12 @@ export const Ingredients: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   IsDisplay = false,
+  RecordId,
 }) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL ID
+  const MealId = IsDisplay ? Number(RecordId ?? 0) : Number(Id);
   const { remove } = API.Setup.Ingredient.Remove();
-  const { data: ingredients, isLoading } = API.Setup.Ingredient.GetAll(
-    Number(Id),
-  );
+  const { data: ingredients, isLoading } = API.Setup.Ingredient.GetAll(MealId);
   const [isModal, toggleModal] = useToggle(false);
   const [recordId, setRecordId] = useState<number>(0);
   return (

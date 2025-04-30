@@ -1,8 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { Chat } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import { Chat, Convo } from "../../../../types";
+import {
+  ChatQuery,
+  DBTable,
+  Error,
+  Success,
+  UserQuery,
+} from "../../../../shared";
 import { chatValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService } from "../../../../services";
+import { isFound } from "../../../../functions";
 
 export const ChatAddController = async (
   req: Request,
@@ -22,12 +29,66 @@ export const ChatAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+    if (
+      !(await isFound(
+        ChatQuery.q004,
+        ["AdvocateId", "NutritionistId"],
+        [Number, Number],
+        [Data.AdvocateId, Data.NutritionistId],
+      ))
+    )
+      return res.status(401).json({ data: false, message: Error.m016 });
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t035, Fields, Types, Values)))
+    const response = await AddService.recordReturnData(
+      DBTable.t035,
+      Fields,
+      Types,
+      Values,
+    );
+    if (!response)
       return res.status(401).json({ data: false, message: Error.m002 });
+
+    // Create convos for each party Advocate & Professional
+    const advocateName = (
+      await GetService.byFields(
+        UserQuery.q002,
+        ["Id"],
+        [Number],
+        [Data.AdvocateId],
+      )
+    )[0].Fullname;
+    const nutritionistName = (
+      await GetService.byFields(
+        UserQuery.q002,
+        ["Id"],
+        [Number],
+        [Data.NutritionistId],
+      )
+    )[0].Fullname;
+    await AddService.records(
+      DBTable.t036,
+      ["ChatId", "UserId", "Name", "LastMessage", "DateCreated"],
+      [Number, Number, String, String, Date],
+      [
+        [
+          response.Id,
+          Data.AdvocateId,
+          advocateName ?? "Advocate",
+          "New Contact",
+          new Date(),
+        ],
+        [
+          response.Id,
+          Data.NutritionistId,
+          nutritionistName ?? "Health Professional",
+          "New Contact",
+          new Date(),
+        ],
+      ],
+    );
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

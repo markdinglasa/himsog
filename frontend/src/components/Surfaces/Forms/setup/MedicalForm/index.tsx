@@ -122,6 +122,8 @@ const MedicalForm: SFC<FormProps> = ({
       else add(values);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
+    } finally {
+      SetIsEdit(true);
     }
   };
 

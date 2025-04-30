@@ -59,13 +59,15 @@ export const Header: SFC<HeaderProps> = ({
           </S.DesktopMenu>
         </S.LeftContent>
         <S.RightContent>
-          <CircleButton
-            OnClick={() => navigate(`${path}/messenger/${0}`)}
-            IsNotification={false}
-            Title="Messenger"
-            Icon={<MessageOutlinedIcon className="text-primary" />}
-            Type={ButtonType.button}
-          />
+          <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
+            <CircleButton
+              OnClick={() => navigate(`${path}/messenger/${0}`)}
+              IsNotification={false}
+              Title="Messenger"
+              Icon={<MessageOutlinedIcon className="text-primary" />}
+              Type={ButtonType.button}
+            />
+          </AccessControl>
           <CircleButton
             OnClick={() => navigate(`${path}/notifications`)}
             IsNotification={IsBoolean(IsNotified?.IsNotification ?? 0)}

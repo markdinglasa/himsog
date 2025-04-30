@@ -31,7 +31,11 @@ export const MealDetails: SFC<FormProps> = ({ ClassName, RecordId = 0 }) => {
           </div>
           <div className="w-full">
             <div className="mb-[1rem]">
-              <Ingredients IsDisplay={true} IsDetails={true} />
+              <Ingredients
+                IsDisplay={true}
+                IsDetails={true}
+                RecordId={String(RecordId)}
+              />
             </div>
             <div className="w-full mb-[1rem]">
               <span className="text-md font-medium">Directions</span>
@@ -48,7 +52,11 @@ export const MealDetails: SFC<FormProps> = ({ ClassName, RecordId = 0 }) => {
               </div>
             )}
             <div className="mb-[1rem]">
-              <NutritionFacts IsDisplay={true} IsDetails={true} />
+              <NutritionFacts
+                IsDisplay={true}
+                IsDetails={true}
+                RecordId={String(RecordId)}
+              />
             </div>
           </div>
         </div>

@@ -15,12 +15,13 @@ export const NutritionFacts: SFC<FormProps> = ({
   ClassName,
   IsDetails = false,
   IsDisplay = false,
+  RecordId = "0",
 }) => {
   const { Id } = useParams<{ Id: string }>(); // MEAL ID
+  const MealId = IsDisplay ? Number(RecordId) : Number(Id);
   const { remove } = API.Setup.NutritionFact.Remove();
-  const { data: nutritionfacts, isLoading } = API.Setup.NutritionFact.GetAll(
-    Number(Id),
-  );
+  const { data: nutritionfacts, isLoading } =
+    API.Setup.NutritionFact.GetAll(MealId);
   const [isModal, toggleModal] = useToggle(false);
   const [recordId, setRecordId] = useState<number>(0);
   return (

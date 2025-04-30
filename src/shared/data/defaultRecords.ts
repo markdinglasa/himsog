@@ -8,7 +8,7 @@ export const defaultRecord: Record<string, number[]> = {
   profession: [],
   profession_rating: [],
   reminder: [],
-  subscription: [],
+  subscription: [1, 2],
   subscription_line: [],
   unit: [],
   user: [1, 2], // superuser, admin

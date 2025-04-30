@@ -30,9 +30,10 @@ export const NutritionistLayout: SFC = ({ ClassName }) => {
 
   // VALIDATE IF THE NUTRITIONIST'S ACCOUNTS IS VERIFIED
   const { data } = API.Setup.ProfessionValidtion.GetByUser(Number(auth?.user));
+
   useEffect(() => {
     const checkVerified = () => {
-      if (!Boolean(data?.IsValidated ?? false))
+      if (!Boolean(data?.IsValidated ?? true))
         navigate(RouteChannel.NUTRITIONIST_ON_HOLD);
     };
     checkVerified();

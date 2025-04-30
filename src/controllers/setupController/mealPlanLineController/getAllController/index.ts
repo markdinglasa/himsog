@@ -11,19 +11,26 @@ export const MealPlanLineGetAllController = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const MealPlanId: number = parseInt(req.params?.Id, 10);
+    const MealPlanId: number = Number(req.query?.MealPlanId);
+    const IsActive: number = Number(req.query?.IsActive);
+
     if (!MealPlanId || MealPlanId === 0 || MealPlanId === undefined)
       return res.status(401).json({ data: [], message: Error.m005 });
     if (
       !(await isFound(MealPlanQuery.q002, ["Id"], [Number], [MealPlanId])).data
     )
       return res.status(401).json({ data: [], message: Error.m011 }); // check MealPlan existence
+    const query = Boolean(IsActive)
+      ? MealPlanLineQuery.q001
+      : MealPlanLineQuery.q004;
+
     const response: MealPlanLineTables = await GetService.byFields(
-      MealPlanLineQuery.q001,
+      query,
       ["MealPlanId"],
       [Number],
       [MealPlanId],
     );
+
     return res.status(200).json({ data: response, message: Success.m005 });
   } catch (error: any) {
     logging.log("----------------------------------------");

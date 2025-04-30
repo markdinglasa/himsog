@@ -23,6 +23,7 @@ export interface FormProps {
   IsAdvocate?: boolean;
   AccessToken?: string;
   RequestAccessId?: number;
+  IsActive?: number;
 }
 
 export interface SetupForm {

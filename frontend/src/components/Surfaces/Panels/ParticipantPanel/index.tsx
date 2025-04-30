@@ -1,25 +1,36 @@
-import { memo, useState } from "react";
-import { FormProps, SFC, UserRole } from "../../../../types";
-import { cn } from "../../../../utils";
+import { memo } from "react";
+import { Chat, FormProps, Roles, SFC, UserRole } from "../../../../types";
+import { cn, renderPath } from "../../../../utils";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../Cards";
 import { Autocomplete, Avatar, TextField } from "@mui/material";
 import API from "../../../../hooks/api";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../hooks";
 
 export const ParticipantPanel: SFC<FormProps> = ({
   ClassName,
   IsAdvocate = false,
 }) => {
+  const navigate = useNavigate();
+  const { auth } = useAuth();
+  const path = renderPath(auth?.roles as Roles);
+
   const { data: nutritionists } = API.Setup.User.GetAllByRole(
     UserRole.NUTRITIONIST,
     "",
     "all",
     1,
   );
+  const { data: advocates } = API.Setup.User.GetAllByRole(
+    UserRole.CLIENT,
+    "",
+    "all",
+    1,
+  );
+  const { add: addNewContact } = API.Messenger.Chat.Add();
 
-  const [userId, setUserId] = useState<number>();
-  console.log("userId:", userId);
   return (
     <div
       className={cn(
@@ -28,18 +39,22 @@ export const ParticipantPanel: SFC<FormProps> = ({
       )}
     >
       <div className="header mb-2">
-        <span className="w-full text-lg font-medium">Chat with advocates</span>
+        <span className="w-full text-lg font-medium">
+          Chat with {IsAdvocate ? "Health Professionals" : "Advocates"}
+        </span>
       </div>
       <div className="mb-2">
         <Autocomplete
           id="free-solo-demo"
           freeSolo
           size="small"
-          options={(nutritionists || []).map((option: any) => ({
-            Id: option.Id,
-            Fullname: option.Fullname,
-            ProfilePhoto: option.ProfilePhoto,
-          }))}
+          options={(IsAdvocate ? nutritionists : advocates || []).map(
+            (option: any) => ({
+              Id: option.Id,
+              Fullname: option.Fullname,
+              ProfilePhoto: option.ProfilePhoto,
+            }),
+          )}
           getOptionLabel={(option: any) => option["Fullname"]}
           renderOption={(props, option: any) => (
             <li {...props} key={option.Id}>
@@ -50,7 +65,11 @@ export const ParticipantPanel: SFC<FormProps> = ({
             </li>
           )}
           onChange={(_: any, value: any) => {
-            setUserId(value?.Id);
+            const newContact: Chat = {
+              AdvocateId: IsAdvocate ? auth?.user : value?.Id,
+              NutritionistId: IsAdvocate ? value?.Id : auth?.user,
+            };
+            addNewContact(newContact);
           }}
           renderInput={(params) => (
             <TextField
@@ -79,7 +98,7 @@ export const ParticipantPanel: SFC<FormProps> = ({
           LastMessage="The time you forgot"
           LastMessageDate={"2025-01-01"}
           IsRead={false}
-          OnClick={() => alert("new message")}
+          OnClick={() => navigate(`${path}/messenger/${1}`)}
           Id="1"
         />
       </div>

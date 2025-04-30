@@ -193,11 +193,11 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
           </S.CardContainer>
         </S.Content>
         <S.Content className="mt-2 flex flex-col md:flex-row gap-[1rem] mb-[1rem]">
-          <S.Divider className="w-full md:w-8/12  ">
+          <S.Divider className="w-full md:w-8/12">
             <LineChart
               category="Subscription"
               title="Monthly Revenue"
-              ClassName="border rounded-md p-[1rem]"
+              ClassName="border rounded-md p-[1rem] "
               data={subsrevenue}
             />
           </S.Divider>
