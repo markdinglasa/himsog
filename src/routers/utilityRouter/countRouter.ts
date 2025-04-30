@@ -8,6 +8,7 @@ import {
   AdminGetSubscriptionDailyRevenueWithPercentage,
   AdminGetSubscriptionMonthlyRevenue,
   AdminGetSubscriptionMonthlyRevenueWithPercentage,
+  AdminGetUserReport,
   ClientGetAllCount,
   NutritionistGetAllCount,
   NutritionistGetMealPlanDailyRevenueWithPercentage,
@@ -59,6 +60,11 @@ router.get(
   `${API_VERSION}${RouteChannel.ADMIN_SUBSCRIPTION_DAILY_REVENUE_WITH_PERCENTAGE}`,
   TokenHandler.verifyToken,
   AdminGetSubscriptionDailyRevenueWithPercentage,
+);
+router.get(
+  `${API_VERSION}${RouteChannel.ADMIN_USER_REPORT}`,
+  TokenHandler.verifyToken,
+  AdminGetUserReport,
 );
 logging.log("----------------------------------------");
 logging.log("----------COUNT CONTROLLER-----------");

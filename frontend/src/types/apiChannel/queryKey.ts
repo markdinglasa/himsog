@@ -48,6 +48,7 @@ export enum QueryKey {
   CLIENT_COUNT = "client-count",
   ADMIN_COUNT = "admin-count",
   ADMIN_SUBSCRIPTION_COUNT = "admin-subscription-count",
+  ADMIN_USER_REPORT = "admin-user-reports",
   ADMIN_SUBSCRIPTION_MONTHLY_REVENUE = "admin-subscription-monthly-revenue",
   ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE = "admin-subscription-monthly-revenue-with-percentage",
   ADMIN_SUBSCRIPTION_DAILY_REVENUE_WITH_PERCENTAGE = "admin-subscription-daily-revenue-with-percentage",

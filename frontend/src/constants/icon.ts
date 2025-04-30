@@ -31,8 +31,10 @@ import Send from "@mui/icons-material/Send";
 import Key from "@mui/icons-material/Key";
 import Meal from "@mui/icons-material/Fastfood";
 import Celebration from "@mui/icons-material/Celebration";
+import Print from "@mui/icons-material/Print";
 export default {
   Celebration,
+  Print,
   Key,
   Send,
   Filter,

@@ -28,7 +28,9 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
   const { data: subsrevenue } =
     API.Utility.Count.AdminSusbcriptionMonthlyRevenue();
   const { data: subsRevenueWithPercentage } =
-    API.Utility.Count.AdminSubscriptionMonthlyRevenueWithPercentage();
+    API.Utility.Count.AdminSubscriptionMonthlyRevenueWithPercentage(
+      new Date().getFullYear(),
+    );
 
   const { data: subsDailyRevenueWithPercentage } =
     API.Utility.Count.AdminSubscriptionDailyRevenueWithPercentage();
@@ -36,14 +38,14 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
 
   const percentageMonthRevenue = useMemo(() => {
     return Math.round(
-      (((subsRevenueWithPercentage?.Revenue ?? 0) -
-        (subsRevenueWithPercentage?.PreviousMonthRevenue ?? 0)) /
-        (subsRevenueWithPercentage?.PreviousMonthRevenue ?? 1)) *
+      (((subsRevenueWithPercentage?.[0]?.Revenue ?? 0) -
+        (subsRevenueWithPercentage?.[0]?.PreviousMonthRevenue ?? 0)) /
+        (subsRevenueWithPercentage?.[0]?.PreviousMonthRevenue ?? 1)) *
         100,
     );
   }, [
-    subsRevenueWithPercentage?.Revenue,
-    subsRevenueWithPercentage?.PreviousMonthRevenue,
+    subsRevenueWithPercentage?.[0]?.Revenue,
+    subsRevenueWithPercentage?.[0]?.PreviousMonthRevenue,
   ]);
 
   const percentageDayRevenue = useMemo(() => {
@@ -89,11 +91,11 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
               PercentText={"Since yesterday"}
             />
             <IncrementCard
-              Text={`monthly's sales (${subsRevenueWithPercentage?.MonthName ?? "January"})`}
+              Text={`monthly's sales (${subsRevenueWithPercentage?.[0]?.MonthName ?? "January"})`}
               Amount={formatNumber(
-                Number(subsRevenueWithPercentage?.Revenue ?? 0),
+                Number(subsRevenueWithPercentage?.[0]?.Revenue ?? 0),
               )}
-              IsNegative={(subsRevenueWithPercentage?.Revenue ?? 1) < 1}
+              IsNegative={(subsRevenueWithPercentage?.[0]?.Revenue ?? 1) < 1}
               Percent={percentageMonthRevenue}
               Icon={
                 <Icon.Money

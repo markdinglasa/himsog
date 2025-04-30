@@ -10,6 +10,7 @@ export const CountChannel = {
   ADMIN_COUNT: `${BASE_URL}/utility/a/count`,
   ADMIN_SUBSCRIPTION_MONTHLY_REVENUE: `${BASE_URL}/utility/a/subscription-monthly-revenue`,
   ADMIN_SUBSCRIPTION_COUNT: `${BASE_URL}/utility/a/subscription-count`,
-  ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE: `${BASE_URL}/utility/a/subscription-monthly-revenue-with-percentage`,
+  ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE: `${BASE_URL}/utility/a/subscription-monthly-revenue-with-percentage?year=:year`,
   ADMIN_SUBSCRIPTION_DAILY_REVENUE_WITH_PERCENTAGE: `${BASE_URL}/utility/a/subscription-daily-revenue-with-percentage`,
+  ADMIN_USER_REPORT: `${BASE_URL}/utility/a/user-reports?year=:year`,
 };

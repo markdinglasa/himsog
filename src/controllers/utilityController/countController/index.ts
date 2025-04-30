@@ -7,3 +7,4 @@ export * from "./getSubscMontlyRevenueWithPercentage";
 export * from "./getSubscriptionDailyRevenueWithPercentage";
 export * from "./getMealPlanMontlyRevenue";
 export * from "./getMealPlanDailyRevenue";
+export * from "./getUserReports";

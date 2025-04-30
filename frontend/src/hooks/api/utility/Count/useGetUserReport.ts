@@ -4,16 +4,13 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAdminSusbcriptionMonthlyRevenueWithPercentage = (Year: number) => {
+const useGetAdminUserReport = (Year: number) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [
-      QueryKey.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE,
-      Year,
-    ], // Unique key for the query, including the Id
+    queryKey: [QueryKey.ADMIN_USER_REPORT, Year], // Unique key for the query, including the Id
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.ADMIN_SUBSCRIPTION_MONTHLY_REVENUE_WITH_PERCENTAGE.replace(":year", Year.toString())}`,
+        `${APIChannel.ADMIN_USER_REPORT.replace(":year", Year.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
@@ -28,4 +25,4 @@ const useGetAdminSusbcriptionMonthlyRevenueWithPercentage = (Year: number) => {
     refetch,
   };
 };
-export default useGetAdminSusbcriptionMonthlyRevenueWithPercentage;
+export default useGetAdminUserReport;
