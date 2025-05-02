@@ -123,9 +123,9 @@ export const MealPlanRequestViewPage: SFC = ({ ClassName }) => {
         {data && data?.length > 0 ? (
           <>
             <S.CardContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full ">
-              {data.map((record: UserTable) => {
+              {data.map((record: UserTable, index: number) => {
                 return (
-                  <Fragment key={record?.Id?.toString()}>
+                  <Fragment key={index}>
                     <Card.Professional Data={record} />
                   </Fragment>
                 );

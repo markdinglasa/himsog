@@ -10,9 +10,11 @@ import { Avatar } from "@mui/material";
 import { formatDateToMMDDYY } from "../../../utils";
 import Form from "../../../components/Surfaces/Forms";
 import HealthConditions from "../../../components/DataDisplay/HealthConditions";
+import { useAuth } from "../../../hooks";
 
 export const ProfilePage: SFC = ({ ClassName }) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const links = [
     {
       Text: "Dashboard",
@@ -25,6 +27,11 @@ export const ProfilePage: SFC = ({ ClassName }) => {
   ];
   const { Id } = useParams<{ Id: string }>();
   const { data: user, isLoading } = API.Setup.User.Get(Number(Id));
+  const { data: chat } = API.Messenger.Chat.GetAllByUser(
+    Number(auth?.user ?? 0),
+  );
+  console.log("chat:", chat);
+  const { add: addNewContact } = API.Messenger.Chat.Add();
   const userInfo = () => {
     if (isLoading) return <Skeleton />;
     return (
@@ -51,7 +58,20 @@ export const ProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               text="Message"
               leftIcon={<Icon.Send />}
-              onClick={() => {}}
+              onClick={() => {
+                if (chat?.Id)
+                  navigate(
+                    RouteChannel.NUTRITIONIST_MESSENGER.replace(
+                      ":Id",
+                      String(chat?.Id ?? 0),
+                    ),
+                  );
+                else
+                  addNewContact({
+                    AdvocateId: Number(Id ?? 0),
+                    NutritionistId: Number(auth?.user ?? 0),
+                  });
+              }}
             />
           </div>
         </div>

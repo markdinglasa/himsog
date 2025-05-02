@@ -54,7 +54,10 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
     Number(Id),
     Number(auth?.user),
   );
-
+  const { data: chat } = API.Messenger.Chat.GetAllByUser(
+    Number(auth?.user ?? 0),
+  );
+  const { add: addNewContact } = API.Messenger.Chat.Add();
   const userInfo = () => {
     if (isLoading) return <Skeleton />;
     return (
@@ -91,7 +94,20 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               leftIcon={<Icon.Send className="md:text-white text-primary" />}
               text="Message"
-              onClick={() => navigate(`/c/messenger/${Id}`)}
+              onClick={() => {
+                if (chat?.Id)
+                  navigate(
+                    RouteChannel.CLIENT_MESSENGER.replace(
+                      ":Id",
+                      String(chat?.Id ?? 0),
+                    ),
+                  );
+                else
+                  addNewContact({
+                    AdvocateId: Number(auth?.user ?? 0),
+                    NutritionistId: Number(Id ?? 0),
+                  });
+              }}
             />
             <CustomButton
               leftIcon={

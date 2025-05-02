@@ -16,9 +16,9 @@ export const ChatGetAllByAdvocateController = async (
     const response: Chats = (
       await GetService.byFields(
         ChatQuery.q001,
-        ["AdvocateId"],
-        [Number],
-        [AdvocateId],
+        ["AdvocateId", "NutritionistId"],
+        [Number, Number],
+        [AdvocateId, AdvocateId],
       )
     )[0];
     return res.status(200).json({ data: response, message: Success.m005 });

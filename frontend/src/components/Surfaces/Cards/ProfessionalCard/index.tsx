@@ -20,6 +20,8 @@ import { CustomModal } from "../../../../modals";
 import Form from "../../Forms";
 import MdIcon from "@mdi/react";
 import { mdiInvoiceSendOutline } from "@mdi/js";
+import { useAuth } from "../../../../hooks";
+
 export interface ProfessionalCardProps {
   Data: UserTable;
 }
@@ -27,9 +29,14 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
   ClassName,
   Data,
 }) => {
+  const { auth } = useAuth();
   const { data: specialist, isLoading } = API.Setup.ProfessionSpecialist.GetAll(
     Number(Data?.Id ?? 0),
   );
+  const { data: chat } = API.Messenger.Chat.GetAllByUser(
+    Number(auth?.user ?? 0),
+  );
+  const { add: addNewContact } = API.Messenger.Chat.Add();
   const [isModal, toggleModal] = useToggle(false);
   const navigate = useNavigate();
   const expertise = () => {
@@ -103,12 +110,18 @@ export const ProfessionalCard: SFC<ProfessionalCardProps> = ({
                 // creates new contact if not yet connected else would redirect to messenger with Id
                 // check contacts if contact exists if not then create new contact then redirect
                 // if already exists in contacts then redirect to messenger with the Id
-                navigate(
-                  RouteChannel.CLIENT_MESSENGER.replace(
-                    ":Id",
-                    String(Data?.Id ?? 0),
-                  ),
-                );
+                if (chat?.Id)
+                  navigate(
+                    RouteChannel.CLIENT_MESSENGER.replace(
+                      ":Id",
+                      String(chat?.Id ?? 0),
+                    ),
+                  );
+                else
+                  addNewContact({
+                    AdvocateId: Number(auth?.user ?? 0),
+                    NutritionistId: Number(Data?.Id ?? 0),
+                  });
               }}
             />
           </div>
