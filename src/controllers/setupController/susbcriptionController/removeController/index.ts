@@ -28,7 +28,7 @@ export const SubscriptionRemoveController = async (
       ).data
     )
       return res.status(401).json({ data: false, message: Error.m020 });
-    if (!(await RemoveService.byId(Id, DBTable.t022)))
+    if (!(await RemoveService.byId(Id, DBTable.t014)))
       return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m003 });
   } catch (error: any) {
