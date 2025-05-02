@@ -44,11 +44,22 @@ export const ChatBoxPanel: SFC<FormProps> = ({
   const { auth } = useAuth();
   const { Id } = useParams<{ Id: string }>();
   const { data: chat, isLoading } = API.Messenger.Chat.Get(Number(Id));
-  const { data: messages, isLoading: loadingMessage } =
-    API.Messenger.Message.GetAllByChat(Number(Id), Number(auth?.user ?? 0));
+  const {
+    data: messages,
+    isLoading: loadingMessage,
+    refetch,
+  } = API.Messenger.Message.GetAllByChat(Number(Id), Number(auth?.user ?? 0));
   const path = renderPath(auth?.roles as Roles);
   // Ref to scroll to the latest message
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch(); // Refetch messages every 30 seconds
+    }, 30000);
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [refetch]);
 
   // Scroll to the latest message whenever messages change
   useEffect(() => {
