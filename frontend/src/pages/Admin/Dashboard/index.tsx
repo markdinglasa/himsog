@@ -31,7 +31,7 @@ export const AdminDashboardPage: SFC = ({ ClassName }) => {
     API.Utility.Count.AdminSubscriptionMonthlyRevenueWithPercentage(
       new Date().getFullYear(),
     );
-
+  console.log("admin-counts:", count);
   const { data: subsDailyRevenueWithPercentage } =
     API.Utility.Count.AdminSubscriptionDailyRevenueWithPercentage();
   // console.log(subsDailyRevenueWithPercentage);

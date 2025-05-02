@@ -6,7 +6,6 @@ import { pool } from "../../../config";
 export const addRecords = async (
   Table: string = "",
   Fields: Array<string> = [],
-  p0: (DateConstructor | NumberConstructor | StringConstructor)[],
   Datas: Array<Array<any>> = [],
 ) => {
   try {

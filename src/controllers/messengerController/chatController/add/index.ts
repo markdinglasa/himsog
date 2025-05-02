@@ -71,7 +71,6 @@ export const ChatAddController = async (
     await AddService.records(
       DBTable.t036,
       ["ChatId", "UserId", "Name", "LastMessage", "DateCreated"],
-      [Number, Number, String, String, Date],
       [
         [
           response.Id,

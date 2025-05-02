@@ -179,7 +179,10 @@ export const EnhancedTable = <T extends Record<string, any>>({
       displayToast(Success.m00003, ToastType.success);
     },
     onError: (error: any) => {
-      displayToast(error.message, ToastType.error);
+      displayToast(
+        error?.response?.data?.message || Error.m00001,
+        ToastType.error,
+      );
     },
   });
 
@@ -188,7 +191,11 @@ export const EnhancedTable = <T extends Record<string, any>>({
       try {
         mutation.mutate();
       } catch (error: any) {
-        displayToast(error?.response?.data?.message, ToastType.error);
+        console.log("error-on-delete", error);
+        displayToast(
+          error?.response?.data?.message || Error.m00001,
+          ToastType.error,
+        );
       } finally {
         setRecord({
           RecordId: 0,

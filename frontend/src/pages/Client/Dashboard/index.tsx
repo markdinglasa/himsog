@@ -52,7 +52,7 @@ export const ClientDashboardPage: SFC = ({ ClassName }) => {
             />
             <Card.Dashboard
               Icons={mdiNewspaperVariantOutline}
-              Text={String(adovatecount?.[2]?.Count ?? 0)}
+              Text={String(adovatecount?.[3]?.Count ?? 0)}
               Title="Articles"
               OnClick={() => navigate(RouteChannel.CLIENT_ARTICLE)}
             />

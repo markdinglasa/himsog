@@ -58,7 +58,7 @@ const MealPlanForm: SFC<FormProps> = ({
     Description: data?.Description || null,
     Duration: data?.Duration || 0,
     Diet: data?.Diet || "",
-    IsPublic: data?.IsPublic || false,
+    IsPublic: Boolean(data?.IsPublic) || false,
   };
 
   const handleSubmit = async (values: MealPlanTable): Promise<void> => {
