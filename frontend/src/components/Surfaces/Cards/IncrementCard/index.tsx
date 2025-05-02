@@ -47,7 +47,7 @@ export const IncrementCard: SFC<IncrementCardProps> = ({
         <S.Span
           className={`title ${IsNegative ? "text-red-500" : "text-green-500"} text-sm font-bold`}
         >
-          {IsNegative ? " - " : " + "}
+          {/*IsNegative ? " - " : " + "*/}
           {Percent}%
         </S.Span>
         <S.Span className="title text-slate-500 text-sm ml-1">

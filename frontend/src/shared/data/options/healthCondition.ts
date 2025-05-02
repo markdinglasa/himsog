@@ -22,6 +22,7 @@ export const DieteryPreferences = [
   { Id: "Ketogenic", Label: "Ketogenic" },
   { Id: "Paleolithic", Label: "Paleolithic" },
   { Id: "Balance", Label: "Balance" },
+  { Id: "other", Label: "Other" },
 ];
 
 export const Allergen = [
@@ -41,4 +42,5 @@ export const Allergen = [
   { Id: "lupin", Label: "Lupin" },
   { Id: "corn", Label: "Corn" },
   { Id: "legumes", Label: "Legumes" },
+  { Id: "other", Label: "Other" },
 ];

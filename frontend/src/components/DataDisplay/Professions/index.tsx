@@ -10,18 +10,19 @@ import { CustomButton } from "../../Inputs";
 import Icon from "../../../constants/icon";
 import { AccessControl, NoRecord } from "..";
 import LicenseCard from "../../Surfaces/Cards/LicenseCard";
+import { useParams } from "react-router-dom";
 
 export const Professions: SFC<FormProps> = ({
   IsEdit = true,
   IsDisplay = false,
 }) => {
   const { auth } = useAuth();
+  const { Id } = useParams<{ Id: string }>();
   const { remove } = API.Setup.Profession.Remove();
+  const UserId: number = IsDisplay ? Number(Id) : Number(auth?.user ?? 0);
   const [record, setRecord] = useState<string>("");
-  const { data: professions, isLoading } = API.Setup.Profession.GetAll(
-    Number(auth?.user ?? 0),
-  );
-  // console.log("professions", professions);
+  const { data: professions, isLoading } = API.Setup.Profession.GetAll(UserId);
+
   const [isDisplay, toggleDisplay] = useToggle(false);
 
   return (

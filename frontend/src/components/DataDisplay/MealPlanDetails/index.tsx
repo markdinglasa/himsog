@@ -49,7 +49,7 @@ export const MealPlanDetails: SFC<FormProps> = ({
                     navigate(
                       RouteChannel.CLIENT_MEAL_PLAN_PAYMENT.replace(
                         ":Id",
-                        String(Id),
+                        String(MealPlanId),
                       ),
                     )
                   }

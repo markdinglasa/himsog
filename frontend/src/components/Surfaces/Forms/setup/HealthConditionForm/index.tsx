@@ -1,12 +1,15 @@
 import { Form, Formik } from "formik";
 import {
+  AccessControl,
   AutoComplete,
   CustomButton,
+  CustomInput,
   Skeleton,
 } from "../../../../../components";
 import {
   ButtonType,
   HealthConditionTable,
+  InputType,
   SetupForm,
   SFC,
   ToastType,
@@ -36,7 +39,11 @@ const HealthConditionForm: SFC<SetupForm> = ({
   };
   const handleSubmit = async (values: HealthConditionTable): Promise<void> => {
     try {
-      add(values);
+      values.Description = values?.OtherDescription
+        ? String(values?.OtherDescription)
+        : String(values?.Description);
+      const { OtherDescription, ...filtered } = values;
+      add(filtered);
     } catch (error: any) {
       displayToast(error.message || Error.m00001, ToastType.error);
     }
@@ -74,36 +81,77 @@ const HealthConditionForm: SFC<SetupForm> = ({
                       <Form>
                         <S.Divider className="w-full pb-1 flex flex-row items-center justify-center gap-2  h-[80px]">
                           <S.Divider className="w-full h-full  flex items-center justify-center">
-                            <AutoComplete
-                              Label={
-                                IsAllergen
-                                  ? "What are your allergen?"
-                                  : "What are your dietary preferences?"
-                              }
-                              IsTooltip={true}
-                              ClassName="h-full"
-                              TooltipMessage={
-                                IsAllergen
-                                  ? "An allergen is an otherwise harmless substance that triggers an allergic reaction in sensitive individuals by stimulating an immune response."
-                                  : "Dietary preference refers to the specific choices individuals make regarding the foods they consume, often influenced by health considerations, ethical beliefs, cultural norms, and personal tastes."
-                              }
-                              Values={values.Description}
-                              Options={
-                                IsAllergen ? Allergen : DieteryPreferences
-                              }
-                              Name="Description"
-                              OptionName="Label"
-                              Placeholder={
-                                IsAllergen ? "e.g Peanuts" : "e.g. Gluten-Free"
-                              }
-                              OnChange={(_: any, value: any) => {
-                                setFieldValue("Description", value?.Id || "");
-                                setTouched({ Description: true });
-                              }}
-                              OnBlur={handleBlur}
-                              Errors={errors}
-                              Touched={touched}
-                            />
+                            <AccessControl
+                              OtherCondition={values.Description !== "other"}
+                            >
+                              <AutoComplete
+                                Label={
+                                  IsAllergen
+                                    ? "What are your allergen?"
+                                    : "What are your dietary preferences?"
+                                }
+                                IsTooltip={true}
+                                ClassName="h-full"
+                                TooltipMessage={
+                                  IsAllergen
+                                    ? "An allergen is an otherwise harmless substance that triggers an allergic reaction in sensitive individuals by stimulating an immune response."
+                                    : "Dietary preference refers to the specific choices individuals make regarding the foods they consume, often influenced by health considerations, ethical beliefs, cultural norms, and personal tastes."
+                                }
+                                Values={values.Description}
+                                Options={
+                                  IsAllergen ? Allergen : DieteryPreferences
+                                }
+                                Name="Description"
+                                OptionName="Label"
+                                Placeholder={
+                                  IsAllergen
+                                    ? "e.g Peanuts"
+                                    : "e.g. Gluten-Free"
+                                }
+                                OnChange={(_: any, value: any) => {
+                                  setFieldValue("Description", value?.Id || "");
+                                  setTouched({ Description: true });
+                                }}
+                                OnBlur={handleBlur}
+                                Errors={errors}
+                                Touched={touched}
+                              />
+                            </AccessControl>
+
+                            <AccessControl
+                              OtherCondition={values.Description === "other"}
+                            >
+                              <div className="w-full">
+                                <CustomInput
+                                  ClassName="w-full"
+                                  placeholder={
+                                    IsAllergen
+                                      ? "Other Allergies"
+                                      : "Other Dietery Preference"
+                                  }
+                                  label={
+                                    IsAllergen
+                                      ? "Other Allergies"
+                                      : "Other Dietery Preference"
+                                  }
+                                  name="OtherDescription"
+                                  errors={errors}
+                                  touched={touched}
+                                  value={values.OtherDescription}
+                                  onChange={(e: any) => {
+                                    setFieldValue(
+                                      "OtherDescription",
+                                      e.target?.value || "",
+                                    );
+                                    setTouched({
+                                      OtherDescription: true,
+                                    });
+                                  }}
+                                  onBlur={handleBlur}
+                                  type={InputType.text}
+                                />
+                              </div>
+                            </AccessControl>
                           </S.Divider>
                           <S.Divider className="h-full  flex items-center justify-center">
                             <CustomButton

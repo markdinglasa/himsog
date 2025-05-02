@@ -34,7 +34,7 @@ export const ConfigurationDieteryPage: SFC = () => {
               <Form.Setup.HealthCondition />
             </div>
             <div className="">
-              <HealthCondtions IsAllergen={false} />
+              <HealthCondtions IsAllergen={false} IsDisplay={false} />
             </div>
 
             <div className="w-full flex justify-between items-center">

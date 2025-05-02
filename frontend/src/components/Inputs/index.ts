@@ -7,3 +7,4 @@ export * from "./InputOption";
 export * from "./Switch";
 export * from "./AutoComplete";
 export * from "./CustomInput";
+export * from "./AutoCompleteFS";

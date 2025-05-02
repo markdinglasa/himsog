@@ -8,7 +8,6 @@ import { colors } from "../../../styles";
 import { memo } from "react";
 import { NoRecord } from "../Tables";
 import { useParams } from "react-router-dom";
-import { AccessControl } from "..";
 
 interface HealthConditionProps {
   IsAllergen: boolean;
@@ -46,10 +45,9 @@ export const HealthConditions: SFC<HealthConditionProps> = ({
                   <Chip
                     label={record?.Description ?? ""}
                     onDelete={() => remove(Number(record?.Id ?? 0))}
+                    disabled={IsDisplay}
                     deleteIcon={
-                      <AccessControl OtherCondition={!IsDisplay}>
-                        <Icon.Delete style={{ color: colors.primary }} />
-                      </AccessControl>
+                      <Icon.Delete style={{ color: colors.primary }} />
                     }
                     variant="outlined"
                   />

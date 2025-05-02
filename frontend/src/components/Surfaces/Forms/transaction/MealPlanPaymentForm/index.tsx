@@ -72,7 +72,7 @@ export const PaymentForm: SFC<FormProps> = ({ ClassName, Title = "NA" }) => {
     MealPlanData: {
       Remark: null,
       Image: "NA",
-      Status: false,
+      Status: String(mealplan?.Type ?? "NA") === "Free" ? true : false,
       Notes: null,
       IsDisapproved: false,
     },
