@@ -25,7 +25,7 @@ export const MessengerPage: SFC = ({ ClassName }) => {
         </S.PageTopBar>
         <S.Divider className="flex items-start justify-center gap-[1rem] mb-[1rem]">
           <Panel.Participant IsAdvocate={true} />
-          <Panel.ChatBox />
+          <Panel.ChatBox IsAdvocate={true} />
         </S.Divider>
       </S.Container>
     </>

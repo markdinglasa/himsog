@@ -4,8 +4,9 @@ import { RouteChannel } from "../../types";
 import { API_VERSION } from "../../constants";
 import {
   ConvoAddController,
-  ConvoGetAllByChatController,
+  ConvoGetAllByUserController,
   ConvoGetController,
+  ConvoMarkAsReadController,
   ConvoRemoveController,
   ConvoUpdateController,
 } from "../../controllers";
@@ -22,9 +23,9 @@ router.get(
   ConvoGetController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.CONVO_CHAT}`,
+  `${API_VERSION}${RouteChannel.CONVO_USER}`,
   TokenHandler.verifyToken,
-  ConvoGetAllByChatController,
+  ConvoGetAllByUserController,
 );
 router.delete(
   `${API_VERSION}${RouteChannel.CONVO_ID}`,
@@ -36,11 +37,15 @@ router.patch(
   TokenHandler.verifyToken,
   ConvoUpdateController,
 );
-
+router.patch(
+  `${API_VERSION}${RouteChannel.CONVO_MARK_AS_READ}`,
+  TokenHandler.verifyToken,
+  ConvoMarkAsReadController,
+);
 logging.log("----------------------------------------");
 logging.log("------------CONVO CONTROLLER------------");
 logging.log(`POST ${RouteChannel.CONVO} [add]`);
-logging.log(`GET ${RouteChannel.CONVO_CHAT} [get-all-by-chat]`);
+logging.log(`GET ${RouteChannel.CONVO_USER} [get-all-by-chat]`);
 logging.log(`GET ${RouteChannel.CONVO_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.CONVO_ID} [remove]`);
 logging.log(`PATCH ${RouteChannel.CONVO_ID} [update]`);

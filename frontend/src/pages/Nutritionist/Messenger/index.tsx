@@ -24,8 +24,8 @@ export const NutritionistMessengerViewPage: SFC = ({ ClassName }) => {
           <S.Actions></S.Actions>
         </S.PageTopBar>
         <S.Divider className="flex items-start justify-center gap-[1rem] mb-[1rem]">
-          <Panel.Participant />
-          <Panel.ChatBox />
+          <Panel.Participant IsAdvocate={false} />
+          <Panel.ChatBox IsAdvocate={false} />
         </S.Divider>
       </S.Container>
     </>

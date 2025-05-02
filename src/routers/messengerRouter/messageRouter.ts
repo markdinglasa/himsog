@@ -22,7 +22,7 @@ router.get(
   MessageGetController,
 );
 router.get(
-  `${API_VERSION}${RouteChannel.MESSAGE_CONVO}`,
+  `${API_VERSION}${RouteChannel.MESSAGE_CHAT}`,
   TokenHandler.verifyToken,
   MessageGetAllByChatController,
 );
@@ -40,7 +40,7 @@ router.patch(
 logging.log("----------------------------------------");
 logging.log("-----------MESSAGE CONTROLLER-----------");
 logging.log(`POST ${RouteChannel.MESSAGE} [add]`);
-logging.log(`GET ${RouteChannel.MESSAGE_CONVO} [get-all-by-convo]`);
+logging.log(`GET ${RouteChannel.MESSAGE_CHAT} [get-all-by-chat]`);
 logging.log(`GET ${RouteChannel.MESSAGE_ID} [get]`);
 logging.log(`DELETE ${RouteChannel.MESSAGE_ID} [remove]`);
 logging.log(`PATCH ${RouteChannel.MESSAGE_ID} [update]`);

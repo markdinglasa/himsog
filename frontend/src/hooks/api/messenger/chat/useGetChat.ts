@@ -4,7 +4,7 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetChat = (Id: string) => {
+const useGetChat = (Id: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
     queryKey: [QueryKey.CHAT, Id], // Unique key for the query, including the Id

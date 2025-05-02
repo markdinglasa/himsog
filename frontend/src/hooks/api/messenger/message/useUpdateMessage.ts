@@ -26,6 +26,9 @@ const useUpdateMessage = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.MESSAGE],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.CONVO],
+      });
     },
     onError: (error: any) => {
       displayToast(

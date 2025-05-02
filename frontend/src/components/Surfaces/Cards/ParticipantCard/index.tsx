@@ -5,6 +5,7 @@ import { MoreOption } from "../../DropDown";
 import { AccessControl } from "../../../DataDisplay";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { memo } from "react";
+import API from "../../../../hooks/api";
 
 interface ParticipantCardProps {
   Id: string;
@@ -14,6 +15,7 @@ interface ParticipantCardProps {
   LastMessageDate: string;
   IsRead: boolean;
   OnClick: () => void;
+  ChatId?: number;
 }
 export const ParticipantCard: SFC<ParticipantCardProps> = ({
   ClassName,
@@ -24,7 +26,9 @@ export const ParticipantCard: SFC<ParticipantCardProps> = ({
   IsRead = true,
   OnClick,
   Id,
+  ChatId = 0,
 }) => {
+  const { remove } = API.Messenger.Chat.Remove();
   return (
     <div
       key={Id}
@@ -47,11 +51,9 @@ export const ParticipantCard: SFC<ParticipantCardProps> = ({
       <div className="flex flex-row gap-1 items-center justify-center">
         <MoreOption
           IconColor="text-primary"
-          MarkAsRead={(e) => {
-            e.stopPropagation();
-          }}
           DeleteOnClick={(e) => {
             e.stopPropagation();
+            if (ChatId) remove(ChatId);
           }}
         />
         <AccessControl OtherCondition={!IsRead}>

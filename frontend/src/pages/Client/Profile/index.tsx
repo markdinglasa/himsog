@@ -158,7 +158,7 @@ export const ClientProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               text="Back"
               leftIcon={<Icon.Back />}
-              onClick={() => navigate(RouteChannel.CLIENT_REQUEST_MEAL_PLAN)}
+              onClick={() => navigate(-1)}
             />
           </S.Actions>
         </S.PageTopBar>

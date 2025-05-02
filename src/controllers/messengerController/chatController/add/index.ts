@@ -30,12 +30,14 @@ export const ChatAddController = async (
       });
     // Other Fn
     if (
-      !(await isFound(
-        ChatQuery.q004,
-        ["AdvocateId", "NutritionistId"],
-        [Number, Number],
-        [Data.AdvocateId, Data.NutritionistId],
-      ))
+      (
+        await isFound(
+          ChatQuery.q004,
+          ["AdvocateId", "NutritionistId"],
+          [Number, Number],
+          [Data.AdvocateId, Data.NutritionistId],
+        )
+      ).data
     )
       return res.status(401).json({ data: false, message: Error.m016 });
     Data.DateCreated = new Date();
@@ -88,7 +90,8 @@ export const ChatAddController = async (
         ],
       ],
     );
-    return res.status(200).json({ data: true, message: Success.m002 });
+
+    return res.status(200).json({ data: response, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
     logging.error("Chat-Controller [Add]:", error.message);

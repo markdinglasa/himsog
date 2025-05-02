@@ -4,18 +4,18 @@ import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllByConvoMessage = (ConvoId: string) => {
+const useGetAllByChatMessage = (ChatId: number = 0, UserId: number = 0) => {
   const axios = useAxiosPrivate();
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKey.MESSAGE, ConvoId], // Unique key for the query, including the Id
+    queryKey: [QueryKey.MESSAGE, ChatId, UserId], // Unique key for the query, including the Id
     queryFn: async () => {
       const response = await axios.get(
-        `${APIChannel.MESSAGE_CONVO.replace(":Id", ConvoId.toString())}`,
+        `${APIChannel.MESSAGE_CHAT.replace(":ChatId", ChatId.toString()).replace(":UserId", UserId.toString())}`,
       );
       //console.log("Response:", response);
       return response?.data?.data || [];
     },
-    enabled: !!ConvoId, // Only fetch data if Id is provided
+    enabled: !!ChatId && !!UserId, // Only fetch data if Id is provided
   });
   if (error) displayToast(data?.data?.message || Error.m00003, ToastType.error);
   return {
@@ -24,4 +24,4 @@ const useGetAllByConvoMessage = (ConvoId: string) => {
     error,
   };
 };
-export default useGetAllByConvoMessage;
+export default useGetAllByChatMessage;

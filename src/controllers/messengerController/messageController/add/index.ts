@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { Message } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import { Convo, Message } from "../../../../types";
+import { DBTable, Error, MessageQuery, Success } from "../../../../shared";
 import { messageValidator } from "../../../../validators";
-import { AddService } from "../../../../services";
+import { AddService, GetService, UpdateService } from "../../../../services";
 
 export const MessageAddController = async (
   req: Request,
@@ -28,6 +28,22 @@ export const MessageAddController = async (
     const Values = Object.values(Data);
     if (!(await AddService.record(DBTable.t037, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
+    const convoData: Convo = (
+      await GetService.byFields(
+        MessageQuery.q004,
+        ["Id", "UserId"],
+        [Number, Number],
+        [Data.ChatId, Data.SenderId],
+      )
+    )[0];
+    // UPDATE CONVO ON NEW MESSAGE
+    await UpdateService.record(
+      Number(convoData?.Id ?? 0),
+      DBTable.t036,
+      ["LastMessage", "DateUpdated"],
+      [String, Date],
+      [Data.Contents, new Date()],
+    );
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");

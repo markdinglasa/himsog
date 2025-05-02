@@ -1,6 +1,13 @@
-import { memo } from "react";
-import { Chat, FormProps, Roles, SFC, UserRole } from "../../../../types";
-import { cn, renderPath } from "../../../../utils";
+import { Fragment, memo, Suspense } from "react";
+import {
+  Chat,
+  Convo,
+  FormProps,
+  Roles,
+  SFC,
+  UserRole,
+} from "../../../../types";
+import { cn, formatDateToMMDDYY, renderPath } from "../../../../utils";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../Cards";
@@ -8,6 +15,8 @@ import { Autocomplete, Avatar, TextField } from "@mui/material";
 import API from "../../../../hooks/api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../hooks";
+import { NoRecord } from "../../../DataDisplay";
+import { Skeleton } from "../../../Feedback";
 
 export const ParticipantPanel: SFC<FormProps> = ({
   ClassName,
@@ -30,11 +39,20 @@ export const ParticipantPanel: SFC<FormProps> = ({
     1,
   );
   const { add: addNewContact } = API.Messenger.Chat.Add();
+  const {
+    data: convos,
+    isLoading,
+    refetch,
+  } = API.Messenger.Convo.GetAllByUser(
+    Number(auth?.user ?? 0),
+    Number(IsAdvocate),
+  );
 
+  const { markAsRead } = API.Messenger.Convo.MarkAsRead();
   return (
     <div
       className={cn(
-        "w-full md:w-4/12 border border-slate-300 rounded-md p-[1rem] flex flex-col h-[calc(100vh-195px)] bg-white",
+        "w-full md:w-4/12 border  rounded-md p-[1rem] flex flex-col h-[calc(100vh-195px)] bg-white",
         ClassName,
       )}
     >
@@ -48,7 +66,7 @@ export const ParticipantPanel: SFC<FormProps> = ({
           id="free-solo-demo"
           freeSolo
           size="small"
-          options={(IsAdvocate ? nutritionists : advocates || []).map(
+          options={(IsAdvocate ? nutritionists : advocates || [])?.map(
             (option: any) => ({
               Id: option.Id,
               Fullname: option.Fullname,
@@ -69,7 +87,16 @@ export const ParticipantPanel: SFC<FormProps> = ({
               AdvocateId: IsAdvocate ? auth?.user : value?.Id,
               NutritionistId: IsAdvocate ? value?.Id : auth?.user,
             };
-            addNewContact(newContact);
+
+            const record = convos.find(
+              (record: Convo) => record.UserId === value?.Id,
+            ); // if true then redirect else add new contacty;
+            if (record) {
+              navigate(`${path}/messenger/${record.ChatId}`);
+            } else {
+              addNewContact(newContact);
+              refetch();
+            }
           }}
           renderInput={(params) => (
             <TextField
@@ -92,15 +119,36 @@ export const ParticipantPanel: SFC<FormProps> = ({
         />
       </div>
       <div className="flex flex-col gap-2 items-start justify-start h-full overflow-auto">
-        <Card.Participant
-          Photo={null}
-          Name={"Juan Dela Cruz"}
-          LastMessage="The time you forgot"
-          LastMessageDate={"2025-01-01"}
-          IsRead={false}
-          OnClick={() => navigate(`${path}/messenger/${1}`)}
-          Id="1"
-        />
+        <Suspense fallback={<Skeleton />}>
+          {isLoading ? (
+            <Skeleton />
+          ) : convos?.length > 0 ? (
+            convos.map((record: Convo, index: number) => {
+              return (
+                <Fragment key={index}>
+                  <Card.Participant
+                    Photo={record?.Photo ?? null}
+                    Name={record.Name}
+                    LastMessage={record.LastMessage}
+                    LastMessageDate={formatDateToMMDDYY(
+                      record?.DateUpdated ?? new Date(),
+                    )}
+                    IsRead={Number(record?.Unread ?? 0) === 0}
+                    OnClick={() => {
+                      // alert(`ConvoId:${record.Id}`);
+                      markAsRead(Number(record?.Id));
+                      navigate(`${path}/messenger/${record?.ChatId ?? 0}`);
+                    }}
+                    ChatId={Number(record?.ChatId ?? 0)}
+                    Id={String(record?.Id ?? 0)}
+                  />
+                </Fragment>
+              );
+            })
+          ) : (
+            <NoRecord Message={"No Conversations"} />
+          )}
+        </Suspense>
       </div>
     </div>
   );

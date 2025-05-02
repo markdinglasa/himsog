@@ -1,22 +1,22 @@
 import { useCallback } from "react";
-import { APIChannel, Message, QueryKey, ToastType } from "../../../../types";
+import { APIChannel, QueryKey, ToastType } from "../../../../types";
 import { displayToast } from "../../../../utils";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useAddMessage = () => {
+const useMarkAsReadConvo = () => {
   const axios = useAxiosPrivate();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (data: Message) => {
-      const response = await axios.post(`${APIChannel.MESSAGE}`, data);
+    mutationFn: async ({ Id }: { Id: number }) => {
+      const response = await axios.patch(
+        `${APIChannel.CONVO_MARK_AS_READ.replace(":Id", Id.toString())}`,
+      );
+      console.log("mark-as-read-response:", response);
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKey.MESSAGE],
-      });
       queryClient.invalidateQueries({
         queryKey: [QueryKey.CONVO],
       });
@@ -29,10 +29,9 @@ const useAddMessage = () => {
     },
   });
 
-  const add = useCallback(
-    (data: Message) => {
-      if (!data) return;
-      mutation.mutate(data);
+  const markAsRead = useCallback(
+    (Id: number = 0) => {
+      mutation.mutate({ Id });
     },
     [mutation],
   );
@@ -40,8 +39,8 @@ const useAddMessage = () => {
   return {
     data: mutation.data,
     isLoading: mutation.status === "pending",
-    add,
+    markAsRead,
   };
 };
 
-export default useAddMessage;
+export default useMarkAsReadConvo;

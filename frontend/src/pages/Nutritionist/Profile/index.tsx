@@ -106,9 +106,7 @@ export const ProfilePage: SFC = ({ ClassName }) => {
             <CustomButton
               text="Back"
               leftIcon={<Icon.Back />}
-              onClick={() =>
-                navigate(RouteChannel.NUTRITIONIST_MEAL_PLAN_REQUEST)
-              }
+              onClick={() => navigate(-1)}
             />
           </S.Actions>
         </S.PageTopBar>

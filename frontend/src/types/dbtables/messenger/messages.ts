@@ -1,15 +1,15 @@
 import { Id, Logs } from "../../utils";
 
 export interface Message extends Id, Logs {
-  ConvoId: number;
+  ChatId: number;
   SenderId: number;
-  Contends: string;
+  Contents: string;
   IsRead: boolean;
 }
 export type Messages = Message[];
 export const MessageInitial: Message = {
-  ConvoId: 0,
+  ChatId: 0,
   SenderId: 0,
-  Contends: "",
+  Contents: "",
   IsRead: false,
 };

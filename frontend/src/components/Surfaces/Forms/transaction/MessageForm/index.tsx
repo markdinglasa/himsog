@@ -1,9 +1,9 @@
 import { Form, Formik } from "formik";
-import { ButtonType, MessageTable, SFC, ToastType } from "../../../../../types";
+import { ButtonType, Message, SFC, ToastType } from "../../../../../types";
 import { memo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../../../../hooks";
-// import API from "../../../../../hooks/api";
+import API from "../../../../../hooks/api";
 import { cn, displayToast } from "../../../../../utils";
 import * as S from "../../../../../styles/Styles";
 import { CircleButton } from "../../../../Inputs";
@@ -14,12 +14,11 @@ export const MessageForm: SFC = ({ ClassName }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { Id } = useParams<{ Id?: string }>();
   const { auth } = useAuth();
-  //const { add } = API.Transaction.Message.Add();
-  //const { update } = API.Transaction.Message.Update();
+  const { add } = API.Messenger.Message.Add();
 
-  const messageInitial: MessageTable = {
-    ConvoId: Number(Id) || 0,
-    SenderId: auth.user.Id || 0,
+  const messageInitial: Message = {
+    ChatId: Number(Id) || 0,
+    SenderId: auth?.user || 0,
     Contents: "",
     IsRead: false,
   };
@@ -28,15 +27,8 @@ export const MessageForm: SFC = ({ ClassName }) => {
 
   const handleSubmit = async (values: FormValues, { setFieldValue }: any) => {
     try {
-      console.log("values:", values);
-      /*const data: MessageTable = { ...values };
-      await add(data);
-      const convo: ConvoTable = {
-        LastMessage: values.Contents,
-        Date: new Date().toLocaleTimeString(),
-      };
-      await update(String(Id), convo);
-      */
+      add(values);
+
       setFieldValue("Contents", "");
       // onChange();
       resetTextareaHeight();
