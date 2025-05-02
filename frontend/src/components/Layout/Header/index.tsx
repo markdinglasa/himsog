@@ -25,7 +25,7 @@ export const Header: SFC<HeaderProps> = ({
   const { data: IsNotified } = API.Utility.Notification.IsNotified(
     Number(auth?.user ?? 0),
   );
-  console.log("IsNotified:", IsNotified);
+
   return (
     <>
       <S.Container className={cn("px-4 py-2 ", ClassName)}>
@@ -64,7 +64,9 @@ export const Header: SFC<HeaderProps> = ({
             <CircleButton
               OnClick={() => navigate(`${path}/messenger/${0}`)}
               Title="Messenger"
-              IsNotification={Boolean(IsNotified?.IsMessage ?? 0)}
+              IsNotification={Boolean(
+                Number(IsNotified?.UnreadMessageCount ?? 0) > 0,
+              )}
               Icon={<MessageOutlinedIcon className="text-primary" />}
               Type={ButtonType.button}
             />

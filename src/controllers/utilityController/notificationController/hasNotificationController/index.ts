@@ -18,9 +18,9 @@ export const NotificationIsNotificationController = async (
     const response = (
       await GetService.byFields(
         NotificationQuery.q005,
-        ["UserId", "AdvocateId", "NutritionistId"],
-        [Number, Number, Number],
-        [UserId, UserId, UserId],
+        ["UserId", "AdvocateId", "NutritionistId", "SenderId"],
+        [Number, Number, Number, Number],
+        [UserId, UserId, UserId, UserId],
       )
     )[0];
     return res.status(200).json({ data: response, message: Success.m005 });
