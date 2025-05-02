@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import * as S from "./Styles";
 import { AccessControl } from "../../DataDisplay";
 import { useAuth } from "../../../hooks";
-import { cn, IsBoolean, renderPath } from "../../../utils";
+import { cn, renderPath } from "../../../utils";
 import Logo from "../../../asset/svg/logo.svg";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -25,6 +25,7 @@ export const Header: SFC<HeaderProps> = ({
   const { data: IsNotified } = API.Utility.Notification.IsNotified(
     Number(auth?.user ?? 0),
   );
+  console.log("IsNotified:", IsNotified);
   return (
     <>
       <S.Container className={cn("px-4 py-2 ", ClassName)}>
@@ -62,15 +63,15 @@ export const Header: SFC<HeaderProps> = ({
           <AccessControl UserRoles={[Roles.nutritionist, Roles.client]}>
             <CircleButton
               OnClick={() => navigate(`${path}/messenger/${0}`)}
-              IsNotification={false}
               Title="Messenger"
+              IsNotification={Boolean(IsNotified?.IsMessage ?? 0)}
               Icon={<MessageOutlinedIcon className="text-primary" />}
               Type={ButtonType.button}
             />
           </AccessControl>
           <CircleButton
             OnClick={() => navigate(`${path}/notifications`)}
-            IsNotification={IsBoolean(IsNotified?.IsNotification ?? 0)}
+            IsNotification={Boolean(IsNotified?.IsNotification ?? 0)}
             Title="Notifications"
             Icon={<NotificationsNoneOutlinedIcon className="text-primary" />}
             Type={ButtonType.button}

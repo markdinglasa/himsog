@@ -7,7 +7,7 @@ import {
   SFC,
   UserRole,
 } from "../../../../types";
-import { cn, formatDateToMMDDYY, renderPath } from "../../../../utils";
+import { cn, renderPath } from "../../../../utils";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../Cards";
@@ -52,7 +52,7 @@ export const ParticipantPanel: SFC<FormProps> = ({
   return (
     <div
       className={cn(
-        "w-full md:w-4/12 border  rounded-md p-[1rem] flex flex-col h-[calc(100vh-195px)] bg-white",
+        "w-full md:w-4/12 border  rounded-md p-[1rem] flex flex-col md:h-[calc(100vh-195px)] bg-white",
         ClassName,
       )}
     >
@@ -130,9 +130,7 @@ export const ParticipantPanel: SFC<FormProps> = ({
                     Photo={record?.Photo ?? null}
                     Name={record.Name}
                     LastMessage={record.LastMessage}
-                    LastMessageDate={formatDateToMMDDYY(
-                      record?.DateUpdated ?? new Date(),
-                    )}
+                    LastMessageDate={String(record?.DateUpdated ?? new Date())}
                     IsRead={Number(record?.Unread ?? 0) === 0}
                     OnClick={() => {
                       // alert(`ConvoId:${record.Id}`);

@@ -23,7 +23,7 @@ export const MessengerPage: SFC = ({ ClassName }) => {
           <PageBreadCrumbs Links={links} Active="Messenger" />
           <S.Actions></S.Actions>
         </S.PageTopBar>
-        <S.Divider className="flex items-start justify-center gap-[1rem] mb-[1rem]">
+        <S.Divider className="flex items-start md:flex-row  flex-col justify-center gap-[1rem] mb-[1rem]">
           <Panel.Participant IsAdvocate={true} />
           <Panel.ChatBox IsAdvocate={true} />
         </S.Divider>

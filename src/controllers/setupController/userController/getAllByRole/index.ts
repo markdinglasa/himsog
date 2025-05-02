@@ -24,7 +24,7 @@ export const UserGetByRoleController = async (
                  LEFT JOIN \`profession_rating\` AS pr ON pr.UserId = u.Id 
                  LEFT JOIN \`specialist\` AS s ON s.UserId = u.Id 
                  LEFT JOIN profession_validation AS pv On pv.UserId = u.Id
-                 WHERE u.Role = ? AND pv.IsValidated = true`;
+                 WHERE u.Role = ? ${role === UserRole.NUTRITIONIST ? "AND pv.IsValidated = true" : ""}`;
     const queryParams: (string | number)[] = [role];
 
     if (filter !== "all") {

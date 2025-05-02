@@ -22,13 +22,14 @@ export const ParticipantCard: SFC<ParticipantCardProps> = ({
   Photo,
   Name,
   LastMessage,
-  LastMessageDate = new Date().toString(),
+  LastMessageDate = new Date(),
   IsRead = true,
   OnClick,
   Id,
   ChatId = 0,
 }) => {
   const { remove } = API.Messenger.Chat.Remove();
+  console.log("LastMessageDate:", LastMessageDate);
   return (
     <div
       key={Id}
@@ -42,10 +43,12 @@ export const ParticipantCard: SFC<ParticipantCardProps> = ({
         <Avatar src={Photo ? Photo : ""} />
       </div>
       <div className="w-full flex flex-col ml-3">
-        <span className="text-sm font-medium">{Name}</span>
-        <div className="flex flex-row gap-2">
-          <span className="text-sm">{truncate(LastMessage, 50)}</span>
-          <span className="text-sm">{lastDate(LastMessageDate)}</span>
+        <span className="text-sm font-medium truncate">{Name}</span>
+        <div className="flex flex-row md:gap-2 text-ellipsis">
+          <span className="text-sm truncate">{truncate(LastMessage, 50)}</span>
+          <span className="text-sm truncate">
+            {lastDate(String(LastMessageDate))}
+          </span>
         </div>
       </div>
       <div className="flex flex-row gap-1 items-center justify-center">

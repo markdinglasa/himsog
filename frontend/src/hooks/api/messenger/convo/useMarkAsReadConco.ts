@@ -1,6 +1,5 @@
 import { useCallback } from "react";
-import { APIChannel, QueryKey, ToastType } from "../../../../types";
-import { displayToast } from "../../../../utils";
+import { APIChannel, QueryKey } from "../../../../types";
 import { useAxiosPrivate } from "../../../useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -20,12 +19,16 @@ const useMarkAsReadConvo = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.CONVO],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.NOTIFICATION_IS_NOTIFY],
+      });
     },
     onError: (error: any) => {
-      displayToast(
+      console.log("mark-as-read error:", error);
+      /*displayToast(
         error?.response?.data?.message || error.message,
         ToastType.error,
-      );
+      );*/
     },
   });
 
