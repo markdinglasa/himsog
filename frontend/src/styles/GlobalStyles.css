@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scrollbar-width: none;
+}
+
+:root {
+  font-family: "Montserrat";
+  line-height: 1.5;
+  font-weight: 400;
+  background: #2cb578;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+.border-red {
+  border: 1px solid red !important;
+}
+
+.bg-primary {
+  background: #2cb578;
+}
+
+.text-primary {
+  color: #2cb578;
+}
+
+.btn-primary {
+  min-width: 120px;
+  min-height: 30px;
+  background: #2cb578;
+}
+
+.h-40px {
+  height: 40px;
+}
+.border-primary {
+  border: 2px solid #2cb578;
+}
+.border-pbottom {
+  border-bottom: 1px solid #2cb578;
+}
+.border-ptop {
+  border-top: 1px solid #2cb578;
+}
+.margin-top-60px {
+  margin-top: -90px !important;
+}
+.custom-quill-editor .ql-editor {
+  min-height: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  /*background-color: #f1f6fa;*/
+}
+.custom-quill-editor .ql-toolbar {
+  background-color: white; /* Set toolbar background to white */
+  color: black; /* Optional: Set text color */
+}
+
+.border-left-primary {
+  border-left: 5px solid #14263e;
+}
+
+.dotted-line {
+  border-top: 1px dashed black;
+  margin: 8px 0;
+}

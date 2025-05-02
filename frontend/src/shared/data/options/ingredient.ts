@@ -1,0 +1,17 @@
+export const ingredientCategoryOptions = [
+  { Id: "vegetables", label: "Vegetables" },
+  { Id: "fruits", label: "Fruits" },
+  { Id: "grains", label: "Grains" },
+  { Id: "proteins", label: "Proteins" },
+  { Id: "dairy", label: "Dairy" },
+  { Id: "herbs_spices", label: "Herbs & Spices" },
+  { Id: "oils_fats", label: "Oils & Fats" },
+  { Id: "sweeteners", label: "Sweeteners" },
+  { Id: "beverages", label: "Beverages" },
+  { Id: "nuts_seeds", label: "Nuts & Seeds" },
+  { Id: "seafood", label: "Seafood" },
+  { Id: "legumes", label: "Legumes" },
+  { Id: "baking_ingredients", label: "Baking Ingredients" },
+  { Id: "condiments_sauces", label: "Condiments & Sauces" },
+  { Id: "processed_foods", label: "Processed Foods" },
+];
