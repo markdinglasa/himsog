@@ -4,3 +4,4 @@ export * from "./mealPlanRequest";
 export * from "./reminder";
 export * from "./mealPlanRatingValidator";
 export * from "./userMealPlanValidator";
+export * from "./userProgressValidator";

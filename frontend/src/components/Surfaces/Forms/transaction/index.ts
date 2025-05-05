@@ -4,6 +4,7 @@ import MealPlanPayment from "./MealPlanPaymentForm";
 import MealPlanRating from "./MealPlanRatingForm";
 import MealPlanRequest from "./MealPlanRequestForm";
 import ProfessionRating from "./ProfessionRatingForm";
+import UserProgress from "./UserProgressForm";
 
 export default {
   Message,
@@ -12,4 +13,5 @@ export default {
   MealPlanRating,
   MealPlanRequest,
   ProfessionRating,
+  UserProgress,
 };

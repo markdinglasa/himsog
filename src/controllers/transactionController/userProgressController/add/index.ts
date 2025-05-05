@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { UserProgress } from "../../../../types";
-import { DBTable, Error, Success } from "../../../../shared";
+import { DBTable, Error, Success, UserProgressQuery } from "../../../../shared";
 import { userProgressValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
+import { isFound } from "../../../../functions";
 
 export const UserProgressAddController = async (
   req: Request,
@@ -20,6 +21,19 @@ export const UserProgressAddController = async (
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
+    if (
+      (
+        await isFound(
+          UserProgressQuery.q004,
+          ["UserMealPlanId", "UserMealPlanId"],
+          [Number, Number],
+          [Data.UserMealPlanId, Data.UserMealPlanId],
+        )
+      ).data
+    )
+      return res
+        .status(401)
+        .json({ data: false, message: "Already submitted a weekly progress" });
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);

@@ -4,6 +4,7 @@ import RequestAccess from "./requestAccess";
 import Payment from "./payment";
 import MealPlanRating from "./mealPlanRating";
 import UserMealPlan from "./userMealPlan";
+import userProgress from "./userProgress";
 
 export default {
   Appointment,
@@ -12,4 +13,5 @@ export default {
   Payment,
   MealPlanRating,
   UserMealPlan,
+  userProgress,
 };
