@@ -1,48 +1,35 @@
 import { NextFunction, Request, Response } from "express";
-import { UserMealPlan } from "../../../../types";
-import { DBTable, Error, Success, UserMealPlanQuery } from "../../../../shared";
-import { userMealPlanValidator } from "../../../../validators";
+import { UserProgress } from "../../../../types";
+import { DBTable, Error, Success } from "../../../../shared";
+import { userProgressValidator } from "../../../../validators";
 import { AddService } from "../../../../services";
-import { isFound } from "../../../../functions";
 
-export const UserMealPlanAddController = async (
+export const UserProgressAddController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<any> => {
   try {
-    const Data: UserMealPlan = req.body;
+    const Data: UserProgress = req.body;
     if (!Data || Data === null || Data === undefined)
       return res.status(401).json({ data: false, message: Error.m014 });
-    const { error } = userMealPlanValidator.validate({ ...Data });
+    const { error } = userProgressValidator.validate({ ...Data });
     if (error)
       return res.status(401).json({
         data: false,
         message: error.details[0]?.message || Error.m029,
       });
     // Other Fn
-
-    if (
-      (
-        await isFound(
-          UserMealPlanQuery.q004,
-          ["UserId", "MealPlanId"],
-          [Number, Number],
-          [Data.UserId, Data.MealPlanId],
-        )
-      ).data
-    )
-      return res.status(401).json({ data: false, message: Error.m016 }); // check duplicate
     Data.DateCreated = new Date();
     const Fields = Object.keys(Data);
     const Types = Object.values(Data).map((val) => typeof val);
     const Values = Object.values(Data);
-    if (!(await AddService.record(DBTable.t033, Fields, Types, Values)))
+    if (!(await AddService.record(DBTable.t038, Fields, Types, Values)))
       return res.status(401).json({ data: false, message: Error.m002 });
     return res.status(200).json({ data: true, message: Success.m002 });
   } catch (error: any) {
     logging.log("----------------------------------------");
-    logging.error("UserMealPlan-Controller [Add]:", error.message);
+    logging.error("UserProgress-Controller [Add]:", error.message);
     logging.log("----------------------------------------");
     return res
       .status(500)

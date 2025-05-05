@@ -37,7 +37,7 @@ export enum DBTable {
   t035 = "chat",
   t036 = "convo",
   t037 = "message",
-  t038 = "",
+  t038 = "user_progress",
   t039 = "",
   t040 = "",
   t041 = "",
