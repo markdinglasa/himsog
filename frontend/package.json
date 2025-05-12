@@ -34,6 +34,7 @@
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
+    "openai": "^4.98.0",
     "postcss": "^8.4.41",
     "react": "^18.3.1",
     "react-big-calendar": "^1.14.1",

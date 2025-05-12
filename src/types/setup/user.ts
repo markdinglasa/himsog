@@ -35,6 +35,7 @@ export interface UserTable extends Id, Logs {
   Genrder: string;
   Religion: string;
   GoogleId: string | null;
+  Fullname?: string;
 }
 export type UserTables = UserTable[];
 export const UserInital: UserTable = {

@@ -35,7 +35,8 @@ export const SESSION_SECRET: string = process.env.SESSION_SECRET || "myk-sx2";
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 export const GOOGLE_URL = process.env.GOOGLE_URL || "";
-
+export const OPENAI_KEY = process.env.OPENAI_KEY || "";
+export const GITHUB_TOKEN = process.env.GITHUB_TOKEN || "";
 // EMAIL
 export const DEFAULT_EMAIL = process.env.DEFAULT_EMAIL || "";
 export const DEFAULT_EMAIL_PASSWORD = process.env.DEFAULT_EMAIL_PASSWORD || "";
