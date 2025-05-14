@@ -1,14 +1,16 @@
 import { useState, useCallback } from "react";
+//import { BASE_URL } from "../shared";
 import { displayToast } from "../utils";
 import { RouteChannel, ToastType } from "../types";
+import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { ContextType } from "../context";
 import { BASE_URL, axiosPrivate } from "../shared";
-import Cookies from "js-cookie";
-import localforage from "localforage";
 
 export const useSignOut = () => {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
+
   const [records, setRecords] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -16,9 +18,14 @@ export const useSignOut = () => {
     setLoading(true);
     try {
       await axiosPrivate.get(`${BASE_URL}/auth/logout`);
-      Cookies.remove("c_user");
-      localforage.removeItem(ContextType.AUTH);
-      localforage.removeItem(ContextType.PERSIST);
+      setAuth({
+        user: null,
+        roles: undefined,
+        accessToken: undefined,
+        refreshToken: undefined,
+      });
+      localStorage.removeItem(ContextType.AUTH);
+      localStorage.removeItem(ContextType.PERSIST);
       navigate(RouteChannel.INDEX);
     } catch (error: any) {
       setRecords(false);
@@ -29,7 +36,7 @@ export const useSignOut = () => {
     } finally {
       setLoading(false);
     }
-  }, [axiosPrivate, navigate]);
+  }, [axiosPrivate, setAuth, navigate]);
 
   return {
     records,
