@@ -36,6 +36,8 @@ export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 export const GOOGLE_URL = process.env.GOOGLE_URL || "";
 export const OPENAI_KEY = process.env.OPENAI_KEY || "";
+export const SCRAPPER_API_KEY = process.env.SCRAPPER_API_KEY || "";
+export const SERPAPI_KEY = process.env.SERPAPI_KEY || "";
 export const GITHUB_TOKEN = process.env.GITHUB_TOKEN || "";
 // EMAIL
 export const DEFAULT_EMAIL = process.env.DEFAULT_EMAIL || "";
